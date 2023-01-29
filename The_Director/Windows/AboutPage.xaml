@@ -9,6 +9,6 @@
         <Image Height ="200" Margin="40" Source="/Assets/logo.png"/>
         <Label Margin="10, 0, 10, 10" HorizontalAlignment="Center" Content="The Director" FontSize="60" FontFamily="Bahnschrift"/>
         <Label HorizontalAlignment="Center" Content="Copyright © 2023-2024 By ty" FontFamily="Bahnschrift"/>
-        <Image Height ="20" Margin="40" Source="/Assets/blackline.png"/>
+        <Image Height ="20" Margin="40" Source="/Assets/blackline.png" Width="auto"/>
     </StackPanel>
 </UserControl>

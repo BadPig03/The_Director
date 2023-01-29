@@ -6,12 +6,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="The Director" Height="720" Width="1280" ResizeMode="NoResize">
+        Title="The Director" Icon="/Assets/left4dead2.ico" Height="720" Width="1280" ResizeMode="NoResize">
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"/>
-                <ColumnDefinition />
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <DockPanel Grid.Column="0" Background="LightGray">
                 <StackPanel Margin="0,10,0,10" DockPanel.Dock="Top" Orientation="Horizontal">
