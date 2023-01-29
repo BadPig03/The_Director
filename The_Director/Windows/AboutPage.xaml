@@ -7,7 +7,8 @@
     mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <StackPanel>
         <Image Height ="200" Margin="40" Source="/Assets/logo.png"/>
-        <Label Margin="10, 0, 10, 10" HorizontalAlignment="Center" Content="The Director" FontSize="50" FontFamily="Bahnschrift"/>
+        <Label Margin="10, 0, 10, 10" HorizontalAlignment="Center" Content="The Director" FontSize="60" FontFamily="Bahnschrift"/>
         <Label HorizontalAlignment="Center" Content="Copyright © 2023-2024 By ty" FontFamily="Bahnschrift"/>
+        <Image Height ="20" Margin="40" Source="/Assets/blackline.png"/>
     </StackPanel>
 </UserControl>

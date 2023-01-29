@@ -15,7 +15,7 @@
             </Grid.ColumnDefinitions>
             <DockPanel Grid.Column="0" Background="LightGray">
                 <StackPanel Margin="0,10,0,10" DockPanel.Dock="Top" Orientation="Horizontal">
-                    <Image Height="36" Margin="32,0,0,0" Source="Assets/the_director.png"/>
+                    <Image Height="60" Margin="24,0,0,0" Source="Assets/the_director.png" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label FontSize="30" Content="菜单" FontFamily="Dengxian" VerticalContentAlignment="Center"/>
                 </StackPanel>
                 <ListBox Name="Menu" Margin="5" DockPanel.Dock="Bottom" SelectionChanged="Menu_Reselected" SelectionMode="Single">

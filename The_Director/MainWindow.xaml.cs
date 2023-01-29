@@ -9,6 +9,7 @@ namespace The_Director
         public MainWindow()
         {
             InitializeComponent();
+            Menu.SelectedIndex = 2;
         }
 
         private void Menu_Reselected(object sender, RoutedEventArgs e)
@@ -25,11 +26,6 @@ namespace The_Director
                     this.WindowFrame.Source = null;
                     break;
             }
-        }
-
-        private void ListBoxItem_Selected(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
