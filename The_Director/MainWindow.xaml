@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="The Director" Icon="/Assets/left4dead2.ico" Height="720" Width="1280" ResizeMode="NoResize">
+        Title="The Director" Icon="/Assets/left4dead2.ico" Height="720" Width="1280" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -18,13 +18,15 @@
                     <Image Height="60" Margin="24,0,0,0" Source="Assets/the_director.png" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label FontSize="30" Content="菜单" FontFamily="Dengxian" VerticalContentAlignment="Center"/>
                 </StackPanel>
-                <ListBox Name="Menu" Margin="5" DockPanel.Dock="Bottom" SelectionChanged="Menu_Reselected" SelectionMode="Single">
-                    <ListBoxItem Content="救援脚本" Width="170" FontSize="30" FontFamily="Dengxian Light" Height="80" Cursor="Hand" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                    <ListBoxItem Content="软件设置" Width="170" FontSize="30" FontFamily="Dengxian Light" Height="80" Cursor="Hand" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-                    <ListBoxItem Content="关于作者" Width="170" FontSize="30" FontFamily="Dengxian Light" Height="80" Cursor="Hand" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <ListBox Name="Menu" SelectedIndex="2" FontSize="50" ItemsSource="{Binding NavMenus}" SelectionChanged="MenuReselected" Margin="5" DockPanel.Dock="Bottom">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type ListBoxItem}">
+                            <Label FontSize="35" Margin="5,15,5,15" FontFamily="Dengxian" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Title}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </DockPanel>
-            <Frame Name="WindowFrame" Source="/Windows/AboutPage.xaml" NavigationUIVisibility="Hidden" Grid.Column="1" VerticalAlignment="Stretch" VerticalContentAlignment="Top"/>
+            <ContentControl Name="WindowFrame" Grid.Column="1" VerticalAlignment="Stretch" VerticalContentAlignment="Top"/>
         </Grid>
     </Grid>
 </Controls:MetroWindow>

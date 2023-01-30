@@ -16,8 +16,8 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Margin="10" Width="auto" Height="40" Content="游戏本体地址" FontSize="30" FontFamily="Dengxian" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Margin="10" Width="auto" Height="40" FontSize="25" FontFamily="Bahnschrift" Controls:TextBoxHelper.ClearTextButton="True" FontWeight="Bold"/>
+        <Label Grid.Row="0" Grid.Column="0" Margin="10" Width="220" Height="40" Content="Steam本体地址" FontSize="30" FontFamily="Dengxian" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="10" Width="auto" Height="40" FontSize="25" FontFamily="Bahnschrift" Controls:TextBoxHelper.ClearTextButton="True" FontWeight="Bold" Name="GamePathTextBox" IsReadOnly="True"/>
         <Button Grid.Row="0" Grid.Column="2" Margin="10" Width="100" Height="40" Content="浏览..." FontSize="25" FontFamily="DengXian Light" HorizontalContentAlignment="center" VerticalContentAlignment="Center" Style="{DynamicResource MahApps.Styles.Button.Square}"/>
     </Grid>
 </UserControl>

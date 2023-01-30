@@ -1,31 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using MahApps.Metro.Controls;
+using The_Director.Data;
+using System.Linq;
 
 namespace The_Director
 {
     public partial class MainWindow : MetroWindow
     {
+        public List<NavMenu> NavMenus { get; set; } = new();
+
+        private readonly Dictionary<string, UserControl> NavDictionarys = new();
+        public static Window MainWindowInstance { get; private set; }
+
         public MainWindow()
         {
             InitializeComponent();
-            Menu.SelectedIndex = 2;
+            MainWindowInstance = this;
         }
 
-        private void Menu_Reselected(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            switch(Menu.SelectedIndex)
+            this.DataContext = this;
+            NavMenus.Add(new() { Title = "救援脚本", ViewName = "RescueScriptPage" , Index = 0});
+            NavMenus.Add(new() { Title = "软件设置", ViewName = "SettingsPage", Index = 1 });
+            NavMenus.Add(new() { Title = "关于作者", ViewName = "AboutPage", Index = 2 });
+            NavMenus.ForEach(menu =>
             {
-                case 1:
-                    this.WindowFrame.Source = new Uri("/Windows/SettingsPage.xaml", UriKind.RelativeOrAbsolute);
-                    break;
-                case 2:
-                    this.WindowFrame.Source = new Uri("/Windows/AboutPage.xaml", UriKind.RelativeOrAbsolute);
-                    break;
-                default:
-                    this.WindowFrame.Source = null;
-                    break;
-            }
+                var type = Type.GetType($"The_Director.Windows.{menu.ViewName}");
+                NavDictionarys.Add(menu.ViewName, Activator.CreateInstance(type) as UserControl);
+            });
+        }
+
+        private void MenuReselected(object sender, SelectionChangedEventArgs e)
+        {
+            WindowFrame.Content = NavDictionarys.Values.ElementAt(Menu.SelectedIndex);
         }
     }
 }
