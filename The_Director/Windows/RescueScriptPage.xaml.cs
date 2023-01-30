@@ -2,6 +2,7 @@
 using The_Director.Utils;
 using System.Collections.Generic;
 using System.Windows;
+using System;
 
 namespace The_Director.Windows
 {
@@ -27,13 +28,12 @@ namespace The_Director.Windows
         {
             if(Functions.IsPositiveNumber(TotalWaveTextbox.Text))
             {
-                TryOpenTotalWaveWindow();
-                Functions.ConvertToInt(TotalWaveTextbox.Text);
+                TryOpenTotalWaveWindow(Functions.ConvertToInt(TotalWaveTextbox.Text));
             }
             else
             {
                 MessageBox.Show("非法输入！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                TotalWaveTextbox.Text = "";
+                TotalWaveTextbox.Text = "3";
             }
 
         }
@@ -59,15 +59,28 @@ namespace The_Director.Windows
                 UpdateScriptWindow();
         }
 
-        private void TryOpenTotalWaveWindow()
+        private void TryOpenTotalWaveWindow(int WaveCount)
         {
-            TotalWaveSettings TotalWindow = new TotalWaveSettings
-            {
-                Width = 360,
-                Height = 200
-            };
-            if((bool)TotalWindow.ShowDialog())
-                UpdateScriptWindow();
+            List<string> Names = new();
+            for (int i = 1; i <= WaveCount; i++)
+                Names.Add($"VarName{i}");
+
+            TotalWaveSettings TotalWindow = new TotalWaveSettings();
+            TotalWindow.WaveCounts = WaveCount;
+            TotalWindow.parName = Names;
+
+            Console.WriteLine($"+ {WaveCount}");
+            Console.WriteLine($"+ {Names}");
+
+            TotalWindow.ShowDialog();
+
+            //Dictionary<string, string> WavesDict = new();
+            //foreach(var item in TotalWindow.Children)
+
+
+
+            //if ((bool)TotalWindow.ShowDialog())
+            //UpdateScriptWindow();
         }
 
         private void UpdateScriptWindow()

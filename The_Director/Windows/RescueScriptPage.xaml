@@ -25,7 +25,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <DockPanel Grid.Row="0" Grid.Column="0">
-                <Label Margin="5" Content="尸潮波数:" FontSize="20" FontFamily="Dengxian Light" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Margin="5" Content="尸潮波数:" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBox Name ="TotalWaveTextbox" Margin="5" Width="35" FontSize="20" FontFamily="Bahnschrift" DockPanel.Dock="Left" HorizontalAlignment="Center" VerticalAlignment="Center" MaxLength="2"/>
                 <Button Name="TotalWaveButton" Margin="5" Content="尸潮设置" Width="110" FontSize="20" FontFamily="Dengxian Light" Click="TotalWaveClick" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Right"/>
             </DockPanel>
@@ -35,7 +35,6 @@
         <DockPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="5">
             <Label Margin="1,5,5,0" Content="脚本实时预览" DockPanel.Dock="Top" FontSize="15" FontFamily="Dengxian" FontWeight="Bold"/>
             <TextBox Name="ScriptWindow" Margin="5,0,5,5" FontSize="20" FontFamily="JetBrains Mono" BorderBrush="Gray" BorderThickness="1" IsReadOnly="True"/>
-
         </DockPanel>
     </Grid>
 </UserControl>
