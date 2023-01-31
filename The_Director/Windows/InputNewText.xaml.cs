@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using System.Windows;
 
 namespace The_Director.Windows
 {
@@ -13,14 +14,14 @@ namespace The_Director.Windows
             this.Height = 180;
         }
         
-        private void ConfirmButtonClick(object sender, System.Windows.RoutedEventArgs e)
+        private void ConfirmButtonClick(object sender, RoutedEventArgs e)
         {
             SendMessage(MSGTextBox.Text);
             DialogResult = true;
             Close();
         }
 
-        private void CancleButtonClick(object sender, System.Windows.RoutedEventArgs e)
+        private void CancleButtonClick(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
             Close();

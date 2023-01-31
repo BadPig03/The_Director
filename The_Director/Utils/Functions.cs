@@ -29,4 +29,21 @@ public static class Functions
         else
             return -1;
     }
+
+    public static string TotalWaveToString(int value)
+    {
+        switch(value)
+        {
+            case 0:
+                return "PANIC";
+            case 1:
+                return "TANK";
+            case 2:
+                return "DELAY";
+            case 3:
+                return "SCRIPTED";
+            default:
+                return "";
+        }
+    }
 }

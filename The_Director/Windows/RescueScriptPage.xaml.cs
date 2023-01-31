@@ -2,13 +2,19 @@
 using The_Director.Utils;
 using System.Collections.Generic;
 using System.Windows;
-using System;
 
 namespace The_Director.Windows
 {
     public partial class RescueScriptPage : UserControl
     {
+        public List<string> RescueTypeList = new() { "防守救援", "灌油救援", "跑图救援"};
+
+        public int TotalWaves = new();
+
         public Dictionary<string, BooleanString> RescueCheckButtons = new();
+        public Dictionary<int, string> TextBoxDicts = new();
+        public Dictionary<int, int> ComboBoxDicts = new();
+        public Dictionary<string, string> TotalWaveDicts = new();
 
         public void MSGReceived(string value)
         {
@@ -19,8 +25,13 @@ namespace The_Director.Windows
         {
             InitializeComponent();
 
+            RescueTypeComboBox.ItemsSource = RescueTypeList;
+            RescueTypeComboBox.SelectedIndex = 0;
+
             RescueCheckButtons.Add("msg", new BooleanString(false, ""));
             RescueCheckButtons.Add("prohibitboss", new BooleanString(false, null));
+            RescueCheckButtons.Add("showstage", new BooleanString(false, null));
+
 
         }
 
@@ -28,7 +39,8 @@ namespace The_Director.Windows
         {
             if(Functions.IsPositiveNumber(TotalWaveTextbox.Text))
             {
-                TryOpenTotalWaveWindow(Functions.ConvertToInt(TotalWaveTextbox.Text));
+                TotalWaves = Functions.ConvertToInt(TotalWaveTextbox.Text);
+                TryOpenTotalWaveWindow(TotalWaves);
             }
             else
             {
@@ -45,6 +57,7 @@ namespace The_Director.Windows
 
             RescueCheckButtons["msg"] = ((bool)MSGButton.IsChecked, RescueCheckButtons["msg"].Item2);
             RescueCheckButtons["prohibitboss"] = ((bool)ProhibitBossButton.IsChecked, null);
+            RescueCheckButtons["showstage"] = ((bool)ShowStageButton.IsChecked, null);
 
             UpdateScriptWindow();
         }
@@ -55,32 +68,40 @@ namespace The_Director.Windows
             {
                 SendMessage = MSGReceived
             };
-            if((bool)InputWindow.ShowDialog())
-                UpdateScriptWindow();
+            InputWindow.ShowDialog();
+            UpdateScriptWindow();
         }
 
         private void TryOpenTotalWaveWindow(int WaveCount)
         {
-            List<string> Names = new();
-            for (int i = 1; i <= WaveCount; i++)
-                Names.Add($"VarName{i}");
 
-            TotalWaveSettings TotalWindow = new TotalWaveSettings();
-            TotalWindow.WaveCounts = WaveCount;
-            TotalWindow.parName = Names;
-
-            Console.WriteLine($"+ {WaveCount}");
-            Console.WriteLine($"+ {Names}");
+            TotalWaveSettings TotalWindow = new TotalWaveSettings
+            {
+                WaveCounts = WaveCount
+            };
 
             TotalWindow.ShowDialog();
 
-            //Dictionary<string, string> WavesDict = new();
-            //foreach(var item in TotalWindow.Children)
+            foreach (var item in TotalWindow.TotalWaveGrid.Children)
+            {
+                if(item is TextBox)
+                {
+                    TextBox textBox = (TextBox)item;
+                    TextBoxDicts[Functions.ConvertToInt(textBox.Name.Remove(0, 1))] = textBox.Text;
+                }
+                if(item is ComboBox)
+                { 
+                    ComboBox comboBox= (ComboBox)item;
+                    ComboBoxDicts[Functions.ConvertToInt(comboBox.Name.Remove(0, 1))] = comboBox.SelectedIndex;
+                }
+            }
 
+            foreach (var item1 in ComboBoxDicts)
+                foreach (var item2 in TextBoxDicts)
+                    if(item1.Key == item2.Key)
+                        TotalWaveDicts[$"{item1.Key+1}"] = $"{Functions.TotalWaveToString(item1.Value)}\x1b{item2.Value}";            
 
-
-            //if ((bool)TotalWindow.ShowDialog())
-            //UpdateScriptWindow();
+            UpdateScriptWindow();
         }
 
         private void UpdateScriptWindow()
@@ -92,10 +113,22 @@ namespace The_Director.Windows
             ScriptWindowText += "PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{\n";
 
             if (RescueCheckButtons["prohibitboss"].Item1)
-                ScriptWindowText += "\rProhibitBosses = true\n";
+                ScriptWindowText += "\tProhibitBosses = true\n\n";
 
-            ScriptWindowText += $"\rA_CustomFinale_StageCount = 2\n";
+            ScriptWindowText += $"\tA_CustomFinale_StageCount = {TotalWaves}\n\n";
+
+            foreach (var item in TotalWaveDicts)
+            {
+                ScriptWindowText += $"\tA_CustomFinale{item.Key} = {item.Value.Split('\x1b')[0]}\n";
+                ScriptWindowText += $"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1]}\n";
+            }
+
+
             ScriptWindowText += "}\n";
+            
+            if (RescueCheckButtons["showstage"].Item1)
+                ScriptWindowText += "\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}\n";
+
             ScriptWindow.Text = ScriptWindowText;
         }
     }

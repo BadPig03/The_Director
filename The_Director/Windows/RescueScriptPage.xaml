@@ -7,34 +7,61 @@
     mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Margin="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <DockPanel Grid.Row="0" Grid.Column="0">
-                <Label Margin="5" Content="尸潮波数:" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBox Name ="TotalWaveTextbox" Margin="5" Width="35" FontSize="20" FontFamily="Bahnschrift" DockPanel.Dock="Left" HorizontalAlignment="Center" VerticalAlignment="Center" MaxLength="2"/>
-                <Button Name="TotalWaveButton" Margin="5" Content="尸潮设置" Width="110" FontSize="20" FontFamily="Dengxian Light" Click="TotalWaveClick" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            </DockPanel>
-            <CheckBox Name="MSGButton" Grid.Row="0" Grid.Column="1" Margin="5" Content="自定义消息" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
-            <CheckBox Name="ProhibitBossButton" Grid.Row="1" Grid.Column="1" Margin="5" Content="禁用Tank和Witch生成" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
-        </Grid>
-        <DockPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="5">
-            <Label Margin="1,5,5,0" Content="脚本实时预览" DockPanel.Dock="Top" FontSize="15" FontFamily="Dengxian" FontWeight="Bold"/>
-            <TextBox Name="ScriptWindow" Margin="5,0,5,5" FontSize="20" FontFamily="JetBrains Mono" BorderBrush="Gray" BorderThickness="1" IsReadOnly="True"/>
+        <Label Grid.Row="0" Grid.Column="0" Margin="1,5,5,0" Content="基础设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold"/>
+        <DockPanel Grid.Row="1" Grid.Column="0">
+            <Border BorderThickness="1" BorderBrush="#7F7F7F" Margin="5,0,5,5" >
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Label Margin="0,5,5,5" Content="救援类型:" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <ComboBox Name="RescueTypeComboBox" Margin="0,5,5,5" FontSize="20" FontFamily="Dengxian" Width="144" DockPanel.Dock="Right" HorizontalAlignment="Right" HorizontalContentAlignment="Left"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Label Margin="0,5,5,5" Content="尸潮波数:" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBox Name ="TotalWaveTextbox" Margin="5" Width="32" FontSize="20" FontFamily="Bahnschrift" HorizontalContentAlignment="Stretch" HorizontalAlignment="Center" VerticalAlignment="Center" MaxLength="2"/>
+                        <Button Name="TotalWaveButton" Margin="5" Content="设置" Width="90" FontSize="20" FontFamily="Dengxian Light" Click="TotalWaveClick" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    </DockPanel>
+                    <CheckBox Name="MSGButton" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Content="自定义消息" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
+                    <CheckBox Name="ProhibitBossButton" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Content="禁用Tank和Witch生成" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
+                </Grid>
+            </Border>
         </DockPanel>
+        <Label Grid.Row="0" Grid.Column="1" Margin="1,5,5,0" Content="调试设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold"/>
+        <DockPanel Grid.Row="1" Grid.Column="1">
+            <Border BorderThickness="1" BorderBrush="#7F7F7F" Margin="5,0,5,5">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <CheckBox Name="ShowStageButton" Grid.Row="0" Grid.Column="0" Margin="5" Content="控制台提示救援阶段数" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
+                </Grid>
+            </Border>
+        </DockPanel>
+        <Label Grid.Row="0" Grid.Column="2" Margin="1,5,5,0" Content="脚本实时预览" FontSize="15" FontFamily="Dengxian" FontWeight="Bold"/>
+        <Border Margin="5,0,5,5" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" BorderThickness="1" BorderBrush="#7F7F7F">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <TextBox Name="ScriptWindow"  FontSize="20" FontFamily="JetBrains Mono" IsReadOnly="True" BorderThickness="0"/>
+            </ScrollViewer>
+        </Border>
     </Grid>
 </UserControl>
