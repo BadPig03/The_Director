@@ -46,4 +46,21 @@ public static class Functions
                 return "";
         }
     }
+
+    public static int TotalWaveToInt(string value)
+    {
+        switch (value)
+        {
+            case "PANIC":
+                return 0;
+            case "TANK":
+                return 1;
+            case "DELAY":
+                return 2;
+            case "SCRIPTED":
+                return 3;
+            default:
+                return -1;
+        }
+    }
 }

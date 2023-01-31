@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using The_Director.Utils;
 
 namespace The_Director.Windows
 {
@@ -12,6 +13,8 @@ namespace The_Director.Windows
         public int WaveCounts { get; set; }
 
         public List<string> ComboBoxList = new() { "尸潮/波", "Tank/个", "延迟/秒", "脚本" };
+
+        public Dictionary<string, string> TotalWaveDicts = new();
 
         public delegate void _SendMessage(string value);
         public _SendMessage SendMessage;
@@ -48,6 +51,10 @@ namespace The_Director.Windows
                 comboBox.Margin = new Thickness(0, 5, 0, 5);
                 comboBox.HorizontalAlignment = HorizontalAlignment.Center;
                 comboBox.Width = 110;
+
+                if (TotalWaveDicts.ContainsKey($"{i + 1}"))
+                    comboBox.SelectedIndex = Functions.TotalWaveToInt(TotalWaveDicts[$"{i + 1}"].Split('\x1b')[0]);
+
                 Grid.SetRow(comboBox, i);
                 Grid.SetColumn(comboBox, 1);
                 TotalWaveGrid.Children.Add(comboBox);
@@ -59,6 +66,10 @@ namespace The_Director.Windows
                 textBox.Margin = new Thickness(0, 5, 10, 5);
                 textBox.HorizontalAlignment = HorizontalAlignment.Right;
                 textBox.Width = 220;
+
+                if (TotalWaveDicts.ContainsKey($"{i + 1}"))
+                    textBox.Text = TotalWaveDicts[$"{i + 1}"].Split('\x1b')[1];
+
                 Grid.SetRow(textBox, i);
                 Grid.SetColumn(textBox, 2);
                 TotalWaveGrid.Children.Add(textBox);
@@ -67,13 +78,14 @@ namespace The_Director.Windows
 
         private void ConfirmButtonClick(object sender, RoutedEventArgs e)
         {
-            //SendMessage("");
+            SendMessage("Confirmed");
             DialogResult = true;
             Close();
         }
 
         private void CancleButtonClick(object sender, RoutedEventArgs e)
         {
+            SendMessage(null);
             DialogResult = true;
             Close();
         }

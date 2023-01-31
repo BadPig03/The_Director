@@ -2,14 +2,17 @@
 using The_Director.Utils;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Media;
+using System;
 
 namespace The_Director.Windows
 {
     public partial class RescueScriptPage : UserControl
     {
-        public List<string> RescueTypeList = new() { "防守救援", "灌油救援", "跑图救援"};
+        public List<string> RescueTypeList = new() { "防守救援", "灌油救援", "跑图救援", "牺牲救援"};
 
         public int TotalWaves = new();
+        public bool IsTotalWaveConfirmed = new();
 
         public Dictionary<string, BooleanString> RescueCheckButtons = new();
         public Dictionary<int, string> TextBoxDicts = new();
@@ -18,7 +21,20 @@ namespace The_Director.Windows
 
         public void MSGReceived(string value)
         {
-            RescueCheckButtons["msg"] = (true, value);
+            if(value != null)
+                RescueCheckButtons["msg"] = (true, value);
+            else
+                MSGButton.IsChecked = false;
+        }
+        public void TotalWaveReceived(string value)
+        {
+            if (value == null)
+                IsTotalWaveConfirmed = false;
+            else
+            {
+                TotalWaveDicts.Clear();
+                IsTotalWaveConfirmed = true;
+            }
         }
 
         public RescueScriptPage()
@@ -31,7 +47,7 @@ namespace The_Director.Windows
             RescueCheckButtons.Add("msg", new BooleanString(false, ""));
             RescueCheckButtons.Add("prohibitboss", new BooleanString(false, null));
             RescueCheckButtons.Add("showstage", new BooleanString(false, null));
-
+            RescueCheckButtons.Add("locktempo", new BooleanString(false, null));
 
         }
 
@@ -58,6 +74,7 @@ namespace The_Director.Windows
             RescueCheckButtons["msg"] = ((bool)MSGButton.IsChecked, RescueCheckButtons["msg"].Item2);
             RescueCheckButtons["prohibitboss"] = ((bool)ProhibitBossButton.IsChecked, null);
             RescueCheckButtons["showstage"] = ((bool)ShowStageButton.IsChecked, null);
+            RescueCheckButtons["locktempo"] = ((bool)LockTempoButton.IsChecked, null);
 
             UpdateScriptWindow();
         }
@@ -66,6 +83,7 @@ namespace The_Director.Windows
         {
             InputNewText InputWindow = new InputNewText
             {
+                TextBoxText = RescueCheckButtons["msg"].Item2,
                 SendMessage = MSGReceived
             };
             InputWindow.ShowDialog();
@@ -74,13 +92,20 @@ namespace The_Director.Windows
 
         private void TryOpenTotalWaveWindow(int WaveCount)
         {
+            TextBoxDicts.Clear();
+            ComboBoxDicts.Clear();
 
             TotalWaveSettings TotalWindow = new TotalWaveSettings
             {
-                WaveCounts = WaveCount
+                WaveCounts = WaveCount,
+                TotalWaveDicts = TotalWaveDicts,
+                SendMessage = TotalWaveReceived
             };
 
             TotalWindow.ShowDialog();
+
+            if (!IsTotalWaveConfirmed)
+                return;
 
             foreach (var item in TotalWindow.TotalWaveGrid.Children)
             {
@@ -123,6 +148,8 @@ namespace The_Director.Windows
                 ScriptWindowText += $"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1]}\n";
             }
 
+            if (RescueCheckButtons["locktempo"].Item1)
+                ScriptWindowText += "\n\tLockTempo = true;\n\n";
 
             ScriptWindowText += "}\n";
             

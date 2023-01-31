@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    mc:Ignorable="d" ResizeMode="NoResize" Height="180" Width="480" Title="请输入自定义消息内容" Icon="/Assets/logic_script.png">
+    mc:Ignorable="d" ResizeMode="NoResize" Height="180" Width="480" Title="请输入自定义消息内容" Icon="/Assets/logic_script.png" Loaded="WindowLoaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>

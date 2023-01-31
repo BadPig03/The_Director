@@ -7,11 +7,11 @@ namespace The_Director.Windows
     {
         public delegate void _SendMessage(string value);
         public _SendMessage SendMessage;
+
+        public string TextBoxText { get; set; }
         public InputNewText()
         {
             InitializeComponent();
-            this.Width = 480;
-            this.Height = 180;
         }
         
         private void ConfirmButtonClick(object sender, RoutedEventArgs e)
@@ -23,8 +23,14 @@ namespace The_Director.Windows
 
         private void CancleButtonClick(object sender, RoutedEventArgs e)
         {
+            SendMessage(null);
             DialogResult = true;
             Close();
+        }
+
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+            MSGTextBox.Text = TextBoxText;
         }
     }
 }
