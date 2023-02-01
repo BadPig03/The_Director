@@ -24,7 +24,7 @@ namespace The_Director
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.DataContext = this;
-            NavMenus.Add(new() { Title = "救援脚本", ViewName = "RescueScriptPage" , Index = 0});
+            NavMenus.Add(new() { Title = "导演脚本", ViewName = "RescueScriptPage" , Index = 0});
             NavMenus.Add(new() { Title = "软件设置", ViewName = "SettingsPage", Index = 1 });
             NavMenus.Add(new() { Title = "关于作者", ViewName = "AboutPage", Index = 2 });
             NavMenus.ForEach(menu =>

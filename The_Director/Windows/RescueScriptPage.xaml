@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
+    mc:Ignorable="d" d:DesignHeight="704.04" d:DesignWidth="1110">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -15,15 +15,6 @@
             <RowDefinition Height="35"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Margin="1,5,5,0" Content="通用设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
-        <Label Grid.Row="0" Grid.Column="1" Margin="1,5,5,0" Content="守点救援基础设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
-        <Label Grid.Row="0" Grid.Column="2" Margin="1,5,5,0" Content="脚本实时预览" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
-        <Border Margin="5" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" BorderThickness="1" BorderBrush="#7F7F7F">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <TextBox Name="ScriptWindow" FontSize="20" FontFamily="JetBrains Mono" IsReadOnly="True" BorderThickness="0"/>
-            </ScrollViewer>
-        </Border>
-        
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="114"/>
@@ -37,41 +28,17 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="32"/>
-                        <RowDefinition Height="32"/>
                     </Grid.RowDefinitions>
                     <DockPanel Grid.Row="0" Grid.Column="0">
                         <Label Margin="0,5,5,5" Content="救援类型:" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <ComboBox Name="RescueTypeComboBox" Margin="0,5,5,5" FontSize="20" FontFamily="Dengxian" Width="144" DockPanel.Dock="Right" HorizontalAlignment="Right" HorizontalContentAlignment="Left" IsEnabled="False"/>
+                        <ComboBox Name="RescueTypeComboBox" Margin="0,5,5,5" FontSize="20" FontFamily="Dengxian" Width="144" DockPanel.Dock="Right" HorizontalAlignment="Right" HorizontalContentAlignment="Left" SelectionChanged="SelectionChanged"/>
                     </DockPanel>
-                    <CheckBox Name="MSGButton" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Content="自定义消息" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
-                    <CheckBox Name="ProhibitBossButton" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Content="禁用Tank和Witch生成" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
-                </Grid>
-            </Border>
-            <Label Grid.Row="1" Grid.Column="0" Margin="1,5,5,0" Content="调试设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold"/>
-            <Border Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" BorderThickness="1" BorderBrush="#7F7F7F" Margin="5" >
-                <Grid Name="BasicSettingGrid">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="32"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <CheckBox Name="ShowStageButton" Grid.Row="0" Grid.Column="0" Margin="5" Content="控制台提示救援阶段数" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
                 </Grid>
             </Border>
         </Grid>
-        <Border Margin="5" Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="#7F7F7F">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="32"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-                    <Label Margin="0,5,5,5" Content="尸潮波数:" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBox Name ="TotalWaveTextbox" Margin="5" Width="32" FontSize="20" FontFamily="Bahnschrift" HorizontalContentAlignment="Stretch" HorizontalAlignment="Center" VerticalAlignment="Center" MaxLength="2"/>
-                    <Button Name="TotalWaveButton" Margin="5" Content="设置" Width="90" FontSize="18" FontFamily="Dengxian Light" Click="TotalWaveClick" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                </DockPanel>
-                <CheckBox Grid.Row="1" Grid.Column="0" Name="LockTempoButton" Margin="5" Content="无延迟刷新尸潮" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
-            </Grid>
-        </Border>
+        <Label Grid.Row="0" Grid.Column="0" Margin="1,5,5,0" Content="通用设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
+        <Label Grid.Row="0" Grid.Column="1" Margin="1,5,5,0" Content="救援基础设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
+        <Label Grid.Row="0" Grid.Column="2" Margin="1,5,5,0" Content="实时预览脚本" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
+        <ContentControl Name="RescueTypeControl" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
     </Grid>
 </UserControl>

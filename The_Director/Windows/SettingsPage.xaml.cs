@@ -4,8 +4,6 @@ using The_Director.Utils;
 
 namespace The_Director.Windows
 {
-
-
     public partial class SettingsPage : UserControl
     {
         public SettingsPage()

@@ -147,9 +147,26 @@
     <Compile Include="Windows\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\GauntletRescueSettings.xaml.cs">
+      <DependentUpon>GauntletRescueSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\HintWindow.xaml.cs">
+      <DependentUpon>HintWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\StandardRescueSettings.xaml.cs">
+      <DependentUpon>StandardRescueSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\TotalWaveSettings.xaml.cs">
       <DependentUpon>TotalWaveSettings.xaml</DependentUpon>
     </Compile>
+    <Page Include="Windows\GauntletRescueSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\HintWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\InputNewText.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -184,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\StandardRescueSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

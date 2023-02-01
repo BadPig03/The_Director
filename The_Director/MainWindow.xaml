@@ -4,9 +4,8 @@
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="The Director" Icon="/Assets/left4dead2.ico" Height="720" Width="1280" ResizeMode="NoResize" Loaded="Window_Loaded">
+        mc:Ignorable="d" Title="The Director" Icon="/Assets/left4dead2.ico" Height="720" Width="1280" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
