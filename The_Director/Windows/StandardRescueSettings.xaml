@@ -6,9 +6,9 @@
              mc:Ignorable="d" d:DesignHeight="704.04" d:DesignWidth="1110">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <Border Margin="5" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" BorderThickness="1" BorderBrush="#7F7F7F">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <TextBox Name="ScriptWindow" FontSize="20" FontFamily="JetBrains Mono" IsReadOnly="True" BorderThickness="0"/>
+                <TextBox Name="ScriptWindow" FontSize="15" FontFamily="JetBrains Mono" IsReadOnly="True" BorderThickness="0"/>
             </ScrollViewer>
         </Border>
         <Grid Grid.Row="1" Grid.Column="0">
@@ -51,8 +51,8 @@
             <ScrollViewer>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40"/>
                         <RowDefinition Height="30"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
@@ -60,38 +60,51 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-                        <Label Margin="0,5,5,5" Content="尸潮波数:" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <TextBox Name ="TotalWaveTextbox" Margin="5" Width="32" FontSize="20" FontFamily="Bahnschrift" HorizontalContentAlignment="Stretch" HorizontalAlignment="Center" VerticalAlignment="Center" MaxLength="2"/>
-                        <Button Name="TotalWaveButton" Margin="5" Content="设置" Width="90" FontSize="18" FontFamily="Dengxian Light" Click="TotalWaveClick" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    </DockPanel>
-                    <DockPanel Grid.Row="1" Grid.Column="0">
+                    <DockPanel Grid.Row="0" Grid.Column="0">
                         <Label Margin="1,0,5,0" Content="尸潮属性设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
                         <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
                     </DockPanel>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="60"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="尸潮波数" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button Grid.Row="0" Grid.Column="1" Name="TotalWaveButton" Margin="5" Content="设置" Width="90" FontSize="18" FontFamily="Dengxian Light" Click="TotalWaveClick" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="2" Name ="TotalWaveTextbox" Margin="5" Width="50" FontSize="15" FontFamily="Bahnschrift" HorizontalContentAlignment="Stretch" HorizontalAlignment="Center" VerticalAlignment="Center" MaxLength="3" Height="30"/>
+                    </Grid>
                     <Grid Grid.Row="2" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
-                        <CheckBox Name="LockTempoCheckBox" Grid.Row="0" Grid.Column="0" Margin="5" Content="LockTempo" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
-                        <Button Grid.Row="0" Grid.Column="1" Margin="5" Content="?" FontSize="10" FontFamily="Bahnschrift" Style="{DynamicResource MahApps.Styles.Button.Square}" Click="LockTempoButtonClick" Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                        <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="ClearedWandererRespawnChance" FontSize="18" FontFamily="Dengxian" MouseDoubleClick="LockTempoButtonClick"/>
+                        <TextBox Name="ClearedWandererRespawnChanceTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center"/>
                     </Grid>
                     <Grid Grid.Row="3" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="28"/>
                         </Grid.ColumnDefinitions>
-                        <CheckBox Name="NoMobSpawnsCheckBox" Grid.Row="0" Grid.Column="0" Margin="5" Content="NoMobSpawns" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
-                        <Button Grid.Row="0" Grid.Column="1" Margin="5" Content="?" FontSize="10" FontFamily="Bahnschrift" Style="{DynamicResource MahApps.Styles.Button.Square}" Click="NoMobSpawnsButtonClick" Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                        <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="LockTempo" FontSize="18" FontFamily="Dengxian" MouseDoubleClick="LockTempoButtonClick"/>
+                        <CheckBox Name="LockTempoCheckBox" Grid.Row="0" Grid.Column="1" Margin="5,5,-1,5" Click="CheckBoxClick" HorizontalAlignment="Right"/>
                     </Grid>
                     <Grid Grid.Row="4" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="28"/>
                         </Grid.ColumnDefinitions>
-                        <CheckBox Name="ShouldAllowMobsWithTankCheckBox" Grid.Row="0" Grid.Column="0" Margin="5" Content="ShouldAllowMobsWithTank" FontSize="15" FontFamily="Dengxian" Click="CheckBoxClick"/>
-                        <Button Grid.Row="0" Grid.Column="1" Margin="5" Content="?" FontSize="10" FontFamily="Bahnschrift" Style="{DynamicResource MahApps.Styles.Button.Square}" Click="ShouldAllowMobsWithTankButtonClick" Height="25" Width="25" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                        <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="NoMobSpawns" FontSize="18" FontFamily="Dengxian" MouseDoubleClick="NoMobSpawnsButtonClick"/>
+                        <CheckBox Name="NoMobSpawnsCheckBox" Grid.Row="0" Grid.Column="1" Margin="5,5,-1,5" FontSize="15" FontFamily="Dengxian" Click="CheckBoxClick"/>
+                    </Grid>
+                    <Grid Grid.Row="5" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="28"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="ShouldAllowMobsWithTank" FontSize="18" FontFamily="Dengxian" MouseDoubleClick="ShouldAllowMobsWithTankButtonClick"/>
+                        <CheckBox Name="ShouldAllowMobsWithTankCheckBox" Grid.Row="0" Grid.Column="1" Margin="5,5,-1,5" FontSize="15" FontFamily="Dengxian" Click="CheckBoxClick"/>
                     </Grid>
                 </Grid>
             </ScrollViewer>
