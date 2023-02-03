@@ -41,17 +41,7 @@ namespace The_Director.Windows
 
         private void TotalWaveClick(object sender, RoutedEventArgs e)
         {
-            if (Functions.IsPositiveNumber(TotalWaveTextbox.Text))
-            {
-                TotalWaves = Functions.ConvertToInt(TotalWaveTextbox.Text);
-                TryOpenTotalWaveWindow(TotalWaves);
-            }
-            else
-            {
-                MessageBox.Show("非法输入！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                TotalWaveTextbox.Text = "3";
-            }
-
+            TryOpenTotalWaveWindow(Functions.ConvertToInt(TotalWaveTextbox.Text));
         }
 
         private void CheckBoxClick(object sender, RoutedEventArgs e)
@@ -129,13 +119,61 @@ namespace The_Director.Windows
             UpdateScriptWindow();
         }
 
+        private void BuildUpMinIntervalButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "BuildUpMinInterval的值代表导演生成尸潮的节奏中BUILD_UP阶段的最短持续时间。\n\n有效范围为非负整数。\n\n默认为15。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void FarAcquireRangeButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "FarAcquireRange的值代表小僵尸能发现生还者的最大距离。\n\n有效范围为非负浮点数。\n\n默认为2500。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void NearAcquireRangeButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "NearAcquireRange的值代表小僵尸可以用最短的时间就能发现生还者的距离。\n\n有效范围为非负浮点数。\n\n默认为200。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void ClearedWandererRespawnChanceButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "ClearedWandererRespawnChance的值代表会有百分之多少的几率在已经清理过的导航区块上重新生成游荡的小僵尸。\n\n有效范围为0~100的整数。\n\n默认为0，而清道夫模式中默认为3。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
         private void LockTempoButtonClick(object sender, RoutedEventArgs e)
         {
             HintWindow metroWindow = new HintWindow
             {
                 Width = 480,
                 Height = 320,
-                TextBlockString = "设置LockTempo = true会无延迟地生成尸潮。",
+                TextBlockString = "设置LockTempo = true会无延迟地生成尸潮。\n\n默认为false。",
                 HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
             };
             metroWindow.ShowDialog();
@@ -147,7 +185,7 @@ namespace The_Director.Windows
             {
                 Width = 480,
                 Height = 320,
-                TextBlockString = "设置NoMobSpawns = true会停止新的僵尸生成。\n\n原有暂时等待生成的僵尸仍会继续生成。\n\n不会重置生成计时器。",
+                TextBlockString = "设置NoMobSpawns = true会停止新的僵尸生成。\n\n原有暂时等待生成的僵尸仍会继续生成。\n\n不会重置生成计时器。\n\n默认为false。",
                 HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
             };
             metroWindow.ShowDialog();
@@ -159,7 +197,7 @@ namespace The_Director.Windows
             {
                 Width = 480,
                 Height = 320,
-                TextBlockString = "设置ShouldAllowMobsWithTank = true会允许在Tank在场时自然生成小僵尸。\n\nBoomer和胆汁炸弹引起的尸潮不受影响。\n\n仅适用于战役模式。",
+                TextBlockString = "设置ShouldAllowMobsWithTank = true会允许在Tank在场时自然生成小僵尸。\n\nBoomer和胆汁炸弹引起的尸潮不受影响。\n\n仅适用于战役模式。\n\n默认为false。",
                 HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
             };
             metroWindow.ShowDialog();
@@ -203,6 +241,39 @@ namespace The_Director.Windows
                 ScriptWindowText += "\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}\n";
 
             ScriptWindow.Text = ScriptWindowText;
+        }
+
+        private void TextBoxTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (TotalWaveTextbox.Text != "" && !Functions.IsProperInt(TotalWaveTextbox.Text, 1, 99))
+            {
+                MessageBox.Show("非法输入！\n只能输入1到99的整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                TotalWaveTextbox.Text = "3";
+            }
+
+            if (BuildUpMinIntervalTextBox.Text != "" && !Functions.IsProperInt(BuildUpMinIntervalTextBox.Text, 0, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                BuildUpMinIntervalTextBox.Text = "15";
+            }
+
+            if (FarAcquireRangeTextBox.Text != "" && !Functions.IsProperFloat(FarAcquireRangeTextBox.Text, 0, float.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                FarAcquireRangeTextBox.Text = "2500";
+            }
+
+            if (NearAcquireRangeTextBox.Text != "" && !Functions.IsProperFloat(NearAcquireRangeTextBox.Text, 0, float.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                NearAcquireRangeTextBox.Text = "200";
+            }
+
+            if (ClearedWandererRespawnChanceTextBox.Text != "" && !Functions.IsProperInt(ClearedWandererRespawnChanceTextBox.Text, 0, 100))
+            {
+                MessageBox.Show("非法输入！\n只能输入0到100的整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                ClearedWandererRespawnChanceTextBox.Text = "0";
+            }
         }
     }
 }

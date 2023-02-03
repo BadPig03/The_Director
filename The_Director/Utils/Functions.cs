@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace The_Director.Utils;
 
@@ -17,9 +19,28 @@ public record struct BooleanString(bool Item1, string Item2)
 
 public static class Functions
 {
-    public static bool IsPositiveNumber(string value)
+    public static bool IsProperInt(string value, int min, int max)
     {
-        return Regex.IsMatch(value, @"^[1-9]\d*$");
+        if (!Regex.IsMatch(value, @"^\d+$"))
+            return false;
+        if (int.Parse(value) <= max && int.Parse(value) >= min)
+            return true;
+        return false;
+    }
+
+    public static bool IsProperFloat(string value, float min, float max)
+    {
+        if (value == ".")
+            value = "0.0";
+        if (Regex.IsMatch(value, @"^\d+\.$"))
+            value = value.Insert(value.Length, "0");
+        if (Regex.IsMatch(value, @"^\.\d+$"))
+            value = value.Insert(0, "0");
+        if (!Regex.IsMatch(value, @"^\d+(\.\d+)?$"))
+            return false;
+        if (float.Parse(value) <= max && float.Parse(value) >= min)
+            return true;
+        return false;
     }
 
     public static int ConvertToInt(string value)
