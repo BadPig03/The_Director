@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using The_Director.Utils;
@@ -14,17 +15,20 @@ namespace The_Director.Windows
         public Dictionary<int, string> TextBoxDicts = new();
         public Dictionary<int, int> ComboBoxDicts = new();
         public Dictionary<string, BooleanString> RescueCheckButtons = new();
-
+        public List<string> PreferredMobDirectionList = new() { "", "SPAWN_ABOVE_SURVIVORS", "SPAWN_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
+        public List<string> PreferredSpecialDirectionList = new() { "", "SPAWN_ABOVE_SURVIVORS", "SPAWN_SPECIALS_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_SPECIALS_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
 
         public StandardRescueSettings()
         {
             InitializeComponent();
 
+            PreferredMobDirectionComboBox.ItemsSource = PreferredMobDirectionList;
+            PreferredSpecialDirectionComboBox.ItemsSource = PreferredSpecialDirectionList;
             RescueCheckButtons.Add("msg", new BooleanString(false, ""));
             RescueCheckButtons.Add("prohibitboss", new BooleanString(false, null));
             RescueCheckButtons.Add("showstage", new BooleanString(false, null));
             RescueCheckButtons.Add("locktempo", new BooleanString(false, null));
-            RescueCheckButtons.Add("nomobspawns", new BooleanString(false, null));
+            RescueCheckButtons.Add("ProhibitBosses", new BooleanString(false, null));
             RescueCheckButtons.Add("shouldallowmobswithtank", new BooleanString(false, null));
         }
 
@@ -53,7 +57,7 @@ namespace The_Director.Windows
             RescueCheckButtons["prohibitboss"] = ((bool)ProhibitBossCheckBox.IsChecked, null);
             RescueCheckButtons["showstage"] = ((bool)ShowStageCheckBox.IsChecked, null);
             RescueCheckButtons["locktempo"] = ((bool)LockTempoCheckBox.IsChecked, null);
-            RescueCheckButtons["nomobspawns"] = ((bool)NoMobSpawnsCheckBox.IsChecked, null);
+            RescueCheckButtons["ProhibitBosses"] = ((bool)ProhibitBossesCheckBox.IsChecked, null);
             RescueCheckButtons["shouldallowmobswithtank"] = ((bool)ShouldAllowMobsWithTankCheckBox.IsChecked, null);
 
 
@@ -119,49 +123,13 @@ namespace The_Director.Windows
             UpdateScriptWindow();
         }
 
-        private void BuildUpMinIntervalButtonClick(object sender, RoutedEventArgs e)
+        private void IntensityRelaxThresholdButtonClick(object sender, RoutedEventArgs e)
         {
             HintWindow metroWindow = new HintWindow
             {
                 Width = 480,
                 Height = 320,
-                TextBlockString = "BuildUpMinInterval的值代表导演生成尸潮的节奏中BUILD_UP阶段的最短持续时间。\n\n有效范围为非负整数。\n\n默认为15。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void FarAcquireRangeButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "FarAcquireRange的值代表小僵尸能发现生还者的最大距离。\n\n有效范围为非负浮点数。\n\n默认为2500。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void NearAcquireRangeButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "NearAcquireRange的值代表小僵尸可以用最短的时间就能发现生还者的距离。\n\n有效范围为非负浮点数。\n\n默认为200。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void ClearedWandererRespawnChanceButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "ClearedWandererRespawnChance的值代表会有百分之多少的几率在已经清理过的导航区块上重新生成游荡的小僵尸。\n\n有效范围为0~100的整数。\n\n默认为0，而清道夫模式中默认为3。",
+                TextBlockString = "IntensityRelaxThreshold的值代表所有生还者的紧张度都必须小于多少才能让节奏从SUSTAIN_PEAK切换为RELAX。\n\n有效范围为0-1的浮点数。\n\n默认值为0.9。",
                 HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
             };
             metroWindow.ShowDialog();
@@ -173,19 +141,150 @@ namespace The_Director.Windows
             {
                 Width = 480,
                 Height = 320,
-                TextBlockString = "设置LockTempo = true会无延迟地生成尸潮。\n\n默认为false。",
+                TextBlockString = "设置LockTempo为true会无延迟地生成尸潮。\n\n默认值为false。",
                 HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
             };
             metroWindow.ShowDialog();
         }
-
-        private void NoMobSpawnsButtonClick(object sender, RoutedEventArgs e)
+        private void MobRechargeRateButtonClick(object sender, RoutedEventArgs e)
         {
             HintWindow metroWindow = new HintWindow
             {
                 Width = 480,
                 Height = 320,
-                TextBlockString = "设置NoMobSpawns = true会停止新的僵尸生成。\n\n原有暂时等待生成的僵尸仍会继续生成。\n\n不会重置生成计时器。\n\n默认为false。",
+                TextBlockString = "MobRechargeRate的值代表一次尸潮内生成下一个普通感染者的速度。\n\n有效范围为非负浮点数。\n\n默认值为0.0025。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void MobSpawnMaxTimeButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "MobSpawnMaxTime的值代表两波尸潮生成的最大时间隔秒数。\n\n有效范围为非负浮点数。\n\n默认值根据难度变化，为180.0-240.0。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void MobSpawnMinTimeButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "MobSpawnMinTime的值代表两波尸潮生成的最小时间隔秒数。\n\n有效范围为非负浮点数。\n\n默认值根据难度变化，为90.0-120.0。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void MusicDynamicMobScanStopSizeButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "MusicDynamicMobScanStopSize的值代表尸潮的大小不足此数时会停止背景音乐。\n\n有效范围为非负整数。\n\n默认值为3。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void MusicDynamicMobSpawnSizeButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "MusicDynamicMobSpawnSize的值代表尸潮的大小达到此数时会开始播放背景音乐。\n\n有效范围为非负整数。\n\n默认值为25。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void MusicDynamicMobStopSizeButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "MusicDynamicMobStopSize的值代表尸潮的大小达到此数时会停止背景音乐。\n\n有效范围为非负整数。\n\n默认值为8。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void PreferredMobDirectionButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "PreferredMobDirection的值代表尸潮生成的方位。\n\n有效范围为-1到10的整数。\n\n默认值为SPAWN_NO_PREFERENCE。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void PreferredSpecialDirectionButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "PreferredSpecialDirection的值代表特感生成的方位。\n\n有效范围为-1到10的整数。\n\n默认值为SPAWN_NO_PREFERENCE。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void RelaxMaxFlowTravelButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "RelaxMaxFlowTravel的值代表生还者最远能前进多少距离就会让节奏从RELAX切换到BUILD_UP。\n\n有效范围为非负浮点数。\n\n默认值为3000。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void RelaxMaxIntervalButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "RelaxMaxInterval的值代表节奏中RELAX最长持续秒数。\n\n有效范围为非负浮点数。\n\n默认值为45。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void RelaxMinIntervalButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "RelaxMinInterval的值代表节奏中RELAX最短持续秒数。\n\n有效范围为非负浮点数。\n\n默认值为30。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void ProhibitBossesButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "设置ProhibitBosses为true会防止Tank和Witch生成。\n\n默认值为false。",
                 HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
             };
             metroWindow.ShowDialog();
@@ -197,7 +296,55 @@ namespace The_Director.Windows
             {
                 Width = 480,
                 Height = 320,
-                TextBlockString = "设置ShouldAllowMobsWithTank = true会允许在Tank在场时自然生成小僵尸。\n\nBoomer和胆汁炸弹引起的尸潮不受影响。\n\n仅适用于战役模式。\n\n默认为false。",
+                TextBlockString = "设置ShouldAllowMobsWithTank为true会允许在Tank在场时生成小僵尸。\n\nBoomer和胆汁炸弹引起的尸潮不受影响。\n\n仅适用于战役模式。\n\n默认为false。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void ShouldAllowSpecialsWithTankButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "设置ShouldAllowSpecialsWithTank为true会允许在Tank在场时生成特殊感染者。\n\n仅适用于战役模式。\n\n默认为false。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void SpecialRespawnIntervalButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "SpecialRespawnInterval的值代表特殊感染者重生所需要的秒数。\n\n有效范围为非负浮点数。\n\n默认值为：战役模式为45，对抗模式为20。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void SustainPeakMaxTimeButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "SustainPeakMaxTime的值代表节奏中SUSTAIN_PEAK的最长持续分钟数。\n\n有效范围为非负浮点数。\n\n默认值为5。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void SustainPeakMinTimeButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "SustainPeakMinTime的值代表节奏中SUSTAIN_PEAK的最短持续分钟数。\n\n有效范围为非负浮点数。\n\n默认值为3。",
                 HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
             };
             metroWindow.ShowDialog();
@@ -229,8 +376,8 @@ namespace The_Director.Windows
             if (RescueCheckButtons["locktempo"].Item1)
                 ScriptWindowText += "\tLockTempo = true\n";
 
-            if (RescueCheckButtons["nomobspawns"].Item1)
-                ScriptWindowText += "\tNoMobSpawns = true\n";
+            if (RescueCheckButtons["ProhibitBosses"].Item1)
+                ScriptWindowText += "\tProhibitBosses = true\n";
 
             if (RescueCheckButtons["shouldallowmobswithtank"].Item1)
                 ScriptWindowText += "\tShouldAllowMobsWithTank = true\n";
@@ -245,35 +392,106 @@ namespace The_Director.Windows
 
         private void TextBoxTextChanged(object sender, TextChangedEventArgs e)
         {
+            bool updateFlag = true;
             if (TotalWaveTextbox.Text != "" && !Functions.IsProperInt(TotalWaveTextbox.Text, 1, 99))
             {
                 MessageBox.Show("非法输入！\n只能输入1到99的整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                TotalWaveTextbox.Text = "3";
+                TotalWaveTextbox.Text = "";
+            }
+            else if (TotalWaveTextbox.Text == "")
+            {
+                updateFlag = false;
+                TotalWaveButton.IsEnabled = false;
+            }
+            else
+                TotalWaveButton.IsEnabled = true;
+
+            if (IntensityRelaxThresholdTextBox.Text != "" && !Functions.IsProperFloat(IntensityRelaxThresholdTextBox.Text, 0, 1))
+            {
+                MessageBox.Show("非法输入！\n只能输入0到1的浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                IntensityRelaxThresholdTextBox.Text = "";
             }
 
-            if (BuildUpMinIntervalTextBox.Text != "" && !Functions.IsProperInt(BuildUpMinIntervalTextBox.Text, 0, int.MaxValue))
+            if (MobRechargeRateTextBox.Text != "" && !Functions.IsProperFloat(MobRechargeRateTextBox.Text, 0, float.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MobRechargeRateTextBox.Text = "";
+            }
+
+            if (MobSpawnMaxTimeTextBox.Text != "" && !Functions.IsProperFloat(MobSpawnMaxTimeTextBox.Text, 0, float.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MobSpawnMaxTimeTextBox.Text = "";
+            }
+
+            if (MobSpawnMinTimeTextBox.Text != "" && !Functions.IsProperFloat(MobSpawnMinTimeTextBox.Text, 0, float.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MobSpawnMinTimeTextBox.Text = "";
+            }
+
+            if (MusicDynamicMobScanStopSizeTextBox.Text != "" && !Functions.IsProperInt(MusicDynamicMobScanStopSizeTextBox.Text, 0, int.MaxValue))
             {
                 MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                BuildUpMinIntervalTextBox.Text = "15";
+                MusicDynamicMobScanStopSizeTextBox.Text = "";
             }
 
-            if (FarAcquireRangeTextBox.Text != "" && !Functions.IsProperFloat(FarAcquireRangeTextBox.Text, 0, float.MaxValue))
+            if (MusicDynamicMobSpawnSizeTextBox.Text != "" && !Functions.IsProperInt(MusicDynamicMobSpawnSizeTextBox.Text, 0, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MusicDynamicMobSpawnSizeTextBox.Text = "";
+            }
+
+            if (MusicDynamicMobStopSizeTextBox.Text != "" && !Functions.IsProperInt(MusicDynamicMobStopSizeTextBox.Text, 0, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MusicDynamicMobStopSizeTextBox.Text = "";
+            }
+
+            if (RelaxMaxFlowTravelTextBox.Text != "" && !Functions.IsProperFloat(RelaxMaxFlowTravelTextBox.Text, 0, float.MaxValue))
             {
                 MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                FarAcquireRangeTextBox.Text = "2500";
+                RelaxMaxFlowTravelTextBox.Text = "";
             }
 
-            if (NearAcquireRangeTextBox.Text != "" && !Functions.IsProperFloat(NearAcquireRangeTextBox.Text, 0, float.MaxValue))
+            if (RelaxMaxIntervalTextBox.Text != "" && !Functions.IsProperFloat(RelaxMaxIntervalTextBox.Text, 0, float.MaxValue))
             {
                 MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                NearAcquireRangeTextBox.Text = "200";
+                RelaxMaxIntervalTextBox.Text = "";
             }
 
-            if (ClearedWandererRespawnChanceTextBox.Text != "" && !Functions.IsProperInt(ClearedWandererRespawnChanceTextBox.Text, 0, 100))
+            if (RelaxMinIntervalTextBox.Text != "" && !Functions.IsProperFloat(RelaxMinIntervalTextBox.Text, 0, float.MaxValue))
             {
-                MessageBox.Show("非法输入！\n只能输入0到100的整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                ClearedWandererRespawnChanceTextBox.Text = "0";
+                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                RelaxMinIntervalTextBox.Text = "";
             }
+
+            if (SpecialRespawnIntervalTextBox.Text != "" && !Functions.IsProperFloat(SpecialRespawnIntervalTextBox.Text, 0, float.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                SpecialRespawnIntervalTextBox.Text = "";
+            }
+
+            if (SustainPeakMaxTimeTextBox.Text != "" && !Functions.IsProperFloat(SustainPeakMaxTimeTextBox.Text, 0, float.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                SustainPeakMaxTimeTextBox.Text = "";
+            }
+
+            if (SustainPeakMinTimeTextBox.Text != "" && !Functions.IsProperFloat(SustainPeakMinTimeTextBox.Text, 0, float.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                SustainPeakMinTimeTextBox.Text = "";
+            }
+
+            if (updateFlag)
+                UpdateScriptWindow();
+        }
+
+        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PreferredMobDirectionComboBox.SelectedIndex == 0)
+                Console.WriteLine("1");
         }
     }
 }
