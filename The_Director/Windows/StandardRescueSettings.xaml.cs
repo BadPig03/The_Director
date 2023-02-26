@@ -350,6 +350,210 @@ namespace The_Director.Windows
             metroWindow.ShowDialog();
         }
 
+        private void BileMobSizeButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "BileMobSize的值代表Boomer和胆汁炸弹引起的普通感染者数量最大值。\n\n有效范围为非负整数。\n\n无默认值。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void BoomerLimitButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "BoomerLimit的值代表在场的Boomer最大数量。\n\n有效范围为整数。\n\n默认值为1。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void ChargerLimitButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "ChargerLimit的值代表在场的Charger最大数量。\n\n有效范围为整数。\n\n默认值为1。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void CommonLimitButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "CommonLimit的值代表在场的普通感染者最大数量。\n\n有效范围为整数。\n\n默认值为30。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void DominatorLimitButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "DominatorLimit的值代表在场的控制型特殊感染者(Hunter, Jockey, Charger, Smoker)最大数量。\n\n有效范围为整数。\n\n无默认值。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void HunterLimitButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "HunterLimit的值代表在场的Hunter最大数量。\n\n有效范围为整数。\n\n默认值为1。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void JockeyLimitButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "JockeyLimit的值代表在场的Jockey最大数量。\n\n有效范围为整数。\n\n默认值为1。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void MaxSpecialsButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "MaxSpecials的值代表在场的特殊感染者最大数量。\n\n有效范围为整数。\n\n默认值为2。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void MegaMobSizeButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "MegaMobSize的值代表一次尸潮能生成的普通感染者最大数量。\n\n有效范围为非负整数。\n\n无默认值。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void MobMaxPendingButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "MobMaxPending的值代表当尸潮的普通感染者数量超过CommonLimit时最多有多少普通感染者可以暂时等待生成。\n\n有效范围为非负整数。\n\n无默认值。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void MobMaxSizeButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "MobMaxSize的值代表一次尸潮生成普通感染者的最大数量。\n\n有效范围为非负整数。\n\n默认值为30。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void MobMinSizeButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "MobMinSize的值代表一次尸潮生成普通感染者的最小数量。\n\n有效范围为非负整数。\n\n默认值为10。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void MobSpawnSizeButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "MobSpawnSize的值代表一次尸潮生成普通感染者的数量。\n\n覆盖MobMaxSize与MobMinSize。\n\n有效范围为非负整数。\n\n无默认值。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void SmokerLimitButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "SmokerLimit的值代表代表在场的Smoker最大数量。\n\n有效范围为整数。\n\n默认值为1。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void SpitterLimitButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "SpitterLimit的值代表代表在场的Spitter最大数量。\n\n有效范围为整数。\n\n默认值为1。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void TankLimitButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "TankLimit的值代表代表在场的Tank最大数量。\n\n有效范围为整数。\n\n小于0则代表无限制。\n\n默认值为-1。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
+        private void WitchLimitButtonClick(object sender, RoutedEventArgs e)
+        {
+            HintWindow metroWindow = new HintWindow
+            {
+                Width = 480,
+                Height = 320,
+                TextBlockString = "WitchLimit的值代表代表在场的Witch最大数量。\n\n有效范围为整数。\n\n小于0则代表无限制。\n\n默认值为-1。",
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+            };
+            metroWindow.ShowDialog();
+        }
+
         private void UpdateScriptWindow()
         {
             var ScriptWindowText = "";
@@ -482,6 +686,108 @@ namespace The_Director.Windows
             {
                 MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                 SustainPeakMinTimeTextBox.Text = "";
+            }
+
+            if (BileMobSizeTextBox.Text != "" && !Functions.IsProperInt(BileMobSizeTextBox.Text, 0, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                BileMobSizeTextBox.Text = "";
+            }
+
+            if (BoomerLimitTextBox.Text != "" && !Functions.IsProperInt(BoomerLimitTextBox.Text, int.MinValue, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                BoomerLimitTextBox.Text = "";
+            }
+
+            if (ChargerLimitTextBox.Text != "" && !Functions.IsProperInt(ChargerLimitTextBox.Text, int.MinValue, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                ChargerLimitTextBox.Text = "";
+            }
+
+            if (CommonLimitTextBox.Text != "" && !Functions.IsProperInt(CommonLimitTextBox.Text, int.MinValue, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                CommonLimitTextBox.Text = "";
+            }
+
+            if (DominatorLimitTextBox.Text != "" && !Functions.IsProperInt(DominatorLimitTextBox.Text, int.MinValue, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                DominatorLimitTextBox.Text = "";
+            }
+
+            if (HunterLimitTextBox.Text != "" && !Functions.IsProperInt(HunterLimitTextBox.Text, int.MinValue, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                HunterLimitTextBox.Text = "";
+            }
+
+            if (JockeyLimitTextBox.Text != "" && !Functions.IsProperInt(JockeyLimitTextBox.Text, int.MinValue, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                JockeyLimitTextBox.Text = "";
+            }
+
+            if (MaxSpecialsTextBox.Text != "" && !Functions.IsProperInt(MaxSpecialsTextBox.Text, int.MinValue, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MaxSpecialsTextBox.Text = "";
+            }
+
+            if (MegaMobSizeTextBox.Text != "" && !Functions.IsProperInt(MegaMobSizeTextBox.Text, 0, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MegaMobSizeTextBox.Text = "";
+            }
+
+            if (MobMaxPendingTextBox.Text != "" && !Functions.IsProperInt(MobMaxPendingTextBox.Text, 0, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MobMaxPendingTextBox.Text = "";
+            }
+
+            if (MobMaxSizeTextBox.Text != "" && !Functions.IsProperInt(MobMaxSizeTextBox.Text, 0, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MobMaxSizeTextBox.Text = "";
+            }
+
+            if (MobMinSizeTextBox.Text != "" && !Functions.IsProperInt(MobMinSizeTextBox.Text, 0, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MobMinSizeTextBox.Text = "";
+            }
+
+            if (MobSpawnSizeTextBox.Text != "" && !Functions.IsProperInt(MobSpawnSizeTextBox.Text, 0, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MobSpawnSizeTextBox.Text = "";
+            }
+
+            if (SmokerLimitTextBox.Text != "" && !Functions.IsProperInt(SmokerLimitTextBox.Text, int.MinValue, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                SmokerLimitTextBox.Text = "";
+            }
+
+            if (SpitterLimitTextBox.Text != "" && !Functions.IsProperInt(SpitterLimitTextBox.Text, int.MinValue, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                SpitterLimitTextBox.Text = "";
+            }
+
+            if (TankLimitTextBox.Text != "" && !Functions.IsProperInt(TankLimitTextBox.Text, int.MinValue, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                TankLimitTextBox.Text = "";
+            }
+
+            if (WitchLimitTextBox.Text != "" && !Functions.IsProperInt(WitchLimitTextBox.Text, int.MinValue, int.MaxValue))
+            {
+                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                WitchLimitTextBox.Text = "";
             }
 
             if (updateFlag)

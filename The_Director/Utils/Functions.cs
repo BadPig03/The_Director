@@ -21,8 +21,10 @@ public static class Functions
 {
     public static bool IsProperInt(string value, int min, int max)
     {
-        if (!Regex.IsMatch(value, @"^\d+$"))
+        if (!Regex.IsMatch(value, @"^\-?(\d+)?$"))
             return false;
+        if (value == "-")
+            value = "-1";
         if (int.Parse(value) <= max && int.Parse(value) >= min)
             return true;
         return false;
