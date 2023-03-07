@@ -21,7 +21,7 @@ namespace The_Director.Windows
 
         public TotalWaveSettings()
         {
-            this.DataContext = this;
+            DataContext = this;
             InitializeComponent();
         }
 
@@ -43,7 +43,7 @@ namespace The_Director.Windows
                 TotalWaveGrid.Children.Add(label);
 
                 ComboBox comboBox = new();
-                comboBox.Name = $"_{i}";
+                comboBox.Name = $"_{i + 1}";
                 comboBox.SelectedIndex = 0;
                 comboBox.ItemsSource = ComboBoxList;
                 comboBox.FontSize = 20;
@@ -60,7 +60,7 @@ namespace The_Director.Windows
                 TotalWaveGrid.Children.Add(comboBox);
 
                 TextBox textBox = new();
-                textBox.Name = $"_{i}";
+                textBox.Name = $"_{i + 1}";
                 textBox.FontSize = 20;
                 textBox.FontFamily = new FontFamily("Bahnschrift");
                 textBox.Margin = new Thickness(0, 5, 10, 5);
@@ -78,6 +78,16 @@ namespace The_Director.Windows
 
         private void ConfirmButtonClick(object sender, RoutedEventArgs e)
         {
+            foreach (var item in TotalWaveGrid.Children)
+                if(item is TextBox)
+                {
+                    TextBox textBox = (TextBox)item;
+                    if (string.IsNullOrWhiteSpace(textBox.Text))
+                    {
+                        MessageBox.Show($"第{textBox.Name.Remove(0, 1)}波未指定数据！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
             SendMessage("Confirmed");
             DialogResult = true;
             Close();

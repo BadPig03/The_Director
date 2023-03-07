@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using The_Director.Utils;
@@ -16,8 +18,8 @@ namespace The_Director.Windows
         public Dictionary<int, int> ComboBoxDicts = new();
         public Dictionary<string, BooleanString> StandardDict = new();
 
-        public List<string> PreferredMobDirectionList = new() { "", "SPAWN_ABOVE_SURVIVORS", "SPAWN_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
-        public List<string> PreferredSpecialDirectionList = new() { "", "SPAWN_ABOVE_SURVIVORS", "SPAWN_SPECIALS_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_SPECIALS_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
+        public List<string> PreferredMobDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
+        public List<string> PreferredSpecialDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_SPECIALS_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_SPECIALS_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
         public void MSGReceived(string value)
         {
             if (value != null)
@@ -42,44 +44,44 @@ namespace The_Director.Windows
             InitializeComponent();
             PreferredMobDirectionComboBox.ItemsSource = PreferredMobDirectionList;
             PreferredSpecialDirectionComboBox.ItemsSource = PreferredSpecialDirectionList;
-            StandardDict.Add("MSG", new BooleanString(false, ""));
+            StandardDict.Add("MSG", new BooleanString(false, string.Empty));
             StandardDict.Add("ShowStage", new BooleanString(false, null));
-            StandardDict.Add("IntensityRelaxThreshold", new BooleanString(false, ""));
+            StandardDict.Add("IntensityRelaxThreshold", new BooleanString(false, string.Empty));
             StandardDict.Add("LockTempo", new BooleanString(false, null));
-            StandardDict.Add("MobRechargeRate", new BooleanString(false, ""));
-            StandardDict.Add("MobSpawnMaxTime", new BooleanString(false, ""));
-            StandardDict.Add("MobSpawnMinTime", new BooleanString(false, ""));
-            StandardDict.Add("MusicDynamicMobScanStopSize", new BooleanString(false, ""));
-            StandardDict.Add("MusicDynamicMobSpawnSize", new BooleanString(false, ""));
-            StandardDict.Add("MusicDynamicMobStopSize", new BooleanString(false, ""));
-            StandardDict.Add("PreferredMobDirection", new BooleanString(false, ""));
-            StandardDict.Add("RelaxMaxFlowTravel", new BooleanString(false, ""));
-            StandardDict.Add("RelaxMaxInterval", new BooleanString(false, ""));
-            StandardDict.Add("RelaxMinInterval", new BooleanString(false, ""));
-            StandardDict.Add("PreferredSpecialDirection", new BooleanString(false, ""));
+            StandardDict.Add("MobRechargeRate", new BooleanString(false, string.Empty));
+            StandardDict.Add("MobSpawnMaxTime", new BooleanString(false, string.Empty));
+            StandardDict.Add("MobSpawnMinTime", new BooleanString(false, string.Empty));
+            StandardDict.Add("MusicDynamicMobScanStopSize", new BooleanString(false, string.Empty));
+            StandardDict.Add("MusicDynamicMobSpawnSize", new BooleanString(false, string.Empty));
+            StandardDict.Add("MusicDynamicMobStopSize", new BooleanString(false, string.Empty));
+            StandardDict.Add("PreferredMobDirection", new BooleanString(false, string.Empty));
+            StandardDict.Add("RelaxMaxFlowTravel", new BooleanString(false, string.Empty));
+            StandardDict.Add("RelaxMaxInterval", new BooleanString(false, string.Empty));
+            StandardDict.Add("RelaxMinInterval", new BooleanString(false, string.Empty));
+            StandardDict.Add("PreferredSpecialDirection", new BooleanString(false, string.Empty));
             StandardDict.Add("ProhibitBosses", new BooleanString(false, null));
             StandardDict.Add("ShouldAllowMobsWithTank", new BooleanString(false, null));
             StandardDict.Add("ShouldAllowSpecialsWithTank", new BooleanString(false, null));
-            StandardDict.Add("SpecialRespawnInterval", new BooleanString(false, ""));
-            StandardDict.Add("SustainPeakMaxTime", new BooleanString(false, ""));
-            StandardDict.Add("SustainPeakMinTime", new BooleanString(false, ""));
-            StandardDict.Add("BileMobSize", new BooleanString(false, ""));
-            StandardDict.Add("BoomerLimit", new BooleanString(false, ""));
-            StandardDict.Add("ChargerLimit", new BooleanString(false, ""));
-            StandardDict.Add("CommonLimit", new BooleanString(false, ""));
-            StandardDict.Add("DominatorLimit", new BooleanString(false, ""));
-            StandardDict.Add("HunterLimit", new BooleanString(false, ""));
-            StandardDict.Add("JockeyLimit", new BooleanString(false, ""));
-            StandardDict.Add("MaxSpecials", new BooleanString(false, ""));
-            StandardDict.Add("MegaMobSize", new BooleanString(false, ""));
-            StandardDict.Add("MobMaxPending", new BooleanString(false, ""));
-            StandardDict.Add("MobMaxSize", new BooleanString(false, ""));
-            StandardDict.Add("MobMinSize", new BooleanString(false, ""));
-            StandardDict.Add("MobSpawnSize", new BooleanString(false, ""));
-            StandardDict.Add("SmokerLimit", new BooleanString(false, ""));
-            StandardDict.Add("SpitterLimit", new BooleanString(false, ""));
-            StandardDict.Add("TankLimit", new BooleanString(false, ""));
-            StandardDict.Add("WitchLimit", new BooleanString(false, ""));
+            StandardDict.Add("SpecialRespawnInterval", new BooleanString(false, string.Empty));
+            StandardDict.Add("SustainPeakMaxTime", new BooleanString(false, string.Empty));
+            StandardDict.Add("SustainPeakMinTime", new BooleanString(false, string.Empty));
+            StandardDict.Add("BileMobSize", new BooleanString(false, string.Empty));
+            StandardDict.Add("BoomerLimit", new BooleanString(false, string.Empty));
+            StandardDict.Add("ChargerLimit", new BooleanString(false, string.Empty));
+            StandardDict.Add("CommonLimit", new BooleanString(false, string.Empty));
+            StandardDict.Add("DominatorLimit", new BooleanString(false, string.Empty));
+            StandardDict.Add("HunterLimit", new BooleanString(false, string.Empty));
+            StandardDict.Add("JockeyLimit", new BooleanString(false, string.Empty));
+            StandardDict.Add("MaxSpecials", new BooleanString(false, string.Empty));
+            StandardDict.Add("MegaMobSize", new BooleanString(false, string.Empty));
+            StandardDict.Add("MobMaxPending", new BooleanString(false, string.Empty));
+            StandardDict.Add("MobMaxSize", new BooleanString(false, string.Empty));
+            StandardDict.Add("MobMinSize", new BooleanString(false, string.Empty));
+            StandardDict.Add("MobSpawnSize", new BooleanString(false, string.Empty));
+            StandardDict.Add("SmokerLimit", new BooleanString(false, string.Empty));
+            StandardDict.Add("SpitterLimit", new BooleanString(false, string.Empty));
+            StandardDict.Add("TankLimit", new BooleanString(false, string.Empty));
+            StandardDict.Add("WitchLimit", new BooleanString(false, string.Empty));
         }
 
         private void TotalWaveButtonClick(object sender, RoutedEventArgs e)
@@ -161,13 +163,13 @@ namespace The_Director.Windows
             switch(Functions.TextBoxIndex(Name))
             {
                 case 0:
-                    if (textBox.Text != "" && !Functions.IsProperInt(textBox.Text, 1, 99))
+                    if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, 1, 99))
                     {
                         MessageBox.Show("非法输入！\n只能输入1到99的整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                        textBox.Text = "";
+                        textBox.Text = string.Empty;
                         TotalWaves = -1;
                     }
-                    else if (textBox.Text == "")
+                    else if (textBox.Text == string.Empty)
                         TotalWaveButton.IsEnabled = false;
                     else
                     {
@@ -177,52 +179,52 @@ namespace The_Director.Windows
                     }
                     break;
                 case 1:
-                    if (textBox.Text != "" && !Functions.IsProperFloat(textBox.Text, 0, 1))
+                    if (textBox.Text != string.Empty && !Functions.IsProperFloat(textBox.Text, 0, 1))
                     {
                         MessageBox.Show("非法输入！\n只能输入0到1的浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                        textBox.Text = "";
+                        textBox.Text = string.Empty;
                     }
                     break;
                 case 2:
-                    if (textBox.Text != "" && !Functions.IsProperFloat(textBox.Text, 0, float.MaxValue))
+                    if (textBox.Text != string.Empty && !Functions.IsProperFloat(textBox.Text, 0, float.MaxValue))
                     {
                         MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                        textBox.Text = "";
+                        textBox.Text = string.Empty;
                     }
                     break;
                 case 3:
-                    if (textBox.Text != "" && !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
+                    if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
                     {
                         MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                        textBox.Text = "";
+                        textBox.Text = string.Empty;
                     }
                     break;
                 case 4:
-                    if (textBox.Text != "" && !Functions.IsProperInt(textBox.Text, -1, int.MaxValue))
+                    if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, -1, int.MaxValue))
                     {
                         MessageBox.Show("非法输入！\n只能输入大于等于-1的整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                        textBox.Text = "";
+                        textBox.Text = string.Empty;
                     }
                     break;
                 default:
                     break;
             }
             if(Name != "TotalWave" || Name != "MSG")
-                StandardDict[Name] = (textBox.Text != "", textBox.Text);
+                StandardDict[Name] = (textBox.Text != string.Empty, textBox.Text);
             UpdateScriptWindow();
         }
 
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
-            StandardDict[comboBox.Name.Remove(comboBox.Name.Length - 8, 8)] = (comboBox.SelectedItem.ToString() != "", comboBox.SelectedItem.ToString());
+            StandardDict[comboBox.Name.Remove(comboBox.Name.Length - 8, 8)] = (comboBox.SelectedItem.ToString() != string.Empty, comboBox.SelectedItem.ToString());
             UpdateScriptWindow();
         }
 
         private void UpdateScriptWindow()
         {
-            var ScriptWindowText = "";
-            if (StandardDict["MSG"].Item1)
+            var ScriptWindowText = string.Empty;
+            if ((bool)MSGCheckBox.IsChecked)
                 ScriptWindowText += $"Msg(\"{StandardDict["MSG"].Item2}\");\n\n";
             ScriptWindowText += "PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{\n";
             if (TotalWaveDicts.Count != 0 && TotalWaves > 0)
@@ -249,6 +251,16 @@ namespace The_Director.Windows
             if (StandardDict["ShowStage"].Item1)
                 ScriptWindowText += "\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}\n";
             ScriptWindow.Text = ScriptWindowText;
+            if(ScriptWindow.Text != string.Empty)
+            {
+                PasteToClipboardButton.IsEnabled = true;
+                SaveAsNutButton.IsEnabled = true;
+            }
+            else
+            {
+                PasteToClipboardButton.IsEnabled = false;
+                SaveAsNutButton.IsEnabled = false;
+            }
         }
 
         private void IntensityRelaxThresholdButtonClick(object sender, RoutedEventArgs e)
@@ -680,6 +692,33 @@ namespace The_Director.Windows
                 HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
             };
             metroWindow.ShowDialog();
+        }
+
+        private void PasteToClipboardClick(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(ScriptWindow.Text);
+            MessageBox.Show("已复制到粘贴板！", "复制", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void SaveAsNutClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "导出脚本文件";
+            saveFileDialog.Filter = "nut文件 (*.nut)|*.nut";
+            saveFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            saveFileDialog.ShowDialog();
+            if (saveFileDialog.FileName != string.Empty)
+            {
+                string filePath = saveFileDialog.FileName + (saveFileDialog.FileName.EndsWith(".nut")?string.Empty:".nut");
+                if (!File.Exists(filePath))
+                {
+                    File.WriteAllText(filePath, ScriptWindow.Text);
+                }
+                else
+                {
+                    MessageBox.Show("已存在该文件！\n是否覆盖？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                }
+            }
         }
     }
 }
