@@ -96,11 +96,35 @@ public static class Functions
             case "MobRechargeRate":
             case "MobSpawnMaxTime":
             case "MobSpawnMinTime":
+            case "RelaxMaxFlowTravel":
+            case "RelaxMaxInterval":
+            case "RelaxMinInterval":
+            case "SpecialRespawnInterval":
+            case "SustainPeakMaxTime":
+            case "SustainPeakMinTime":
                 return 2;
             case "MusicDynamicMobScanStopSize":
             case "MusicDynamicMobSpawnSize":
             case "MusicDynamicMobStopSize":
+            case "BileMobSize":
+            case "MegaMobSize":
+            case "MobMaxSize":
+            case "MobMinSize":
+            case "MobSpawnSize":
                 return 3;
+            case "BoomerLimit":
+            case "ChargerLimit":
+            case "CommonLimit":
+            case "DominatorLimit":
+            case "HunterLimit":
+            case "JockeyLimit":
+            case "MaxSpecials":
+            case "MobMaxPending":
+            case "SmokerLimit":
+            case "SpitterLimit":
+            case "TankLimit":
+            case "WitchLimit":
+                return 4;
             default:
                 return -1;
         }

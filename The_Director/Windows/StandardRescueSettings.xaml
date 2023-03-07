@@ -21,7 +21,7 @@
         </Border>
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="114"/>
+                <RowDefinition Height="146"/>
                 <RowDefinition Height="32"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="32"/>
@@ -32,9 +32,11 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="32"/>
                     <RowDefinition Height="32"/>
+                    <RowDefinition Height="32"/>
                 </Grid.RowDefinitions>
                 <CheckBox Name="MSGCheckBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Content="自定义消息" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
-                <CheckBox Name="ProhibitBossCheckBox" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Content="禁用Tank和Witch生成" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
+                <CheckBox Name="ResetMobTimerCheckBox" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Content="重设导演计时器" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
+                <CheckBox Name="PlayMegaMobWarningSoundsCheckBox" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Content="播放尸潮音效" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
             </Grid>
             <Label Grid.Row="1" Grid.Column="0" Margin="1,5,5,0" Content="调试设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold"/>
             <Border Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" BorderThickness="1" BorderBrush="#7F7F7F" Margin="5" >
@@ -103,7 +105,7 @@
                             <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="尸潮波数" FontSize="20" FontFamily="Dengxian Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <Button Grid.Row="0" Grid.Column="1" Name="TotalWaveButton" Margin="5" Content="设置" Width="90" FontSize="18" FontFamily="Dengxian Light" Click="TotalWaveClick" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"/>
+                        <Button Grid.Row="0" Grid.Column="1" Name="TotalWaveButton" Margin="5" Content="设置" Width="90" FontSize="18" FontFamily="Dengxian Light" Click="TotalWaveButtonClick" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"/>
                         <TextBox Grid.Row="0" Grid.Column="2" Name ="TotalWaveTextbox" Margin="5" Width="50" FontSize="15" FontFamily="Bahnschrift" HorizontalContentAlignment="Stretch" HorizontalAlignment="Center" VerticalAlignment="Center" MaxLength="2" Height="30" TextChanged="TextBoxTextChanged"/>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0">

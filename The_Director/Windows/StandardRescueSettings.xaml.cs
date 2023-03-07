@@ -14,53 +14,16 @@ namespace The_Director.Windows
         public Dictionary<string, string> TotalWaveDicts = new();
         public Dictionary<int, string> TextBoxDicts = new();
         public Dictionary<int, int> ComboBoxDicts = new();
-        public Dictionary<string, BooleanString> RescueCheckButtons = new();
+        public Dictionary<string, BooleanString> StandardDict = new();
+
         public List<string> PreferredMobDirectionList = new() { "", "SPAWN_ABOVE_SURVIVORS", "SPAWN_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
         public List<string> PreferredSpecialDirectionList = new() { "", "SPAWN_ABOVE_SURVIVORS", "SPAWN_SPECIALS_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_SPECIALS_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
-
-        public StandardRescueSettings()
+        public void MSGReceived(string value)
         {
-            InitializeComponent();
-            PreferredMobDirectionComboBox.ItemsSource = PreferredMobDirectionList;
-            PreferredSpecialDirectionComboBox.ItemsSource = PreferredSpecialDirectionList;
-            RescueCheckButtons.Add("MSG", new BooleanString(false, ""));
-            RescueCheckButtons.Add("ShowStage", new BooleanString(false, null));
-            RescueCheckButtons.Add("IntensityRelaxThreshold", new BooleanString(false, ""));
-            RescueCheckButtons.Add("LockTempo", new BooleanString(false, null));
-            RescueCheckButtons.Add("MobRechargeRate", new BooleanString(false, ""));
-            RescueCheckButtons.Add("MobSpawnMaxTime", new BooleanString(false, ""));
-            RescueCheckButtons.Add("MobSpawnMinTime", new BooleanString(false, ""));
-            RescueCheckButtons.Add("MusicDynamicMobScanStopSize", new BooleanString(false, ""));
-            RescueCheckButtons.Add("MusicDynamicMobSpawnSize", new BooleanString(false, ""));
-            RescueCheckButtons.Add("MusicDynamicMobStopSize", new BooleanString(false, ""));
-            RescueCheckButtons.Add("PreferredMobDirection", new BooleanString(false, ""));
-            RescueCheckButtons.Add("RelaxMaxFlowTravel", new BooleanString(false, ""));
-            RescueCheckButtons.Add("RelaxMaxInterval", new BooleanString(false, ""));
-            RescueCheckButtons.Add("RelaxMinInterval", new BooleanString(false, ""));
-            RescueCheckButtons.Add("PreferredSpecialDirection", new BooleanString(false, ""));
-            RescueCheckButtons.Add("ProhibitBosses", new BooleanString(false, null));
-            RescueCheckButtons.Add("ShouldAllowMobsWithTank", new BooleanString(false, null));
-            RescueCheckButtons.Add("ShouldAllowSpecialsWithTank", new BooleanString(false, null));
-            RescueCheckButtons.Add("SpecialRespawnInterval", new BooleanString(false, ""));
-            RescueCheckButtons.Add("SustainPeakMaxTime", new BooleanString(false, ""));
-            RescueCheckButtons.Add("SustainPeakMinTime", new BooleanString(false, ""));
-            RescueCheckButtons.Add("BileMobSize", new BooleanString(false, ""));
-            RescueCheckButtons.Add("BoomerLimit", new BooleanString(false, ""));
-            RescueCheckButtons.Add("ChargerLimit", new BooleanString(false, ""));
-            RescueCheckButtons.Add("CommonLimit", new BooleanString(false, ""));
-            RescueCheckButtons.Add("DominatorLimit", new BooleanString(false, ""));
-            RescueCheckButtons.Add("HunterLimit", new BooleanString(false, ""));
-            RescueCheckButtons.Add("JockeyLimit", new BooleanString(false, ""));
-            RescueCheckButtons.Add("MaxSpecials", new BooleanString(false, ""));
-            RescueCheckButtons.Add("MegaMobSize", new BooleanString(false, ""));
-            RescueCheckButtons.Add("MobMaxPending", new BooleanString(false, ""));
-            RescueCheckButtons.Add("MobMaxSize", new BooleanString(false, ""));
-            RescueCheckButtons.Add("MobMinSize", new BooleanString(false, ""));
-            RescueCheckButtons.Add("MobSpawnSize", new BooleanString(false, ""));
-            RescueCheckButtons.Add("SmokerLimit", new BooleanString(false, ""));
-            RescueCheckButtons.Add("SpitterLimit", new BooleanString(false, ""));
-            RescueCheckButtons.Add("TankLimit", new BooleanString(false, ""));
-            RescueCheckButtons.Add("WitchLimit", new BooleanString(false, ""));
+            if (value != null)
+                StandardDict["MSG"] = (true, value);
+            else
+                MSGCheckBox.IsChecked = false;
         }
 
         public void TotalWaveReceived(string value)
@@ -74,7 +37,52 @@ namespace The_Director.Windows
             }
         }
 
-        private void TotalWaveClick(object sender, RoutedEventArgs e)
+        public StandardRescueSettings()
+        {
+            InitializeComponent();
+            PreferredMobDirectionComboBox.ItemsSource = PreferredMobDirectionList;
+            PreferredSpecialDirectionComboBox.ItemsSource = PreferredSpecialDirectionList;
+            StandardDict.Add("MSG", new BooleanString(false, ""));
+            StandardDict.Add("ShowStage", new BooleanString(false, null));
+            StandardDict.Add("IntensityRelaxThreshold", new BooleanString(false, ""));
+            StandardDict.Add("LockTempo", new BooleanString(false, null));
+            StandardDict.Add("MobRechargeRate", new BooleanString(false, ""));
+            StandardDict.Add("MobSpawnMaxTime", new BooleanString(false, ""));
+            StandardDict.Add("MobSpawnMinTime", new BooleanString(false, ""));
+            StandardDict.Add("MusicDynamicMobScanStopSize", new BooleanString(false, ""));
+            StandardDict.Add("MusicDynamicMobSpawnSize", new BooleanString(false, ""));
+            StandardDict.Add("MusicDynamicMobStopSize", new BooleanString(false, ""));
+            StandardDict.Add("PreferredMobDirection", new BooleanString(false, ""));
+            StandardDict.Add("RelaxMaxFlowTravel", new BooleanString(false, ""));
+            StandardDict.Add("RelaxMaxInterval", new BooleanString(false, ""));
+            StandardDict.Add("RelaxMinInterval", new BooleanString(false, ""));
+            StandardDict.Add("PreferredSpecialDirection", new BooleanString(false, ""));
+            StandardDict.Add("ProhibitBosses", new BooleanString(false, null));
+            StandardDict.Add("ShouldAllowMobsWithTank", new BooleanString(false, null));
+            StandardDict.Add("ShouldAllowSpecialsWithTank", new BooleanString(false, null));
+            StandardDict.Add("SpecialRespawnInterval", new BooleanString(false, ""));
+            StandardDict.Add("SustainPeakMaxTime", new BooleanString(false, ""));
+            StandardDict.Add("SustainPeakMinTime", new BooleanString(false, ""));
+            StandardDict.Add("BileMobSize", new BooleanString(false, ""));
+            StandardDict.Add("BoomerLimit", new BooleanString(false, ""));
+            StandardDict.Add("ChargerLimit", new BooleanString(false, ""));
+            StandardDict.Add("CommonLimit", new BooleanString(false, ""));
+            StandardDict.Add("DominatorLimit", new BooleanString(false, ""));
+            StandardDict.Add("HunterLimit", new BooleanString(false, ""));
+            StandardDict.Add("JockeyLimit", new BooleanString(false, ""));
+            StandardDict.Add("MaxSpecials", new BooleanString(false, ""));
+            StandardDict.Add("MegaMobSize", new BooleanString(false, ""));
+            StandardDict.Add("MobMaxPending", new BooleanString(false, ""));
+            StandardDict.Add("MobMaxSize", new BooleanString(false, ""));
+            StandardDict.Add("MobMinSize", new BooleanString(false, ""));
+            StandardDict.Add("MobSpawnSize", new BooleanString(false, ""));
+            StandardDict.Add("SmokerLimit", new BooleanString(false, ""));
+            StandardDict.Add("SpitterLimit", new BooleanString(false, ""));
+            StandardDict.Add("TankLimit", new BooleanString(false, ""));
+            StandardDict.Add("WitchLimit", new BooleanString(false, ""));
+        }
+
+        private void TotalWaveButtonClick(object sender, RoutedEventArgs e)
         {
             if (Functions.IsProperInt(TotalWaveTextbox.Text, 1, int.MaxValue))
             {
@@ -85,36 +93,11 @@ namespace The_Director.Windows
             }
         }
 
-        private void CheckBoxClick(object sender, RoutedEventArgs e)
-        {
-            CheckBox button = (CheckBox)sender;
-            var Name = button.Name.Remove(button.Name.Length - 8, 8);
-            var IsChecked = (bool)button.IsChecked;
-            if (Name != "MSG")
-                RescueCheckButtons[Name] = (IsChecked, null);
-            else
-            {
-                if (!RescueCheckButtons[Name].Item1 && IsChecked)
-                    TryOpenMSGWindow();
-                RescueCheckButtons[Name] = (IsChecked, RescueCheckButtons[Name].Item2);
-            }
-
-            UpdateScriptWindow();
-        }
-
-        public void MSGReceived(string value)
-        {
-            if (value != null)
-                RescueCheckButtons["MSG"] = (true, value);
-            else
-                MSGCheckBox.IsChecked = false;
-        }
-
         private void TryOpenMSGWindow()
         {
             InputNewText InputWindow = new InputNewText
             {
-                TextBoxText = RescueCheckButtons["MSG"].Item2,
+                TextBoxText = StandardDict["MSG"].Item2,
                 SendMessage = MSGReceived
             };
             InputWindow.ShowDialog();
@@ -125,19 +108,15 @@ namespace The_Director.Windows
         {
             TextBoxDicts.Clear();
             ComboBoxDicts.Clear();
-
             TotalWaveSettings TotalWindow = new TotalWaveSettings
             {
                 WaveCounts = WaveCount,
                 TotalWaveDicts = TotalWaveDicts,
                 SendMessage = TotalWaveReceived
             };
-
             TotalWindow.ShowDialog();
-
             if (!IsTotalWaveConfirmed)
                 return true;
-
             foreach (var item in TotalWindow.TotalWaveGrid.Children)
             {
                 if (item is TextBox)
@@ -151,15 +130,125 @@ namespace The_Director.Windows
                     ComboBoxDicts[Functions.ConvertToInt(comboBox.Name.Remove(0, 1))] = comboBox.SelectedIndex;
                 }
             }
-
             foreach (var item1 in ComboBoxDicts)
                 foreach (var item2 in TextBoxDicts)
                     if (item1.Key == item2.Key)
                         TotalWaveDicts[$"{item1.Key + 1}"] = $"{Functions.TotalWaveToString(item1.Value)}\x1b{item2.Value}";
-
             UpdateScriptWindow();
-
             return false;
+        }
+
+        private void CheckBoxClick(object sender, RoutedEventArgs e)
+        {
+            CheckBox button = (CheckBox)sender;
+            var Name = button.Name.Remove(button.Name.Length - 8, 8);
+            var IsChecked = (bool)button.IsChecked;
+            if (Name != "MSG")
+                StandardDict[Name] = (IsChecked, null);
+            else
+            {
+                if (!StandardDict[Name].Item1 && IsChecked)
+                    TryOpenMSGWindow();
+                StandardDict[Name] = (IsChecked, StandardDict[Name].Item2);
+            }
+            UpdateScriptWindow();
+        }
+
+        private void TextBoxTextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            var Name = textBox.Name.Remove(textBox.Name.Length - 7, 7);
+            switch(Functions.TextBoxIndex(Name))
+            {
+                case 0:
+                    if (textBox.Text != "" && !Functions.IsProperInt(textBox.Text, 1, 99))
+                    {
+                        MessageBox.Show("非法输入！\n只能输入1到99的整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        textBox.Text = "";
+                        TotalWaves = -1;
+                    }
+                    else if (textBox.Text == "")
+                        TotalWaveButton.IsEnabled = false;
+                    else
+                    {
+                        TotalWaveButton.IsEnabled = true;
+                        if (textBox.Text != TotalWaves.ToString())
+                            TotalWaveButtonClick(TotalWaveButton, null);
+                    }
+                    break;
+                case 1:
+                    if (textBox.Text != "" && !Functions.IsProperFloat(textBox.Text, 0, 1))
+                    {
+                        MessageBox.Show("非法输入！\n只能输入0到1的浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        textBox.Text = "";
+                    }
+                    break;
+                case 2:
+                    if (textBox.Text != "" && !Functions.IsProperFloat(textBox.Text, 0, float.MaxValue))
+                    {
+                        MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        textBox.Text = "";
+                    }
+                    break;
+                case 3:
+                    if (textBox.Text != "" && !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
+                    {
+                        MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        textBox.Text = "";
+                    }
+                    break;
+                case 4:
+                    if (textBox.Text != "" && !Functions.IsProperInt(textBox.Text, -1, int.MaxValue))
+                    {
+                        MessageBox.Show("非法输入！\n只能输入大于等于-1的整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        textBox.Text = "";
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if(Name != "TotalWave" || Name != "MSG")
+                StandardDict[Name] = (textBox.Text != "", textBox.Text);
+            UpdateScriptWindow();
+        }
+
+        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            StandardDict[comboBox.Name.Remove(comboBox.Name.Length - 8, 8)] = (comboBox.SelectedItem.ToString() != "", comboBox.SelectedItem.ToString());
+            UpdateScriptWindow();
+        }
+
+        private void UpdateScriptWindow()
+        {
+            var ScriptWindowText = "";
+            if (StandardDict["MSG"].Item1)
+                ScriptWindowText += $"Msg(\"{StandardDict["MSG"].Item2}\");\n\n";
+            ScriptWindowText += "PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{\n";
+            if (TotalWaveDicts.Count != 0 && TotalWaves > 0)
+            {
+                ScriptWindowText += $"\tA_CustomFinale_StageCount = {TotalWaves}\n\n";
+                foreach (var item in TotalWaveDicts)
+                {
+                    ScriptWindowText += $"\tA_CustomFinale{item.Key} = {item.Value.Split('\x1b')[0]}\n";
+                    ScriptWindowText += $"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1]}\n";
+                }
+                ScriptWindowText += "\n";
+            }
+            foreach (var item in StandardDict)
+            {
+                if (item.Value.Item1 && item.Key != "TotalWave" && item.Key != "MSG")
+                {
+                    if (item.Value.Item2 != null)
+                        ScriptWindowText += $"\t{item.Key} = {item.Value.Item2}\n";
+                    else
+                        ScriptWindowText += $"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}\n";
+                }
+            }
+            ScriptWindowText += "}\n";
+            if (StandardDict["ShowStage"].Item1)
+                ScriptWindowText += "\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}\n";
+            ScriptWindow.Text = ScriptWindowText;
         }
 
         private void IntensityRelaxThresholdButtonClick(object sender, RoutedEventArgs e)
@@ -591,273 +680,6 @@ namespace The_Director.Windows
                 HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
             };
             metroWindow.ShowDialog();
-        }
-
-        private void UpdateScriptWindow()
-        {
-            var ScriptWindowText = "";
-            if (RescueCheckButtons["MSG"].Item1)
-                ScriptWindowText += $"Msg(\"{RescueCheckButtons["MSG"].Item2}\");\n\n";
-
-            ScriptWindowText += "PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{\n";
-
-            if (TotalWaveDicts.Count != 0 && TotalWaves > 0)
-            {
-                ScriptWindowText += $"\tA_CustomFinale_StageCount = {TotalWaves}\n\n";
-
-                foreach (var item in TotalWaveDicts)
-                {
-                    ScriptWindowText += $"\tA_CustomFinale{item.Key} = {item.Value.Split('\x1b')[0]}\n";
-                    ScriptWindowText += $"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1]}\n";
-                }
-                ScriptWindowText += "\n";
-            }
-
-            foreach (var item in RescueCheckButtons)
-            {
-                if (item.Value.Item1)
-                {
-                    if (item.Value.Item2 != null)
-                        ScriptWindowText += $"\t{item.Key} = {item.Value.Item2}\n";
-                    else
-                        ScriptWindowText += $"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}\n";
-                }
-            }
-
-            ScriptWindowText += "}\n";
-
-            if (RescueCheckButtons["ShowStage"].Item1)
-                ScriptWindowText += "\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}\n";
-
-            ScriptWindow.Text = ScriptWindowText;
-        }
-
-        private void TextBoxTextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            var Name = textBox.Name.Remove(textBox.Name.Length - 7, 7);
-            bool updateFlag = true;
-            switch(Functions.TextBoxIndex(Name))
-            {
-                case 0:
-                    if (textBox.Text != "" && !Functions.IsProperInt(textBox.Text, 1, 99))
-                    {
-                        MessageBox.Show("非法输入！\n只能输入1到99的整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                        textBox.Text = "";
-                        TotalWaves = -1;
-                    }
-                    else if (textBox.Text == "")
-                        TotalWaveButton.IsEnabled = false;
-                    else
-                    {
-                        TotalWaveButton.IsEnabled = true;
-                        if (textBox.Text != TotalWaves.ToString())
-                            TotalWaveClick(TotalWaveButton, null);
-                    }
-                    break;
-                case 1:
-                    if (textBox.Text != "" && !Functions.IsProperFloat(textBox.Text, 0, 1))
-                    {
-                        MessageBox.Show("非法输入！\n只能输入0到1的浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                        textBox.Text = "";
-                    }
-                    break;
-                case 2:
-                    if (textBox.Text != "" && !Functions.IsProperFloat(textBox.Text, 0, float.MaxValue))
-                    {
-                        MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                        textBox.Text = "";
-                    }
-                    break;
-                case 3:
-                    if (textBox.Text != "" && !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
-                    {
-                        MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                        textBox.Text = "";
-                    }
-                    break;
-                default:
-                    break;
-            }
-
-            if (RelaxMaxFlowTravelTextBox.Text != "" && !Functions.IsProperFloat(RelaxMaxFlowTravelTextBox.Text, 0, float.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                RelaxMaxFlowTravelTextBox.Text = "";
-            }
-
-            if (RelaxMaxIntervalTextBox.Text != "" && !Functions.IsProperFloat(RelaxMaxIntervalTextBox.Text, 0, float.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                RelaxMaxIntervalTextBox.Text = "";
-            }
-
-            if (RelaxMinIntervalTextBox.Text != "" && !Functions.IsProperFloat(RelaxMinIntervalTextBox.Text, 0, float.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                RelaxMinIntervalTextBox.Text = "";
-            }
-
-            if (SpecialRespawnIntervalTextBox.Text != "" && !Functions.IsProperFloat(SpecialRespawnIntervalTextBox.Text, 0, float.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                SpecialRespawnIntervalTextBox.Text = "";
-            }
-
-            if (SustainPeakMaxTimeTextBox.Text != "" && !Functions.IsProperFloat(SustainPeakMaxTimeTextBox.Text, 0, float.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                SustainPeakMaxTimeTextBox.Text = "";
-            }
-
-            if (SustainPeakMinTimeTextBox.Text != "" && !Functions.IsProperFloat(SustainPeakMinTimeTextBox.Text, 0, float.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                SustainPeakMinTimeTextBox.Text = "";
-            }
-
-            if (BileMobSizeTextBox.Text != "" && !Functions.IsProperInt(BileMobSizeTextBox.Text, 0, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                BileMobSizeTextBox.Text = "";
-            }
-
-            if (BoomerLimitTextBox.Text != "" && !Functions.IsProperInt(BoomerLimitTextBox.Text, int.MinValue, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                BoomerLimitTextBox.Text = "";
-            }
-
-            if (ChargerLimitTextBox.Text != "" && !Functions.IsProperInt(ChargerLimitTextBox.Text, int.MinValue, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                ChargerLimitTextBox.Text = "";
-            }
-
-            if (CommonLimitTextBox.Text != "" && !Functions.IsProperInt(CommonLimitTextBox.Text, int.MinValue, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                CommonLimitTextBox.Text = "";
-            }
-
-            if (DominatorLimitTextBox.Text != "" && !Functions.IsProperInt(DominatorLimitTextBox.Text, int.MinValue, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                DominatorLimitTextBox.Text = "";
-            }
-
-            if (HunterLimitTextBox.Text != "" && !Functions.IsProperInt(HunterLimitTextBox.Text, int.MinValue, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                HunterLimitTextBox.Text = "";
-            }
-
-            if (JockeyLimitTextBox.Text != "" && !Functions.IsProperInt(JockeyLimitTextBox.Text, int.MinValue, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                JockeyLimitTextBox.Text = "";
-            }
-
-            if (MaxSpecialsTextBox.Text != "" && !Functions.IsProperInt(MaxSpecialsTextBox.Text, int.MinValue, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                MaxSpecialsTextBox.Text = "";
-            }
-
-            if (MegaMobSizeTextBox.Text != "" && !Functions.IsProperInt(MegaMobSizeTextBox.Text, 0, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                MegaMobSizeTextBox.Text = "";
-            }
-
-            if (MobMaxPendingTextBox.Text != "" && !Functions.IsProperInt(MobMaxPendingTextBox.Text, 0, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                MobMaxPendingTextBox.Text = "";
-            }
-
-            if (MobMaxSizeTextBox.Text != "" && !Functions.IsProperInt(MobMaxSizeTextBox.Text, 0, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                MobMaxSizeTextBox.Text = "";
-            }
-
-            if (MobMinSizeTextBox.Text != "" && !Functions.IsProperInt(MobMinSizeTextBox.Text, 0, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                MobMinSizeTextBox.Text = "";
-            }
-
-            if (MobSpawnSizeTextBox.Text != "" && !Functions.IsProperInt(MobSpawnSizeTextBox.Text, 0, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                MobSpawnSizeTextBox.Text = "";
-            }
-
-            if (SmokerLimitTextBox.Text != "" && !Functions.IsProperInt(SmokerLimitTextBox.Text, int.MinValue, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                SmokerLimitTextBox.Text = "";
-            }
-
-            if (SpitterLimitTextBox.Text != "" && !Functions.IsProperInt(SpitterLimitTextBox.Text, int.MinValue, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                SpitterLimitTextBox.Text = "";
-            }
-
-            if (TankLimitTextBox.Text != "" && !Functions.IsProperInt(TankLimitTextBox.Text, int.MinValue, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                TankLimitTextBox.Text = "";
-            }
-
-            if (WitchLimitTextBox.Text != "" && !Functions.IsProperInt(WitchLimitTextBox.Text, int.MinValue, int.MaxValue))
-            {
-                MessageBox.Show("非法输入！\n只能输入整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-                WitchLimitTextBox.Text = "";
-            }
-
-            RescueCheckButtons["IntensityRelaxThreshold"] = (IntensityRelaxThresholdTextBox.Text != "", IntensityRelaxThresholdTextBox.Text);
-            RescueCheckButtons["MobRechargeRate"] = (MobRechargeRateTextBox.Text != "", MobRechargeRateTextBox.Text);
-            RescueCheckButtons["MobSpawnMaxTime"] = (MobSpawnMaxTimeTextBox.Text != "", MobSpawnMaxTimeTextBox.Text);
-            RescueCheckButtons["MobSpawnMinTime"] = (MobSpawnMinTimeTextBox.Text != "", MobSpawnMinTimeTextBox.Text);
-            RescueCheckButtons["MusicDynamicMobScanStopSize"] = (MusicDynamicMobScanStopSizeTextBox.Text != "", MusicDynamicMobScanStopSizeTextBox.Text);
-            RescueCheckButtons["MusicDynamicMobSpawnSize"] = (MusicDynamicMobSpawnSizeTextBox.Text != "", MusicDynamicMobSpawnSizeTextBox.Text);
-            RescueCheckButtons["MusicDynamicMobStopSize"] = (MusicDynamicMobStopSizeTextBox.Text != "", MusicDynamicMobStopSizeTextBox.Text);
-            RescueCheckButtons["RelaxMaxFlowTravel"] = (RelaxMaxFlowTravelTextBox.Text != "", RelaxMaxFlowTravelTextBox.Text);
-            RescueCheckButtons["RelaxMaxInterval"] = (RelaxMaxIntervalTextBox.Text != "", RelaxMaxIntervalTextBox.Text);
-            RescueCheckButtons["RelaxMinInterval"] = (RelaxMinIntervalTextBox.Text != "", RelaxMinIntervalTextBox.Text);
-            RescueCheckButtons["SpecialRespawnInterval"] = (SpecialRespawnIntervalTextBox.Text != "", SpecialRespawnIntervalTextBox.Text);
-            RescueCheckButtons["SustainPeakMaxTime"] = (SustainPeakMaxTimeTextBox.Text != "", SustainPeakMaxTimeTextBox.Text);
-            RescueCheckButtons["SustainPeakMinTime"] = (SustainPeakMinTimeTextBox.Text != "", SustainPeakMinTimeTextBox.Text);
-            RescueCheckButtons["BileMobSize"] = (BileMobSizeTextBox.Text != "", BileMobSizeTextBox.Text);
-            RescueCheckButtons["BoomerLimit"] = (BoomerLimitTextBox.Text != "", BoomerLimitTextBox.Text);
-            RescueCheckButtons["ChargerLimit"] = (ChargerLimitTextBox.Text != "", ChargerLimitTextBox.Text);
-            RescueCheckButtons["CommonLimit"] = (CommonLimitTextBox.Text != "", CommonLimitTextBox.Text);
-            RescueCheckButtons["DominatorLimit"] = (DominatorLimitTextBox.Text != "", DominatorLimitTextBox.Text);
-            RescueCheckButtons["HunterLimit"] = (HunterLimitTextBox.Text != "", HunterLimitTextBox.Text);
-            RescueCheckButtons["JockeyLimit"] = (JockeyLimitTextBox.Text != "", JockeyLimitTextBox.Text);
-            RescueCheckButtons["MaxSpecials"] = (MaxSpecialsTextBox.Text != "", MaxSpecialsTextBox.Text);
-            RescueCheckButtons["MegaMobSize"] = (MegaMobSizeTextBox.Text != "", MegaMobSizeTextBox.Text);
-            RescueCheckButtons["MobMaxPending"] = (MobMaxPendingTextBox.Text != "", MobMaxPendingTextBox.Text);
-            RescueCheckButtons["MobMaxSize"] = (MobMaxSizeTextBox.Text != "", MobMaxSizeTextBox.Text);
-            RescueCheckButtons["MobMinSize"] = (MobMinSizeTextBox.Text != "", MobMinSizeTextBox.Text);
-            RescueCheckButtons["MobSpawnSize"] = (MobSpawnSizeTextBox.Text != "", MobSpawnSizeTextBox.Text);
-            RescueCheckButtons["SmokerLimit"] = (SmokerLimitTextBox.Text != "", SmokerLimitTextBox.Text);
-            RescueCheckButtons["SpitterLimit"] = (SpitterLimitTextBox.Text != "", SpitterLimitTextBox.Text);
-            RescueCheckButtons["TankLimit"] = (TankLimitTextBox.Text != "", TankLimitTextBox.Text);
-            RescueCheckButtons["WitchLimit"] = (WitchLimitTextBox.Text != "", WitchLimitTextBox.Text);
-
-            if (updateFlag)
-                UpdateScriptWindow();
-        }
-
-        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            RescueCheckButtons["PreferredMobDirection"] = (PreferredMobDirectionComboBox.Text != "", PreferredMobDirectionComboBox.Text);
-            RescueCheckButtons["PreferredSpecialDirection"] = (PreferredSpecialDirectionComboBox.Text != "", PreferredSpecialDirectionComboBox.Text);
-            UpdateScriptWindow();
         }
     }
 }
