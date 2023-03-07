@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace The_Director.Utils;
 
@@ -81,6 +79,27 @@ public static class Functions
             case "DELAY":
                 return 2;
             case "SCRIPTED":
+                return 3;
+            default:
+                return -1;
+        }
+    }
+
+    public static int TextBoxIndex(string name)
+    {
+        switch(name)
+        {
+            case "TotalWave":
+                return 0;
+            case "IntensityRelaxThreshold":
+                return 1;
+            case "MobRechargeRate":
+            case "MobSpawnMaxTime":
+            case "MobSpawnMinTime":
+                return 2;
+            case "MusicDynamicMobScanStopSize":
+            case "MusicDynamicMobSpawnSize":
+            case "MusicDynamicMobStopSize":
                 return 3;
             default:
                 return -1;
