@@ -12,6 +12,7 @@ namespace The_Director.Windows
     {
         public int TotalWaves = new();
         public bool IsTotalWaveConfirmed = new();
+        public bool IsScriptWindowEnabled = new();
 
         public Dictionary<string, string> TotalWaveDicts = new();
         public Dictionary<int, string> TextBoxDicts = new();
@@ -20,6 +21,8 @@ namespace The_Director.Windows
 
         public List<string> PreferredMobDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
         public List<string> PreferredSpecialDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_SPECIALS_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_SPECIALS_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
+        public List<string> CheckBoxBlackList = new() { "TotalWave", "MSG", "ShowStage" };
+
         public void MSGReceived(string value)
         {
             if (value != null)
@@ -97,12 +100,14 @@ namespace The_Director.Windows
 
         private void TryOpenMSGWindow()
         {
-            InputNewText InputWindow = new InputNewText
+            InputNewText inputNewText = new InputNewText
             {
                 TextBoxText = StandardDict["MSG"].Item2,
-                SendMessage = MSGReceived
+                SendMessage = MSGReceived,
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
-            InputWindow.ShowDialog();
+            inputNewText.ShowDialog();
             UpdateScriptWindow();
         }
 
@@ -110,16 +115,18 @@ namespace The_Director.Windows
         {
             TextBoxDicts.Clear();
             ComboBoxDicts.Clear();
-            TotalWaveSettings TotalWindow = new TotalWaveSettings
+            TotalWaveSettings totalWaveSettings = new TotalWaveSettings
             {
                 WaveCounts = WaveCount,
                 TotalWaveDicts = TotalWaveDicts,
-                SendMessage = TotalWaveReceived
+                SendMessage = TotalWaveReceived,
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
-            TotalWindow.ShowDialog();
+            totalWaveSettings.ShowDialog();
             if (!IsTotalWaveConfirmed)
                 return true;
-            foreach (var item in TotalWindow.TotalWaveGrid.Children)
+            foreach (var item in totalWaveSettings.TotalWaveGrid.Children)
             {
                 if (item is TextBox)
                 {
@@ -145,6 +152,20 @@ namespace The_Director.Windows
             CheckBox button = (CheckBox)sender;
             var Name = button.Name.Remove(button.Name.Length - 8, 8);
             var IsChecked = (bool)button.IsChecked;
+
+            if (IsChecked && TotalWaves <= 0)
+            {
+                MessageWindow messageWindow = new MessageWindow()
+                {
+                    Title = "警告",
+                    TextBoxString = "未设置尸潮波数！",
+                    Owner = Application.Current.MainWindow,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                };
+                messageWindow.ShowDialog();
+                button.IsChecked = false;
+                return;
+            }
             if (Name != "MSG")
                 StandardDict[Name] = (IsChecked, null);
             else
@@ -165,44 +186,149 @@ namespace The_Director.Windows
                 case 0:
                     if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, 1, 99))
                     {
-                        MessageBox.Show("非法输入！\n只能输入1到99的整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageWindow messageWindow = new MessageWindow()
+                        {
+                            Title = "错误",
+                            TextBoxString = "非法输入！\n只能输入1到99的整数!",
+                            Owner = Application.Current.MainWindow,
+                            WindowStartupLocation = WindowStartupLocation.CenterOwner
+                        };
+                        messageWindow.ShowDialog();
                         textBox.Text = string.Empty;
                         TotalWaves = -1;
                     }
                     else if (textBox.Text == string.Empty)
+                    {
+                        foreach(var item in StandardDict)
+                            if(item.Value.Item1)
+                            {
+                                MessageWindow messageWindow = new MessageWindow()
+                                {
+                                    Title = "警告",
+                                    TextBoxString = "未设置尸潮波数！",
+                                    Owner = Application.Current.MainWindow,
+                                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                                };
+                                messageWindow.ShowDialog();
+                                IsScriptWindowEnabled = false;
+                                break;
+                            }
                         TotalWaveButton.IsEnabled = false;
+                        TotalWaves = -1;
+                    }
                     else
                     {
+                        IsScriptWindowEnabled = true;
                         TotalWaveButton.IsEnabled = true;
                         if (textBox.Text != TotalWaves.ToString())
                             TotalWaveButtonClick(TotalWaveButton, null);
                     }
                     break;
                 case 1:
+                    if (textBox.Text != string.Empty && TotalWaves <= 0)
+                    {
+                        MessageWindow messageWindow = new MessageWindow()
+                        {
+                            Title = "警告",
+                            TextBoxString = "未设置尸潮波数！",
+                            Owner = Application.Current.MainWindow,
+                            WindowStartupLocation = WindowStartupLocation.CenterOwner
+                        };
+                        messageWindow.ShowDialog();
+                        textBox.Text = string.Empty;
+                        return;
+                    }
                     if (textBox.Text != string.Empty && !Functions.IsProperFloat(textBox.Text, 0, 1))
                     {
-                        MessageBox.Show("非法输入！\n只能输入0到1的浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageWindow messageWindow = new MessageWindow()
+                        {
+                            Title = "错误",
+                            TextBoxString = "非法输入！\n只能输入0到1的浮点数!",
+                            Owner = Application.Current.MainWindow,
+                            WindowStartupLocation = WindowStartupLocation.CenterOwner
+                        };
+                        messageWindow.ShowDialog();
                         textBox.Text = string.Empty;
                     }
                     break;
                 case 2:
+                    if (textBox.Text != string.Empty && TotalWaves <= 0)
+                    {
+                        MessageWindow messageWindow = new MessageWindow()
+                        {
+                            Title = "警告",
+                            TextBoxString = "未设置尸潮波数！",
+                            Owner = Application.Current.MainWindow,
+                            WindowStartupLocation = WindowStartupLocation.CenterOwner
+                        };
+                        messageWindow.ShowDialog();
+                        textBox.Text = string.Empty;
+                        return;
+                    }
                     if (textBox.Text != string.Empty && !Functions.IsProperFloat(textBox.Text, 0, float.MaxValue))
                     {
-                        MessageBox.Show("非法输入！\n只能输入非负浮点数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageWindow messageWindow = new MessageWindow()
+                        {
+                            Title = "错误",
+                            TextBoxString = "非法输入！\n只能输入非负浮点数!",
+                            Owner = Application.Current.MainWindow,
+                            WindowStartupLocation = WindowStartupLocation.CenterOwner
+                        };
+                        messageWindow.ShowDialog();
                         textBox.Text = string.Empty;
                     }
                     break;
                 case 3:
+                    if (textBox.Text != string.Empty && TotalWaves <= 0)
+                    {
+                        MessageWindow messageWindow = new MessageWindow()
+                        {
+                            Title = "警告",
+                            TextBoxString = "未设置尸潮波数！",
+                            Owner = Application.Current.MainWindow,
+                            WindowStartupLocation = WindowStartupLocation.CenterOwner
+                        };
+                        messageWindow.ShowDialog();
+                        textBox.Text = string.Empty;
+                        return;
+                    }
                     if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
                     {
-                        MessageBox.Show("非法输入！\n只能输入非负整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageWindow messageWindow = new MessageWindow()
+                        {
+                            Title = "错误",
+                            TextBoxString = "非法输入！\n只能输入非负整数!",
+                            Owner = Application.Current.MainWindow,
+                            WindowStartupLocation = WindowStartupLocation.CenterOwner
+                        };
+                        messageWindow.ShowDialog();
                         textBox.Text = string.Empty;
                     }
                     break;
                 case 4:
+                    if (textBox.Text != string.Empty && TotalWaves <= 0)
+                    {
+                        MessageWindow messageWindow = new MessageWindow()
+                        {
+                            Title = "警告",
+                            TextBoxString = "未设置尸潮波数！",
+                            Owner = Application.Current.MainWindow,
+                            WindowStartupLocation = WindowStartupLocation.CenterOwner
+                        };
+                        messageWindow.ShowDialog();
+                        textBox.Text = string.Empty;
+                        return;
+                    }
                     if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, -1, int.MaxValue))
                     {
-                        MessageBox.Show("非法输入！\n只能输入大于等于-1的整数!", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageWindow messageWindow = new MessageWindow()
+                        {
+                            Title = "错误",
+                            TextBoxString = "非法输入！\n只能输入大于等于-1的整数!",
+                            Owner = Application.Current.MainWindow,
+                            WindowStartupLocation = WindowStartupLocation.CenterOwner
+                        };
+                        messageWindow.ShowDialog();
                         textBox.Text = string.Empty;
                     }
                     break;
@@ -217,16 +343,41 @@ namespace The_Director.Windows
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
+
+            if (comboBox.SelectedIndex != 0 && TotalWaves <= 0)
+            {
+                MessageWindow messageWindow = new MessageWindow()
+                {
+                    Title = "警告",
+                    TextBoxString = "未设置尸潮波数！",
+                    Owner = Application.Current.MainWindow,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                };
+                messageWindow.ShowDialog();
+                comboBox.SelectedIndex = 0;
+                return;
+            }
+
             StandardDict[comboBox.Name.Remove(comboBox.Name.Length - 8, 8)] = (comboBox.SelectedItem.ToString() != string.Empty, comboBox.SelectedItem.ToString());
             UpdateScriptWindow();
         }
 
         private void UpdateScriptWindow()
         {
+            if (!IsScriptWindowEnabled)
+            {
+                ScriptWindow.Text = string.Empty;
+                return;
+            }
+
             var ScriptWindowText = string.Empty;
+
             if ((bool)MSGCheckBox.IsChecked)
                 ScriptWindowText += $"Msg(\"{StandardDict["MSG"].Item2}\");\n\n";
-            ScriptWindowText += "PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{\n";
+
+            if(TotalWaves > 0)
+                ScriptWindowText += "PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{\n";
+
             if (TotalWaveDicts.Count != 0 && TotalWaves > 0)
             {
                 ScriptWindowText += $"\tA_CustomFinale_StageCount = {TotalWaves}\n\n";
@@ -237,9 +388,10 @@ namespace The_Director.Windows
                 }
                 ScriptWindowText += "\n";
             }
+
             foreach (var item in StandardDict)
             {
-                if (item.Value.Item1 && item.Key != "TotalWave" && item.Key != "MSG")
+                if (item.Value.Item1 && !CheckBoxBlackList.Contains(item.Key))
                 {
                     if (item.Value.Item2 != null)
                         ScriptWindowText += $"\t{item.Key} = {item.Value.Item2}\n";
@@ -247,10 +399,15 @@ namespace The_Director.Windows
                         ScriptWindowText += $"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}\n";
                 }
             }
-            ScriptWindowText += "}\n";
+
+            if (TotalWaves > 0)
+                ScriptWindowText += "}\n";
+
             if (StandardDict["ShowStage"].Item1)
                 ScriptWindowText += "\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}\n";
+
             ScriptWindow.Text = ScriptWindowText;
+
             if(ScriptWindow.Text != string.Empty)
             {
                 PasteToClipboardButton.IsEnabled = true;
@@ -263,461 +420,47 @@ namespace The_Director.Windows
             }
         }
 
-        private void IntensityRelaxThresholdButtonClick(object sender, RoutedEventArgs e)
+        private void MouseClick(object sender, RoutedEventArgs e)
         {
-            HintWindow metroWindow = new HintWindow
+            Label label = (Label)sender;
+            HintWindow hintWindow = new HintWindow
             {
                 Width = 480,
                 Height = 320,
-                TextBlockString = "IntensityRelaxThreshold的值代表所有生还者的紧张度都必须小于多少才能让节奏从SUSTAIN_PEAK切换为RELAX。\n\n有效范围为0-1的浮点数。\n\n默认值为0.9。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
+                TextBlockString = Functions.GetButtonString(label.Content.ToString()),
+                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions",
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
-            metroWindow.ShowDialog();
-        }
-
-        private void LockTempoButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "设置LockTempo为true会无延迟地生成尸潮。\n\n默认值为false。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-        private void MobRechargeRateButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "MobRechargeRate的值代表一次尸潮内生成下一个普通感染者的速度。\n\n有效范围为非负浮点数。\n\n默认值为0.0025。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void MobSpawnMaxTimeButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "MobSpawnMaxTime的值代表两波尸潮生成的最大时间隔秒数。\n\n有效范围为非负浮点数。\n\n默认值根据难度变化，为180.0-240.0。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void MobSpawnMinTimeButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "MobSpawnMinTime的值代表两波尸潮生成的最小时间隔秒数。\n\n有效范围为非负浮点数。\n\n默认值根据难度变化，为90.0-120.0。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void MusicDynamicMobScanStopSizeButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "MusicDynamicMobScanStopSize的值代表尸潮的大小不足此数时会停止背景音乐。\n\n有效范围为非负整数。\n\n默认值为3。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void MusicDynamicMobSpawnSizeButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "MusicDynamicMobSpawnSize的值代表尸潮的大小达到此数时会开始播放背景音乐。\n\n有效范围为非负整数。\n\n默认值为25。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void MusicDynamicMobStopSizeButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "MusicDynamicMobStopSize的值代表尸潮的大小达到此数时会停止背景音乐。\n\n有效范围为非负整数。\n\n默认值为8。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void PreferredMobDirectionButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "PreferredMobDirection的值代表尸潮生成的方位。\n\n有效范围为-1到10的整数。\n\n默认值为SPAWN_NO_PREFERENCE。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void PreferredSpecialDirectionButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "PreferredSpecialDirection的值代表特感生成的方位。\n\n有效范围为-1到10的整数。\n\n默认值为SPAWN_NO_PREFERENCE。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void RelaxMaxFlowTravelButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "RelaxMaxFlowTravel的值代表生还者最远能前进多少距离就会让节奏从RELAX切换到BUILD_UP。\n\n有效范围为非负浮点数。\n\n默认值为3000。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void RelaxMaxIntervalButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "RelaxMaxInterval的值代表节奏中RELAX最长持续秒数。\n\n有效范围为非负浮点数。\n\n默认值为45。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void RelaxMinIntervalButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "RelaxMinInterval的值代表节奏中RELAX最短持续秒数。\n\n有效范围为非负浮点数。\n\n默认值为30。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void ProhibitBossesButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "设置ProhibitBosses为true会防止Tank和Witch生成。\n\n默认值为false。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void ShouldAllowMobsWithTankButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "设置ShouldAllowMobsWithTank为true会允许在Tank在场时生成小僵尸。\n\nBoomer和胆汁炸弹引起的尸潮不受影响。\n\n仅适用于战役模式。\n\n默认为false。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void ShouldAllowSpecialsWithTankButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "设置ShouldAllowSpecialsWithTank为true会允许在Tank在场时生成特殊感染者。\n\n仅适用于战役模式。\n\n默认为false。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void SpecialRespawnIntervalButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "SpecialRespawnInterval的值代表特殊感染者重生所需要的秒数。\n\n有效范围为非负浮点数。\n\n默认值为：战役模式为45，对抗模式为20。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void SustainPeakMaxTimeButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "SustainPeakMaxTime的值代表节奏中SUSTAIN_PEAK的最长持续分钟数。\n\n有效范围为非负浮点数。\n\n默认值为5。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void SustainPeakMinTimeButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "SustainPeakMinTime的值代表节奏中SUSTAIN_PEAK的最短持续分钟数。\n\n有效范围为非负浮点数。\n\n默认值为3。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void BileMobSizeButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "BileMobSize的值代表Boomer和胆汁炸弹引起的普通感染者数量最大值。\n\n有效范围为非负整数。\n\n无默认值。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void BoomerLimitButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "BoomerLimit的值代表在场的Boomer最大数量。\n\n有效范围为整数。\n\n默认值为1。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void ChargerLimitButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "ChargerLimit的值代表在场的Charger最大数量。\n\n有效范围为整数。\n\n默认值为1。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void CommonLimitButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "CommonLimit的值代表在场的普通感染者最大数量。\n\n有效范围为整数。\n\n默认值为30。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void DominatorLimitButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "DominatorLimit的值代表在场的控制型特殊感染者(Hunter, Jockey, Charger, Smoker)最大数量。\n\n有效范围为整数。\n\n无默认值。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void HunterLimitButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "HunterLimit的值代表在场的Hunter最大数量。\n\n有效范围为整数。\n\n默认值为1。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void JockeyLimitButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "JockeyLimit的值代表在场的Jockey最大数量。\n\n有效范围为整数。\n\n默认值为1。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void MaxSpecialsButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "MaxSpecials的值代表在场的特殊感染者最大数量。\n\n有效范围为整数。\n\n默认值为2。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void MegaMobSizeButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "MegaMobSize的值代表一次尸潮能生成的普通感染者最大数量。\n\n有效范围为非负整数。\n\n无默认值。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void MobMaxPendingButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "MobMaxPending的值代表当尸潮的普通感染者数量超过CommonLimit时最多有多少普通感染者可以暂时等待生成。\n\n有效范围为非负整数。\n\n无默认值。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void MobMaxSizeButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "MobMaxSize的值代表一次尸潮生成普通感染者的最大数量。\n\n有效范围为非负整数。\n\n默认值为30。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void MobMinSizeButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "MobMinSize的值代表一次尸潮生成普通感染者的最小数量。\n\n有效范围为非负整数。\n\n默认值为10。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void MobSpawnSizeButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "MobSpawnSize的值代表一次尸潮生成普通感染者的数量。\n\n覆盖MobMaxSize与MobMinSize。\n\n有效范围为非负整数。\n\n无默认值。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void SmokerLimitButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "SmokerLimit的值代表代表在场的Smoker最大数量。\n\n有效范围为整数。\n\n默认值为1。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void SpitterLimitButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "SpitterLimit的值代表代表在场的Spitter最大数量。\n\n有效范围为整数。\n\n默认值为1。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void TankLimitButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "TankLimit的值代表代表在场的Tank最大数量。\n\n有效范围为整数。\n\n小于0则代表无限制。\n\n默认值为-1。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
-        }
-
-        private void WitchLimitButtonClick(object sender, RoutedEventArgs e)
-        {
-            HintWindow metroWindow = new HintWindow
-            {
-                Width = 480,
-                Height = 320,
-                TextBlockString = "WitchLimit的值代表代表在场的Witch最大数量。\n\n有效范围为整数。\n\n小于0则代表无限制。\n\n默认值为-1。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
+            hintWindow.ShowDialog();
         }
 
         private void PasteToClipboardClick(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(ScriptWindow.Text);
-            MessageBox.Show("已复制到粘贴板！", "复制", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageWindow messageWindow = new MessageWindow()
+            {
+                Title = "提示",
+                TextBoxString = "已复制到粘贴板！",
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            messageWindow.ShowDialog();
         }
 
         private void SaveAsNutClick(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Title = "导出脚本文件";
-            saveFileDialog.Filter = "nut文件 (*.nut)|*.nut";
-            saveFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            {
+                Title = "导出脚本文件",
+                Filter = "nut文件 (*.nut)|*.nut",
+                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory
+            };
             saveFileDialog.ShowDialog();
             if (saveFileDialog.FileName != string.Empty)
             {
                 string filePath = saveFileDialog.FileName + (saveFileDialog.FileName.EndsWith(".nut")?string.Empty:".nut");
-                if (!File.Exists(filePath))
-                {
-                    File.WriteAllText(filePath, ScriptWindow.Text);
-                }
-                else
-                {
-                    MessageBox.Show("已存在该文件！\n是否覆盖？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                }
+                File.WriteAllText(filePath, ScriptWindow.Text);
             }
         }
     }

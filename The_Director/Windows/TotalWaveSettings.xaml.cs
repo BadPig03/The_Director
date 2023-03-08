@@ -43,7 +43,7 @@ namespace The_Director.Windows
                 TotalWaveGrid.Children.Add(label);
 
                 ComboBox comboBox = new();
-                comboBox.Name = $"_{i + 1}";
+                comboBox.Name = $"_{i}";
                 comboBox.SelectedIndex = 0;
                 comboBox.ItemsSource = ComboBoxList;
                 comboBox.FontSize = 20;
@@ -60,7 +60,7 @@ namespace The_Director.Windows
                 TotalWaveGrid.Children.Add(comboBox);
 
                 TextBox textBox = new();
-                textBox.Name = $"_{i + 1}";
+                textBox.Name = $"_{i}";
                 textBox.FontSize = 20;
                 textBox.FontFamily = new FontFamily("Bahnschrift");
                 textBox.Margin = new Thickness(0, 5, 10, 5);
@@ -84,7 +84,14 @@ namespace The_Director.Windows
                     TextBox textBox = (TextBox)item;
                     if (string.IsNullOrWhiteSpace(textBox.Text))
                     {
-                        MessageBox.Show($"第{textBox.Name.Remove(0, 1)}波未指定数据！", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageWindow messageWindow = new MessageWindow()
+                        {
+                            Title = "错误",
+                            TextBoxString= $"第{Functions.ConvertToInt(textBox.Name.Remove(0, 1)) + 1}波未指定数据！",
+                            Owner = Application.Current.MainWindow,
+                            WindowStartupLocation = WindowStartupLocation.CenterOwner
+                        };
+                        messageWindow.ShowDialog();
                         return;
                     }
                 }
