@@ -290,10 +290,7 @@ namespace The_Director.Windows
         private void UpdateScriptWindow()
         {
             if (!IsScriptWindowEnabled)
-            {
                 ScriptWindow.Text = string.Empty;
-                return;
-            }
             else
             {
                 var ScriptWindowText = string.Empty;
