@@ -342,18 +342,19 @@ namespace The_Director.Windows
                     ScriptWindowText += "\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}\n";
 
                 ScriptWindow.Text = ScriptWindowText;
-
-                if (ScriptWindow.Text != string.Empty)
-                {
-                    PasteToClipboardButton.IsEnabled = true;
-                    SaveAsNutButton.IsEnabled = true;
-                }
-                else
-                {
-                    PasteToClipboardButton.IsEnabled = false;
-                    SaveAsNutButton.IsEnabled = false;
-                }
             }
+
+            if (ScriptWindow.Text != string.Empty)
+            {
+                PasteToClipboardButton.IsEnabled = true;
+                SaveAsNutButton.IsEnabled = true;
+            }
+            else
+            {
+                PasteToClipboardButton.IsEnabled = false;
+                SaveAsNutButton.IsEnabled = false;
+            }
+
         }
 
         private void MouseClick(object sender, RoutedEventArgs e)
