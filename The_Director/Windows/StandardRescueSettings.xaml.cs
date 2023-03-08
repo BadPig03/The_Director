@@ -10,7 +10,7 @@ namespace The_Director.Windows
 {
     public partial class StandardRescueSettings : UserControl
     {
-        public int TotalWaves = new();
+        public int? TotalWaveCount = null;
         public bool IsTotalWaveConfirmed = new();
         public bool IsScriptWindowEnabled = new();
 
@@ -19,9 +19,9 @@ namespace The_Director.Windows
         public Dictionary<int, int> ComboBoxDicts = new();
         public Dictionary<string, BooleanString> StandardDict = new();
 
-        public List<string> PreferredMobDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
-        public List<string> PreferredSpecialDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_SPECIALS_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_SPECIALS_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
-        public List<string> CheckBoxBlackList = new() { "TotalWave", "MSG", "ShowStage" };
+        private static List<string> PreferredMobDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
+        private static List<string> PreferredSpecialDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_SPECIALS_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_SPECIALS_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
+        private static List<string> CheckBoxBlackList = new() { "TotalWave", "MSG", "ShowStage"};
 
         public void MSGReceived(string value)
         {
@@ -49,8 +49,8 @@ namespace The_Director.Windows
             PreferredSpecialDirectionComboBox.ItemsSource = PreferredSpecialDirectionList;
             StandardDict.Add("MSG", new BooleanString(false, string.Empty));
             StandardDict.Add("ShowStage", new BooleanString(false, null));
-            StandardDict.Add("IntensityRelaxThreshold", new BooleanString(false, string.Empty));
             StandardDict.Add("LockTempo", new BooleanString(false, null));
+            StandardDict.Add("IntensityRelaxThreshold", new BooleanString(false, string.Empty));
             StandardDict.Add("MobRechargeRate", new BooleanString(false, string.Empty));
             StandardDict.Add("MobSpawnMaxTime", new BooleanString(false, string.Empty));
             StandardDict.Add("MobSpawnMinTime", new BooleanString(false, string.Empty));
@@ -61,10 +61,12 @@ namespace The_Director.Windows
             StandardDict.Add("RelaxMaxFlowTravel", new BooleanString(false, string.Empty));
             StandardDict.Add("RelaxMaxInterval", new BooleanString(false, string.Empty));
             StandardDict.Add("RelaxMinInterval", new BooleanString(false, string.Empty));
+            StandardDict.Add("MinimumStageTime", new BooleanString(false, string.Empty));
             StandardDict.Add("PreferredSpecialDirection", new BooleanString(false, string.Empty));
             StandardDict.Add("ProhibitBosses", new BooleanString(false, null));
             StandardDict.Add("ShouldAllowMobsWithTank", new BooleanString(false, null));
             StandardDict.Add("ShouldAllowSpecialsWithTank", new BooleanString(false, null));
+            StandardDict.Add("EscapeSpawnTanks", new BooleanString(true, null));
             StandardDict.Add("SpecialRespawnInterval", new BooleanString(false, string.Empty));
             StandardDict.Add("SustainPeakMaxTime", new BooleanString(false, string.Empty));
             StandardDict.Add("SustainPeakMinTime", new BooleanString(false, string.Empty));
@@ -85,6 +87,7 @@ namespace The_Director.Windows
             StandardDict.Add("SpitterLimit", new BooleanString(false, string.Empty));
             StandardDict.Add("TankLimit", new BooleanString(false, string.Empty));
             StandardDict.Add("WitchLimit", new BooleanString(false, string.Empty));
+            StandardDict.Add("HordeEscapeCommonLimit", new BooleanString(false, string.Empty));
         }
 
         private void TotalWaveButtonClick(object sender, RoutedEventArgs e)
@@ -92,9 +95,9 @@ namespace The_Director.Windows
             if (Functions.IsProperInt(TotalWaveTextbox.Text, 1, int.MaxValue))
             {
                 if (TryOpenTotalWaveWindow(Functions.ConvertToInt(TotalWaveTextbox.Text)))
-                    TotalWaveTextbox.Text = TotalWaves.ToString();
+                    TotalWaveTextbox.Text = TotalWaveCount.ToString();
                 else
-                    TotalWaves = Functions.ConvertToInt(TotalWaveTextbox.Text);
+                    TotalWaveCount = Functions.ConvertToInt(TotalWaveTextbox.Text);
             }
         }
 
@@ -131,7 +134,10 @@ namespace The_Director.Windows
                 if (item is TextBox)
                 {
                     TextBox textBox = (TextBox)item;
-                    TextBoxDicts[Functions.ConvertToInt(textBox.Name.Remove(0, 1))] = textBox.Text;
+                    if(textBox.Name.StartsWith("__"))
+                        TextBoxDicts[Functions.ConvertToInt(textBox.Name.Remove(0, 2))] += $"{((textBox.Text != string.Empty)?"\x1c":string.Empty)}{textBox.Text}";
+                    else
+                        TextBoxDicts[Functions.ConvertToInt(textBox.Name.Remove(0, 1))] = textBox.Text;
                 }
                 if (item is ComboBox)
                 {
@@ -147,22 +153,15 @@ namespace The_Director.Windows
             return false;
         }
 
-        private void CheckBoxClick(object sender, RoutedEventArgs e)
+    private void CheckBoxClick(object sender, RoutedEventArgs e)
         {
             CheckBox button = (CheckBox)sender;
             var Name = button.Name.Remove(button.Name.Length - 8, 8);
             var IsChecked = (bool)button.IsChecked;
 
-            if (IsChecked && TotalWaves <= 0)
+            if (IsChecked && (TotalWaveCount <= 0 || TotalWaveCount == null))
             {
-                MessageWindow messageWindow = new MessageWindow()
-                {
-                    Title = "警告",
-                    TextBoxString = "未设置尸潮波数！",
-                    Owner = Application.Current.MainWindow,
-                    WindowStartupLocation = WindowStartupLocation.CenterOwner
-                };
-                messageWindow.ShowDialog();
+                Functions.TryOpenMessageWindow(0);
                 button.IsChecked = false;
                 return;
             }
@@ -181,162 +180,95 @@ namespace The_Director.Windows
         {
             TextBox textBox = (TextBox)sender;
             var Name = textBox.Name.Remove(textBox.Name.Length - 7, 7);
-            switch(Functions.TextBoxIndex(Name))
+            switch (Functions.TextBoxIndex(Name))
             {
                 case 0:
                     if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, 1, 99))
                     {
-                        MessageWindow messageWindow = new MessageWindow()
-                        {
-                            Title = "错误",
-                            TextBoxString = "非法输入！\n只能输入1到99的整数!",
-                            Owner = Application.Current.MainWindow,
-                            WindowStartupLocation = WindowStartupLocation.CenterOwner
-                        };
-                        messageWindow.ShowDialog();
+                        Functions.TryOpenMessageWindow(1);
                         textBox.Text = string.Empty;
-                        TotalWaves = -1;
+                        if (TotalWaveCount != null)
+                            TotalWaveCount = -1;
                     }
                     else if (textBox.Text == string.Empty)
                     {
-                        foreach(var item in StandardDict)
-                            if(item.Value.Item1)
+                        foreach (var item in StandardDict)
+                            if (item.Value.Item1)
                             {
-                                MessageWindow messageWindow = new MessageWindow()
-                                {
-                                    Title = "警告",
-                                    TextBoxString = "未设置尸潮波数！",
-                                    Owner = Application.Current.MainWindow,
-                                    WindowStartupLocation = WindowStartupLocation.CenterOwner
-                                };
-                                messageWindow.ShowDialog();
+                                Functions.TryOpenMessageWindow(0);
                                 IsScriptWindowEnabled = false;
                                 break;
                             }
                         TotalWaveButton.IsEnabled = false;
-                        TotalWaves = -1;
+                        if (TotalWaveCount != null)
+                            TotalWaveCount = -1;
                     }
                     else
                     {
                         IsScriptWindowEnabled = true;
                         TotalWaveButton.IsEnabled = true;
-                        if (textBox.Text != TotalWaves.ToString())
+                        if (textBox.Text != TotalWaveCount.ToString())
                             TotalWaveButtonClick(TotalWaveButton, null);
                     }
                     break;
                 case 1:
-                    if (textBox.Text != string.Empty && TotalWaves <= 0)
+                    if (textBox.Text != string.Empty && (TotalWaveCount <= 0 || TotalWaveCount == null))
                     {
-                        MessageWindow messageWindow = new MessageWindow()
-                        {
-                            Title = "警告",
-                            TextBoxString = "未设置尸潮波数！",
-                            Owner = Application.Current.MainWindow,
-                            WindowStartupLocation = WindowStartupLocation.CenterOwner
-                        };
-                        messageWindow.ShowDialog();
+                        Functions.TryOpenMessageWindow(0);
                         textBox.Text = string.Empty;
                         return;
                     }
                     if (textBox.Text != string.Empty && !Functions.IsProperFloat(textBox.Text, 0, 1))
                     {
-                        MessageWindow messageWindow = new MessageWindow()
-                        {
-                            Title = "错误",
-                            TextBoxString = "非法输入！\n只能输入0到1的浮点数!",
-                            Owner = Application.Current.MainWindow,
-                            WindowStartupLocation = WindowStartupLocation.CenterOwner
-                        };
-                        messageWindow.ShowDialog();
+                        Functions.TryOpenMessageWindow(2);
                         textBox.Text = string.Empty;
                     }
                     break;
                 case 2:
-                    if (textBox.Text != string.Empty && TotalWaves <= 0)
+                    if (textBox.Text != string.Empty && (TotalWaveCount <= 0 || TotalWaveCount == null))
                     {
-                        MessageWindow messageWindow = new MessageWindow()
-                        {
-                            Title = "警告",
-                            TextBoxString = "未设置尸潮波数！",
-                            Owner = Application.Current.MainWindow,
-                            WindowStartupLocation = WindowStartupLocation.CenterOwner
-                        };
-                        messageWindow.ShowDialog();
+                        Functions.TryOpenMessageWindow(0);
                         textBox.Text = string.Empty;
                         return;
                     }
                     if (textBox.Text != string.Empty && !Functions.IsProperFloat(textBox.Text, 0, float.MaxValue))
                     {
-                        MessageWindow messageWindow = new MessageWindow()
-                        {
-                            Title = "错误",
-                            TextBoxString = "非法输入！\n只能输入非负浮点数!",
-                            Owner = Application.Current.MainWindow,
-                            WindowStartupLocation = WindowStartupLocation.CenterOwner
-                        };
-                        messageWindow.ShowDialog();
+                        Functions.TryOpenMessageWindow(3);
                         textBox.Text = string.Empty;
                     }
                     break;
                 case 3:
-                    if (textBox.Text != string.Empty && TotalWaves <= 0)
+                    if (textBox.Text != string.Empty && (TotalWaveCount <= 0 || TotalWaveCount == null))
                     {
-                        MessageWindow messageWindow = new MessageWindow()
-                        {
-                            Title = "警告",
-                            TextBoxString = "未设置尸潮波数！",
-                            Owner = Application.Current.MainWindow,
-                            WindowStartupLocation = WindowStartupLocation.CenterOwner
-                        };
-                        messageWindow.ShowDialog();
+                        Functions.TryOpenMessageWindow(0);
                         textBox.Text = string.Empty;
                         return;
                     }
                     if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
                     {
-                        MessageWindow messageWindow = new MessageWindow()
-                        {
-                            Title = "错误",
-                            TextBoxString = "非法输入！\n只能输入非负整数!",
-                            Owner = Application.Current.MainWindow,
-                            WindowStartupLocation = WindowStartupLocation.CenterOwner
-                        };
-                        messageWindow.ShowDialog();
+                        Functions.TryOpenMessageWindow(4);
                         textBox.Text = string.Empty;
                     }
                     break;
                 case 4:
-                    if (textBox.Text != string.Empty && TotalWaves <= 0)
+                    if (textBox.Text != string.Empty && (TotalWaveCount <= 0 || TotalWaveCount == null))
                     {
-                        MessageWindow messageWindow = new MessageWindow()
-                        {
-                            Title = "警告",
-                            TextBoxString = "未设置尸潮波数！",
-                            Owner = Application.Current.MainWindow,
-                            WindowStartupLocation = WindowStartupLocation.CenterOwner
-                        };
-                        messageWindow.ShowDialog();
+                        Functions.TryOpenMessageWindow(0);
                         textBox.Text = string.Empty;
                         return;
                     }
                     if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, -1, int.MaxValue))
                     {
-                        MessageWindow messageWindow = new MessageWindow()
-                        {
-                            Title = "错误",
-                            TextBoxString = "非法输入！\n只能输入大于等于-1的整数!",
-                            Owner = Application.Current.MainWindow,
-                            WindowStartupLocation = WindowStartupLocation.CenterOwner
-                        };
-                        messageWindow.ShowDialog();
+                        Functions.TryOpenMessageWindow(5);
                         textBox.Text = string.Empty;
                     }
                     break;
                 default:
                     break;
             }
-            if(Name != "TotalWave" || Name != "MSG")
+            if (Name != "TotalWave" || Name != "MSG")
                 StandardDict[Name] = (textBox.Text != string.Empty, textBox.Text);
+
             UpdateScriptWindow();
         }
 
@@ -344,16 +276,9 @@ namespace The_Director.Windows
         {
             ComboBox comboBox = (ComboBox)sender;
 
-            if (comboBox.SelectedIndex != 0 && TotalWaves <= 0)
+            if (comboBox.SelectedIndex != 0 && (TotalWaveCount <= 0 || TotalWaveCount == null))
             {
-                MessageWindow messageWindow = new MessageWindow()
-                {
-                    Title = "警告",
-                    TextBoxString = "未设置尸潮波数！",
-                    Owner = Application.Current.MainWindow,
-                    WindowStartupLocation = WindowStartupLocation.CenterOwner
-                };
-                messageWindow.ShowDialog();
+                Functions.TryOpenMessageWindow(0);
                 comboBox.SelectedIndex = 0;
                 return;
             }
@@ -369,54 +294,65 @@ namespace The_Director.Windows
                 ScriptWindow.Text = string.Empty;
                 return;
             }
-
-            var ScriptWindowText = string.Empty;
-
-            if ((bool)MSGCheckBox.IsChecked)
-                ScriptWindowText += $"Msg(\"{StandardDict["MSG"].Item2}\");\n\n";
-
-            if(TotalWaves > 0)
-                ScriptWindowText += "PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{\n";
-
-            if (TotalWaveDicts.Count != 0 && TotalWaves > 0)
-            {
-                ScriptWindowText += $"\tA_CustomFinale_StageCount = {TotalWaves}\n\n";
-                foreach (var item in TotalWaveDicts)
-                {
-                    ScriptWindowText += $"\tA_CustomFinale{item.Key} = {item.Value.Split('\x1b')[0]}\n";
-                    ScriptWindowText += $"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1]}\n";
-                }
-                ScriptWindowText += "\n";
-            }
-
-            foreach (var item in StandardDict)
-            {
-                if (item.Value.Item1 && !CheckBoxBlackList.Contains(item.Key))
-                {
-                    if (item.Value.Item2 != null)
-                        ScriptWindowText += $"\t{item.Key} = {item.Value.Item2}\n";
-                    else
-                        ScriptWindowText += $"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}\n";
-                }
-            }
-
-            if (TotalWaves > 0)
-                ScriptWindowText += "}\n";
-
-            if (StandardDict["ShowStage"].Item1)
-                ScriptWindowText += "\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}\n";
-
-            ScriptWindow.Text = ScriptWindowText;
-
-            if(ScriptWindow.Text != string.Empty)
-            {
-                PasteToClipboardButton.IsEnabled = true;
-                SaveAsNutButton.IsEnabled = true;
-            }
             else
             {
-                PasteToClipboardButton.IsEnabled = false;
-                SaveAsNutButton.IsEnabled = false;
+                var ScriptWindowText = string.Empty;
+
+                if ((bool)MSGCheckBox.IsChecked)
+                    ScriptWindowText += $"Msg(\"{StandardDict["MSG"].Item2}\");\n\n";
+
+                if (TotalWaveCount > 0)
+                    ScriptWindowText += "PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{\n";
+
+                if (TotalWaveDicts.Count != 0 && TotalWaveCount > 0)
+                {
+                    ScriptWindowText += $"\tA_CustomFinale_StageCount = {TotalWaveCount}\n\n";
+                    foreach (var item in TotalWaveDicts)
+                    {
+                        ScriptWindowText += $"\tA_CustomFinale{item.Key} = {item.Value.Split('\x1b')[0]}\n";
+                        if (item.Value.Split('\x1b')[1].Contains("\x1c"))
+                        {
+                            ScriptWindowText += $"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1].Split('\x1c')[0]}\n";
+                            if (item.Value.Split('\x1b')[0] == "TANK")
+                                ScriptWindowText += $"\tA_CustomFinaleMusic{item.Key} = {item.Value.Split('\x1b')[1].Split('\x1c')[1]}\n";
+                        }
+                        else
+                            ScriptWindowText += $"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1]}\n";
+                    }
+                    ScriptWindowText += "\n";
+                }
+
+                foreach (var item in StandardDict)
+                {
+                    if (item.Value.Item1 && !CheckBoxBlackList.Contains(item.Key))
+                    {
+                        if (item.Value.Item2 != null)
+                            ScriptWindowText += $"\t{item.Key} = {item.Value.Item2}\n";
+                        else
+                            ScriptWindowText += $"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}\n";
+                    }
+                    else if (!item.Value.Item1 && item.Key == "EscapeSpawnTanks")
+                        ScriptWindowText += $"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}\n";
+                }
+
+                if (TotalWaveCount > 0)
+                    ScriptWindowText += "}\n";
+
+                if (StandardDict["ShowStage"].Item1)
+                    ScriptWindowText += "\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}\n";
+
+                ScriptWindow.Text = ScriptWindowText;
+
+                if (ScriptWindow.Text != string.Empty)
+                {
+                    PasteToClipboardButton.IsEnabled = true;
+                    SaveAsNutButton.IsEnabled = true;
+                }
+                else
+                {
+                    PasteToClipboardButton.IsEnabled = false;
+                    SaveAsNutButton.IsEnabled = false;
+                }
             }
         }
 
@@ -438,14 +374,7 @@ namespace The_Director.Windows
         private void PasteToClipboardClick(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(ScriptWindow.Text);
-            MessageWindow messageWindow = new MessageWindow()
-            {
-                Title = "提示",
-                TextBoxString = "已复制到粘贴板！",
-                Owner = Application.Current.MainWindow,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
-            messageWindow.ShowDialog();
+            Functions.TryOpenMessageWindow(6);
         }
 
         private void SaveAsNutClick(object sender, RoutedEventArgs e)

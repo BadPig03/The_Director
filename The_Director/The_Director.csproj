@@ -140,7 +140,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Data\Waves.cs" />
     <Compile Include="Data\NavMenu.cs" />
     <Compile Include="Utils\Functions.cs" />
     <Compile Include="Utils\Steam.cs" />

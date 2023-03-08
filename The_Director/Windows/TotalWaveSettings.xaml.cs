@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using The_Director.Utils;
 
@@ -12,12 +13,12 @@ namespace The_Director.Windows
     {
         public int WaveCounts { get; set; }
 
-        public List<string> ComboBoxList = new() { "尸潮/波", "Tank/个", "延迟/秒", "脚本" };
-
         public Dictionary<string, string> TotalWaveDicts = new();
 
         public delegate void _SendMessage(string value);
         public _SendMessage SendMessage;
+
+        private static List<string> ComboBoxList = new() { "尸潮/波", "Tank/个", "延迟/秒", "脚本" };
 
         public TotalWaveSettings()
         {
@@ -32,47 +33,101 @@ namespace The_Director.Windows
                 RowDefinition row = new RowDefinition();
                 row.Height = new GridLength(40);
                 TotalWaveGrid.RowDefinitions.Add(row);
-                Label label = new();
-                label.Content = $"第{i + 1}波";
-                label.FontSize = 20;
-                label.FontFamily = new FontFamily("Dengxian");
-                label.Margin = new Thickness(10, 5, 0, 5);
-                label.HorizontalAlignment = HorizontalAlignment.Left;
+
+                Label label = new()
+                {
+                    Content = $"第{i + 1}波",
+                    FontSize = 20,
+                    FontFamily = new FontFamily("Dengxian"),
+                    Margin = new Thickness(10, 5, 0, 5),
+                    HorizontalAlignment = HorizontalAlignment.Left
+                };
                 Grid.SetRow(label, i);
                 Grid.SetColumn(label, 0);
                 TotalWaveGrid.Children.Add(label);
 
-                ComboBox comboBox = new();
-                comboBox.Name = $"_{i}";
-                comboBox.SelectedIndex = 0;
-                comboBox.ItemsSource = ComboBoxList;
-                comboBox.FontSize = 20;
-                comboBox.FontFamily = new FontFamily("Dengxian");
-                comboBox.Margin = new Thickness(0, 5, 0, 5);
-                comboBox.HorizontalAlignment = HorizontalAlignment.Center;
-                comboBox.Width = 110;
-
-                if (TotalWaveDicts.ContainsKey($"{i + 1}"))
-                    comboBox.SelectedIndex = Functions.TotalWaveToInt(TotalWaveDicts[$"{i + 1}"].Split('\x1b')[0]);
+                ComboBox comboBox = new()
+                {
+                    Name = $"_{i}",
+                    SelectedIndex = 0,
+                    ItemsSource = ComboBoxList,
+                    FontSize = 20,
+                    FontFamily = new FontFamily("Dengxian"),
+                    Margin = new Thickness(0, 5, 0, 5),
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Width = 110
+                };
+                comboBox.SelectionChanged += new SelectionChangedEventHandler(TypeSelectionChanged);
 
                 Grid.SetRow(comboBox, i);
                 Grid.SetColumn(comboBox, 1);
                 TotalWaveGrid.Children.Add(comboBox);
 
-                TextBox textBox = new();
-                textBox.Name = $"_{i}";
-                textBox.FontSize = 20;
-                textBox.FontFamily = new FontFamily("Bahnschrift");
-                textBox.Margin = new Thickness(0, 5, 10, 5);
-                textBox.HorizontalAlignment = HorizontalAlignment.Right;
-                textBox.Width = 220;
+                TextBox textBox = new()
+                {
+                    Name = $"_{i}",
+                    FontSize = 17,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    Margin = new Thickness(0, 5, 10, 5),
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Width = 220
+                };
 
-                if (TotalWaveDicts.ContainsKey($"{i + 1}"))
-                    textBox.Text = TotalWaveDicts[$"{i + 1}"].Split('\x1b')[1];
+                TextBox musicTextBox = new()
+                {
+                    Name = $"__{i}",
+                    FontSize = 17,
+                    FontFamily = new FontFamily("Bahnschrift"),
+                    Margin = new Thickness(0, 5, 10, 5),
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Width = 220,
+                    Visibility = Visibility.Hidden
+                };
 
                 Grid.SetRow(textBox, i);
                 Grid.SetColumn(textBox, 2);
+                Grid.SetRow(musicTextBox, i);
+                Grid.SetColumn(musicTextBox, 3);
+
                 TotalWaveGrid.Children.Add(textBox);
+                TotalWaveGrid.Children.Add(musicTextBox);
+
+                if (TotalWaveDicts.ContainsKey($"{i + 1}"))
+                    comboBox.SelectedIndex = Functions.TotalWaveToInt(TotalWaveDicts[$"{i + 1}"].Split('\x1b')[0]);
+
+                if (TotalWaveDicts.ContainsKey($"{i + 1}"))
+                {
+                    if (TotalWaveDicts[$"{i + 1}"].Split('\x1b')[1].Contains("\x1c"))
+                    {
+                        textBox.Text = TotalWaveDicts[$"{i + 1}"].Split('\x1b')[1].Split('\x1c')[0];
+                        musicTextBox.Text = TotalWaveDicts[$"{i + 1}"].Split('\x1b')[1].Split('\x1c')[1];
+                    }
+                    else
+                    {
+                        textBox.Text = TotalWaveDicts[$"{i + 1}"].Split('\x1b')[1];
+                        musicTextBox.Text = string.Empty;
+                    }
+                }
+
+            }
+        }
+
+        private void TypeSelectionChanged(object sender, SelectionChangedEventArgs e)
+        { 
+            ComboBox comboBox = (ComboBox)sender;
+            var Index = comboBox.Name.Remove(0, 1);
+
+            if (HasAnyTank())
+            {
+                MusicLabel.Visibility = Visibility.Visible;
+                Width = 720;
+                TextBox textBox = (TextBox)GetMusicTextBox(Index);
+                textBox.Visibility = comboBox.SelectedIndex == 1 ? Visibility.Visible : Visibility.Hidden;
+            }
+            else
+            {
+                MusicLabel.Visibility = Visibility.Hidden;
+                Width = 480;
             }
         }
 
@@ -82,16 +137,9 @@ namespace The_Director.Windows
                 if(item is TextBox)
                 {
                     TextBox textBox = (TextBox)item;
-                    if (string.IsNullOrWhiteSpace(textBox.Text))
+                    if (!textBox.Name.StartsWith("__") && string.IsNullOrWhiteSpace(textBox.Text))
                     {
-                        MessageWindow messageWindow = new MessageWindow()
-                        {
-                            Title = "错误",
-                            TextBoxString= $"第{Functions.ConvertToInt(textBox.Name.Remove(0, 1)) + 1}波未指定数据！",
-                            Owner = Application.Current.MainWindow,
-                            WindowStartupLocation = WindowStartupLocation.CenterOwner
-                        };
-                        messageWindow.ShowDialog();
+                        Functions.TryOpenMessageWindow(Functions.ConvertToInt(textBox.Name.Remove(0, 1)), true);
                         return;
                     }
                 }
@@ -105,6 +153,38 @@ namespace The_Director.Windows
             SendMessage(null);
             DialogResult = true;
             Close();
+        }
+
+        private bool HasAnyTank()
+        {
+            foreach (var item in TotalWaveGrid.Children)
+                if(item is ComboBox)
+                {
+                    ComboBox comboBox = (ComboBox)item;
+                    if(comboBox.SelectedIndex == 1)
+                        return true;
+                }
+            return false;
+        }
+
+        private object GetMusicTextBox(string CompareName)
+        {
+            foreach (var item in TotalWaveGrid.Children)
+                if (item is TextBox)
+                {
+                    TextBox textBox = (TextBox)item;
+                    if (textBox.Name.StartsWith("__"))
+                        if (textBox.Name.Remove(0, 2) == CompareName)
+                            return textBox;
+                }
+            return null;
+        }
+        private void KeyPressed(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                ConfirmButtonClick(null, null);
+            else if (e.Key == Key.Escape)
+                CancleButtonClick(null, null);
         }
     }
 }

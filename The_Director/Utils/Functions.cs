@@ -1,4 +1,6 @@
 ﻿using System.Text.RegularExpressions;
+using System.Windows;
+using The_Director.Windows;
 
 namespace The_Director.Utils;
 
@@ -85,6 +87,61 @@ public static class Functions
         }
     }
 
+    public static void TryOpenMessageWindow(int type, bool flag = false)
+    {
+        var Title = string.Empty;
+        var TextBoxString = string.Empty;
+
+        if(!flag)
+            switch (type)
+            {
+                case 0:
+                    Title = "警告";
+                    TextBoxString = "未设置尸潮波数！";
+                    break;
+                case 1:
+                    Title = "错误";
+                    TextBoxString = "非法输入！\n只能输入1到99的整数!";
+                    break;
+                case 2:
+                    Title = "错误";
+                    TextBoxString = "非法输入！\n只能输入0到1的浮点数!";
+                    break;
+                case 3:
+                    Title = "错误";
+                    TextBoxString = "非法输入！\n只能输入非负浮点数!";
+                    break;
+                case 4:
+                    Title = "错误";
+                    TextBoxString = "非法输入！\n只能输入非负整数!";
+                    break;
+                case 5:
+                    Title = "错误";
+                    TextBoxString = "非法输入！\n只能输入大于等于-1的整数!";
+                    break;
+                case 6:
+                    Title = "提示";
+                    TextBoxString = "已成功复制至粘贴板！";
+                    break;
+                default:
+                    break;
+            }
+        else
+        {
+            Title = "错误";
+            TextBoxString = $"第{type + 1}波未指定数据！";
+        }
+
+        MessageWindow messageWindow = new MessageWindow()
+        {
+            Title = Title,
+            TextBoxString = TextBoxString,
+            Owner = Application.Current.MainWindow,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner
+        };
+        messageWindow.ShowDialog();
+    }
+
     public static int TextBoxIndex(string name)
     {
         switch(name)
@@ -103,6 +160,7 @@ public static class Functions
             case "SpecialRespawnInterval":
             case "SustainPeakMaxTime":
             case "SustainPeakMinTime":
+            case "MinimumStageTime":
                 return 2;
             case "MusicDynamicMobScanStopSize":
             case "MusicDynamicMobSpawnSize":
@@ -112,7 +170,6 @@ public static class Functions
             case "MobMaxSize":
             case "MobMinSize":
             case "MobSpawnSize":
-                return 3;
             case "BoomerLimit":
             case "ChargerLimit":
             case "CommonLimit":
@@ -120,11 +177,13 @@ public static class Functions
             case "HunterLimit":
             case "JockeyLimit":
             case "MaxSpecials":
-            case "MobMaxPending":
             case "SmokerLimit":
             case "SpitterLimit":
+                return 3;
+            case "MobMaxPending":
             case "TankLimit":
             case "WitchLimit":
+            case "HordeEscapeCommonLimit":
                 return 4;
             default:
                 return -1;
@@ -136,11 +195,11 @@ public static class Functions
         switch(name)
         {
             case "BuildUpMinInterval":
-                return "BuildUpMinInterval的值代表节奏中BUILD_UP最短持续秒数\n\n有效范围为非负整数。\n\n默认值为15。";
+                return "BuildUpMinInterval的值代表节奏中BUILD_UP最短持续秒数。\n\n有效范围为非负整数。\n\n默认值为15。";
             case "IntensityRelaxThreshold":
                 return "IntensityRelaxThreshold的值代表所有生还者的紧张度都必须小于多少才能让节奏从SUSTAIN_PEAK切换为RELAX。\n\n有效范围为0-1的浮点数。\n\n默认值为0.9。";
             case "LockTempo":
-                return "设置LockTempo为true会无延迟地生成尸潮。\n\n默认值为false。";
+                return "设置LockTempo为true会使得导演无延迟地生成尸潮。\n\n默认值为false。";
             case "MobRechargeRate":
                 return "MobRechargeRate的值代表一次尸潮内生成下一个普通感染者的速度。\n\n有效范围为非负浮点数。\n\n默认值为0.0025。";
             case "MobSpawnMaxTime":
@@ -163,12 +222,16 @@ public static class Functions
                 return "RelaxMaxInterval的值代表节奏中RELAX最长持续秒数。\n\n有效范围为非负浮点数。\n\n默认值为45。";
             case "RelaxMinInterval":
                 return "RelaxMinInterval的值代表节奏中RELAX最短持续秒数。\n\n有效范围为非负浮点数。\n\n默认值为30。";
+            case "MinimumStageTime":
+                return "MinimumStageTime的值代表救援的脚本阶段在结束前最少可持续运行秒数。\n\n对脚本尸潮无效。\n\n有效范围为非负浮点数。\n\n默认值为1.0。";
             case "ProhibitBosses":
                 return "设置ProhibitBosses为true会防止Tank和Witch生成。\n\n默认值为false。";
             case "ShouldAllowMobsWithTank":
-                return "设置ShouldAllowMobsWithTank为true会允许在Tank在场时生成小僵尸。\n\nBoomer和胆汁炸弹引起的尸潮不受影响。\n\n仅适用于战役模式。\n\n默认为false。";
+                return "设置ShouldAllowMobsWithTank为true会允许在Tank在场时生成小僵尸。\n\nBoomer和胆汁炸弹引起的尸潮不受影响。\n\n仅适用于战役模式。\n\n默认值为false。";
             case "ShouldAllowSpecialsWithTank":
-                return "设置ShouldAllowSpecialsWithTank为true会允许在Tank在场时生成特殊感染者。\n\n仅适用于战役模式。\n\n默认为false。";
+                return "设置ShouldAllowSpecialsWithTank为true会允许在Tank在场时生成特殊感染者。\n\n仅适用于战役模式。\n\n默认值为false。";
+            case "EscapeSpawnTanks":
+                return "设置EscapeSpawnTanks为true会允许Tank在救援的逃离阶段无限生成。\n\n默认值为true。";
             case "SpecialRespawnInterval":
                 return "SpecialRespawnInterval的值代表特殊感染者重生所需要的秒数。\n\n有效范围为非负浮点数。\n\n默认值为：战役模式为45，对抗模式为20。";
             case "SustainPeakMaxTime":
@@ -178,23 +241,23 @@ public static class Functions
             case "BileMobSize":
                 return "BileMobSize的值代表Boomer和胆汁炸弹引起的普通感染者数量最大值。\n\n有效范围为非负整数。\n\n无默认值。";
             case "BoomerLimit":
-                return "BoomerLimit的值代表在场的Boomer最大数量。\n\n有效范围为整数。\n\n默认值为1。";
+                return "BoomerLimit的值代表在场的Boomer最大数量。\n\n有效范围为非负整数。\n\n默认值为1。";
             case "ChargerLimit":
-                return "ChargerLimit的值代表在场的Charger最大数量。\n\n有效范围为整数。\n\n默认值为1。";
+                return "ChargerLimit的值代表在场的Charger最大数量。\n\n有效范围为非负整数。\n\n默认值为1。";
             case "CommonLimit":
-                return "CommonLimit的值代表在场的普通感染者最大数量。\n\n有效范围为整数。\n\n默认值为30。";
+                return "CommonLimit的值代表在场的普通感染者最大数量。\n\n有效范围为非负整数。\n\n默认值为30。";
             case "DominatorLimit":
-                return "DominatorLimit的值代表在场的控制型特殊感染者(Hunter, Jockey, Charger, Smoker)最大数量。\n\n有效范围为整数。\n\n无默认值。";
+                return "DominatorLimit的值代表在场的控制型特殊感染者(Hunter, Jockey, Charger, Smoker)最大数量。\n\n有效范围为非负整数。\n\n无默认值。";
             case "HunterLimit":
-                return "HunterLimit的值代表在场的Hunter最大数量。\n\n有效范围为整数。\n\n默认值为1。";
+                return "HunterLimit的值代表在场的Hunter最大数量。\n\n有效范围为非负整数。\n\n默认值为1。";
             case "JockeyLimit":
-                return "JockeyLimit的值代表在场的Jockey最大数量。\n\n有效范围为整数。\n\n默认值为1。";
+                return "JockeyLimit的值代表在场的Jockey最大数量。\n\n有效范围为非负整数。\n\n默认值为1。";
             case "MaxSpecials":
-                return "MaxSpecials的值代表在场的特殊感染者最大数量。\n\n有效范围为整数。\n\n默认值为2。";
+                return "MaxSpecials的值代表在场的特殊感染者最大数量。\n\n有效范围为非负整数。\n\n默认值为2。";
             case "MegaMobSize":
                 return "MegaMobSize的值代表一次尸潮能生成的普通感染者最大数量。\n\n有效范围为非负整数。\n\n无默认值。";
             case "MobMaxPending":
-                return "MobMaxPending的值代表当尸潮的普通感染者数量超过CommonLimit时最多有多少普通感染者可以暂时等待生成。\n\n有效范围为非负整数。\n\n无默认值。";
+                return "MobMaxPending的值代表当尸潮的普通感染者数量超过CommonLimit时最多有多少普通感染者可以暂时等待生成。\n\n有效范围为整数。\n\n默认值为-1。";
             case "MobMaxSize":
                 return "MobMaxSize的值代表一次尸潮生成普通感染者的最大数量。\n\n有效范围为非负整数。\n\n默认值为30。";
             case "MobMinSize":
@@ -202,13 +265,15 @@ public static class Functions
             case "MobSpawnSize":
                 return "MobSpawnSize的值代表一次尸潮生成普通感染者的数量。\n\n覆盖MobMaxSize与MobMinSize。\n\n有效范围为非负整数。\n\n无默认值。";
             case "SmokerLimit":
-                return "SmokerLimit的值代表代表在场的Smoker最大数量。\n\n有效范围为整数。\n\n默认值为1。";
+                return "SmokerLimit的值代表代表在场的Smoker最大数量。\n\n有效范围为非负整数。\n\n默认值为1。";
             case "SpitterLimit":
-                return "SpitterLimit的值代表代表在场的Spitter最大数量。\n\n有效范围为整数。\n\n默认值为1。";
+                return "SpitterLimit的值代表代表在场的Spitter最大数量。\n\n有效范围为非负整数。\n\n默认值为1。";
             case "TankLimit":
-                return "TankLimit的值代表代表在场的Tank最大数量。\n\n有效范围为整数。\n\n小于0则代表无限制。\n\n默认值为-1。";
+                return "TankLimit的值代表代表在场的Tank最大数量。\n\n有效范围为大于等于-1的整数。\n\n小于0则代表无限制。\n\n默认值为-1。";
             case "WitchLimit":
-                return "WitchLimit的值代表代表在场的Witch最大数量。\n\n有效范围为整数。\n\n小于0则代表无限制。\n\n默认值为-1。";
+                return "WitchLimit的值代表代表在场的Witch最大数量。\n\n有效范围为大于等于-1的整数。\n\n小于0则代表无限制。\n\n默认值为-1。";
+            case "HordeEscapeCommonLimit":
+                return "HordeEscapeCommonLimit的值代表救援的逃离阶段可生成的普通感染者最大数量。\n\n有效范围为大于等于-1的整数。\n\n默认值为-1。";
             default:
                 return "";
         } 
