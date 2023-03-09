@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using The_Director.Utils;
@@ -289,30 +290,30 @@ namespace The_Director.Windows
                 ScriptWindow.Text = string.Empty;
             else
             {
-                var ScriptWindowText = string.Empty;
+                StringBuilder ScriptWindowText = new();
 
                 if ((bool)MSGCheckBox.IsChecked)
-                    ScriptWindowText += $"Msg(\"{StandardDict["MSG"].Item2}\");\n\n";
+                    ScriptWindowText.AppendLine($"Msg(\"{StandardDict["MSG"].Item2}\");\n\n");
 
                 if (TotalWaveCount > 0)
-                    ScriptWindowText += "PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{\n";
+                    ScriptWindowText.AppendLine("PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{\n");
 
                 if (TotalWaveDicts.Count != 0 && TotalWaveCount > 0)
                 {
-                    ScriptWindowText += $"\tA_CustomFinale_StageCount = {TotalWaveCount}\n\n";
+                    ScriptWindowText.AppendLine($"\tA_CustomFinale_StageCount = {TotalWaveCount}\n\n");
                     foreach (var item in TotalWaveDicts)
                     {
-                        ScriptWindowText += $"\tA_CustomFinale{item.Key} = {item.Value.Split('\x1b')[0]}\n";
+                        ScriptWindowText.AppendLine($"\tA_CustomFinale{item.Key} = {item.Value.Split('\x1b')[0]}\n");
                         if (item.Value.Split('\x1b')[1].Contains("\x1c"))
                         {
-                            ScriptWindowText += $"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1].Split('\x1c')[0]}\n";
+                            ScriptWindowText.AppendLine($"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1].Split('\x1c')[0]}\n");
                             if (item.Value.Split('\x1b')[0] == "TANK")
-                                ScriptWindowText += $"\tA_CustomFinaleMusic{item.Key} = {item.Value.Split('\x1b')[1].Split('\x1c')[1]}\n";
+                                ScriptWindowText.AppendLine($"\tA_CustomFinaleMusic{item.Key} = {item.Value.Split('\x1b')[1].Split('\x1c')[1]}\n");
                         }
                         else
-                            ScriptWindowText += $"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1]}\n";
+                            ScriptWindowText.AppendLine($"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1]}\n");
                     }
-                    ScriptWindowText += "\n";
+                    ScriptWindowText.AppendLine("\n");
                 }
 
                 foreach (var item in StandardDict)
@@ -320,21 +321,21 @@ namespace The_Director.Windows
                     if (item.Value.Item1 && !Globals.CheckBoxBlackList.Contains(item.Key))
                     {
                         if (item.Value.Item2 != null)
-                            ScriptWindowText += $"\t{item.Key} = {item.Value.Item2}\n";
+                            ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item2}\n");
                         else
-                            ScriptWindowText += $"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}\n";
+                            ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}\n");
                     }
                     else if (!item.Value.Item1 && item.Key == "EscapeSpawnTanks")
-                        ScriptWindowText += $"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}\n";
+                        ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}\n");
                 }
 
                 if (TotalWaveCount > 0)
-                    ScriptWindowText += "}\n";
+                    ScriptWindowText.AppendLine("}\n");
 
                 if (StandardDict["ShowStage"].Item1)
-                    ScriptWindowText += "\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}\n";
+                    ScriptWindowText.AppendLine("\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}\n");
 
-                ScriptWindow.Text = ScriptWindowText;
+                ScriptWindow.Text = ScriptWindowText.ToString();
             }
 
             if (ScriptWindow.Text != string.Empty)

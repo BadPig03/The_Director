@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Controls;
 using The_Director.Utils;
+using Steamworks;
+using System.Diagnostics;
 
 namespace The_Director.Windows
 {
@@ -10,7 +12,8 @@ namespace The_Director.Windows
         {
             InitializeComponent();
             GamePathTextBox.Text = Clients.GetSteamPath();
-            Console.WriteLine(Clients.GetL4D2Path());
+            SteamClient.Init(Globals.L4D2AppID);
+            Console.WriteLine(SteamApps.AppInstallDir(Globals.L4D2AppID));
         }
     }
 }
