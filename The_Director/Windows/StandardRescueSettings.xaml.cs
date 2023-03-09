@@ -85,6 +85,9 @@ namespace The_Director.Windows
             StandardDict.Add("TankLimit", new BooleanString(false, string.Empty));
             StandardDict.Add("WitchLimit", new BooleanString(false, string.Empty));
             StandardDict.Add("HordeEscapeCommonLimit", new BooleanString(false, string.Empty));
+            info_directorTextBox.Text = "director";
+            trigger_finaleTextBox.Text = "finale_radio";
+            ScriptFileTextBox.Text = "standard_finale.nut";
         }
 
         private void TotalWaveButtonClick(object sender, RoutedEventArgs e)
@@ -124,8 +127,10 @@ namespace The_Director.Windows
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
             totalWaveSettings.ShowDialog();
+
             if (!IsTotalWaveConfirmed)
                 return true;
+
             foreach (var item in totalWaveSettings.TotalWaveGrid.Children)
             {
                 if (item is TextBox)
@@ -146,7 +151,9 @@ namespace The_Director.Windows
                 foreach (var item2 in TextBoxDicts)
                     if (item1.Key == item2.Key)
                         TotalWaveDicts[$"{item1.Key + 1}"] = $"{Functions.TotalWaveToString(item1.Value)}\x1b{item2.Value}";
+
             UpdateScriptWindow();
+
             return false;
         }
 
@@ -185,7 +192,7 @@ namespace The_Director.Windows
                         Functions.TryOpenMessageWindow(1);
                         textBox.Text = string.Empty;
                         if (TotalWaveCount != null)
-                            TotalWaveCount = -1;
+                            TotalWaveCount = null;
                     }
                     else if (textBox.Text == string.Empty)
                     {
@@ -198,13 +205,13 @@ namespace The_Director.Windows
                             }
                         TotalWaveButton.IsEnabled = false;
                         if (TotalWaveCount != null)
-                            TotalWaveCount = -1;
+                            TotalWaveCount = null;
                     }
                     else
                     {
-                        IsScriptWindowEnabled = true;
                         TotalWaveButton.IsEnabled = true;
-                        if (textBox.Text != TotalWaveCount.ToString())
+                        IsScriptWindowEnabled = true;
+                        if (textBox.Text != TotalWaveCount.ToString() && Functions.IsProperInt(textBox.Text, 1, 99))
                             TotalWaveButtonClick(TotalWaveButton, null);
                     }
                     break;
@@ -293,47 +300,47 @@ namespace The_Director.Windows
                 StringBuilder ScriptWindowText = new();
 
                 if ((bool)MSGCheckBox.IsChecked)
-                    ScriptWindowText.AppendLine($"Msg(\"{StandardDict["MSG"].Item2}\");\n\n");
+                    ScriptWindowText.AppendLine($"Msg(\"{StandardDict["MSG"].Item2}\");\n");
 
                 if (TotalWaveCount > 0)
-                    ScriptWindowText.AppendLine("PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{\n");
+                    ScriptWindowText.AppendLine("PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{");
 
                 if (TotalWaveDicts.Count != 0 && TotalWaveCount > 0)
                 {
-                    ScriptWindowText.AppendLine($"\tA_CustomFinale_StageCount = {TotalWaveCount}\n\n");
+                    ScriptWindowText.AppendLine($"\tA_CustomFinale_StageCount = {TotalWaveCount}\n");
                     foreach (var item in TotalWaveDicts)
                     {
-                        ScriptWindowText.AppendLine($"\tA_CustomFinale{item.Key} = {item.Value.Split('\x1b')[0]}\n");
+                        ScriptWindowText.AppendLine($"\tA_CustomFinale{item.Key} = {item.Value.Split('\x1b')[0]}");
                         if (item.Value.Split('\x1b')[1].Contains("\x1c"))
                         {
-                            ScriptWindowText.AppendLine($"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1].Split('\x1c')[0]}\n");
+                            ScriptWindowText.AppendLine($"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1].Split('\x1c')[0]}");
                             if (item.Value.Split('\x1b')[0] == "TANK")
-                                ScriptWindowText.AppendLine($"\tA_CustomFinaleMusic{item.Key} = {item.Value.Split('\x1b')[1].Split('\x1c')[1]}\n");
+                                ScriptWindowText.AppendLine($"\tA_CustomFinaleMusic{item.Key} = {item.Value.Split('\x1b')[1].Split('\x1c')[1]}");
                         }
                         else
-                            ScriptWindowText.AppendLine($"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1]}\n");
+                            ScriptWindowText.AppendLine($"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1]}");
                     }
-                    ScriptWindowText.AppendLine("\n");
+                    ScriptWindowText.AppendLine("");
                 }
 
                 foreach (var item in StandardDict)
                 {
-                    if (item.Value.Item1 && !Globals.CheckBoxBlackList.Contains(item.Key))
+                    if (item.Value.Item1 && !Globals.StandardDictBlackList.Contains(item.Key))
                     {
                         if (item.Value.Item2 != null)
-                            ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item2}\n");
+                            ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item2}");
                         else
-                            ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}\n");
+                            ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}");
                     }
                     else if (!item.Value.Item1 && item.Key == "EscapeSpawnTanks")
-                        ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}\n");
+                        ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}");
                 }
 
                 if (TotalWaveCount > 0)
-                    ScriptWindowText.AppendLine("}\n");
+                    ScriptWindowText.AppendLine("}");
 
                 if (StandardDict["ShowStage"].Item1)
-                    ScriptWindowText.AppendLine("\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}\n");
+                    ScriptWindowText.AppendLine("\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}");
 
                 ScriptWindow.Text = ScriptWindowText.ToString();
             }
@@ -348,7 +355,6 @@ namespace The_Director.Windows
                 PasteToClipboardButton.IsEnabled = false;
                 SaveAsNutButton.IsEnabled = false;
             }
-
         }
 
         private void MouseClick(object sender, RoutedEventArgs e)
@@ -359,7 +365,7 @@ namespace The_Director.Windows
                 Width = 480,
                 Height = 320,
                 TextBlockString = Functions.GetButtonString(label.Content.ToString()),
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions",
+                HyperlinkUri = Functions.GetButtonHyperlinkUri(label.Content.ToString()),
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
@@ -378,7 +384,7 @@ namespace The_Director.Windows
             {
                 Title = "导出脚本文件",
                 Filter = "nut文件 (*.nut)|*.nut",
-                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory
+                InitialDirectory = Globals.L4D2ScriptsPath
             };
             saveFileDialog.ShowDialog();
             if (saveFileDialog.FileName != string.Empty)
@@ -386,6 +392,28 @@ namespace The_Director.Windows
                 string filePath = saveFileDialog.FileName + (saveFileDialog.FileName.EndsWith(".nut")?string.Empty:".nut");
                 File.WriteAllText(filePath, ScriptWindow.Text);
             }
+        }
+
+        private void SaveAsVmfClick(object sender, RoutedEventArgs e) 
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            {
+                Title = "导出vmf文件",
+                Filter = "vmf文件 (*.vmf)|*.vmf",
+                InitialDirectory = Globals.L4D2RootPath
+            };
+            saveFileDialog.ShowDialog();
+            if (saveFileDialog.FileName != string.Empty)
+            {
+                string filePath = saveFileDialog.FileName + (saveFileDialog.FileName.EndsWith(".vmf") ? string.Empty : ".vmf");
+                using StreamWriter streamWriter = File.CreateText(filePath);
+                streamWriter.Write(Properties.Resources.FinaleStandardScriptVmf);
+            }
+        }
+
+        private void CompileVmfClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

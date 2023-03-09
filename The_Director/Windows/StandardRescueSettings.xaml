@@ -42,10 +42,10 @@
                 <Grid Grid.Row="2" Grid.Column="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="90"/>
                         <ColumnDefinition Width="60"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="尸潮波数" FontSize="20" FontFamily="Dengxian Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="尸潮阶段数" FontSize="20" FontFamily="Dengxian Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Button Grid.Row="0" Grid.Column="1" Name="TotalWaveButton" Margin="5" Content="设置" Width="80" FontSize="18" FontFamily="Dengxian Light" Click="TotalWaveButtonClick" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"/>
                     <TextBox Grid.Row="0" Grid.Column="2" Name ="TotalWaveTextbox" Margin="5" Width="50" FontSize="15" FontFamily="Bahnschrift" HorizontalContentAlignment="Stretch" HorizontalAlignment="Center" VerticalAlignment="Center" MaxLength="2" Height="30" TextChanged="TextBoxTextChanged"/>
                 </Grid>
@@ -60,13 +60,44 @@
                     <CheckBox Name="ShowStageCheckBox" Grid.Row="0" Grid.Column="0" Margin="5" Content="控制台提示救援阶段数" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
                 </Grid>
             </Border>
-            <Label Grid.Row="4" Grid.Column="0" Margin="1,5,5,0" Content="文件设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold"/>
+            <Label Grid.Row="4" Grid.Column="0" Margin="1,5,5,0" Content="导出vmf文件设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold"/>
             <Border Grid.Row="5" Grid.Column="0" Grid.RowSpan="2" BorderThickness="1" BorderBrush="#7F7F7F" Margin="5" >
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="140"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="info__director" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
+                        <TextBox Name="info_directorTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="140"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="trigger__finale" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
+                        <TextBox Name="trigger_finaleTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="140"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="ScriptFile" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
+                        <TextBox Name="ScriptFileTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
+                    </Grid>
+                    <DockPanel Grid.Row="3" Grid.Column="0">
+                        <Button Name="SaveAsVmfButton" Margin="20,5,5,5" Content="导出vmf文件" Width="100" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Left" IsEnabled="True" Click="SaveAsVmfClick"/>
+                        <Button Name="CompileVmfButton" Margin="5,5,20,5" Content="编译并启动游戏" Width="100" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="CompileVmfClick"/>
+                    </DockPanel>
                 </Grid>
             </Border>
         </Grid>
@@ -133,7 +164,7 @@
                     <Grid Grid.Row="2" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="BuildUpMinInterval" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="BuildUpMinIntervalTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -141,7 +172,7 @@
                     <Grid Grid.Row="3" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="IntensityRelaxThreshold" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="IntensityRelaxThresholdTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -149,7 +180,7 @@
                     <Grid Grid.Row="4" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="MobRechargeRate" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="MobRechargeRateTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -157,7 +188,7 @@
                     <Grid Grid.Row="5" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="MobSpawnMaxTime" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="MobSpawnMaxTimeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -165,7 +196,7 @@
                     <Grid Grid.Row="6" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="MobSpawnMinTime" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="MobSpawnMinTimeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -173,7 +204,7 @@
                     <Grid Grid.Row="7" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="MusicDynamicMobScanStopSize" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="MusicDynamicMobScanStopSizeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -181,7 +212,7 @@
                     <Grid Grid.Row="8" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="MusicDynamicMobSpawnSize" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="MusicDynamicMobSpawnSizeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -189,7 +220,7 @@
                     <Grid Grid.Row="9" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="MusicDynamicMobStopSize" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="MusicDynamicMobStopSizeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -205,7 +236,7 @@
                     <Grid Grid.Row="11" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="RelaxMaxFlowTravel" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="RelaxMaxFlowTravelTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -213,7 +244,7 @@
                     <Grid Grid.Row="12" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="RelaxMaxInterval" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="RelaxMaxIntervalTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -221,7 +252,7 @@
                     <Grid Grid.Row="13" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="RelaxMinInterval" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="RelaxMinIntervalTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -229,7 +260,7 @@
                     <Grid Grid.Row="14" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="MinimumStageTime" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="MinimumStageTimeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -281,7 +312,7 @@
                     <Grid Grid.Row="21" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="SpecialRespawnInterval" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="SpecialRespawnIntervalTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -289,7 +320,7 @@
                     <Grid Grid.Row="22" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="SustainPeakMaxTime" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="SustainPeakMaxTimeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -297,7 +328,7 @@
                     <Grid Grid.Row="23" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="SustainPeakMinTime" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="SustainPeakMinTimeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -309,7 +340,7 @@
                     <Grid Grid.Row="25" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="BileMobSize" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="BileMobSizeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -317,7 +348,7 @@
                     <Grid Grid.Row="26" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="BoomerLimit" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="BoomerLimitTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -325,7 +356,7 @@
                     <Grid Grid.Row="27" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="ChargerLimit" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="ChargerLimitTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -333,7 +364,7 @@
                     <Grid Grid.Row="28" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="CommonLimit" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="CommonLimitTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -341,7 +372,7 @@
                     <Grid Grid.Row="29" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="DominatorLimit" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="DominatorLimitTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -349,7 +380,7 @@
                     <Grid Grid.Row="30" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="HunterLimit" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="HunterLimitTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -357,7 +388,7 @@
                     <Grid Grid.Row="31" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="JockeyLimit" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="JockeyLimitTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -365,7 +396,7 @@
                     <Grid Grid.Row="32" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="MaxSpecials" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="MaxSpecialsTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -373,7 +404,7 @@
                     <Grid Grid.Row="33" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="MegaMobSize" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="MegaMobSizeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -381,7 +412,7 @@
                     <Grid Grid.Row="34" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="MobMaxPending" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="MobMaxPendingTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -389,7 +420,7 @@
                     <Grid Grid.Row="35" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="MobMaxSize" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="MobMaxSizeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -397,7 +428,7 @@
                     <Grid Grid.Row="36" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="MobMinSize" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="MobMinSizeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -405,7 +436,7 @@
                     <Grid Grid.Row="37" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="MobSpawnSize" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="MobSpawnSizeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -413,7 +444,7 @@
                     <Grid Grid.Row="38" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="SmokerLimit" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="SmokerLimitTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -421,7 +452,7 @@
                     <Grid Grid.Row="39" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="SpitterLimit" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="SpitterLimitTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -429,7 +460,7 @@
                     <Grid Grid.Row="40" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="TankLimit" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="TankLimitTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -437,7 +468,7 @@
                     <Grid Grid.Row="41" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="WitchLimit" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="WitchLimitTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
@@ -445,7 +476,7 @@
                     <Grid Grid.Row="42" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="80"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="HordeEscapeCommonLimit" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                         <TextBox Name="HordeEscapeCommonLimitTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>

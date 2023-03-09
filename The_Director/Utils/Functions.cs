@@ -4,19 +4,6 @@ using The_Director.Windows;
 
 namespace The_Director.Utils;
 
-public record struct BooleanString(bool Item1, string Item2)
-{
-    public static implicit operator (bool, string)(BooleanString value)
-    {
-        return (value.Item1, value.Item2);
-    }
-
-    public static implicit operator BooleanString((bool, string) value)
-    {
-        return new BooleanString(value.Item1, value.Item2);
-    }
-}
-
 public static class Functions
 {
     public static bool IsProperInt(string value, int min, int max)
@@ -94,34 +81,38 @@ public static class Functions
 
         if(!flag)
             switch (type)
-            {
+            { 
+                case -1:
+                    Title = "错误";
+                    TextBoxString = "未运行Steam!\n请运行Steam后启动本软件!";
+                    break;
                 case 0:
                     Title = "警告";
-                    TextBoxString = "未设置尸潮波数！";
+                    TextBoxString = "未设置尸潮阶段数!";
                     break;
                 case 1:
                     Title = "错误";
-                    TextBoxString = "非法输入！\n只能输入1到99的整数!";
+                    TextBoxString = "非法输入!\n只能输入1到99的整数!";
                     break;
                 case 2:
                     Title = "错误";
-                    TextBoxString = "非法输入！\n只能输入0到1的浮点数!";
+                    TextBoxString = "非法输入!\n只能输入0到1的浮点数!";
                     break;
                 case 3:
                     Title = "错误";
-                    TextBoxString = "非法输入！\n只能输入非负浮点数!";
+                    TextBoxString = "非法输入!\n只能输入非负浮点数!";
                     break;
                 case 4:
                     Title = "错误";
-                    TextBoxString = "非法输入！\n只能输入非负整数!";
+                    TextBoxString = "非法输入!\n只能输入非负整数!";
                     break;
                 case 5:
                     Title = "错误";
-                    TextBoxString = "非法输入！\n只能输入大于等于-1的整数!";
+                    TextBoxString = "非法输入!\n只能输入大于等于-1的整数!";
                     break;
                 case 6:
                     Title = "提示";
-                    TextBoxString = "已成功复制至粘贴板！";
+                    TextBoxString = "已成功复制至粘贴板!";
                     break;
                 default:
                     break;
@@ -129,7 +120,7 @@ public static class Functions
         else
         {
             Title = "错误";
-            TextBoxString = $"第{type + 1}波未指定数据！";
+            TextBoxString = $"第{type + 1}阶段未指定数据!";
         }
 
         MessageWindow messageWindow = new MessageWindow()
@@ -274,8 +265,29 @@ public static class Functions
                 return "WitchLimit的值代表代表在场的Witch最大数量。\n\n有效范围为大于等于-1的整数。\n\n小于0则代表无限制。\n\n默认值为-1。";
             case "HordeEscapeCommonLimit":
                 return "HordeEscapeCommonLimit的值代表救援的逃离阶段可生成的普通感染者最大数量。\n\n有效范围为大于等于-1的整数。\n\n默认值为-1。";
+            case "info__director":
+                return "info_director是一个可以通过使用输入输出控制部分导演行为的点实体。\n\n这个文本框的值将决定info_director的名字(targetname)。";
+            case "trigger__finale":
+                return "trigger_finale是一个可以触发当前地图的救援的点实体。\n\n这个文本框的值将决定trigger_finale的名字(targetname)。";
+            case "ScriptFile":
+                return "ScriptFile是trigger_finale的一个键值。\n\n这个文本框的值会决定如果trigger_finale使用Custom救援类型后将会使用的救援脚本名字(带后缀名.nut)。\n\n若留空，则尝试使用[地图名字]_finale.nut。";
             default:
                 return "";
         } 
+    }
+
+    public static string GetButtonHyperlinkUri(string name)
+    {
+        switch(name)
+        {
+            case "info__director":
+                return "https://developer.valvesoftware.com/wiki/Info_director";
+            case "trigger__finale":
+                return "https://developer.valvesoftware.com/wiki/Trigger_finale";
+            case "ScriptFile":
+                return "https://developer.valvesoftware.com/wiki/Trigger_finale#Keyvalues";
+            default:
+                return "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions";
+        }
     }
 }

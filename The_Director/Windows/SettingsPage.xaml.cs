@@ -12,8 +12,6 @@ namespace The_Director.Windows
         {
             InitializeComponent();
             GamePathTextBox.Text = Clients.GetSteamPath();
-            SteamClient.Init(Globals.L4D2AppID);
-            Console.WriteLine(SteamApps.AppInstallDir(Globals.L4D2AppID));
         }
     }
 }

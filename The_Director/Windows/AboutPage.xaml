@@ -11,6 +11,6 @@
         <Label HorizontalAlignment="Center" Content="Copyright © 2023-2024 By ty" FontFamily="Bahnschrift"/>
         <Image Height ="20" Margin="20" Source="/Assets/blackline.png" Width="auto"/>
         <Label Margin="10, 0, 10, 10" HorizontalAlignment="Center" Content="特别鸣谢" FontSize="60" FontFamily="DengXian Light"/>
-        <Label HorizontalAlignment="Center" Content="CrazyZhang" FontSize="50" FontFamily="Bahnschrift"/>
+        <Label HorizontalAlignment="Center" Content="CrazyZhang、锋锋" FontSize="50" FontFamily="Bahnschrift"/>
     </StackPanel>
 </UserControl>

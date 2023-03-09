@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using MahApps.Metro.Controls;
 using The_Director.Data;
 using System.Linq;
+using Steamworks;
+using The_Director.Utils;
 
 namespace The_Director
 {
@@ -21,9 +23,20 @@ namespace The_Director
             MainWindowInstance = this;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            this.DataContext = this;
+            try
+            {
+                SteamClient.Init(Globals.L4D2AppID);
+            }
+            catch (Exception)
+            {
+                Functions.TryOpenMessageWindow(-1);
+                Application.Current.Shutdown();
+                return;
+            }
+
+            DataContext = this;
             NavMenus.Add(new() { Title = "导演脚本", ViewName = "RescueScriptPage" , Index = 0});
             NavMenus.Add(new() { Title = "软件设置", ViewName = "SettingsPage", Index = 1 });
             NavMenus.Add(new() { Title = "关于作者", ViewName = "AboutPage", Index = 2 });
@@ -37,6 +50,16 @@ namespace The_Director
         private void MenuReselected(object sender, SelectionChangedEventArgs e)
         {
             WindowFrame.Content = NavDictionarys.Values.ElementAt(Menu.SelectedIndex);
+        }
+
+        private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void WindowClosed(object sender, EventArgs e)
+        {
+            
         }
     }
 }

@@ -33,7 +33,7 @@ namespace The_Director.Windows
 
                 Label label = new()
                 {
-                    Content = $"第{i + 1}波",
+                    Content = $"阶段{i + 1}",
                     FontSize = 20,
                     FontFamily = new FontFamily("Dengxian"),
                     Margin = new Thickness(10, 5, 0, 5),
@@ -50,9 +50,9 @@ namespace The_Director.Windows
                     ItemsSource = Globals.StageTypeList,
                     FontSize = 20,
                     FontFamily = new FontFamily("Dengxian"),
-                    Margin = new Thickness(0, 5, 0, 5),
+                    Margin = new Thickness(10, 5, 0, 5),
                     HorizontalAlignment = HorizontalAlignment.Left,
-                    Width = 110
+                    Width = 105
                 };
                 comboBox.SelectionChanged += new SelectionChangedEventHandler(TypeSelectionChanged);
 

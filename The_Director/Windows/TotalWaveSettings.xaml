@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    mc:Ignorable="d" ResizeMode="NoResize" Title="请进行尸潮设置" Icon="/Assets/logic_script.png" Height="400" Width="480" Loaded="WindowLoaded" KeyDown="KeyPressed">
+    mc:Ignorable="d" ResizeMode="NoResize" Title="请进行尸潮阶段详细设置" Icon="/Assets/logic_script.png" Height="400" Width="480" Loaded="WindowLoaded" KeyDown="KeyPressed">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -19,15 +19,15 @@
         <DockPanel Margin="5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid  DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="90"/>
-                    <ColumnDefinition Width="140"/>
-                    <ColumnDefinition Width="240"/>
-                    <ColumnDefinition Width="240"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="235"/>
+                    <ColumnDefinition Width="235"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Margin="12,0,5,0" Content="波数" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
-                <Label Grid.Row="0" Grid.Column="1" Margin="1,0,5,0" Content="种类" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
-                <Label Grid.Row="0" Grid.Column="2" Margin="1,0,5,0" Content="具体值" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
-                <Label Name="MusicLabel" Grid.Row="0" Grid.Column="3" Margin="1,0,5,0" Content="替换音乐" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
+                <Label Grid.Row="0" Grid.Column="0" Margin="15,0,5,0" Content="阶段数" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
+                <Label Grid.Row="0" Grid.Column="1" Margin="0,0,5,0" Content="种类" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
+                <Label Grid.Row="0" Grid.Column="2" Margin="0,0,5,0" Content="具体值" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
+                <Label Name="MusicLabel" Grid.Row="0" Grid.Column="3" Margin="5,0,5,0" Content="替换音乐" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
             </Grid>
             <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
         </DockPanel>

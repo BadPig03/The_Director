@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        mc:Ignorable="d" Title="The Director" Icon="/Assets/left4dead2.ico" Height="720" Width="1280" ResizeMode="NoResize" Loaded="Window_Loaded">
+        mc:Ignorable="d" Title="The Director" Icon="/Assets/left4dead2.ico" Height="720" Width="1280" ResizeMode="NoResize" Loaded="WindowLoaded" Closing="WindowClosing" Closed="WindowClosed">
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
