@@ -1,5 +1,4 @@
 ﻿using MahApps.Metro.Controls;
-using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,8 +16,6 @@ namespace The_Director.Windows
 
         public delegate void _SendMessage(string value);
         public _SendMessage SendMessage;
-
-        private static List<string> ComboBoxList = new() { "尸潮/波", "Tank/个", "延迟/秒", "脚本" };
 
         public TotalWaveSettings()
         {
@@ -50,7 +47,7 @@ namespace The_Director.Windows
                 {
                     Name = $"_{i}",
                     SelectedIndex = 0,
-                    ItemsSource = ComboBoxList,
+                    ItemsSource = Globals.StageTypeList,
                     FontSize = 20,
                     FontFamily = new FontFamily("Dengxian"),
                     Margin = new Thickness(0, 5, 0, 5),

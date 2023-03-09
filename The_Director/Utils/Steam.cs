@@ -12,4 +12,10 @@ public static class Clients
         }
         return string.Empty;
     }
+
+    public static string GetL4D2Path()
+    {
+        //return SteamApps.AppInstallDir(Globals.L4D2AppID);
+        return "";
+    }
 }

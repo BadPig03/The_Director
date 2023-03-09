@@ -10,6 +10,7 @@ namespace The_Director.Windows
         {
             InitializeComponent();
             GamePathTextBox.Text = Clients.GetSteamPath();
+            Console.WriteLine(Clients.GetL4D2Path());
         }
     }
 }

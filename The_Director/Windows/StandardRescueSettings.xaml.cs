@@ -19,10 +19,6 @@ namespace The_Director.Windows
         public Dictionary<int, int> ComboBoxDicts = new();
         public Dictionary<string, BooleanString> StandardDict = new();
 
-        private static List<string> PreferredMobDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
-        private static List<string> PreferredSpecialDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_SPECIALS_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_SPECIALS_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
-        private static List<string> CheckBoxBlackList = new() { "TotalWave", "MSG", "ShowStage"};
-
         public void MSGReceived(string value)
         {
             if (value != null)
@@ -45,8 +41,8 @@ namespace The_Director.Windows
         public StandardRescueSettings()
         {
             InitializeComponent();
-            PreferredMobDirectionComboBox.ItemsSource = PreferredMobDirectionList;
-            PreferredSpecialDirectionComboBox.ItemsSource = PreferredSpecialDirectionList;
+            PreferredMobDirectionComboBox.ItemsSource = Globals.PreferredMobDirectionList;
+            PreferredSpecialDirectionComboBox.ItemsSource = Globals.PreferredSpecialDirectionList;
             StandardDict.Add("MSG", new BooleanString(false, string.Empty));
             StandardDict.Add("ShowStage", new BooleanString(false, null));
             StandardDict.Add("LockTempo", new BooleanString(false, null));
@@ -321,7 +317,7 @@ namespace The_Director.Windows
 
                 foreach (var item in StandardDict)
                 {
-                    if (item.Value.Item1 && !CheckBoxBlackList.Contains(item.Key))
+                    if (item.Value.Item1 && !Globals.CheckBoxBlackList.Contains(item.Key))
                     {
                         if (item.Value.Item2 != null)
                             ScriptWindowText += $"\t{item.Key} = {item.Value.Item2}\n";
