@@ -27,7 +27,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="122"/>
                 <RowDefinition Height="32"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="32"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
@@ -51,12 +52,21 @@
             </Grid>
             <Label Grid.Row="1" Grid.Column="0" Margin="1,5,5,0" Content="调试设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold"/>
             <Border Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" BorderThickness="1" BorderBrush="#7F7F7F" Margin="5" >
-                <Grid Name="BasicSettingGrid">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="32"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <CheckBox Name="ShowStageCheckBox" Grid.Row="0" Grid.Column="0" Margin="5" Content="控制台提示救援阶段数" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
+                </Grid>
+            </Border>
+            <Label Grid.Row="4" Grid.Column="0" Margin="1,5,5,0" Content="文件设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold"/>
+            <Border Grid.Row="5" Grid.Column="0" Grid.RowSpan="2" BorderThickness="1" BorderBrush="#7F7F7F" Margin="5" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
                 </Grid>
             </Border>
         </Grid>
@@ -109,7 +119,7 @@
                         <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
                     <DockPanel Grid.Row="0" Grid.Column="0">
-                        <Label Margin="1,0,5,0" Content="普通感染者属性设置 (单击参数查看详细信息)" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Bottom"/>
+                        <Label Margin="1,0,5,0" Content="普通感染者属性设置 (单击参数查看详细信息)" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
                         <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
                     </DockPanel>
                     <Grid Grid.Row="1" Grid.Column="0">
@@ -225,7 +235,7 @@
                         <TextBox Name="MinimumStageTimeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
                     </Grid>
                     <DockPanel Grid.Row="15" Grid.Column="0">
-                        <Label Margin="1,0,5,0" Content="特殊感染者属性设置 (单击参数查看详细信息)" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Bottom"/>
+                        <Label Margin="1,0,5,0" Content="特殊感染者属性设置 (单击参数查看详细信息)" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
                         <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
                     </DockPanel>
                     <Grid Grid.Row="16" Grid.Column="0">
@@ -293,7 +303,7 @@
                         <TextBox Name="SustainPeakMinTimeTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
                     </Grid>
                     <DockPanel Grid.Row="24" Grid.Column="0">
-                        <Label Margin="1,0,5,0" Content="感染者生成限制设置 (单击参数查看详细信息)" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Bottom"/>
+                        <Label Margin="1,0,5,0" Content="感染者生成限制设置 (单击参数查看详细信息)" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
                         <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
                     </DockPanel>
                     <Grid Grid.Row="25" Grid.Column="0">
