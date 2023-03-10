@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -19,6 +20,8 @@ namespace The_Director.Windows
         public Dictionary<int, string> TextBoxDicts = new();
         public Dictionary<int, int> ComboBoxDicts = new();
         public Dictionary<string, BooleanString> StandardDict = new();
+
+        public List<string> VmfValuesList = new() { "director", "finale_radio", "standard_finale.nut", "1", "1" };
 
         public void MSGReceived(string value)
         {
@@ -44,6 +47,8 @@ namespace The_Director.Windows
             InitializeComponent();
             PreferredMobDirectionComboBox.ItemsSource = Globals.PreferredMobDirectionList;
             PreferredSpecialDirectionComboBox.ItemsSource = Globals.PreferredSpecialDirectionList;
+            MapSelectionComboBox.ItemsSource = Globals.OffcialMapStandardRescueList;
+            MapSelectionComboBox.SelectedIndex = 0;
             StandardDict.Add("MSG", new BooleanString(false, string.Empty));
             StandardDict.Add("ShowStage", new BooleanString(false, null));
             StandardDict.Add("LockTempo", new BooleanString(false, null));
@@ -85,9 +90,12 @@ namespace The_Director.Windows
             StandardDict.Add("TankLimit", new BooleanString(false, string.Empty));
             StandardDict.Add("WitchLimit", new BooleanString(false, string.Empty));
             StandardDict.Add("HordeEscapeCommonLimit", new BooleanString(false, string.Empty));
-            info_directorTextBox.Text = "director";
-            trigger_finaleTextBox.Text = "finale_radio";
-            ScriptFileTextBox.Text = "standard_finale.nut";
+            
+            info_directorTextBox.Text = VmfValuesList[0];
+            trigger_finaleTextBox.Text = VmfValuesList[1];
+            ScriptFileTextBox.Text = VmfValuesList[2];
+            FirstUseDelayTextBox.Text = VmfValuesList[3];
+            UseDelayTextBox.Text = VmfValuesList[4];
         }
 
         private void TotalWaveButtonClick(object sender, RoutedEventArgs e)
@@ -243,7 +251,7 @@ namespace The_Director.Windows
                     }
                     break;
                 case 3:
-                    if (textBox.Text != string.Empty && (TotalWaveCount <= 0 || TotalWaveCount == null))
+                    if (textBox.Text != string.Empty && (TotalWaveCount <= 0 || TotalWaveCount == null) && !Name.Contains(" "))
                     {
                         Functions.TryOpenMessageWindow(0);
                         textBox.Text = string.Empty;
@@ -278,7 +286,27 @@ namespace The_Director.Windows
                             textBox.Text = "finale_radio";
                         else if (Name == "ScriptFile")
                             textBox.Text = "standard_finale.nut";
+                        return;
                     }
+                    if (Name == "info_director")
+                        VmfValuesList[0] = textBox.Text;
+                    else if (Name == "trigger_finale")
+                        VmfValuesList[1] = textBox.Text;
+                    else if (Name == "ScriptFile")
+                        VmfValuesList[2] = textBox.Text;
+                    break;
+                case 6:
+                    if (textBox.Text == string.Empty || !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
+                    {
+                        Functions.TryOpenMessageWindow(4);
+                        if (Name == "FirstUseDelay" || Name == "UseDelay")
+                            textBox.Text = "1";
+                        return;
+                    }
+                    if (Name == "FirstUseDelay")
+                        VmfValuesList[3] = textBox.Text;
+                    else if (Name == "UseDelay")
+                        VmfValuesList[4] = textBox.Text;
                     break;
                 default:
                     break;
@@ -302,6 +330,11 @@ namespace The_Director.Windows
 
             StandardDict[comboBox.Name.Remove(comboBox.Name.Length - 8, 8)] = (comboBox.SelectedItem.ToString() != string.Empty, comboBox.SelectedItem.ToString());
             UpdateScriptWindow();
+        }
+
+        private void MapSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
         }
 
         private void UpdateScriptWindow()
@@ -418,15 +451,29 @@ namespace The_Director.Windows
                 InitialDirectory = Globals.L4D2RootPath
             };
             saveFileDialog.ShowDialog();
+
+            string file = Properties.Resources.FinaleStandardScriptVmf;
+            file = file.Replace("\"targetname\" \"director\"", $"\"targetname\" \"{VmfValuesList[0]}\"");
+            file = file.Replace("\"targetname\" \"finale_radio\"", $"\"targetname\" \"{VmfValuesList[1]}\"");
+            file = file.Replace("\"finale_radio\x1b", $"\"{VmfValuesList[1]}\x1b");
+            file = file.Replace("\"ScriptFile\" \"standard_finale.nut\"", $"\"ScriptFile\" \"{VmfValuesList[2]}\"");
+            file = file.Replace("\"FirstUseDelay\" \"1\"", $"\"FirstUseDelay\" \"{VmfValuesList[3]}\"");
+            file = file.Replace("\"UseDelay\" \"1\"", $"\"UseDelay\" \"{VmfValuesList[4]}\"");
+
             if (saveFileDialog.FileName != string.Empty)
             {
                 string filePath = saveFileDialog.FileName + (saveFileDialog.FileName.EndsWith(".vmf") ? string.Empty : ".vmf");
                 using StreamWriter streamWriter = File.CreateText(filePath);
-                streamWriter.Write(Properties.Resources.FinaleStandardScriptVmf);
+                streamWriter.Write(file);
             }
         }
 
         private void CompileVmfClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PreviewOfficalScriptClick(object sender, RoutedEventArgs e)
         {
 
         }

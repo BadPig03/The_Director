@@ -61,6 +61,39 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
+        ///   查找类似 //-----------------------------------------------------------------------------
+        ///
+        ///PANIC &lt;- 0
+        ///TANK &lt;- 1
+        ///DELAY &lt;- 2
+        ///ONSLAUGHT &lt;- 3
+        ///
+        /////-----------------------------------------------------------------------------
+        ///
+        ///SharedOptions &lt;-
+        ///{
+        ///	A_CustomFinale_StageCount = 9
+        ///	
+        /// 	A_CustomFinale1 = PANIC
+        ///	A_CustomFinaleValue1 = 1
+        ///	
+        /// 	A_CustomFinale2 = PANIC
+        ///	A_CustomFinaleValue2 = 1
+        ///
+        ///	A_CustomFinale3 = DELAY
+        ///	A_CustomFinaleValue3 = 15
+        ///
+        ///	A_CustomFinale4 = TANK
+        ///	A_CustomFinaleValue4 = 1
+        ///	A_CustomFinaleM [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c2m5_concert_finale {
+            get {
+                return ResourceManager.GetString("c2m5_concert_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 versioninfo
         ///{
         ///	&quot;editorversion&quot; &quot;400&quot;

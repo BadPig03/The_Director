@@ -197,6 +197,9 @@ public static class Functions
             case "trigger_finale":
             case "ScriptFile":
                 return 5;
+            case "FirstUseDelay":
+            case "UseDelay":
+                return 6;
             default:
                 return -1;
         }
@@ -291,7 +294,11 @@ public static class Functions
             case "trigger__finale":
                 return "trigger_finale是一个可以触发当前地图的救援的点实体。\n\n这个文本框的值将决定trigger_finale的名字(targetname)。";
             case "ScriptFile":
-                return "ScriptFile是trigger_finale的一个键值。\n\n这个文本框的值会决定如果trigger_finale使用Custom救援类型后将会使用的救援脚本名字(带后缀名.nut)。\n\n若留空，则尝试使用[地图名字]_finale.nut。";
+                return "ScriptFile是trigger_finale的一个键值。\n\n这个文本框的值会决定如果trigger_finale使用Custom救援类型后将会使用的救援脚本名字(带后缀名.nut)。";
+            case "First Use Delay":
+                return "First Use Delay是trigger_finale的一个键值。\n\n这个文本框的值会决定第一次触发trigger_finale后需要经过多少秒后才能再次触发。";
+            case "Use Delay":
+                return "Use Delay是trigger_finale的一个键值。\n\n若First Use Delay的值为0，则这个文本框的值会决定触发trigger_finale后需要经过多少秒后才开始救援。\n\n若First Use Delay的值不为0，则这个文本框的值会决定第二次触发trigger_finale后需要经过多少秒后才开始救援。";
             default:
                 return "";
         } 

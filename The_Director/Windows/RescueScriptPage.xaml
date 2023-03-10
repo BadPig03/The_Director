@@ -12,33 +12,30 @@
             <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="1" Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="122"/>
-                <RowDefinition Height="32"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="32"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
             <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="#7F7F7F" Margin="5" >
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="32"/>
                         <RowDefinition Height="40"/>
-                        <RowDefinition Height="32"/>
-                        <RowDefinition Height="32"/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <DockPanel Grid.Row="0" Grid.Column="0">
-                        <Label Margin="0,5,5,5" Content="脚本类型:" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <ComboBox Name="RescueTypeComboBox" Margin="0,5,5,5" FontSize="20" FontFamily="Dengxian" Width="144" DockPanel.Dock="Right" HorizontalAlignment="Right" HorizontalContentAlignment="Left" SelectionChanged="SelectionChanged"/>
+                        <Label Margin="1,0,5,0" Content="救援基础设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                        <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="1" Grid.Column="0">
+                        <Label Margin="0,5,5,5" Content="脚本类型" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <ComboBox Name="RescueTypeComboBox" Margin="0,5,5,5" FontSize="20" FontFamily="Dengxian" Width="139" DockPanel.Dock="Right" HorizontalAlignment="Right" HorizontalContentAlignment="Left" SelectionChanged="SelectionChanged"/>
                     </DockPanel>
                 </Grid>
             </Border>
         </Grid>
         <Label Grid.Row="0" Grid.Column="0" Margin="1,5,5,0" Content="通用设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
-        <Label Grid.Row="0" Grid.Column="1" Margin="1,5,5,0" Content="基础设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
+        <Label Grid.Row="0" Grid.Column="1" Margin="1,5,5,0" Content="详细设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
         <Label Grid.Row="0" Grid.Column="2" Margin="1,5,5,0" Content="实时预览脚本" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
         <ContentControl Name="RescueTypeControl" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
     </Grid>
