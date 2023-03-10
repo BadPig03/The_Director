@@ -13,7 +13,7 @@ namespace The_Director.Windows
     {
         public int? TotalWaveCount = null;
         public bool IsTotalWaveConfirmed = new();
-        public bool IsScriptWindowEnabled = new();
+        public bool? IsScriptWindowEnabled = new();
 
         public Dictionary<string, string> TotalWaveDicts = new();
         public Dictionary<int, string> TextBoxDicts = new();
@@ -92,12 +92,12 @@ namespace The_Director.Windows
 
         private void TotalWaveButtonClick(object sender, RoutedEventArgs e)
         {
-            if (Functions.IsProperInt(TotalWaveTextbox.Text, 1, int.MaxValue))
+            if (Functions.IsProperInt(TotalWaveTextBox.Text, 1, int.MaxValue))
             {
-                if (TryOpenTotalWaveWindow(Functions.ConvertToInt(TotalWaveTextbox.Text)))
-                    TotalWaveTextbox.Text = TotalWaveCount.ToString();
+                if (TryOpenTotalWaveWindow(Functions.ConvertToInt(TotalWaveTextBox.Text)))
+                    TotalWaveTextBox.Text = TotalWaveCount.ToString();
                 else
-                    TotalWaveCount = Functions.ConvertToInt(TotalWaveTextbox.Text);
+                    TotalWaveCount = Functions.ConvertToInt(TotalWaveTextBox.Text);
             }
         }
 
@@ -118,6 +118,7 @@ namespace The_Director.Windows
         {
             TextBoxDicts.Clear();
             ComboBoxDicts.Clear();
+
             TotalWaveSettings totalWaveSettings = new TotalWaveSettings
             {
                 WaveCounts = WaveCount,
@@ -130,6 +131,8 @@ namespace The_Director.Windows
 
             if (!IsTotalWaveConfirmed)
                 return true;
+
+            IsScriptWindowEnabled = true;
 
             foreach (var item in totalWaveSettings.TotalWaveGrid.Children)
             {
@@ -152,6 +155,8 @@ namespace The_Director.Windows
                     if (item1.Key == item2.Key)
                         TotalWaveDicts[$"{item1.Key + 1}"] = $"{Functions.TotalWaveToString(item1.Value)}\x1b{item2.Value}";
 
+            TotalWaveCount = WaveCount;
+
             UpdateScriptWindow();
 
             return false;
@@ -159,16 +164,23 @@ namespace The_Director.Windows
 
     private void CheckBoxClick(object sender, RoutedEventArgs e)
         {
-            CheckBox button = (CheckBox)sender;
-            var Name = button.Name.Remove(button.Name.Length - 8, 8);
-            var IsChecked = (bool)button.IsChecked;
+            CheckBox checkBox = (CheckBox)sender;
+            var Name = checkBox.Name.Remove(checkBox.Name.Length - 8, 8);
+            var IsChecked = (bool)checkBox.IsChecked;
+
+            if (Name == "TriggerEscapeStage")
+            {
+                ToggleAllObjects(!IsChecked);
+                return;
+            }
 
             if (IsChecked && (TotalWaveCount <= 0 || TotalWaveCount == null))
             {
                 Functions.TryOpenMessageWindow(0);
-                button.IsChecked = false;
+                checkBox.IsChecked = false;
                 return;
             }
+
             if (Name != "MSG")
                 StandardDict[Name] = (IsChecked, null);
             else
@@ -187,32 +199,21 @@ namespace The_Director.Windows
             switch (Functions.TextBoxIndex(Name))
             {
                 case 0:
-                    if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, 1, 99))
+                    if (textBox.Text != string.Empty && Functions.IsProperInt(textBox.Text, 1, 99))
                     {
-                        Functions.TryOpenMessageWindow(1);
-                        textBox.Text = string.Empty;
-                        if (TotalWaveCount != null)
-                            TotalWaveCount = null;
-                    }
-                    else if (textBox.Text == string.Empty)
-                    {
-                        foreach (var item in StandardDict)
-                            if (item.Value.Item1)
-                            {
-                                Functions.TryOpenMessageWindow(0);
-                                IsScriptWindowEnabled = false;
-                                break;
-                            }
-                        TotalWaveButton.IsEnabled = false;
-                        if (TotalWaveCount != null)
-                            TotalWaveCount = null;
+                        TotalWaveButton.IsEnabled = true;
+                        if (Functions.IsProperInt(textBox.Text, 10, 99))
+                            TotalWaveButtonClick(TotalWaveButton, null);
                     }
                     else
                     {
-                        TotalWaveButton.IsEnabled = true;
-                        IsScriptWindowEnabled = true;
-                        if (textBox.Text != TotalWaveCount.ToString() && Functions.IsProperInt(textBox.Text, 1, 99))
-                            TotalWaveButtonClick(TotalWaveButton, null);
+                        if(textBox.Text != string.Empty)
+                            Functions.TryOpenMessageWindow(1);
+                        IsScriptWindowEnabled = false;
+                        TotalWaveButton.IsEnabled = false;
+                        textBox.Text = string.Empty;
+                        if (TotalWaveCount != null)
+                            TotalWaveCount = null;
                     }
                     break;
                 case 1:
@@ -267,6 +268,18 @@ namespace The_Director.Windows
                         textBox.Text = string.Empty;
                     }
                     break;
+                case 5:
+                    if (textBox.Text == string.Empty || !Functions.IsProperString(textBox.Text))
+                    {
+                        Functions.TryOpenMessageWindow(6);
+                        if(Name == "info_director")
+                            textBox.Text = "director";
+                        else if (Name == "trigger_finale")
+                            textBox.Text = "finale_radio";
+                        else if (Name == "ScriptFile")
+                            textBox.Text = "standard_finale.nut";
+                    }
+                    break;
                 default:
                     break;
             }
@@ -293,9 +306,9 @@ namespace The_Director.Windows
 
         private void UpdateScriptWindow()
         {
-            if (!IsScriptWindowEnabled)
+            if (IsScriptWindowEnabled == false)
                 ScriptWindow.Text = string.Empty;
-            else
+            else if (IsScriptWindowEnabled == true)
             {
                 StringBuilder ScriptWindowText = new();
 
@@ -344,6 +357,8 @@ namespace The_Director.Windows
 
                 ScriptWindow.Text = ScriptWindowText.ToString();
             }
+            else
+                ScriptWindow.Text = "Msg(\"For rescue debug purpose only.\\n\");\n\nDELAY <- 2\n\nDirectorOptions <-\n{\n\tA_CustomFinale_StageCount = 1\n\n\tA_CustomFinale1 = DELAY\n\tA_CustomFinaleValue1 = 1\n}\n";
 
             if (ScriptWindow.Text != string.Empty)
             {
@@ -375,7 +390,7 @@ namespace The_Director.Windows
         private void PasteToClipboardClick(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(ScriptWindow.Text);
-            Functions.TryOpenMessageWindow(6);
+            Functions.TryOpenMessageWindow(7);
         }
 
         private void SaveAsNutClick(object sender, RoutedEventArgs e)
@@ -414,6 +429,43 @@ namespace The_Director.Windows
         private void CompileVmfClick(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ToggleAllObjects(bool status)
+        {
+            foreach (var itemName in Globals.StandardObjectList)
+            {
+                if (itemName.EndsWith("Button"))
+                {
+                    Button button = (Button)FindName(itemName);
+                    button.IsEnabled = status;
+                    if (status && (itemName == "SaveAsNutButton" || itemName == "PasteToClipboardButton" || itemName == "TotalWaveButton"))
+                        if ((TotalWaveCount <= 0 || TotalWaveCount == null) && !Functions.IsProperInt(TotalWaveTextBox.Text, 1, 99))
+                            button.IsEnabled = false;
+                }
+                else if (itemName.EndsWith("CheckBox"))
+                {
+                    CheckBox checkBox = (CheckBox)FindName(itemName);
+                    checkBox.IsEnabled = status;
+                }
+                else if (itemName.EndsWith("TextBox"))
+                {
+                    TextBox textBox = (TextBox)FindName(itemName);
+                    textBox.IsEnabled = status;
+                }
+                else if (itemName.EndsWith("ComboBox"))
+                {
+                    ComboBox comboBox= (ComboBox)FindName(itemName);
+                    comboBox.IsEnabled = status;
+                }
+                else if (itemName.EndsWith("Label"))
+                {
+                    Label label = (Label)FindName(itemName);
+                    label.IsEnabled = status;
+                }
+            }
+            IsScriptWindowEnabled = status ? (TotalWaveCount <= 0 || TotalWaveCount == null ? false : true) : null;
+            UpdateScriptWindow();
         }
     }
 }

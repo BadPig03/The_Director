@@ -8,6 +8,8 @@ public static class Functions
 {
     public static bool IsProperInt(string value, int min, int max)
     {
+        if (value == string.Empty)
+            return false;
         if (!Regex.IsMatch(value, @"^\-?(\d+)?$"))
             return false;
         if (value == "-")
@@ -19,6 +21,8 @@ public static class Functions
 
     public static bool IsProperFloat(string value, float min, float max)
     {
+        if (value == string.Empty)
+            return false;
         if (value == ".")
             value = "0.0";
         if (Regex.IsMatch(value, @"^\d+\.$"))
@@ -30,6 +34,15 @@ public static class Functions
         if (float.Parse(value) <= max && float.Parse(value) >= min)
             return true;
         return false;
+    }
+
+    public static bool IsProperString(string value)
+    {
+        if (value == string.Empty)
+            return true;
+        if (value.Contains("!") || value.Contains("*") || value.Contains("\""))
+            return false;
+        return true;
     }
 
     public static int ConvertToInt(string value)
@@ -111,6 +124,10 @@ public static class Functions
                     TextBoxString = "非法输入!\n只能输入大于等于-1的整数!";
                     break;
                 case 6:
+                    Title = "错误";
+                    TextBoxString = "非法输入!\n不能输入!、*或\"符号或为空!";
+                    break;
+                case 7:
                     Title = "提示";
                     TextBoxString = "已成功复制至粘贴板!";
                     break;
@@ -120,7 +137,7 @@ public static class Functions
         else
         {
             Title = "错误";
-            TextBoxString = $"第{type + 1}阶段未指定数据!";
+            TextBoxString = $"阶段{type + 1}未指定对应数据!";
         }
 
         MessageWindow messageWindow = new MessageWindow()
@@ -176,6 +193,10 @@ public static class Functions
             case "WitchLimit":
             case "HordeEscapeCommonLimit":
                 return 4;
+            case "info_director":
+            case "trigger_finale":
+            case "ScriptFile":
+                return 5;
             default:
                 return -1;
         }
