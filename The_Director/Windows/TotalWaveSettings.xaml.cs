@@ -27,7 +27,7 @@ namespace The_Director.Windows
         {
             for (int i = 0; i < WaveCounts; i++)
             {
-                RowDefinition row = new RowDefinition();
+                RowDefinition row = new();
                 row.Height = new GridLength(40);
                 TotalWaveGrid.RowDefinitions.Add(row);
 

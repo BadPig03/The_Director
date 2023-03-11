@@ -121,7 +121,7 @@ namespace The_Director.Windows
 
         private void TryOpenMSGWindow()
         {
-            InputNewText inputNewText = new InputNewText
+            InputNewText inputNewText = new()
             {
                 TextBoxText = StandardDict["MSG"].Item2,
                 SendMessage = MSGReceived,
@@ -137,7 +137,7 @@ namespace The_Director.Windows
             TextBoxDicts.Clear();
             ComboBoxDicts.Clear();
 
-            TotalWaveSettings totalWaveSettings = new TotalWaveSettings
+            TotalWaveSettings totalWaveSettings = new()
             {
                 WaveCounts = WaveCount,
                 TotalWaveDicts = TotalWaveDicts,
@@ -422,7 +422,7 @@ namespace The_Director.Windows
         private void MouseClick(object sender, RoutedEventArgs e)
         {
             Label label = (Label)sender;
-            HintWindow hintWindow = new HintWindow
+            HintWindow hintWindow = new()
             {
                 Width = 480,
                 Height = 320,
@@ -442,7 +442,7 @@ namespace The_Director.Windows
 
         private void SaveAsNutClick(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            SaveFileDialog saveFileDialog = new()
             {
                 Title = "导出脚本文件",
                 Filter = "nut文件 (*.nut)|*.nut",
@@ -458,7 +458,7 @@ namespace The_Director.Windows
 
         private void SaveAsVmfClick(object sender, RoutedEventArgs e) 
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            SaveFileDialog saveFileDialog = new()
             {
                 Title = "导出vmf文件",
                 Filter = "vmf文件 (*.vmf)|*.vmf",
@@ -471,7 +471,7 @@ namespace The_Director.Windows
 
             string fileExtension = VmfValuesList[2].EndsWith(".nut") ? string.Empty : ".nut";
 
-            YesOrNoWindow yesOrNoWindow = new YesOrNoWindow
+            YesOrNoWindow yesOrNoWindow = new()
             {
                 TextBlockString = $"是否一并导出脚本文件至scripts\\vscripts文件夹?\n\n脚本文件名将为\"{VmfValuesList[2]}{fileExtension}\"!",
                 SendMessage = SaveToVmfReceived,
@@ -483,9 +483,11 @@ namespace The_Director.Windows
             if (IsVmfConfirmed)
                 File.WriteAllText(Globals.L4D2ScriptsPath + $"\\{VmfValuesList[2]}" + fileExtension, ScriptWindow.Text);
 
-            YesOrNoWindow yesOrNoWindow2 = new YesOrNoWindow
+            string NavFileName = saveFileDialog.SafeFileName.Replace(".vmf", ".nav");
+
+            YesOrNoWindow yesOrNoWindow2 = new()
             {
-                TextBlockString = $"是否一并导出Nav文件至maps文件夹?\n\nNav文件名将为\"standard_finale.nav\"!",
+                TextBlockString = $"是否一并导出Nav文件至vmf所在文件夹?\n\nNav文件名将为\"{NavFileName}\"!",
                 SendMessage = SaveToNavReceived,
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
@@ -499,6 +501,7 @@ namespace The_Director.Windows
         private void CompileVmfClick(object sender, RoutedEventArgs e)
         {
             SaveVmfToPath($"{Globals.L4D2StandardFinalePath}");
+            SaveNavToPath("null");
             if (Functions.GenerateNewProcess(0))
                 if (Functions.GenerateNewProcess(1))
                     if (Functions.GenerateNewProcess(2))
@@ -506,7 +509,6 @@ namespace The_Director.Windows
                         File.Copy($"{Globals.L4D2StandardFinalePath}.bsp", $"{Globals.L4D2MapsPath}\\standard_finale.bsp", true);
                         Functions.RunL4D2Game();
                     }
-
         }
 
         private void PreviewOfficalScriptClick(object sender, RoutedEventArgs e)
@@ -560,7 +562,9 @@ namespace The_Director.Windows
             file = file.Replace("\"ScriptFile\" \"standard_finale.nut\"", $"\"ScriptFile\" \"{VmfValuesList[2]}\"");
             file = file.Replace("\"FirstUseDelay\" \"1\"", $"\"FirstUseDelay\" \"{VmfValuesList[3]}\"");
             file = file.Replace("\"UseDelay\" \"1\"", $"\"UseDelay\" \"{VmfValuesList[4]}\"");
+
             string filePath = saveFilePath + (saveFilePath.EndsWith(".vmf") ? string.Empty : ".vmf");
+
             try
             {
                 using StreamWriter streamWriter = File.CreateText(filePath);
@@ -573,13 +577,22 @@ namespace The_Director.Windows
             }
         }
 
-        private void SaveNavToPath(string path)
+        private void SaveNavToPath(string saveFilePath)
         {
-            string filePath = $"{Globals.L4D2MapsPath}\\standard_finale.nav";
-            using MemoryStream memoryStream = new(Convert.FromBase64String(Properties.Resources.FinaleStandardScriptNav));
-            using FileStream fileStream = new(filePath, FileMode.OpenOrCreate, FileAccess.Write);
-            byte[] bytes = memoryStream.ToArray();
-            fileStream.Write(bytes, 0, bytes.Length);
+            string filePath = (saveFilePath != "null") ? saveFilePath.Replace(".vmf", string.Empty) + (saveFilePath.EndsWith(".nav") ? string.Empty : ".nav") : $"{Globals.L4D2MapsPath}\\standard_finale.nav";
+            
+            try
+            {
+                using MemoryStream memoryStream = new(Convert.FromBase64String(Properties.Resources.FinaleStandardScriptNav));
+                using FileStream fileStream = new(filePath, FileMode.OpenOrCreate, FileAccess.Write);
+                byte[] bytes = memoryStream.ToArray();
+                fileStream.Write(bytes, 0, bytes.Length);
+            }
+            catch 
+            {
+                Functions.TryOpenMessageWindow(8);
+                return;
+            }
         }
     }
 }

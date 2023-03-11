@@ -14,7 +14,7 @@ public static class Functions
     {
         byte[] b = new byte[4];
         new System.Security.Cryptography.RNGCryptoServiceProvider().GetBytes(b);
-        Random random = new Random(BitConverter.ToInt32(b, 0));
+        Random random = new(BitConverter.ToInt32(b, 0));
         string result = null, temp = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         for (int i = 0; i < 16; i++)
             result += temp.Substring(random.Next(0, temp.Length - 1), 1);
@@ -148,7 +148,7 @@ public static class Functions
                     break;
                 case 8:
                     Title = "错误";
-                    TextBoxString = "未找到指定路径!";
+                    TextBoxString = "导出时出错!";
                     break;
                 default:
                     break;
@@ -159,7 +159,7 @@ public static class Functions
             TextBoxString = $"阶段{type + 1}未指定对应数据!";
         }
 
-        MessageWindow messageWindow = new MessageWindow()
+        MessageWindow messageWindow = new()
         {
             Title = Title,
             TextBoxString = TextBoxString,

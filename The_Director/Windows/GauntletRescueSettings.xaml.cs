@@ -48,7 +48,7 @@ namespace The_Director.Windows
 
         private void TryOpenMSGWindow()
         {
-            InputNewText InputWindow = new InputNewText
+            InputNewText InputWindow = new()
             {
                 TextBoxText = RescueCheckButtons["msg"].Item2,
                 SendMessage = MSGReceived
@@ -58,7 +58,7 @@ namespace The_Director.Windows
         }
         private void LockTempoButtonClick(object sender, RoutedEventArgs e)
         {
-            HintWindow metroWindow = new HintWindow
+            HintWindow metroWindow = new()
             {
                 Width = 480,
                 Height = 320,
@@ -70,7 +70,7 @@ namespace The_Director.Windows
 
         private void NoMobSpawnsButtonClick(object sender, RoutedEventArgs e)
         {
-            HintWindow metroWindow = new HintWindow
+            HintWindow metroWindow = new()
             {
                 Width = 480,
                 Height = 320,
@@ -82,7 +82,7 @@ namespace The_Director.Windows
 
         private void ShouldAllowMobsWithTankButtonClick(object sender, RoutedEventArgs e)
         {
-            HintWindow metroWindow = new HintWindow
+            HintWindow metroWindow = new()
             {
                 Width = 480,
                 Height = 320,
