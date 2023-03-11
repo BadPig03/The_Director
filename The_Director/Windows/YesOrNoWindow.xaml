@@ -1,0 +1,23 @@
+﻿<Controls:MetroWindow x:Class="The_Director.Windows.YesOrNoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d" Title="确认" Height="320" Width="480" ResizeMode="NoResize" Loaded="WindowLoaded" KeyDown="KeyPressed">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <TextBox Name="MessageTextBox" Grid.Row="0" Grid.Column="0" Margin="5" FontSize="20" FontFamily="Dengxian" TextWrapping="Wrap" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0"/>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="70,5,5,5" Content="是" Width="80" FontSize="15" FontFamily="Dengxian Light" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" Click="YesButtonClick"/>
+            <Button Grid.Column="1" Margin="5,5,70,5" Content="否" Width="80" FontSize="15" FontFamily="Dengxian Light" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" Click="NoButtonClick"/>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

@@ -183,6 +183,9 @@
     <Compile Include="Windows\TotalWaveSettings.xaml.cs">
       <DependentUpon>TotalWaveSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\YesOrNoWindow.xaml.cs">
+      <DependentUpon>YesOrNoWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Windows\GauntletRescueSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -240,6 +243,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\YesOrNoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -258,6 +265,7 @@
     <None Include="Resources\FinaleStandardScriptVmf.txt" />
     <None Include="Resources\FinaleStandardScriptNav.txt" />
     <None Include="Resources\c2m5_concert_finale.txt" />
+    <None Include="Resources\c3m4_plantation_finale.txt" />
     <Content Include="steam_api64.dll" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -94,6 +94,46 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        ///local PANIC = 0
+        ///local TANK = 1
+        ///local DELAY = 2
+        /////-----------------------------------------------------
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	//-----------------------------------------------------
+        ///
+        ///	 A_CustomFinale_StageCount = 8
+        ///	 
+        ///	 A_CustomFinale1 = PANIC
+        ///	 A_CustomFinaleValue1 = 2
+        ///	 
+        ///	 A_CustomFinale2 = DELAY
+        ///	 A_CustomFinaleValue2 = 12
+        ///	 
+        ///	 A_CustomFinale3 = TANK
+        ///	 A_CustomFinaleValue3 = 1
+        ///	 
+        ///	 A_CustomFinale4 = DELAY
+        ///	 A_CustomFinaleValue4 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c3m4_plantation_finale {
+            get {
+                return ResourceManager.GetString("c3m4_plantation_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 cefaedfe100000000e000000d83e0c000100000164656661756c74000000240000000100000000000000008054c40000c8c100fc8fc30000c8c30080d44300fc8fc300fc8fc300fc8fc30000000001000000550000000000000001000000540000000400000000006051c4000048c100fc8fc301010000000040cec3000048c100fc8fc301020000000040cec30040ce4300fc8fc30103000000006051c40040ce4300fc8fc30100000000000000000000000000000000f0420000f042553b283fe83c253f77722c3f05cc293f400000000000050000000000000002150000000109000000011d000000011f00000002540000006a000000000000200040cec4 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string FinaleStandardScriptNav {
+            get {
+                return ResourceManager.GetString("FinaleStandardScriptNav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 versioninfo
         ///{
         ///	&quot;editorversion&quot; &quot;400&quot;

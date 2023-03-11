@@ -1,4 +1,8 @@
-﻿using System.Text.RegularExpressions;
+﻿using Steamworks;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
 using The_Director.Windows;
 
@@ -6,6 +10,17 @@ namespace The_Director.Utils;
 
 public static class Functions
 {
+    public static string GetRandomString()
+    {
+        byte[] b = new byte[4];
+        new System.Security.Cryptography.RNGCryptoServiceProvider().GetBytes(b);
+        Random random = new Random(BitConverter.ToInt32(b, 0));
+        string result = null, temp = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        for (int i = 0; i < 16; i++)
+            result += temp.Substring(random.Next(0, temp.Length - 1), 1);
+        return result;
+    } 
+
     public static bool IsProperInt(string value, int min, int max)
     {
         if (value == string.Empty)
@@ -130,6 +145,10 @@ public static class Functions
                 case 7:
                     Title = "提示";
                     TextBoxString = "已成功复制至粘贴板!";
+                    break;
+                case 8:
+                    Title = "错误";
+                    TextBoxString = "未找到指定路径!";
                     break;
                 default:
                     break;
@@ -317,5 +336,46 @@ public static class Functions
             default:
                 return "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions";
         }
+    }
+
+    public static string GetProcessInput(int type)
+    {
+        switch(type)
+        {
+            case 0:
+                return $"\"{Globals.L4D2VBSPPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{Globals.L4D2StandardFinalePath}.vmf\"&exit";
+            case 1:
+                return $"\"{Globals.L4D2VVISPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{Globals.L4D2StandardFinalePath}.bsp\"&exit";
+            case 2:
+                return $"\"{Globals.L4D2VRADPath}\" -game \"{Globals.L4D2GameInfoPath}\" -hdr -StaticPropLighting -StaticPropPolys \"{Globals.L4D2StandardFinalePath}.bsp\"&exit";
+            default:
+                return "&exit";
+        }
+    }
+
+    public static bool GenerateNewProcess(int type)
+    {
+        Process process = new();
+        process.StartInfo.FileName = "cmd.exe";
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.CreateNoWindow = true;
+        process.StartInfo.RedirectStandardInput = true;
+        process.Start();
+        process.StandardInput.WriteLine(GetProcessInput(type));
+        process.StandardInput.AutoFlush = true;
+        process.WaitForExit();
+        process.Close();
+        return true;
+    }
+
+    public static void RunL4D2Game()
+    {
+        Process process = new();
+        process.StartInfo.FileName = $"{Globals.L4D2RootPath}\\left4dead2.exe";
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.Arguments = "-steam -novid +sv_cheats 1 +director_debug 1 +map standard_finale";
+        process.Start();
+        process.WaitForExit();
+        process.Close();
     }
 }

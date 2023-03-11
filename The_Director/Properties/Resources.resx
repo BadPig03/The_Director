@@ -121,6 +121,12 @@
   <data name="c2m5_concert_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c2m5_concert_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
+  <data name="c3m4_plantation_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c3m4_plantation_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="FinaleStandardScriptNav" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FinaleStandardScriptNav.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
   <data name="FinaleStandardScriptVmf" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FinaleStandardScriptVmf.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>

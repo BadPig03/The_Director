@@ -14,6 +14,8 @@ namespace The_Director.Windows
     {
         public int? TotalWaveCount = null;
         public bool IsTotalWaveConfirmed = new();
+        public bool IsVmfConfirmed = new();
+        public bool IsNavConfirmed = new();
         public bool? IsScriptWindowEnabled = new();
 
         public Dictionary<string, string> TotalWaveDicts = new();
@@ -40,6 +42,14 @@ namespace The_Director.Windows
                 TotalWaveDicts.Clear();
                 IsTotalWaveConfirmed = true;
             }
+        }
+        public void SaveToVmfReceived(string value)
+        {
+            IsVmfConfirmed = value != null;
+        }
+        public void SaveToNavReceived(string value)
+        {
+            IsNavConfirmed = value != null;
         }
 
         public StandardRescueSettings()
@@ -397,11 +407,15 @@ namespace The_Director.Windows
             {
                 PasteToClipboardButton.IsEnabled = true;
                 SaveAsNutButton.IsEnabled = true;
+                SaveAsVmfButton.IsEnabled = true;
+                CompileVmfButton.IsEnabled = true;
             }
             else
             {
                 PasteToClipboardButton.IsEnabled = false;
                 SaveAsNutButton.IsEnabled = false;
+                SaveAsVmfButton.IsEnabled = false;
+                CompileVmfButton.IsEnabled = false;
             }
         }
 
@@ -452,24 +466,46 @@ namespace The_Director.Windows
             };
             saveFileDialog.ShowDialog();
 
-            string file = Properties.Resources.FinaleStandardScriptVmf;
-            file = file.Replace("\"targetname\" \"director\"", $"\"targetname\" \"{VmfValuesList[0]}\"");
-            file = file.Replace("\"targetname\" \"finale_radio\"", $"\"targetname\" \"{VmfValuesList[1]}\"");
-            file = file.Replace("\"finale_radio\x1b", $"\"{VmfValuesList[1]}\x1b");
-            file = file.Replace("\"ScriptFile\" \"standard_finale.nut\"", $"\"ScriptFile\" \"{VmfValuesList[2]}\"");
-            file = file.Replace("\"FirstUseDelay\" \"1\"", $"\"FirstUseDelay\" \"{VmfValuesList[3]}\"");
-            file = file.Replace("\"UseDelay\" \"1\"", $"\"UseDelay\" \"{VmfValuesList[4]}\"");
+            if (saveFileDialog.FileName == string.Empty)
+                return;
 
-            if (saveFileDialog.FileName != string.Empty)
+            string fileExtension = VmfValuesList[2].EndsWith(".nut") ? string.Empty : ".nut";
+
+            YesOrNoWindow yesOrNoWindow = new YesOrNoWindow
             {
-                string filePath = saveFileDialog.FileName + (saveFileDialog.FileName.EndsWith(".vmf") ? string.Empty : ".vmf");
-                using StreamWriter streamWriter = File.CreateText(filePath);
-                streamWriter.Write(file);
-            }
+                TextBlockString = $"是否一并导出脚本文件至scripts\\vscripts文件夹?\n\n脚本文件名将为\"{VmfValuesList[2]}{fileExtension}\"!",
+                SendMessage = SaveToVmfReceived,
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            yesOrNoWindow.ShowDialog();
+
+            if (IsVmfConfirmed)
+                File.WriteAllText(Globals.L4D2ScriptsPath + $"\\{VmfValuesList[2]}" + fileExtension, ScriptWindow.Text);
+
+            YesOrNoWindow yesOrNoWindow2 = new YesOrNoWindow
+            {
+                TextBlockString = $"是否一并导出Nav文件至maps文件夹?\n\nNav文件名将为\"standard_finale.nav\"!",
+                SendMessage = SaveToNavReceived,
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            yesOrNoWindow2.ShowDialog();
+
+            if (IsNavConfirmed)
+                SaveNavToPath(saveFileDialog.FileName);
         }
 
         private void CompileVmfClick(object sender, RoutedEventArgs e)
         {
+            SaveVmfToPath($"{Globals.L4D2StandardFinalePath}");
+            if (Functions.GenerateNewProcess(0))
+                if (Functions.GenerateNewProcess(1))
+                    if (Functions.GenerateNewProcess(2))
+                    {
+                        File.Copy($"{Globals.L4D2StandardFinalePath}.bsp", $"{Globals.L4D2MapsPath}\\standard_finale.bsp", true);
+                        Functions.RunL4D2Game();
+                    }
 
         }
 
@@ -513,6 +549,37 @@ namespace The_Director.Windows
             }
             IsScriptWindowEnabled = status ? (TotalWaveCount <= 0 || TotalWaveCount == null ? false : true) : null;
             UpdateScriptWindow();
+        }
+
+        private void SaveVmfToPath(string saveFilePath)
+        {
+            string file = Properties.Resources.FinaleStandardScriptVmf;
+            file = file.Replace("\"targetname\" \"director\"", $"\"targetname\" \"{VmfValuesList[0]}\"");
+            file = file.Replace("\"targetname\" \"finale_radio\"", $"\"targetname\" \"{VmfValuesList[1]}\"");
+            file = file.Replace("\"finale_radio\x1b", $"\"{VmfValuesList[1]}\x1b");
+            file = file.Replace("\"ScriptFile\" \"standard_finale.nut\"", $"\"ScriptFile\" \"{VmfValuesList[2]}\"");
+            file = file.Replace("\"FirstUseDelay\" \"1\"", $"\"FirstUseDelay\" \"{VmfValuesList[3]}\"");
+            file = file.Replace("\"UseDelay\" \"1\"", $"\"UseDelay\" \"{VmfValuesList[4]}\"");
+            string filePath = saveFilePath + (saveFilePath.EndsWith(".vmf") ? string.Empty : ".vmf");
+            try
+            {
+                using StreamWriter streamWriter = File.CreateText(filePath);
+                streamWriter.Write(file);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Functions.TryOpenMessageWindow(8);
+                return;
+            }
+        }
+
+        private void SaveNavToPath(string path)
+        {
+            string filePath = $"{Globals.L4D2MapsPath}\\standard_finale.nav";
+            using MemoryStream memoryStream = new(Convert.FromBase64String(Properties.Resources.FinaleStandardScriptNav));
+            using FileStream fileStream = new(filePath, FileMode.OpenOrCreate, FileAccess.Write);
+            byte[] bytes = memoryStream.ToArray();
+            fileStream.Write(bytes, 0, bytes.Length);
         }
     }
 }

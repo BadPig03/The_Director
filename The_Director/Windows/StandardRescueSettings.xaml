@@ -61,7 +61,7 @@
             <CheckBox Name="ShowStageCheckBox" Grid.Row="5" Grid.Column="0" Margin="5" Content="控制台提示救援阶段数" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
             <CheckBox Name="TriggerEscapeStageCheckBox" Grid.Row="6" Grid.Column="0" Margin="5" Content="直接触发救援逃离阶段" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
             <DockPanel Grid.Row="7" Grid.Column="0">
-                <Label Margin="1,0,5,0" Content="导出vmf文件设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                <Label Margin="1,0,5,0" Content="防守救援模板导出vmf文件设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
                 <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
             </DockPanel>
             <Grid Grid.Row="8" Grid.Column="0" Grid.RowSpan="6">
@@ -89,7 +89,7 @@
                 <Label Grid.Row="4" Grid.Column="0" Margin="0,5,5,5" Content="Use Delay" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
                 <TextBox Name="UseDelayTextBox" Grid.Row="4" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
                 <DockPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
-                    <Button Name="SaveAsVmfButton" Margin="15,5,5,5" Content="导出vmf文件" Width="110" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Left" IsEnabled="True" Click="SaveAsVmfClick"/>
+                    <Button Name="SaveAsVmfButton" Margin="15,5,5,5" Content="导出vmf文件" Width="110" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Left" IsEnabled="False" Click="SaveAsVmfClick"/>
                     <Button Name="CompileVmfButton" Margin="5,5,15,5" Content="编译并启动游戏" Width="110" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="CompileVmfClick"/>
                 </DockPanel>
             </Grid>
@@ -98,7 +98,7 @@
                 <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
             </DockPanel>
             <Label Grid.Row="15" Grid.Column="0" Margin="0,5,5,5" Content="地图选择" FontSize="18" FontFamily="Bahnschrift"/>
-            <ComboBox Name="MapSelectionComboBox" Grid.Row="15" Grid.Column="1" Margin="0,5,5,5" FontSize="15" FontFamily="Dengxian" Width="150" DockPanel.Dock="Right" HorizontalAlignment="Right" HorizontalContentAlignment="Left" SelectionChanged="MapSelectionChanged"/>
+            <ComboBox Name="MapSelectionComboBox" Grid.Row="15" Grid.Column="1" Margin="0,5,5,5" FontSize="15" FontFamily="Bahnschrift" Width="150" DockPanel.Dock="Right" HorizontalAlignment="Right" HorizontalContentAlignment="Left" SelectionChanged="MapSelectionChanged"/>
             <DockPanel Grid.Row="16" Grid.Column="0">
                 <Button Name="PreviewOffcialScriptButton" Margin="20,5,5,5" Content="预览脚本文件" Width="120" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Center" Click="PreviewOfficalScriptClick"/>
             </DockPanel>
@@ -233,7 +233,7 @@
                             <ColumnDefinition Width="160"/>
                         </Grid.ColumnDefinitions>
                         <Label Name="PreferredMobDirectionLabel" Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="PreferredMobDirection" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
-                        <ComboBox Name="PreferredMobDirectionComboBox" Grid.Row="0" Grid.Column="1" Margin="0,5,5,5" FontSize="15" FontFamily="Dengxian" Width="150" DockPanel.Dock="Right" HorizontalAlignment="Right" HorizontalContentAlignment="Left" SelectionChanged="SelectionChanged"/>
+                        <ComboBox Name="PreferredMobDirectionComboBox" Grid.Row="0" Grid.Column="1" Margin="0,5,5,5" FontSize="15" FontFamily="Bahnschrift" Width="150" DockPanel.Dock="Right" HorizontalAlignment="Right" HorizontalContentAlignment="Left" SelectionChanged="SelectionChanged"/>
                     </Grid>
                     <Grid Grid.Row="11" Grid.Column="0">
                         <Grid.ColumnDefinitions>
@@ -277,7 +277,7 @@
                             <ColumnDefinition Width="160"/>
                         </Grid.ColumnDefinitions>
                         <Label Name="PreferredSpecialDirectionLabel" Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="PreferredSpecialDirection" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
-                        <ComboBox Name="PreferredSpecialDirectionComboBox" Grid.Row="0" Grid.Column="1" Margin="0,5,5,5" FontSize="15" FontFamily="Dengxian" Width="150" DockPanel.Dock="Right" HorizontalAlignment="Right" HorizontalContentAlignment="Left" SelectionChanged="SelectionChanged"/>
+                        <ComboBox Name="PreferredSpecialDirectionComboBox" Grid.Row="0" Grid.Column="1" Margin="0,5,5,5" FontSize="15" FontFamily="Bahnschrift" Width="150" DockPanel.Dock="Right" HorizontalAlignment="Right" HorizontalContentAlignment="Left" SelectionChanged="SelectionChanged"/>
                     </Grid>
                     <Grid Grid.Row="17" Grid.Column="0">
                         <Grid.ColumnDefinitions>
