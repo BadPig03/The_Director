@@ -61,6 +61,192 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;Initiating c10m5_houseboat_finale script\n&quot;);
+        ///
+        /////-----------------------------------------------------
+        ///ERROR		&lt;- -1
+        ///PANIC 		&lt;- 0
+        ///TANK 		&lt;- 1
+        ///DELAY 		&lt;- 2
+        ///SCRIPTED 	&lt;- 3
+        /////-----------------------------------------------------
+        ///
+        ///StageDelay &lt;- 0
+        ///PreEscapeDelay &lt;- 0
+        ///if ( Director.GetGameModeBase() == &quot;coop&quot; || Director.GetGameModeBase() == &quot;realism&quot; )
+        ///{
+        ///	StageDelay &lt;- 5
+        ///	P [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c10m5_houseboat_finale {
+            get {
+                return ResourceManager.GetString("c10m5_houseboat_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;Initiating c11m5_runway_finale script\n&quot;);
+        ///
+        /////-----------------------------------------------------
+        ///ERROR		&lt;- -1
+        ///PANIC 		&lt;- 0
+        ///TANK 		&lt;- 1
+        ///DELAY 		&lt;- 2
+        ///SCRIPTED 	&lt;- 3
+        /////-----------------------------------------------------
+        ///
+        ///StageDelay &lt;- 0
+        ///PreEscapeDelay &lt;- 0
+        ///if ( Director.GetGameModeBase() == &quot;coop&quot; || Director.GetGameModeBase() == &quot;realism&quot; )
+        ///{
+        ///	StageDelay &lt;- 5
+        ///	PreE [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c11m5_runway_finale {
+            get {
+                return ResourceManager.GetString("c11m5_runway_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;Initiating c12m5_cornfield_finale script\n&quot;);
+        ///
+        /////-----------------------------------------------------
+        ///ERROR		&lt;- -1
+        ///PANIC 		&lt;- 0
+        ///TANK 		&lt;- 1
+        ///DELAY 		&lt;- 2
+        ///SCRIPTED 	&lt;- 3
+        /////-----------------------------------------------------
+        ///
+        ///StageDelay &lt;- 0
+        ///PreEscapeDelay &lt;- 0
+        ///if ( Director.GetGameModeBase() == &quot;coop&quot; || Director.GetGameModeBase() == &quot;realism&quot; )
+        ///{
+        ///	StageDelay &lt;- 5
+        ///	P [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c12m5_cornfield_finale {
+            get {
+                return ResourceManager.GetString("c12m5_cornfield_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating c14m2_lighthouse_finale script\n&quot;);
+        ///
+        ///StageDelay &lt;- 15
+        ///PreEscapeDelay &lt;- 10
+        ///
+        /////-----------------------------------------------------
+        ///PANIC &lt;- 0
+        ///TANK &lt;- 1
+        ///DELAY &lt;- 2
+        ///ONSLAUGHT &lt;- 3
+        /////-----------------------------------------------------
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	A_CustomFinale_StageCount = 8
+        ///	
+        ///	A_CustomFinale1 		= PANIC
+        ///	A_CustomFinaleValue1 	= 2
+        ///	A_CustomFinale2 		= DELAY
+        ///	A_CustomFinaleValue2 	= StageDelay
+        ///	A_CustomFinale3 		= TANK
+        ///	A_CustomFinaleValue3 	= 1
+        ///	A_CustomFinal [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c14m2_lighthouse_finale {
+            get {
+                return ResourceManager.GetString("c14m2_lighthouse_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;----------------------FINALE SCRIPT------------------\n&quot;)
+        /////-----------------------------------------------------
+        ///PANIC &lt;- 0
+        ///TANK &lt;- 1
+        ///DELAY &lt;- 2
+        ///ONSLAUGHT &lt;- 3
+        /////-----------------------------------------------------
+        ///
+        ///SharedOptions &lt;-
+        ///{
+        /// 	A_CustomFinale1 = ONSLAUGHT
+        ///	A_CustomFinaleValue1 = &quot;&quot;
+        ///
+        ///	A_CustomFinale2 = PANIC
+        ///	A_CustomFinaleValue2 = 1
+        ///
+        ///	A_CustomFinale3 = ONSLAUGHT
+        ///	A_CustomFinaleValue3 = &quot;c1m4_delay&quot;
+        ///        
+        ///	A_CustomFinale4 = PANIC
+        ///	A_CustomFinaleValue4 = 1
+        ///
+        ///	A_CustomFi [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c1m4_atrium_finale {
+            get {
+                return ResourceManager.GetString("c1m4_atrium_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;**Delay started**\n&quot;)
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	MobMinSize = 2
+        ///	MobMaxSize = 3
+        ///        
+        ///	BoomerLimit = 0
+        ///	SmokerLimit = 0
+        ///	HunterLimit = 0
+        ///	SpitterLimit = 0
+        ///	JockeyLimit = 0
+        ///	ChargerLimit = 0
+        ///        
+        ///	MinimumStageTime = 15
+        ///       
+        ///	CommonLimit = 5
+        ///}
+        ///
+        ///Director.ResetMobTimer()
+        ///
+        ///
+        ///// start the delay timer
+        ///EntFire( &quot;timer_delay_end&quot;, &quot;enable&quot; )
+        ///
+        /////reset
+        ///DelayTouchedOrPoured   &lt;- 0
+        ///DelayPoured            &lt;- 0
+        /////-------------------------------------------------
+        ///
+        ///
+        ///// abort the dela [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c1m4_delay {
+            get {
+                return ResourceManager.GetString("c1m4_delay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 //-----------------------------------------------------------------------------
         ///
         ///PANIC &lt;- 0
@@ -125,7 +311,185 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
-        ///   查找类似 cefaedfe100000000e000000d83e0c000100000164656661756c74000000240000000100000000000000008054c40000c8c100fc8fc30000c8c30080d44300fc8fc300fc8fc300fc8fc30000000001000000550000000000000001000000540000000400000000006051c4000048c100fc8fc301010000000040cec3000048c100fc8fc301020000000040cec30040ce4300fc8fc30103000000006051c40040ce4300fc8fc30100000000000000000000000000000000f0420000f042553b283fe83c253f77722c3f05cc293f400000000000050000000000000002150000000109000000011d000000011f00000002540000006a000000000000200040cec4 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 //-----------------------------------------------------
+        ///local PANIC = 0
+        ///local TANK = 1
+        ///local DELAY = 2
+        /////-----------------------------------------------------
+        ///
+        ///// default finale patten - for reference only
+        ///
+        ////*
+        ///CustomFinale1 &lt;- PANIC
+        ///CustomFinaleValue1 &lt;- 2
+        ///
+        ///CustomFinale2 &lt;- DELAY
+        ///CustomFinaleValue2 &lt;- 10
+        ///
+        ///CustomFinale3 &lt;- TANK
+        ///CustomFinaleValue3 &lt;- 1
+        ///
+        ///CustomFinale4 &lt;- DELAY
+        ///CustomFinaleValue4 &lt;- 10
+        ///
+        ///CustomFinale5 &lt;- PANIC
+        ///CustomFinaleValue5 &lt;- 2
+        ///
+        ///CustomFinale6 &lt;- DELAY
+        ///CustomFinaleV [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c4m5_milltown_escape_finale {
+            get {
+                return ResourceManager.GetString("c4m5_milltown_escape_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;----------------------FINALE SCRIPT------------------\n&quot;)
+        /////-----------------------------------------------------
+        ///PANIC &lt;- 0
+        ///TANK &lt;- 1
+        ///DELAY &lt;- 2
+        ///ONSLAUGHT &lt;- 3
+        /////-----------------------------------------------------
+        ///
+        ///SharedOptions &lt;-
+        ///{
+        /// 	A_CustomFinale1 = ONSLAUGHT
+        ///	A_CustomFinaleValue1 = &quot;&quot;
+        ///
+        ///	A_CustomFinale2 = PANIC
+        ///	A_CustomFinaleValue2 = 1
+        ///
+        ///	A_CustomFinale3 = ONSLAUGHT
+        ///	A_CustomFinaleValue3 = &quot;c1m4_delay&quot;
+        ///        
+        ///	A_CustomFinale4 = PANIC
+        ///	A_CustomFinaleValue4 = 1
+        ///
+        ///	A_CustomFi [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c6m3_port_finale {
+            get {
+                return ResourceManager.GetString("c6m3_port_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        ///// This script handles the logic for the Port / Bridge
+        ///// finale in the River Campaign. 
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;Initiating c7m3_port_finale script\n&quot;);
+        ///
+        /////-----------------------------------------------------
+        ///ERROR		&lt;- -1
+        ///PANIC 		&lt;- 0
+        ///TANK 		&lt;- 1
+        ///DELAY 		&lt;- 2
+        ///
+        /////-----------------------------------------------------
+        ///
+        ///// This keeps track of the number of times the generator button has been pressed.  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c7m3_port_finale {
+            get {
+                return ResourceManager.GetString("c7m3_port_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;Initiating c8m5_rooftop_finale script\n&quot;);
+        ///
+        /////-----------------------------------------------------
+        ///ERROR		&lt;- -1
+        ///PANIC 		&lt;- 0
+        ///TANK 		&lt;- 1
+        ///DELAY 		&lt;- 2
+        ///SCRIPTED 	&lt;- 3
+        /////-----------------------------------------------------
+        ///
+        ///StageDelay &lt;- 0
+        ///PreEscapeDelay &lt;- 0
+        ///if ( Director.GetGameModeBase() == &quot;coop&quot; || Director.GetGameModeBase() == &quot;realism&quot; )
+        ///{
+        ///	StageDelay &lt;- 5
+        ///	PreE [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c8m5_rooftop_finale {
+            get {
+                return ResourceManager.GetString("c8m5_rooftop_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;Initiating c9m2_lots_finale script\n&quot;);
+        ///
+        /////-----------------------------------------------------
+        ///ERROR		&lt;- -1
+        ///PANIC 		&lt;- 0
+        ///TANK 		&lt;- 1
+        ///DELAY 		&lt;- 2
+        ///SCRIPTED 	&lt;- 3
+        /////-----------------------------------------------------
+        ///
+        ///StageDelay &lt;- 0
+        ///PreEscapeDelay &lt;- 0
+        ///if ( Director.GetGameModeBase() == &quot;coop&quot; || Director.GetGameModeBase() == &quot;realism&quot; )
+        ///{
+        ///	StageDelay &lt;- 5
+        ///	PreEsca [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c9m2_lots_finale {
+            get {
+                return ResourceManager.GetString("c9m2_lots_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Gauntlet\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	PanicForever = true
+        ///	PausePanicWhenRelaxing = true
+        ///
+        ///	IntensityRelaxThreshold = 0.99
+        ///	RelaxMinInterval = 25
+        ///	RelaxMaxInterval = 35
+        ///	RelaxMaxFlowTravel = 400
+        ///
+        ///	LockTempo = 0
+        ///	SpecialRespawnInterval = 20
+        ///	PreTankMobMax = 20
+        ///	ZombieSpawnRange = 3000
+        ///	ZombieSpawnInFog = true
+        ///
+        ///	MobSpawnSize = 5
+        ///	CommonLimit = 5
+        ///
+        ///	GauntletMovementThreshold = 500.0
+        ///	GauntletMovementTimerLength = 5.0
+        ///	GauntletMovementBonus = 2.0
+        ///	GauntletMovementBonusMax =  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string director_gauntlet {
+            get {
+                return ResourceManager.GetString("director_gauntlet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 zvrt/hAAAAAOAAAA2D4MAAEAAAFkZWZhdWx0AAAAJAAAAAEAAAAAAAAAAIBUxAAAyMEA/I/DAADIwwCA1EMA/I/DAPyPwwD8j8MAAAAAAQAAAFUAAAAAAAAAAQAAAFQAAAAEAAAAAABgUcQAAEjBAPyPwwEBAAAAAEDOwwAASMEA/I/DAQIAAAAAQM7DAEDOQwD8j8MBAwAAAABgUcQAQM5DAPyPwwEAAAAAAAAAAAAAAAAAAAAA8EIAAPBCVTsoP+g8JT93ciw/BcwpP0AAAAAAAAUAAAAAAAAAAhUAAAABCQAAAAEdAAAAAR8AAAACVAAAAGoAAAAAAAAgAEDOxAAASEMA/I/DACCyxAAAr0MA/I/DAPyPwwD8j8MBAAAAZwAAAAEAAABTAAAAAwAAACIAAABYAAAAbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBCAADwQmFa6D4rxyk/7EsqP9nAFD9AAAAAAAACAAAAFwAAAAAYAAAAAGcAAAAD [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string FinaleStandardScriptNav {
             get {

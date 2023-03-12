@@ -312,7 +312,7 @@ public static class Functions
                 return "info_director是一个可以通过使用输入输出控制部分导演行为的点实体。\n\n这个文本框的值将决定info_director的名字(targetname)。";
             case "trigger__finale":
                 return "trigger_finale是一个可以触发当前地图的救援的点实体。\n\n这个文本框的值将决定trigger_finale的名字(targetname)。";
-            case "ScriptFile":
+            case "Script File":
                 return "ScriptFile是trigger_finale的一个键值。\n\n这个文本框的值会决定如果trigger_finale使用Custom救援类型后将会使用的救援脚本名字(带后缀名.nut)。";
             case "First Use Delay":
                 return "First Use Delay是trigger_finale的一个键值。\n\n这个文本框的值会决定第一次触发trigger_finale后需要经过多少秒后才能再次触发。";
@@ -377,5 +377,30 @@ public static class Functions
         process.Start();
         process.WaitForExit();
         process.Close();
+    }
+
+    public static string GetOffcialScriptFile(int index)
+    {
+        switch(index)
+        {
+            case 0:
+                return Properties.Resources.c2m5_concert_finale;
+            case 1:
+                return Properties.Resources.c3m4_plantation_finale;
+            case 2:
+                return Properties.Resources.c4m5_milltown_escape_finale;
+            case 3:
+                return Properties.Resources.c8m5_rooftop_finale;
+            case 4:
+                return Properties.Resources.c9m2_lots_finale;
+            case 5:
+                return Properties.Resources.c10m5_houseboat_finale;
+            case 6:
+                return Properties.Resources.c11m5_runway_finale;
+            case 7:
+                return Properties.Resources.c12m5_cornfield_finale;
+            default:
+                return string.Empty;
+        }
     }
 }

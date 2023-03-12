@@ -11,7 +11,7 @@
             <RowDefinition Height="38"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <TextBlock Name="HintTextBlock" Grid.Row="0" Grid.Column="0" Margin="5" FontSize="20" FontFamily="Dengxian" TextWrapping="Wrap"/>
+        <TextBox Name="HintTextBox" Grid.Row="0" Grid.Column="0" Margin="5" FontSize="20" FontFamily="Dengxian" TextWrapping="Wrap"/>
         <Label Grid.Row="1" Grid.Column="0" Margin="5" FontSize="15" FontFamily="Dengxian" HorizontalContentAlignment="Center">
             <Hyperlink Name="HyperlinkLabel" Click="HyperlinkClick">点击访问Valve Developer Community上的对应页面</Hyperlink> 
         </Label>

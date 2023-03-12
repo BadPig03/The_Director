@@ -177,6 +177,9 @@
     <Compile Include="Windows\MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\PriviewScriptWindow.xaml.cs">
+      <DependentUpon>PriviewScriptWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\StandardRescueSettings.xaml.cs">
       <DependentUpon>StandardRescueSettings.xaml</DependentUpon>
     </Compile>
@@ -199,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\MessageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PriviewScriptWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -266,6 +273,18 @@
     <None Include="Resources\FinaleStandardScriptNav.txt" />
     <None Include="Resources\c2m5_concert_finale.txt" />
     <None Include="Resources\c3m4_plantation_finale.txt" />
+    <None Include="Resources\c4m5_milltown_escape_finale.txt" />
+    <None Include="Resources\c8m5_rooftop_finale.txt" />
+    <None Include="Resources\c9m2_lots_finale.txt" />
+    <None Include="Resources\c10m5_houseboat_finale.txt" />
+    <None Include="Resources\c11m5_runway_finale.txt" />
+    <None Include="Resources\c12m5_cornfield_finale.txt" />
+    <None Include="Resources\c1m4_atrium_finale.txt" />
+    <None Include="Resources\c1m4_delay.txt" />
+    <None Include="Resources\c6m3_port_finale.txt" />
+    <None Include="Resources\c14m2_lighthouse_finale.txt" />
+    <None Include="Resources\c7m3_port_finale.txt" />
+    <None Include="Resources\director_gauntlet.txt" />
     <Content Include="steam_api64.dll" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

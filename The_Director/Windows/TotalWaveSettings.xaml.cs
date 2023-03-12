@@ -131,9 +131,8 @@ namespace The_Director.Windows
         private void ConfirmButtonClick(object sender, RoutedEventArgs e)
         {
             foreach (var item in TotalWaveGrid.Children)
-                if(item is TextBox)
+                if (item is TextBox textBox)
                 {
-                    TextBox textBox = (TextBox)item;
                     if (!textBox.Name.StartsWith("__") && string.IsNullOrWhiteSpace(textBox.Text))
                     {
                         Functions.TryOpenMessageWindow(Functions.ConvertToInt(textBox.Name.Remove(0, 1)), true);
@@ -155,10 +154,9 @@ namespace The_Director.Windows
         private bool HasAnyTank()
         {
             foreach (var item in TotalWaveGrid.Children)
-                if(item is ComboBox)
+                if (item is ComboBox comboBox)
                 {
-                    ComboBox comboBox = (ComboBox)item;
-                    if(comboBox.SelectedIndex == 1)
+                    if (comboBox.SelectedIndex == 1)
                         return true;
                 }
             return false;
@@ -167,9 +165,8 @@ namespace The_Director.Windows
         private object GetMusicTextBox(string CompareName)
         {
             foreach (var item in TotalWaveGrid.Children)
-                if (item is TextBox)
+                if (item is TextBox textBox)
                 {
-                    TextBox textBox = (TextBox)item;
                     if (textBox.Name.StartsWith("__"))
                         if (textBox.Name.Remove(0, 2) == CompareName)
                             return textBox;

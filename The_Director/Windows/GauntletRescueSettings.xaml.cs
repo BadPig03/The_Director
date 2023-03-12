@@ -62,7 +62,7 @@ namespace The_Director.Windows
             {
                 Width = 480,
                 Height = 320,
-                TextBlockString = "设置LockTempo = true会无延迟地生成尸潮。",
+                TextBoxString = "设置LockTempo = true会无延迟地生成尸潮。",
                 HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
             };
             metroWindow.ShowDialog();
@@ -74,7 +74,7 @@ namespace The_Director.Windows
             {
                 Width = 480,
                 Height = 320,
-                TextBlockString = "设置NoMobSpawns = true会停止新的僵尸生成。\n\n原有暂时等待生成的僵尸仍会继续生成。\n\n不会重置生成计时器。",
+                TextBoxString = "设置NoMobSpawns = true会停止新的僵尸生成。\n\n原有暂时等待生成的僵尸仍会继续生成。\n\n不会重置生成计时器。",
                 HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
             };
             metroWindow.ShowDialog();
@@ -86,7 +86,7 @@ namespace The_Director.Windows
             {
                 Width = 480,
                 Height = 320,
-                TextBlockString = "设置ShouldAllowMobsWithTank = true会允许在Tank在场时自然生成小僵尸。\n\nBoomer和胆汁炸弹引起的尸潮不受影响。\n\n仅适用于战役模式。",
+                TextBoxString = "设置ShouldAllowMobsWithTank = true会允许在Tank在场时自然生成小僵尸。\n\nBoomer和胆汁炸弹引起的尸潮不受影响。\n\n仅适用于战役模式。",
                 HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
             };
             metroWindow.ShowDialog();

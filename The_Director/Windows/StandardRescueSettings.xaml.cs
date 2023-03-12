@@ -47,6 +47,7 @@ namespace The_Director.Windows
         {
             IsVmfConfirmed = value != null;
         }
+
         public void SaveToNavReceived(string value)
         {
             IsNavConfirmed = value != null;
@@ -108,17 +109,6 @@ namespace The_Director.Windows
             UseDelayTextBox.Text = VmfValuesList[4];
         }
 
-        private void TotalWaveButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (Functions.IsProperInt(TotalWaveTextBox.Text, 1, int.MaxValue))
-            {
-                if (TryOpenTotalWaveWindow(Functions.ConvertToInt(TotalWaveTextBox.Text)))
-                    TotalWaveTextBox.Text = TotalWaveCount.ToString();
-                else
-                    TotalWaveCount = Functions.ConvertToInt(TotalWaveTextBox.Text);
-            }
-        }
-
         private void TryOpenMSGWindow()
         {
             InputNewText inputNewText = new()
@@ -154,17 +144,15 @@ namespace The_Director.Windows
 
             foreach (var item in totalWaveSettings.TotalWaveGrid.Children)
             {
-                if (item is TextBox)
+                if (item is TextBox textBox)
                 {
-                    TextBox textBox = (TextBox)item;
-                    if(textBox.Name.StartsWith("__"))
-                        TextBoxDicts[Functions.ConvertToInt(textBox.Name.Remove(0, 2))] += $"{((textBox.Text != string.Empty)?"\x1c":string.Empty)}{textBox.Text}";
+                    if (textBox.Name.StartsWith("__"))
+                        TextBoxDicts[Functions.ConvertToInt(textBox.Name.Remove(0, 2))] += $"{((textBox.Text != string.Empty) ? "\x1c" : string.Empty)}{textBox.Text}";
                     else
                         TextBoxDicts[Functions.ConvertToInt(textBox.Name.Remove(0, 1))] = textBox.Text;
                 }
-                if (item is ComboBox)
+                if (item is ComboBox comboBox)
                 {
-                    ComboBox comboBox = (ComboBox)item;
                     ComboBoxDicts[Functions.ConvertToInt(comboBox.Name.Remove(0, 1))] = comboBox.SelectedIndex;
                 }
             }
@@ -180,7 +168,18 @@ namespace The_Director.Windows
             return false;
         }
 
-    private void CheckBoxClick(object sender, RoutedEventArgs e)
+        private void TotalWaveButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (Functions.IsProperInt(TotalWaveTextBox.Text, 1, int.MaxValue))
+            {
+                if (TryOpenTotalWaveWindow(Functions.ConvertToInt(TotalWaveTextBox.Text)))
+                    TotalWaveTextBox.Text = TotalWaveCount.ToString();
+                else
+                    TotalWaveCount = Functions.ConvertToInt(TotalWaveTextBox.Text);
+            }
+        }
+
+        private void CheckBoxClick(object sender, RoutedEventArgs e)
         {
             CheckBox checkBox = (CheckBox)sender;
             var Name = checkBox.Name.Remove(checkBox.Name.Length - 8, 8);
@@ -424,9 +423,7 @@ namespace The_Director.Windows
             Label label = (Label)sender;
             HintWindow hintWindow = new()
             {
-                Width = 480,
-                Height = 320,
-                TextBlockString = Functions.GetButtonString(label.Content.ToString()),
+                TextBoxString = Functions.GetButtonString(label.Content.ToString()),
                 HyperlinkUri = Functions.GetButtonHyperlinkUri(label.Content.ToString()),
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
@@ -513,7 +510,14 @@ namespace The_Director.Windows
 
         private void PreviewOfficalScriptClick(object sender, RoutedEventArgs e)
         {
-
+            PreviewScriptWindow previewScriptWindow = new()
+            {
+                Title = $"正在预览{MapSelectionComboBox.SelectedItem}的救援脚本",
+                TextBoxString = Functions.GetOffcialScriptFile(MapSelectionComboBox.SelectedIndex),
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            previewScriptWindow.ShowDialog();
         }
 
         private void ToggleAllObjects(bool status)

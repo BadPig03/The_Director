@@ -9,7 +9,7 @@ namespace The_Director.Windows
 {
     public partial class HintWindow : MetroWindow
     {
-        public string TextBlockString { get; set; }
+        public string TextBoxString { get; set; }
         public string HyperlinkUri { get; set; }
 
         public HintWindow()
@@ -25,7 +25,7 @@ namespace The_Director.Windows
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            HintTextBlock.Text = TextBlockString;
+            HintTextBox.Text = TextBoxString;
             HyperlinkLabel.NavigateUri = new Uri(HyperlinkUri);
         }
 
