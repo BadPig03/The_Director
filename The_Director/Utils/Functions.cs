@@ -379,7 +379,7 @@ public static class Functions
         process.Close();
     }
 
-    public static string GetOffcialScriptFile(int index)
+    public static string GetOffcialStandardScriptFile(int index)
     {
         switch(index)
         {

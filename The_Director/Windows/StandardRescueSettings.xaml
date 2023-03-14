@@ -98,7 +98,7 @@
                 <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
             </DockPanel>
             <Label Grid.Row="15" Grid.Column="0" Margin="0,5,5,5" Content="地图选择" FontSize="18" FontFamily="Bahnschrift"/>
-            <ComboBox Name="MapSelectionComboBox" Grid.Row="15" Grid.Column="1" Margin="0,5,5,5" FontSize="15" FontFamily="Bahnschrift" Width="150" DockPanel.Dock="Right" HorizontalAlignment="Right" HorizontalContentAlignment="Left" SelectionChanged="MapSelectionChanged"/>
+            <ComboBox Name="MapSelectionComboBox" Grid.Row="15" Grid.Column="1" Margin="0,5,5,5" FontSize="15" FontFamily="Bahnschrift" Width="150" DockPanel.Dock="Right" HorizontalAlignment="Right" HorizontalContentAlignment="Left"/>
             <DockPanel Grid.Row="16" Grid.Column="0">
                 <Button Name="PreviewOffcialScriptButton" Margin="20,5,5,5" Content="预览脚本文件" Width="120" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Center" Click="PreviewOfficalScriptClick"/>
             </DockPanel>

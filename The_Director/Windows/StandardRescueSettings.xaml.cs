@@ -14,7 +14,7 @@ namespace The_Director.Windows
     {
         public int? TotalWaveCount = null;
         public bool IsTotalWaveConfirmed = new();
-        public bool IsVmfConfirmed = new();
+        public bool IsNutConfirmed = new();
         public bool IsNavConfirmed = new();
         public bool? IsScriptWindowEnabled = new();
 
@@ -43,9 +43,9 @@ namespace The_Director.Windows
                 IsTotalWaveConfirmed = true;
             }
         }
-        public void SaveToVmfReceived(string value)
+        public void SaveToNutReceived(string value)
         {
-            IsVmfConfirmed = value != null;
+            IsNutConfirmed = value != null;
         }
 
         public void SaveToNavReceived(string value)
@@ -341,11 +341,6 @@ namespace The_Director.Windows
             UpdateScriptWindow();
         }
 
-        private void MapSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox comboBox = (ComboBox)sender;
-        }
-
         private void UpdateScriptWindow()
         {
             if (IsScriptWindowEnabled == false)
@@ -447,10 +442,7 @@ namespace The_Director.Windows
             };
             saveFileDialog.ShowDialog();
             if (saveFileDialog.FileName != string.Empty)
-            {
-                string filePath = saveFileDialog.FileName + (saveFileDialog.FileName.EndsWith(".nut")?string.Empty:".nut");
-                File.WriteAllText(filePath, ScriptWindow.Text);
-            }
+                SaveNutToPath(saveFileDialog.FileName);
         }
 
         private void SaveAsVmfClick(object sender, RoutedEventArgs e) 
@@ -465,20 +457,22 @@ namespace The_Director.Windows
 
             if (saveFileDialog.FileName == string.Empty)
                 return;
+            else
+                SaveVmfToPath(saveFileDialog.FileName);
 
             string fileExtension = VmfValuesList[2].EndsWith(".nut") ? string.Empty : ".nut";
 
             YesOrNoWindow yesOrNoWindow = new()
             {
                 TextBlockString = $"是否一并导出脚本文件至scripts\\vscripts文件夹?\n\n脚本文件名将为\"{VmfValuesList[2]}{fileExtension}\"!",
-                SendMessage = SaveToVmfReceived,
+                SendMessage = SaveToNutReceived,
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
             yesOrNoWindow.ShowDialog();
 
-            if (IsVmfConfirmed)
-                File.WriteAllText(Globals.L4D2ScriptsPath + $"\\{VmfValuesList[2]}" + fileExtension, ScriptWindow.Text);
+            if (IsNutConfirmed)
+                SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{VmfValuesList[2]}");
 
             string NavFileName = saveFileDialog.SafeFileName.Replace(".vmf", ".nav");
 
@@ -492,13 +486,14 @@ namespace The_Director.Windows
             yesOrNoWindow2.ShowDialog();
 
             if (IsNavConfirmed)
-                SaveNavToPath(saveFileDialog.FileName);
+                SaveNavToPath(saveFileDialog.FileName.Replace(".vmf", ".nav"));
         }
 
         private void CompileVmfClick(object sender, RoutedEventArgs e)
         {
             SaveVmfToPath($"{Globals.L4D2StandardFinalePath}");
-            SaveNavToPath("null");
+            SaveNutToPath($"{Globals.L4D2ScriptsPath}\\standard_finale.nut");
+            SaveNavToPath($"{Globals.L4D2MapsPath}\\standard_finale.nav");
             if (Functions.GenerateNewProcess(0))
                 if (Functions.GenerateNewProcess(1))
                     if (Functions.GenerateNewProcess(2))
@@ -513,7 +508,7 @@ namespace The_Director.Windows
             PreviewScriptWindow previewScriptWindow = new()
             {
                 Title = $"正在预览{MapSelectionComboBox.SelectedItem}的救援脚本",
-                TextBoxString = Functions.GetOffcialScriptFile(MapSelectionComboBox.SelectedIndex),
+                TextBoxString = Functions.GetOffcialStandardScriptFile(MapSelectionComboBox.SelectedIndex),
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
@@ -557,6 +552,12 @@ namespace The_Director.Windows
             UpdateScriptWindow();
         }
 
+        private void SaveNutToPath(string saveFilePath)
+        {
+            string filePath = saveFilePath + (saveFilePath.EndsWith(".nut") ? string.Empty : ".nut");
+            File.WriteAllText(filePath, ScriptWindow.Text);
+        }
+
         private void SaveVmfToPath(string saveFilePath)
         {
             string file = Properties.Resources.FinaleStandardScriptVmf;
@@ -583,7 +584,7 @@ namespace The_Director.Windows
 
         private void SaveNavToPath(string saveFilePath)
         {
-            string filePath = (saveFilePath != "null") ? saveFilePath.Replace(".vmf", string.Empty) + (saveFilePath.EndsWith(".nav") ? string.Empty : ".nav") : $"{Globals.L4D2MapsPath}\\standard_finale.nav";
+            string filePath = saveFilePath + (saveFilePath.EndsWith(".nav") ? string.Empty : ".nav");
             
             try
             {
