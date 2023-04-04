@@ -489,7 +489,16 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
-        ///   查找类似 zvrt/hAAAAAOAAAA2D4MAAEAAAFkZWZhdWx0AAAAJAAAAAEAAAAAAAAAAIBUxAAAyMEA/I/DAADIwwCA1EMA/I/DAPyPwwD8j8MAAAAAAQAAAFUAAAAAAAAAAQAAAFQAAAAEAAAAAABgUcQAAEjBAPyPwwEBAAAAAEDOwwAASMEA/I/DAQIAAAAAQM7DAEDOQwD8j8MBAwAAAABgUcQAQM5DAPyPwwEAAAAAAAAAAAAAAAAAAAAA8EIAAPBCVTsoP+g8JT93ciw/BcwpP0AAAAAAAAUAAAAAAAAAAhUAAAABCQAAAAEdAAAAAR8AAAACVAAAAGoAAAAAAAAgAEDOxAAASEMA/I/DACCyxAAAr0MA/I/DAPyPwwD8j8MBAAAAZwAAAAEAAABTAAAAAwAAACIAAABYAAAAbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBCAADwQmFa6D4rxyk/7EsqP9nAFD9AAAAAAAACAAAAFwAAAAAYAAAAAGcAAAAD [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string FinaleScavengeScriptVmf {
+            get {
+                return ResourceManager.GetString("FinaleScavengeScriptVmf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 zvrt/hAAAAAOAAAArNeWAAEAAAFkZWZhdWx0AAAAygMAAAEAAAAAAAAgAIDUQwAAL0MABIxDAIA7RAAA+kMABIxDAASMQwAEjEMEAAAA4gAAAFAAAABAAAAAagAAAAIAAACZAAAAmgAAAAMAAADjAwAA5QMAAOQAAAADAAAAkgAAAOAAAAAzAAAAAQAAAAAAwNpDAMDzQwAEjEMIAAAAAAAAAAAAAAAAAAAAAPBCAADwQohZJT/OKCY/ny3UPR06rT5AAAAAAABeAQAAxAMAAAK/AwAAAsIDAAACtwMAAALIAwAAArQDAAACswMAAAK5AwAAAr4DAAACAAAAAAIBAAAAAwIAAAABDAAAAAMVAAAAARYAAAADFwAAAAEbAAAAARwAAAABHQAAAAEhAAAAASIAAAABIwAAAAEkAAAAASUAAAABLAAAAAEvAAAAAzIAAAACMwAAAAE1AAAAATYAAAACNwAAAAI4AAAAAjkAAAABPgAAAAM/AAAAAkAAAAAC [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string FinaleStandardScriptNav {
             get {
@@ -501,13 +510,25 @@ namespace The_Director.Properties {
         ///   查找类似 versioninfo
         ///{
         ///	&quot;editorversion&quot; &quot;400&quot;
-        ///	&quot;editorbuild&quot; &quot;8864&quot;
-        ///	&quot;mapversion&quot; &quot;95&quot;
+        ///	&quot;editorbuild&quot; &quot;9520&quot;
+        ///	&quot;mapversion&quot; &quot;586&quot;
         ///	&quot;formatversion&quot; &quot;100&quot;
         ///	&quot;prefab&quot; &quot;0&quot;
         ///}
         ///visgroups
         ///{
+        ///	visgroup
+        ///	{
+        ///		&quot;name&quot; &quot;1204 objects&quot;
+        ///		&quot;visgroupid&quot; &quot;78&quot;
+        ///		&quot;color&quot; &quot;127 156 205&quot;
+        ///	}
+        ///	visgroup
+        ///	{
+        ///		&quot;name&quot; &quot;291 objects&quot;
+        ///		&quot;visgroupid&quot; &quot;123&quot;
+        ///		&quot;color&quot; &quot;106 147 80&quot;
+        ///	}
         ///}
         ///viewsettings
         ///{
@@ -515,19 +536,13 @@ namespace The_Director.Properties {
         ///	&quot;bShowGrid&quot; &quot;1&quot;
         ///	&quot;bShowLogicalGrid&quot; &quot;0&quot;
         ///	&quot;nGridSpacing&quot; &quot;1&quot;
+        ///	&quot;bShow3DGrid&quot; &quot;0&quot;
         ///}
-        ///palette_plus
+        ///world
         ///{
-        ///	&quot;color0&quot; &quot;255 255 255&quot;
-        ///	&quot;color1&quot; &quot;255 255 255&quot;
-        ///	&quot;color2&quot; &quot;255 255 255&quot;
-        ///	&quot;color3&quot; &quot;255 255 255&quot;
-        ///	&quot;color4&quot; &quot;255 255 255&quot;
-        ///	&quot;color5&quot; &quot;255 255 255&quot;
-        ///	&quot;color6&quot; &quot;255 255 255&quot;
-        ///	&quot;color7&quot; &quot;255 255 255&quot;
-        ///	&quot;color8&quot; &quot;255 255 255&quot;
-        ///	&quot;color9&quot; &quot;255 255 255&quot;        /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///	&quot;id&quot; &quot;1&quot;
+        ///	&quot;mapversion&quot; &quot;586&quot;
+        ///	&quot;classname&quot; &quot;worldspawn [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string FinaleStandardScriptVmf {
             get {

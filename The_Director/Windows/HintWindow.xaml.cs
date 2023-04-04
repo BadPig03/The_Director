@@ -38,7 +38,9 @@ namespace The_Director.Windows
         private void KeyPressed(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter || e.Key == Key.Space)
+            {
                 ConfirmButtonClick(null, null);
+            }
         }
     }
 }

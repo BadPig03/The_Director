@@ -37,9 +37,13 @@ namespace The_Director.Windows
         private void KeyPressed(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
+            {
                 ConfirmButtonClick(null, null);
+            }
             else if (e.Key == Key.Escape)
+            {
                 CancleButtonClick(null, null);
+            }
         }
     }
 }

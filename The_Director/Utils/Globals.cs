@@ -26,8 +26,8 @@ public static class Globals
     public static string L4D2TempPath = Path.GetTempPath();
     public static string L4D2GameInfoPath = L4D2RootPath + "\\left4dead2";
     public static string L4D2StandardFinalePath = Path.GetTempPath() + "standard_finale";
-    public static string L4D2VBSPPath = L4D2RootPath + "\\bin\\vbsp.exe";
     public static string L4D2VVISPath = L4D2RootPath + "\\bin\\vvis.exe";
+    public static string L4D2VBSPPath = L4D2RootPath + "\\bin\\vbsp.exe";
     public static string L4D2VRADPath = L4D2RootPath + "\\bin\\vrad.exe";
     public static string L4D2MapsPath = L4D2RootPath + "\\left4dead2\\maps";
     public static string L4D2ScriptsPath = L4D2RootPath + "\\left4dead2\\scripts\\vscripts";
@@ -35,14 +35,16 @@ public static class Globals
     public static void FileToBase64String()
     {
         string data = "";
-        using (MemoryStream msReader = new MemoryStream())
+        using (MemoryStream msReader = new())
         {
             using (FileStream fs = new("", FileMode.Open))
             {
                 byte[] buffer = new byte[1024];
                 int readLen = 0;
                 while ((readLen = fs.Read(buffer, 0, buffer.Length)) > 0)
+                {
                     msReader.Write(buffer, 0, readLen);
+                }
             }
             data = Convert.ToBase64String(msReader.ToArray());
         }

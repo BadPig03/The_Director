@@ -180,6 +180,9 @@
     <Compile Include="Windows\PriviewScriptWindow.xaml.cs">
       <DependentUpon>PriviewScriptWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ScavengeRescueSettings.xaml.cs">
+      <DependentUpon>ScavengeRescueSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\StandardRescueSettings.xaml.cs">
       <DependentUpon>StandardRescueSettings.xaml</DependentUpon>
     </Compile>
@@ -238,6 +241,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\ScavengeRescueSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -285,6 +292,7 @@
     <None Include="Resources\c14m2_lighthouse_finale.txt" />
     <None Include="Resources\c7m3_port_finale.txt" />
     <None Include="Resources\director_gauntlet.txt" />
+    <None Include="Resources\FinaleScavengeScriptVmf.txt" />
     <Content Include="steam_api64.dll" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

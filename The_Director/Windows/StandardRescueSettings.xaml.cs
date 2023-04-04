@@ -23,20 +23,26 @@ namespace The_Director.Windows
         public Dictionary<int, int> ComboBoxDicts = new();
         public Dictionary<string, BooleanString> StandardDict = new();
 
-        public List<string> VmfValuesList = new() { "director", "finale_radio", "standard_finale.nut", "1", "1" };
+        public List<string> VmfValuesList = new() { "director", "finale_radio", "standard_finale.nut", "2", "1" };
 
         public void MSGReceived(string value)
         {
             if (value != null)
+            {
                 StandardDict["MSG"] = (true, value);
+            }
             else
+            {
                 MSGCheckBox.IsChecked = false;
+            }
         }
 
         public void TotalWaveReceived(string value)
         {
             if (value == null)
+            {
                 IsTotalWaveConfirmed = false;
+            }
             else
             {
                 TotalWaveDicts.Clear();
@@ -138,7 +144,9 @@ namespace The_Director.Windows
             totalWaveSettings.ShowDialog();
 
             if (!IsTotalWaveConfirmed)
+            {
                 return true;
+            }
 
             IsScriptWindowEnabled = true;
 
@@ -147,9 +155,13 @@ namespace The_Director.Windows
                 if (item is TextBox textBox)
                 {
                     if (textBox.Name.StartsWith("__"))
+                    {
                         TextBoxDicts[Functions.ConvertToInt(textBox.Name.Remove(0, 2))] += $"{((textBox.Text != string.Empty) ? "\x1c" : string.Empty)}{textBox.Text}";
+                    }
                     else
+                    {
                         TextBoxDicts[Functions.ConvertToInt(textBox.Name.Remove(0, 1))] = textBox.Text;
+                    }
                 }
                 if (item is ComboBox comboBox)
                 {
@@ -157,9 +169,15 @@ namespace The_Director.Windows
                 }
             }
             foreach (var item1 in ComboBoxDicts)
+            {
                 foreach (var item2 in TextBoxDicts)
+                {
                     if (item1.Key == item2.Key)
+                    {
                         TotalWaveDicts[$"{item1.Key + 1}"] = $"{Functions.TotalWaveToString(item1.Value)}\x1b{item2.Value}";
+                    }
+                }
+            }
 
             TotalWaveCount = WaveCount;
 
@@ -173,9 +191,13 @@ namespace The_Director.Windows
             if (Functions.IsProperInt(TotalWaveTextBox.Text, 1, int.MaxValue))
             {
                 if (TryOpenTotalWaveWindow(Functions.ConvertToInt(TotalWaveTextBox.Text)))
+                {
                     TotalWaveTextBox.Text = TotalWaveCount.ToString();
+                }
                 else
+                {
                     TotalWaveCount = Functions.ConvertToInt(TotalWaveTextBox.Text);
+                }
             }
         }
 
@@ -199,11 +221,16 @@ namespace The_Director.Windows
             }
 
             if (Name != "MSG")
+            {
                 StandardDict[Name] = (IsChecked, null);
+            }
             else
             {
                 if (!StandardDict[Name].Item1 && IsChecked)
+                {
                     TryOpenMSGWindow();
+                }
+
                 StandardDict[Name] = (IsChecked, StandardDict[Name].Item2);
             }
             UpdateScriptWindow();
@@ -220,17 +247,24 @@ namespace The_Director.Windows
                     {
                         TotalWaveButton.IsEnabled = true;
                         if (Functions.IsProperInt(textBox.Text, 10, 99))
+                        {
                             TotalWaveButtonClick(TotalWaveButton, null);
+                        }
                     }
                     else
                     {
                         if(textBox.Text != string.Empty)
+                        {
                             Functions.TryOpenMessageWindow(1);
+                        }
+
                         IsScriptWindowEnabled = false;
                         TotalWaveButton.IsEnabled = false;
                         textBox.Text = string.Empty;
                         if (TotalWaveCount != null)
+                        {
                             TotalWaveCount = null;
+                        }
                     }
                     break;
                 case 1:
@@ -290,38 +324,62 @@ namespace The_Director.Windows
                     {
                         Functions.TryOpenMessageWindow(6);
                         if(Name == "info_director")
+                        {
                             textBox.Text = "director";
+                        }
                         else if (Name == "trigger_finale")
+                        {
                             textBox.Text = "finale_radio";
+                        }
                         else if (Name == "ScriptFile")
+                        {
                             textBox.Text = "standard_finale.nut";
+                        }
+
                         return;
                     }
                     if (Name == "info_director")
+                    {
                         VmfValuesList[0] = textBox.Text;
+                    }
                     else if (Name == "trigger_finale")
+                    {
                         VmfValuesList[1] = textBox.Text;
+                    }
                     else if (Name == "ScriptFile")
+                    {
                         VmfValuesList[2] = textBox.Text;
+                    }
+
                     break;
                 case 6:
                     if (textBox.Text == string.Empty || !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
                     {
                         Functions.TryOpenMessageWindow(4);
                         if (Name == "FirstUseDelay" || Name == "UseDelay")
+                        {
                             textBox.Text = "1";
+                        }
+
                         return;
                     }
                     if (Name == "FirstUseDelay")
+                    {
                         VmfValuesList[3] = textBox.Text;
+                    }
                     else if (Name == "UseDelay")
+                    {
                         VmfValuesList[4] = textBox.Text;
+                    }
+
                     break;
                 default:
                     break;
             }
             if (Name != "TotalWave" || Name != "MSG")
+            {
                 StandardDict[Name] = (textBox.Text != string.Empty, textBox.Text);
+            }
 
             UpdateScriptWindow();
         }
@@ -344,16 +402,22 @@ namespace The_Director.Windows
         private void UpdateScriptWindow()
         {
             if (IsScriptWindowEnabled == false)
+            {
                 ScriptWindow.Text = string.Empty;
+            }
             else if (IsScriptWindowEnabled == true)
             {
                 StringBuilder ScriptWindowText = new();
 
                 if ((bool)MSGCheckBox.IsChecked)
+                {
                     ScriptWindowText.AppendLine($"Msg(\"{StandardDict["MSG"].Item2}\");\n");
+                }
 
                 if (TotalWaveCount > 0)
+                {
                     ScriptWindowText.AppendLine("PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{");
+                }
 
                 if (TotalWaveDicts.Count != 0 && TotalWaveCount > 0)
                 {
@@ -365,10 +429,14 @@ namespace The_Director.Windows
                         {
                             ScriptWindowText.AppendLine($"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1].Split('\x1c')[0]}");
                             if (item.Value.Split('\x1b')[0] == "TANK")
+                            {
                                 ScriptWindowText.AppendLine($"\tA_CustomFinaleMusic{item.Key} = {item.Value.Split('\x1b')[1].Split('\x1c')[1]}");
+                            }
                         }
                         else
+                        {
                             ScriptWindowText.AppendLine($"\tA_CustomFinaleValue{item.Key} = {item.Value.Split('\x1b')[1]}");
+                        }
                     }
                     ScriptWindowText.AppendLine("");
                 }
@@ -378,24 +446,36 @@ namespace The_Director.Windows
                     if (item.Value.Item1 && !Globals.StandardDictBlackList.Contains(item.Key))
                     {
                         if (item.Value.Item2 != null)
+                        {
                             ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item2}");
+                        }
                         else
+                        {
                             ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}");
+                        }
                     }
                     else if (!item.Value.Item1 && item.Key == "EscapeSpawnTanks")
+                    {
                         ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}");
+                    }
                 }
 
                 if (TotalWaveCount > 0)
+                {
                     ScriptWindowText.AppendLine("}");
+                }
 
                 if (StandardDict["ShowStage"].Item1)
+                {
                     ScriptWindowText.AppendLine("\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}");
+                }
 
                 ScriptWindow.Text = ScriptWindowText.ToString();
             }
             else
+            {
                 ScriptWindow.Text = "Msg(\"For rescue debug purpose only.\\n\");\n\nDELAY <- 2\n\nDirectorOptions <-\n{\n\tA_CustomFinale_StageCount = 1\n\n\tA_CustomFinale1 = DELAY\n\tA_CustomFinaleValue1 = 1\n}\n";
+            }
 
             if (ScriptWindow.Text != string.Empty)
             {
@@ -442,7 +522,9 @@ namespace The_Director.Windows
             };
             saveFileDialog.ShowDialog();
             if (saveFileDialog.FileName != string.Empty)
-                SaveNutToPath(saveFileDialog.FileName);
+            {
+                Functions.SaveNutToPath(saveFileDialog.FileName, ScriptWindow.Text);
+            }
         }
 
         private void SaveAsVmfClick(object sender, RoutedEventArgs e) 
@@ -456,9 +538,13 @@ namespace The_Director.Windows
             saveFileDialog.ShowDialog();
 
             if (saveFileDialog.FileName == string.Empty)
+            {
                 return;
+            }
             else
-                SaveVmfToPath(saveFileDialog.FileName);
+            {
+                Functions.SaveVmfToPath(saveFileDialog.FileName, VmfValuesList, 0);
+            }
 
             string fileExtension = VmfValuesList[2].EndsWith(".nut") ? string.Empty : ".nut";
 
@@ -472,7 +558,9 @@ namespace The_Director.Windows
             yesOrNoWindow.ShowDialog();
 
             if (IsNutConfirmed)
-                SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{VmfValuesList[2]}");
+            {
+                Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{VmfValuesList[2]}", ScriptWindow.Text);
+            }
 
             string NavFileName = saveFileDialog.SafeFileName.Replace(".vmf", ".nav");
 
@@ -486,21 +574,27 @@ namespace The_Director.Windows
             yesOrNoWindow2.ShowDialog();
 
             if (IsNavConfirmed)
-                SaveNavToPath(saveFileDialog.FileName.Replace(".vmf", ".nav"));
+            {
+                Functions.SaveNavToPath(saveFileDialog.FileName.Replace(".vmf", ".nav"));
+            }
         }
 
         private void CompileVmfClick(object sender, RoutedEventArgs e)
         {
-            SaveVmfToPath($"{Globals.L4D2StandardFinalePath}");
-            SaveNutToPath($"{Globals.L4D2ScriptsPath}\\standard_finale.nut");
-            SaveNavToPath($"{Globals.L4D2MapsPath}\\standard_finale.nav");
+            Functions.SaveVmfToPath($"{Globals.L4D2StandardFinalePath}", VmfValuesList, 0);
+            Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\standard_finale.nut", ScriptWindow.Text);
+            Functions.SaveNavToPath($"{Globals.L4D2MapsPath}\\standard_finale.nav");
             if (Functions.GenerateNewProcess(0))
+            {
                 if (Functions.GenerateNewProcess(1))
+                {
                     if (Functions.GenerateNewProcess(2))
                     {
                         File.Copy($"{Globals.L4D2StandardFinalePath}.bsp", $"{Globals.L4D2MapsPath}\\standard_finale.bsp", true);
                         Functions.RunL4D2Game();
                     }
+                }
+            }
         }
 
         private void PreviewOfficalScriptClick(object sender, RoutedEventArgs e)
@@ -524,8 +618,12 @@ namespace The_Director.Windows
                     Button button = (Button)FindName(itemName);
                     button.IsEnabled = status;
                     if (status && (itemName == "SaveAsNutButton" || itemName == "PasteToClipboardButton" || itemName == "TotalWaveButton"))
+                    {
                         if ((TotalWaveCount <= 0 || TotalWaveCount == null) && !Functions.IsProperInt(TotalWaveTextBox.Text, 1, 99))
+                        {
                             button.IsEnabled = false;
+                        }
+                    }
                 }
                 else if (itemName.EndsWith("CheckBox"))
                 {
@@ -548,56 +646,8 @@ namespace The_Director.Windows
                     label.IsEnabled = status;
                 }
             }
-            IsScriptWindowEnabled = status ? (TotalWaveCount <= 0 || TotalWaveCount == null ? false : true) : null;
+            IsScriptWindowEnabled = status ? (TotalWaveCount > 0 && TotalWaveCount != null) : null;
             UpdateScriptWindow();
-        }
-
-        private void SaveNutToPath(string saveFilePath)
-        {
-            string filePath = saveFilePath + (saveFilePath.EndsWith(".nut") ? string.Empty : ".nut");
-            File.WriteAllText(filePath, ScriptWindow.Text);
-        }
-
-        private void SaveVmfToPath(string saveFilePath)
-        {
-            string file = Properties.Resources.FinaleStandardScriptVmf;
-            file = file.Replace("\"targetname\" \"director\"", $"\"targetname\" \"{VmfValuesList[0]}\"");
-            file = file.Replace("\"targetname\" \"finale_radio\"", $"\"targetname\" \"{VmfValuesList[1]}\"");
-            file = file.Replace("\"finale_radio\x1b", $"\"{VmfValuesList[1]}\x1b");
-            file = file.Replace("\"ScriptFile\" \"standard_finale.nut\"", $"\"ScriptFile\" \"{VmfValuesList[2]}\"");
-            file = file.Replace("\"FirstUseDelay\" \"1\"", $"\"FirstUseDelay\" \"{VmfValuesList[3]}\"");
-            file = file.Replace("\"UseDelay\" \"1\"", $"\"UseDelay\" \"{VmfValuesList[4]}\"");
-
-            string filePath = saveFilePath + (saveFilePath.EndsWith(".vmf") ? string.Empty : ".vmf");
-
-            try
-            {
-                using StreamWriter streamWriter = File.CreateText(filePath);
-                streamWriter.Write(file);
-            }
-            catch (DirectoryNotFoundException)
-            {
-                Functions.TryOpenMessageWindow(8);
-                return;
-            }
-        }
-
-        private void SaveNavToPath(string saveFilePath)
-        {
-            string filePath = saveFilePath + (saveFilePath.EndsWith(".nav") ? string.Empty : ".nav");
-            
-            try
-            {
-                using MemoryStream memoryStream = new(Convert.FromBase64String(Properties.Resources.FinaleStandardScriptNav));
-                using FileStream fileStream = new(filePath, FileMode.OpenOrCreate, FileAccess.Write);
-                byte[] bytes = memoryStream.ToArray();
-                fileStream.Write(bytes, 0, bytes.Length);
-            }
-            catch 
-            {
-                Functions.TryOpenMessageWindow(8);
-                return;
-            }
         }
     }
 }

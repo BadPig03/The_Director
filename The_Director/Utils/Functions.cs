@@ -1,9 +1,10 @@
-﻿using Steamworks;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using The_Director.Windows;
 
 namespace The_Director.Utils;
@@ -17,89 +18,122 @@ public static class Functions
         Random random = new(BitConverter.ToInt32(b, 0));
         string result = null, temp = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         for (int i = 0; i < 16; i++)
+        {
             result += temp.Substring(random.Next(0, temp.Length - 1), 1);
+        }
+
         return result;
     } 
 
     public static bool IsProperInt(string value, int min, int max)
     {
         if (value == string.Empty)
+        {
             return false;
+        }
+
         if (!Regex.IsMatch(value, @"^\-?(\d+)?$"))
+        {
             return false;
+        }
+
         if (value == "-")
+        {
             value = "-1";
+        }
+
         if (int.Parse(value) <= max && int.Parse(value) >= min)
+        {
             return true;
+        }
+
         return false;
     }
 
     public static bool IsProperFloat(string value, float min, float max)
     {
         if (value == string.Empty)
+        {
             return false;
+        }
+
         if (value == ".")
+        {
             value = "0.0";
+        }
+
         if (Regex.IsMatch(value, @"^\d+\.$"))
+        {
             value = value.Insert(value.Length, "0");
+        }
+
         if (Regex.IsMatch(value, @"^\.\d+$"))
+        {
             value = value.Insert(0, "0");
+        }
+
         if (!Regex.IsMatch(value, @"^\d+(\.\d+)?$"))
+        {
             return false;
+        }
+
         if (float.Parse(value) <= max && float.Parse(value) >= min)
+        {
             return true;
+        }
+
         return false;
     }
 
     public static bool IsProperString(string value)
     {
         if (value == string.Empty)
+        {
             return true;
+        }
+
         if (value.Contains("!") || value.Contains("*") || value.Contains("\""))
+        {
             return false;
+        }
+
         return true;
     }
 
     public static int ConvertToInt(string value)
     {
         if (int.TryParse(value, out _))
+        {
             return int.Parse(value);
+        }
         else
+        {
             return -1;
+        }
     }
 
     public static string TotalWaveToString(int value)
     {
-        switch(value)
+        return value switch
         {
-            case 0:
-                return "PANIC";
-            case 1:
-                return "TANK";
-            case 2:
-                return "DELAY";
-            case 3:
-                return "SCRIPTED";
-            default:
-                return "";
-        }
+            0 => "PANIC",
+            1 => "TANK",
+            2 => "DELAY",
+            3 => "SCRIPTED",
+            _ => "",
+        };
     }
 
     public static int TotalWaveToInt(string value)
     {
-        switch (value)
+        return value switch
         {
-            case "PANIC":
-                return 0;
-            case "TANK":
-                return 1;
-            case "DELAY":
-                return 2;
-            case "SCRIPTED":
-                return 3;
-            default:
-                return -1;
-        }
+            "PANIC" => 0,
+            "TANK" => 1,
+            "DELAY" => 2,
+            "SCRIPTED" => 3,
+            _ => -1,
+        };
     }
 
     public static void TryOpenMessageWindow(int type, bool flag = false)
@@ -108,6 +142,7 @@ public static class Functions
         var TextBoxString = string.Empty;
 
         if(!flag)
+        {
             switch (type)
             { 
                 case -1:
@@ -153,6 +188,7 @@ public static class Functions
                 default:
                     break;
             }
+        }
         else
         {
             Title = "错误";
@@ -171,186 +207,92 @@ public static class Functions
 
     public static int TextBoxIndex(string name)
     {
-        switch(name)
+        return name switch
         {
-            case "TotalWave":
-                return 0;
-            case "IntensityRelaxThreshold":
-                return 1;
-            case "BuildUpMinInterval":
-            case "MobRechargeRate":
-            case "MobSpawnMaxTime":
-            case "MobSpawnMinTime":
-            case "RelaxMaxFlowTravel":
-            case "RelaxMaxInterval":
-            case "RelaxMinInterval":
-            case "SpecialRespawnInterval":
-            case "SustainPeakMaxTime":
-            case "SustainPeakMinTime":
-            case "MinimumStageTime":
-                return 2;
-            case "MusicDynamicMobScanStopSize":
-            case "MusicDynamicMobSpawnSize":
-            case "MusicDynamicMobStopSize":
-            case "BileMobSize":
-            case "MegaMobSize":
-            case "MobMaxSize":
-            case "MobMinSize":
-            case "MobSpawnSize":
-            case "BoomerLimit":
-            case "ChargerLimit":
-            case "CommonLimit":
-            case "DominatorLimit":
-            case "HunterLimit":
-            case "JockeyLimit":
-            case "MaxSpecials":
-            case "SmokerLimit":
-            case "SpitterLimit":
-                return 3;
-            case "MobMaxPending":
-            case "TankLimit":
-            case "WitchLimit":
-            case "HordeEscapeCommonLimit":
-                return 4;
-            case "info_director":
-            case "trigger_finale":
-            case "ScriptFile":
-                return 5;
-            case "FirstUseDelay":
-            case "UseDelay":
-                return 6;
-            default:
-                return -1;
-        }
+            "TotalWave" => 0,
+            "IntensityRelaxThreshold" => 1,
+            "BuildUpMinInterval" or "MobRechargeRate" or "MobSpawnMaxTime" or "MobSpawnMinTime" or "RelaxMaxFlowTravel" or "RelaxMaxInterval" or "RelaxMinInterval" or "SpecialRespawnInterval" or "SustainPeakMaxTime" or "SustainPeakMinTime" or "MinimumStageTime" => 2,
+            "MusicDynamicMobScanStopSize" or "MusicDynamicMobSpawnSize" or "MusicDynamicMobStopSize" or "BileMobSize" or "MegaMobSize" or "MobMaxSize" or "MobMinSize" or "MobSpawnSize" or "BoomerLimit" or "ChargerLimit" or "CommonLimit" or "DominatorLimit" or "HunterLimit" or "JockeyLimit" or "MaxSpecials" or "SmokerLimit" or "SpitterLimit" => 3,
+            "MobMaxPending" or "TankLimit" or "WitchLimit" or "HordeEscapeCommonLimit" => 4,
+            "info_director" or "trigger_finale" or "ScriptFile" => 5,
+            "FirstUseDelay" or "UseDelay" => 6,
+            _ => -1,
+        };
     }
 
     public static string GetButtonString(string name)
     {
-        switch(name)
+        return name switch
         {
-            case "BuildUpMinInterval":
-                return "BuildUpMinInterval的值代表节奏中BUILD_UP最短持续秒数。\n\n有效范围为非负整数。\n\n默认值为15。";
-            case "IntensityRelaxThreshold":
-                return "IntensityRelaxThreshold的值代表所有生还者的紧张度都必须小于多少才能让节奏从SUSTAIN_PEAK切换为RELAX。\n\n有效范围为0-1的浮点数。\n\n默认值为0.9。";
-            case "LockTempo":
-                return "设置LockTempo为true会使得导演无延迟地生成尸潮。\n\n默认值为false。";
-            case "MobRechargeRate":
-                return "MobRechargeRate的值代表一次尸潮内生成下一个普通感染者的速度。\n\n有效范围为非负浮点数。\n\n默认值为0.0025。";
-            case "MobSpawnMaxTime":
-                return "MobSpawnMaxTime的值代表两波尸潮生成的最大时间隔秒数。\n\n有效范围为非负浮点数。\n\n默认值根据难度变化，为180.0-240.0。";
-            case "MobSpawnMinTime":
-                return "MobSpawnMinTime的值代表两波尸潮生成的最小时间隔秒数。\n\n有效范围为非负浮点数。\n\n默认值根据难度变化，为90.0-120.0。";
-            case "MusicDynamicMobScanStopSize":
-                return "MusicDynamicMobScanStopSize的值代表尸潮的大小不足此数时会停止背景音乐。\n\n有效范围为非负整数。\n\n默认值为3。";
-            case "MusicDynamicMobSpawnSize":
-                return "MusicDynamicMobSpawnSize的值代表尸潮的大小达到此数时会开始播放背景音乐。\n\n有效范围为非负整数。\n\n默认值为25。";
-            case "MusicDynamicMobStopSize":
-                return "MusicDynamicMobStopSize的值代表尸潮的大小达到此数时会停止背景音乐。\n\n有效范围为非负整数。\n\n默认值为8。";
-            case "PreferredMobDirection":
-                return "PreferredMobDirection的值代表尸潮生成的方位。\n\n有效范围为-1到10的整数。\n\n默认值为SPAWN_NO_PREFERENCE。";
-            case "PreferredSpecialDirection":
-                return "PreferredSpecialDirection的值代表特感生成的方位。\n\n有效范围为-1到10的整数。\n\n默认值为SPAWN_NO_PREFERENCE。";
-            case "RelaxMaxFlowTravel":
-                return "RelaxMaxFlowTravel的值代表生还者最远能前进多少距离就会让节奏从RELAX切换到BUILD_UP。\n\n有效范围为非负浮点数。\n\n默认值为3000。";
-            case "RelaxMaxInterval":
-                return "RelaxMaxInterval的值代表节奏中RELAX最长持续秒数。\n\n有效范围为非负浮点数。\n\n默认值为45。";
-            case "RelaxMinInterval":
-                return "RelaxMinInterval的值代表节奏中RELAX最短持续秒数。\n\n有效范围为非负浮点数。\n\n默认值为30。";
-            case "MinimumStageTime":
-                return "MinimumStageTime的值代表救援的脚本阶段在结束前最少可持续运行秒数。\n\n对脚本尸潮无效。\n\n有效范围为非负浮点数。\n\n默认值为1.0。";
-            case "ProhibitBosses":
-                return "设置ProhibitBosses为true会防止Tank和Witch生成。\n\n默认值为false。";
-            case "ShouldAllowMobsWithTank":
-                return "设置ShouldAllowMobsWithTank为true会允许在Tank在场时生成小僵尸。\n\nBoomer和胆汁炸弹引起的尸潮不受影响。\n\n仅适用于战役模式。\n\n默认值为false。";
-            case "ShouldAllowSpecialsWithTank":
-                return "设置ShouldAllowSpecialsWithTank为true会允许在Tank在场时生成特殊感染者。\n\n仅适用于战役模式。\n\n默认值为false。";
-            case "EscapeSpawnTanks":
-                return "设置EscapeSpawnTanks为true会允许Tank在救援的逃离阶段无限生成。\n\n默认值为true。";
-            case "SpecialRespawnInterval":
-                return "SpecialRespawnInterval的值代表特殊感染者重生所需要的秒数。\n\n有效范围为非负浮点数。\n\n默认值为：战役模式为45，对抗模式为20。";
-            case "SustainPeakMaxTime":
-                return "SustainPeakMaxTime的值代表节奏中SUSTAIN_PEAK的最长持续分钟数。\n\n有效范围为非负浮点数。\n\n默认值为5。";
-            case "SustainPeakMinTime":
-                return "SustainPeakMinTime的值代表节奏中SUSTAIN_PEAK的最短持续分钟数。\n\n有效范围为非负浮点数。\n\n默认值为3。";
-            case "BileMobSize":
-                return "BileMobSize的值代表Boomer和胆汁炸弹引起的普通感染者数量最大值。\n\n有效范围为非负整数。\n\n无默认值。";
-            case "BoomerLimit":
-                return "BoomerLimit的值代表在场的Boomer最大数量。\n\n有效范围为非负整数。\n\n默认值为1。";
-            case "ChargerLimit":
-                return "ChargerLimit的值代表在场的Charger最大数量。\n\n有效范围为非负整数。\n\n默认值为1。";
-            case "CommonLimit":
-                return "CommonLimit的值代表在场的普通感染者最大数量。\n\n有效范围为非负整数。\n\n默认值为30。";
-            case "DominatorLimit":
-                return "DominatorLimit的值代表在场的控制型特殊感染者(Hunter, Jockey, Charger, Smoker)最大数量。\n\n有效范围为非负整数。\n\n无默认值。";
-            case "HunterLimit":
-                return "HunterLimit的值代表在场的Hunter最大数量。\n\n有效范围为非负整数。\n\n默认值为1。";
-            case "JockeyLimit":
-                return "JockeyLimit的值代表在场的Jockey最大数量。\n\n有效范围为非负整数。\n\n默认值为1。";
-            case "MaxSpecials":
-                return "MaxSpecials的值代表在场的特殊感染者最大数量。\n\n有效范围为非负整数。\n\n默认值为2。";
-            case "MegaMobSize":
-                return "MegaMobSize的值代表一次尸潮能生成的普通感染者最大数量。\n\n有效范围为非负整数。\n\n无默认值。";
-            case "MobMaxPending":
-                return "MobMaxPending的值代表当尸潮的普通感染者数量超过CommonLimit时最多有多少普通感染者可以暂时等待生成。\n\n有效范围为整数。\n\n默认值为-1。";
-            case "MobMaxSize":
-                return "MobMaxSize的值代表一次尸潮生成普通感染者的最大数量。\n\n有效范围为非负整数。\n\n默认值为30。";
-            case "MobMinSize":
-                return "MobMinSize的值代表一次尸潮生成普通感染者的最小数量。\n\n有效范围为非负整数。\n\n默认值为10。";
-            case "MobSpawnSize":
-                return "MobSpawnSize的值代表一次尸潮生成普通感染者的数量。\n\n覆盖MobMaxSize与MobMinSize。\n\n有效范围为非负整数。\n\n无默认值。";
-            case "SmokerLimit":
-                return "SmokerLimit的值代表代表在场的Smoker最大数量。\n\n有效范围为非负整数。\n\n默认值为1。";
-            case "SpitterLimit":
-                return "SpitterLimit的值代表代表在场的Spitter最大数量。\n\n有效范围为非负整数。\n\n默认值为1。";
-            case "TankLimit":
-                return "TankLimit的值代表代表在场的Tank最大数量。\n\n有效范围为大于等于-1的整数。\n\n小于0则代表无限制。\n\n默认值为-1。";
-            case "WitchLimit":
-                return "WitchLimit的值代表代表在场的Witch最大数量。\n\n有效范围为大于等于-1的整数。\n\n小于0则代表无限制。\n\n默认值为-1。";
-            case "HordeEscapeCommonLimit":
-                return "HordeEscapeCommonLimit的值代表救援的逃离阶段可生成的普通感染者最大数量。\n\n有效范围为大于等于-1的整数。\n\n默认值为-1。";
-            case "info__director":
-                return "info_director是一个可以通过使用输入输出控制部分导演行为的点实体。\n\n这个文本框的值将决定info_director的名字(targetname)。";
-            case "trigger__finale":
-                return "trigger_finale是一个可以触发当前地图的救援的点实体。\n\n这个文本框的值将决定trigger_finale的名字(targetname)。";
-            case "Script File":
-                return "ScriptFile是trigger_finale的一个键值。\n\n这个文本框的值会决定如果trigger_finale使用Custom救援类型后将会使用的救援脚本名字(带后缀名.nut)。";
-            case "First Use Delay":
-                return "First Use Delay是trigger_finale的一个键值。\n\n这个文本框的值会决定第一次触发trigger_finale后需要经过多少秒后才能再次触发。";
-            case "Use Delay":
-                return "Use Delay是trigger_finale的一个键值。\n\n若First Use Delay的值为0，则这个文本框的值会决定触发trigger_finale后需要经过多少秒后才开始救援。\n\n若First Use Delay的值不为0，则这个文本框的值会决定第二次触发trigger_finale后需要经过多少秒后才开始救援。";
-            default:
-                return "";
-        } 
+            "BuildUpMinInterval" => "BuildUpMinInterval的值代表节奏中BUILD_UP最短持续秒数。\n\n有效范围为非负整数。\n\n默认值为15。",
+            "IntensityRelaxThreshold" => "IntensityRelaxThreshold的值代表所有生还者的紧张度都必须小于多少才能让节奏从SUSTAIN_PEAK切换为RELAX。\n\n有效范围为0-1的浮点数。\n\n默认值为0.9。",
+            "LockTempo" => "设置LockTempo为true会使得导演无延迟地生成尸潮。\n\n默认值为false。",
+            "MobRechargeRate" => "MobRechargeRate的值代表一次尸潮内生成下一个普通感染者的速度。\n\n有效范围为非负浮点数。\n\n默认值为0.0025。",
+            "MobSpawnMaxTime" => "MobSpawnMaxTime的值代表两波尸潮生成的最大时间隔秒数。\n\n有效范围为非负浮点数。\n\n默认值根据难度变化，为180.0-240.0。",
+            "MobSpawnMinTime" => "MobSpawnMinTime的值代表两波尸潮生成的最小时间隔秒数。\n\n有效范围为非负浮点数。\n\n默认值根据难度变化，为90.0-120.0。",
+            "MusicDynamicMobScanStopSize" => "MusicDynamicMobScanStopSize的值代表尸潮的大小不足此数时会停止背景音乐。\n\n有效范围为非负整数。\n\n默认值为3。",
+            "MusicDynamicMobSpawnSize" => "MusicDynamicMobSpawnSize的值代表尸潮的大小达到此数时会开始播放背景音乐。\n\n有效范围为非负整数。\n\n默认值为25。",
+            "MusicDynamicMobStopSize" => "MusicDynamicMobStopSize的值代表尸潮的大小达到此数时会停止背景音乐。\n\n有效范围为非负整数。\n\n默认值为8。",
+            "PreferredMobDirection" => "PreferredMobDirection的值代表尸潮生成的方位。\n\n有效范围为-1到10的整数。\n\n默认值为SPAWN_NO_PREFERENCE。",
+            "PreferredSpecialDirection" => "PreferredSpecialDirection的值代表特感生成的方位。\n\n有效范围为-1到10的整数。\n\n默认值为SPAWN_NO_PREFERENCE。",
+            "RelaxMaxFlowTravel" => "RelaxMaxFlowTravel的值代表生还者最远能前进多少距离就会让节奏从RELAX切换到BUILD_UP。\n\n有效范围为非负浮点数。\n\n默认值为3000。",
+            "RelaxMaxInterval" => "RelaxMaxInterval的值代表节奏中RELAX最长持续秒数。\n\n有效范围为非负浮点数。\n\n默认值为45。",
+            "RelaxMinInterval" => "RelaxMinInterval的值代表节奏中RELAX最短持续秒数。\n\n有效范围为非负浮点数。\n\n默认值为30。",
+            "MinimumStageTime" => "MinimumStageTime的值代表救援的脚本阶段在结束前最少可持续运行秒数。\n\n对脚本尸潮无效。\n\n有效范围为非负浮点数。\n\n默认值为1.0。",
+            "ProhibitBosses" => "设置ProhibitBosses为true会防止Tank和Witch生成。\n\n默认值为false。",
+            "ShouldAllowMobsWithTank" => "设置ShouldAllowMobsWithTank为true会允许在Tank在场时生成小僵尸。\n\nBoomer和胆汁炸弹引起的尸潮不受影响。\n\n仅适用于战役模式。\n\n默认值为false。",
+            "ShouldAllowSpecialsWithTank" => "设置ShouldAllowSpecialsWithTank为true会允许在Tank在场时生成特殊感染者。\n\n仅适用于战役模式。\n\n默认值为false。",
+            "EscapeSpawnTanks" => "设置EscapeSpawnTanks为true会允许Tank在救援的逃离阶段无限生成。\n\n默认值为true。",
+            "SpecialRespawnInterval" => "SpecialRespawnInterval的值代表特殊感染者重生所需要的秒数。\n\n有效范围为非负浮点数。\n\n默认值为：战役模式为45，对抗模式为20。",
+            "SustainPeakMaxTime" => "SustainPeakMaxTime的值代表节奏中SUSTAIN_PEAK的最长持续分钟数。\n\n有效范围为非负浮点数。\n\n默认值为5。",
+            "SustainPeakMinTime" => "SustainPeakMinTime的值代表节奏中SUSTAIN_PEAK的最短持续分钟数。\n\n有效范围为非负浮点数。\n\n默认值为3。",
+            "BileMobSize" => "BileMobSize的值代表Boomer和胆汁炸弹引起的普通感染者数量最大值。\n\n有效范围为非负整数。\n\n无默认值。",
+            "BoomerLimit" => "BoomerLimit的值代表在场的Boomer最大数量。\n\n有效范围为非负整数。\n\n默认值为1。",
+            "ChargerLimit" => "ChargerLimit的值代表在场的Charger最大数量。\n\n有效范围为非负整数。\n\n默认值为1。",
+            "CommonLimit" => "CommonLimit的值代表在场的普通感染者最大数量。\n\n有效范围为非负整数。\n\n默认值为30。",
+            "DominatorLimit" => "DominatorLimit的值代表在场的控制型特殊感染者(Hunter, Jockey, Charger, Smoker)最大数量。\n\n有效范围为非负整数。\n\n无默认值。",
+            "HunterLimit" => "HunterLimit的值代表在场的Hunter最大数量。\n\n有效范围为非负整数。\n\n默认值为1。",
+            "JockeyLimit" => "JockeyLimit的值代表在场的Jockey最大数量。\n\n有效范围为非负整数。\n\n默认值为1。",
+            "MaxSpecials" => "MaxSpecials的值代表在场的特殊感染者最大数量。\n\n有效范围为非负整数。\n\n默认值为2。",
+            "MegaMobSize" => "MegaMobSize的值代表一次尸潮能生成的普通感染者最大数量。\n\n有效范围为非负整数。\n\n无默认值。",
+            "MobMaxPending" => "MobMaxPending的值代表当尸潮的普通感染者数量超过CommonLimit时最多有多少普通感染者可以暂时等待生成。\n\n有效范围为整数。\n\n默认值为-1。",
+            "MobMaxSize" => "MobMaxSize的值代表一次尸潮生成普通感染者的最大数量。\n\n有效范围为非负整数。\n\n默认值为30。",
+            "MobMinSize" => "MobMinSize的值代表一次尸潮生成普通感染者的最小数量。\n\n有效范围为非负整数。\n\n默认值为10。",
+            "MobSpawnSize" => "MobSpawnSize的值代表一次尸潮生成普通感染者的数量。\n\n覆盖MobMaxSize与MobMinSize。\n\n有效范围为非负整数。\n\n无默认值。",
+            "SmokerLimit" => "SmokerLimit的值代表代表在场的Smoker最大数量。\n\n有效范围为非负整数。\n\n默认值为1。",
+            "SpitterLimit" => "SpitterLimit的值代表代表在场的Spitter最大数量。\n\n有效范围为非负整数。\n\n默认值为1。",
+            "TankLimit" => "TankLimit的值代表代表在场的Tank最大数量。\n\n有效范围为大于等于-1的整数。\n\n小于0则代表无限制。\n\n默认值为-1。",
+            "WitchLimit" => "WitchLimit的值代表代表在场的Witch最大数量。\n\n有效范围为大于等于-1的整数。\n\n小于0则代表无限制。\n\n默认值为-1。",
+            "HordeEscapeCommonLimit" => "HordeEscapeCommonLimit的值代表救援的逃离阶段可生成的普通感染者最大数量。\n\n有效范围为大于等于-1的整数。\n\n默认值为-1。",
+            "info__director" => "info_director是一个可以通过使用输入输出控制部分导演行为的点实体。\n\n这个文本框的值将决定info_director的名字(targetname)。",
+            "trigger__finale" => "trigger_finale是一个可以触发当前地图的救援的点实体。\n\n这个文本框的值将决定trigger_finale的名字(targetname)。",
+            "Script File" => "ScriptFile是trigger_finale的一个键值。\n\n这个文本框的值会决定如果trigger_finale使用Custom救援类型后将会使用的救援脚本名字(带后缀名.nut)。",
+            "First Use Delay" => "First Use Delay是trigger_finale的一个键值。\n\n这个文本框的值会决定第一次触发trigger_finale后需要经过多少秒后才能再次触发。",
+            "Use Delay" => "Use Delay是trigger_finale的一个键值。\n\n若First Use Delay的值为0，则这个文本框的值会决定触发trigger_finale后需要经过多少秒后才开始救援。\n\n若First Use Delay的值不为0，则这个文本框的值会决定第二次触发trigger_finale后需要经过多少秒后才开始救援。",
+            _ => "",
+        };
     }
 
     public static string GetButtonHyperlinkUri(string name)
     {
-        switch(name)
+        return name switch
         {
-            case "info__director":
-                return "https://developer.valvesoftware.com/wiki/Info_director";
-            case "trigger__finale":
-                return "https://developer.valvesoftware.com/wiki/Trigger_finale";
-            case "ScriptFile":
-                return "https://developer.valvesoftware.com/wiki/Trigger_finale#Keyvalues";
-            default:
-                return "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions";
-        }
+            "info__director" => "https://developer.valvesoftware.com/wiki/Info_director",
+            "trigger__finale" => "https://developer.valvesoftware.com/wiki/Trigger_finale",
+            "ScriptFile" => "https://developer.valvesoftware.com/wiki/Trigger_finale#Keyvalues",
+            _ => "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions",
+        };
     }
 
     public static string GetProcessInput(int type)
     {
-        switch(type)
+        return type switch
         {
-            case 0:
-                return $"\"{Globals.L4D2VBSPPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{Globals.L4D2StandardFinalePath}.vmf\"&exit";
-            case 1:
-                return $"\"{Globals.L4D2VVISPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{Globals.L4D2StandardFinalePath}.bsp\"&exit";
-            case 2:
-                return $"\"{Globals.L4D2VRADPath}\" -game \"{Globals.L4D2GameInfoPath}\" -hdr -StaticPropLighting -StaticPropPolys \"{Globals.L4D2StandardFinalePath}.bsp\"&exit";
-            default:
-                return "&exit";
-        }
+            0 => $"\"{Globals.L4D2VBSPPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{Globals.L4D2StandardFinalePath}.vmf\"&exit",
+            1 => $"\"{Globals.L4D2VVISPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{Globals.L4D2StandardFinalePath}.bsp\"&exit",
+            2 => $"\"{Globals.L4D2VRADPath}\" -game \"{Globals.L4D2GameInfoPath}\" -hdr -StaticPropLighting -StaticPropPolys \"{Globals.L4D2StandardFinalePath}.bsp\"&exit",
+            _ => "&exit",
+        };
     }
 
     public static bool GenerateNewProcess(int type)
@@ -381,26 +323,89 @@ public static class Functions
 
     public static string GetOffcialStandardScriptFile(int index)
     {
-        switch(index)
+        return index switch
         {
-            case 0:
-                return Properties.Resources.c2m5_concert_finale;
-            case 1:
-                return Properties.Resources.c3m4_plantation_finale;
-            case 2:
-                return Properties.Resources.c4m5_milltown_escape_finale;
-            case 3:
-                return Properties.Resources.c8m5_rooftop_finale;
-            case 4:
-                return Properties.Resources.c9m2_lots_finale;
-            case 5:
-                return Properties.Resources.c10m5_houseboat_finale;
-            case 6:
-                return Properties.Resources.c11m5_runway_finale;
-            case 7:
-                return Properties.Resources.c12m5_cornfield_finale;
-            default:
-                return string.Empty;
+            0 => Properties.Resources.c2m5_concert_finale,
+            1 => Properties.Resources.c3m4_plantation_finale,
+            2 => Properties.Resources.c4m5_milltown_escape_finale,
+            3 => Properties.Resources.c8m5_rooftop_finale,
+            4 => Properties.Resources.c9m2_lots_finale,
+            5 => Properties.Resources.c10m5_houseboat_finale,
+            6 => Properties.Resources.c11m5_runway_finale,
+            7 => Properties.Resources.c12m5_cornfield_finale,
+            _ => string.Empty,
+        };
+    }
+
+    public static string GetOffcialScavengeScriptFile(int index)
+    {
+        return index switch
+        {
+            0 => Properties.Resources.c1m4_atrium_finale,
+            1 => Properties.Resources.c1m4_delay,
+            2 => Properties.Resources.c7m3_port_finale,
+            3 => Properties.Resources.c14m2_lighthouse_finale,
+            _ => string.Empty,
+        };
+    }
+
+    public static void SaveNavToPath(string saveFilePath)
+    {
+        string filePath = saveFilePath + (saveFilePath.EndsWith(".nav") ? string.Empty : ".nav");
+        try
+        {
+            using MemoryStream memoryStream = new(Convert.FromBase64String(Properties.Resources.FinaleStandardScriptNav));
+            using FileStream fileStream = new(filePath, FileMode.OpenOrCreate, FileAccess.Write);
+            byte[] bytes = memoryStream.ToArray();
+            fileStream.Write(bytes, 0, bytes.Length);
+        }
+        catch
+        {
+            TryOpenMessageWindow(8);
+            return;
+        }
+    }
+
+    public static void SaveNutToPath(string saveFilePath, string text)
+    {
+        string filePath = saveFilePath + (saveFilePath.EndsWith(".nut") ? string.Empty : ".nut");
+        File.WriteAllText(filePath, text);
+    }
+
+    public static void SaveVmfToPath(string saveFilePath, List<string> VmfValuesList, int type)
+    {
+        string file = type switch
+        {
+            0 => Properties.Resources.FinaleStandardScriptVmf,
+            1 => Properties.Resources.FinaleScavengeScriptVmf,
+            _ => string.Empty
+        };
+
+        string replacedFile = type switch
+        {
+            0 => "standard_finale",
+            1 => "scavenge_finale",
+            _ => string.Empty
+        };
+
+        file = file.Replace("\"targetname\" \"director\"", $"\"targetname\" \"{VmfValuesList[0]}\"");
+        file = file.Replace("\"targetname\" \"finale_radio\"", $"\"targetname\" \"{VmfValuesList[1]}\"");
+        file = file.Replace("\"finale_radio\x1b", $"\"{VmfValuesList[1]}\x1b");
+        file = file.Replace($"\"ScriptFile\" \"{replacedFile}.nut\"", $"\"ScriptFile\" \"{VmfValuesList[2]}\"");
+        file = file.Replace("\"FirstUseDelay\" \"2\"", $"\"FirstUseDelay\" \"{VmfValuesList[3]}\"");
+        file = file.Replace("\"UseDelay\" \"1\"", $"\"UseDelay\" \"{VmfValuesList[4]}\"");
+
+        string filePath = saveFilePath + (saveFilePath.EndsWith(".vmf") ? string.Empty : ".vmf");
+
+        try
+        {
+            using StreamWriter streamWriter = File.CreateText(filePath);
+            streamWriter.Write(file);
+        }
+        catch
+        {
+            TryOpenMessageWindow(8);
+            return;
         }
     }
 }

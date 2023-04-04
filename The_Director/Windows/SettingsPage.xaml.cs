@@ -13,6 +13,7 @@ namespace The_Director.Windows
         {
             InitializeComponent();
             GamePathTextBox.Text = Clients.GetSteamPath();
+            //Globals.FileToBase64String();
         }
     }
 }

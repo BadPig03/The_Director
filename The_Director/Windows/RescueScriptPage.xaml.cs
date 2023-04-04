@@ -7,8 +7,9 @@ namespace The_Director.Windows
     public partial class RescueScriptPage : UserControl
     {
 
-        private UserControl StandardRescue = Activator.CreateInstance(Type.GetType($"The_Director.Windows.StandardRescueSettings")) as UserControl;
-        private UserControl GauntletRescue = Activator.CreateInstance(Type.GetType($"The_Director.Windows.GauntletRescueSettings")) as UserControl;
+        private readonly UserControl StandardRescue = Activator.CreateInstance(Type.GetType($"The_Director.Windows.StandardRescueSettings")) as UserControl;
+        private readonly UserControl ScavengeRescue = Activator.CreateInstance(Type.GetType($"The_Director.Windows.ScavengeRescueSettings")) as UserControl;
+        private readonly UserControl GauntletRescue = Activator.CreateInstance(Type.GetType($"The_Director.Windows.GauntletRescueSettings")) as UserControl;
 
         public RescueScriptPage()
         {
@@ -21,9 +22,17 @@ namespace The_Director.Windows
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(RescueTypeComboBox.SelectedIndex == 0)
+            {
                 RescueTypeControl.Content = StandardRescue;
+            }
             else if (RescueTypeComboBox.SelectedIndex == 1)
+            {
+                RescueTypeControl.Content = ScavengeRescue;
+            }
+            else if (RescueTypeComboBox.SelectedIndex == 2)
+            {
                 RescueTypeControl.Content = GauntletRescue;
+            }
         }
     }
 }

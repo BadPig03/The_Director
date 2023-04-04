@@ -38,9 +38,14 @@ namespace The_Director.Windows
         private void KeyPressed(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter || e.Key == Key.Space)
+            {
                 YesButtonClick(null, null);
+            }
+
             if (e.Key == Key.Escape)
+            {
                 NoButtonClick(null, null);
+            }
         }
     }
 }

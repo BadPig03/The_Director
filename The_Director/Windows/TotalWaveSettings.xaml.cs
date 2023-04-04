@@ -90,7 +90,9 @@ namespace The_Director.Windows
                 TotalWaveGrid.Children.Add(musicTextBox);
 
                 if (TotalWaveDicts.ContainsKey($"{i + 1}"))
+                {
                     comboBox.SelectedIndex = Functions.TotalWaveToInt(TotalWaveDicts[$"{i + 1}"].Split('\x1b')[0]);
+                }
 
                 if (TotalWaveDicts.ContainsKey($"{i + 1}"))
                 {
@@ -131,6 +133,7 @@ namespace The_Director.Windows
         private void ConfirmButtonClick(object sender, RoutedEventArgs e)
         {
             foreach (var item in TotalWaveGrid.Children)
+            {
                 if (item is TextBox textBox)
                 {
                     if (!textBox.Name.StartsWith("__") && string.IsNullOrWhiteSpace(textBox.Text))
@@ -139,6 +142,8 @@ namespace The_Director.Windows
                         return;
                     }
                 }
+            }
+
             SendMessage("Confirmed");
             DialogResult = true;
             Close();
@@ -154,31 +159,47 @@ namespace The_Director.Windows
         private bool HasAnyTank()
         {
             foreach (var item in TotalWaveGrid.Children)
+            {
                 if (item is ComboBox comboBox)
                 {
                     if (comboBox.SelectedIndex == 1)
+                    {
                         return true;
+                    }
                 }
+            }
+
             return false;
         }
 
         private object GetMusicTextBox(string CompareName)
         {
             foreach (var item in TotalWaveGrid.Children)
+            {
                 if (item is TextBox textBox)
                 {
                     if (textBox.Name.StartsWith("__"))
+                    {
                         if (textBox.Name.Remove(0, 2) == CompareName)
+                        {
                             return textBox;
+                        }
+                    }
                 }
+            }
+
             return null;
         }
         private void KeyPressed(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
+            {
                 ConfirmButtonClick(null, null);
+            }
             else if (e.Key == Key.Escape)
+            {
                 CancleButtonClick(null, null);
+            }
         }
     }
 }

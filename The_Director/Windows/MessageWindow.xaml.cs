@@ -27,7 +27,9 @@ namespace The_Director.Windows
         private void KeyPressed(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter || e.Key == Key.Space || e.Key == Key.Escape)
+            {
                 ConfirmButtonClick(null, null);
+            }
         }
     }
 }

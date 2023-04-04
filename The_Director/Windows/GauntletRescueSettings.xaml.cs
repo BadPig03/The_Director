@@ -25,7 +25,9 @@ namespace The_Director.Windows
         private void CheckBoxClick(object sender, RoutedEventArgs e)
         {
             if (!RescueCheckButtons["msg"].Item1 && (bool)MSGCheckBox.IsChecked)
+            {
                 TryOpenMSGWindow();
+            }
 
             RescueCheckButtons["msg"] = ((bool)MSGCheckBox.IsChecked, RescueCheckButtons["msg"].Item2);
             RescueCheckButtons["prohibitboss"] = ((bool)ProhibitBossCheckBox.IsChecked, null);
@@ -41,9 +43,13 @@ namespace The_Director.Windows
         public void MSGReceived(string value)
         {
             if (value != null)
+            {
                 RescueCheckButtons["msg"] = (true, value);
+            }
             else
+            {
                 MSGCheckBox.IsChecked = false;
+            }
         }
 
         private void TryOpenMSGWindow()
@@ -96,26 +102,38 @@ namespace The_Director.Windows
         {
             var ScriptWindowText = "";
             if (RescueCheckButtons["msg"].Item1)
+            {
                 ScriptWindowText += $"Msg(\"{RescueCheckButtons["msg"].Item2}\");\n\n";
+            }
 
             ScriptWindowText += "DirectorOptions <-\n{\n";
 
             if (RescueCheckButtons["prohibitboss"].Item1)
+            {
                 ScriptWindowText += "\tProhibitBosses = true\n\n";
+            }
 
             if (RescueCheckButtons["locktempo"].Item1)
+            {
                 ScriptWindowText += "\tLockTempo = true\n";
+            }
 
             if (RescueCheckButtons["nomobspawns"].Item1)
+            {
                 ScriptWindowText += "\tNoMobSpawns = true\n";
+            }
 
             if (RescueCheckButtons["shouldallowmobswithtank"].Item1)
+            {
                 ScriptWindowText += "\tShouldAllowMobsWithTank = true\n";
+            }
 
             ScriptWindowText += "}\n";
 
             if (RescueCheckButtons["showstage"].Item1)
+            {
                 ScriptWindowText += "\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}\n";
+            }
 
             ScriptWindow.Text = ScriptWindowText;
         }
