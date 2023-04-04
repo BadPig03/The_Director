@@ -356,7 +356,11 @@ namespace The_Director.Windows
                     if (textBox.Text == string.Empty || !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
                     {
                         Functions.TryOpenMessageWindow(4);
-                        if (Name == "FirstUseDelay" || Name == "UseDelay")
+                        if (Name == "FirstUseDelay")
+                        {
+                            textBox.Text = "2";
+                        }
+                        else if (Name == "UseDelay")
                         {
                             textBox.Text = "1";
                         }
