@@ -19,7 +19,7 @@ namespace The_Director.Windows
         public Dictionary<int, int> ComboBoxDicts = new();
         public Dictionary<string, BooleanString> ScavengeDict = new();
 
-        public List<string> VmfValuesList = new() { "director", "finale_radio", "scavenge_finale.nut", "2", "1" };
+        public List<string> VmfValuesList = new() { "director", "finale_lever", "scavenge_delay", "12", "10", "20", "1", "2", "1", "3", "4" };
 
         public void MSGReceived(string value)
         {
@@ -51,7 +51,7 @@ namespace The_Director.Windows
             MapSelectionComboBox.ItemsSource = Globals.OffcialMapScavengeRescueList;
             MapSelectionComboBox.SelectedIndex = 0;
             ScavengeDict.Add("MSG", new BooleanString(false, string.Empty));
-            ScavengeDict.Add("ShowStage", new BooleanString(false, null));
+            ScavengeDict.Add("ShowProgress", new BooleanString(false, null));
             ScavengeDict.Add("LockTempo", new BooleanString(false, null));
             ScavengeDict.Add("IntensityRelaxThreshold", new BooleanString(false, string.Empty));
             ScavengeDict.Add("MobRechargeRate", new BooleanString(false, string.Empty));
@@ -94,9 +94,15 @@ namespace The_Director.Windows
 
             info_directorTextBox.Text = VmfValuesList[0];
             trigger_finaleTextBox.Text = VmfValuesList[1];
-            ScriptFileTextBox.Text = VmfValuesList[2];
-            FirstUseDelayTextBox.Text = VmfValuesList[3];
-            UseDelayTextBox.Text = VmfValuesList[4];
+            DelayScriptTextBox.Text = VmfValuesList[2];
+            CansNeededTextBox.Text = VmfValuesList[3];
+            DelayMinTextBox.Text = VmfValuesList[4];
+            DelayMaxTextBox.Text = VmfValuesList[5];
+            DelayPourThreTextBox.Text = VmfValuesList[6];
+            DelayBothThreTextBox.Text = VmfValuesList[7];
+            AbortMinTextBox.Text = VmfValuesList[8];
+            AbortMaxTextBox.Text = VmfValuesList[9];
+            CansBothThreTextBox.Text = VmfValuesList[10];
         }
 
         private void TryOpenMSGWindow()
@@ -184,11 +190,11 @@ namespace The_Director.Windows
                         }
                         else if (Name == "trigger_finale")
                         {
-                            textBox.Text = "finale_radio";
+                            textBox.Text = "finale_lever";
                         }
-                        else if (Name == "ScriptFile")
+                        else if (Name == "DelayScript")
                         {
-                            textBox.Text = "scavenge_finale.nut";
+                            textBox.Text = "scavenge_delay";
                         }
 
                         return;
@@ -201,7 +207,7 @@ namespace The_Director.Windows
                     {
                         VmfValuesList[1] = textBox.Text;
                     }
-                    else if (Name == "ScriptFile")
+                    else if (Name == "DelayScript")
                     {
                         VmfValuesList[2] = textBox.Text;
                     }
@@ -211,31 +217,79 @@ namespace The_Director.Windows
                     if (textBox.Text == string.Empty || !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
                     {
                         Functions.TryOpenMessageWindow(4);
-                        if (Name == "FirstUseDelay")
+                        if (Name == "CansNeeded")
+                        {
+                            textBox.Text = "12";
+                        }
+                        else if (Name == "DelayMin")
+                        {   
+                            textBox.Text = "10";
+                        }
+                        else if (Name == "DelayMax")
+                        {
+                            textBox.Text = "20";
+                        }
+                        else if (Name == "DelayPourThre")
+                        {
+                            textBox.Text = "1";
+                        }
+                        else if (Name == "DelayBothThre")
                         {
                             textBox.Text = "2";
                         }
-                        else if (Name == "UseDelay")
-                        {   
+                        else if (Name == "AbortMin")
+                        {
                             textBox.Text = "1";
+                        }
+                        else if (Name == "AbortMax")
+                        {
+                            textBox.Text = "3";
+                        }
+                        else if (Name == "CansBothThre")
+                        {
+                            textBox.Text = "4";
                         }
 
                         return;
                     }
-                    if (Name == "FirstUseDelay")
+                    if (Name == "CansNeeded")
                     {
                         VmfValuesList[3] = textBox.Text;
                     }
-                    else if (Name == "UseDelay")
+                    else if (Name == "DelayMin")
                     {
                         VmfValuesList[4] = textBox.Text;
+                    }
+                    else if (Name == "DelayMax")
+                    {
+                        VmfValuesList[5] = textBox.Text;
+                    }
+                    else if (Name == "DelayPourThre")
+                    {
+                        VmfValuesList[6] = textBox.Text;
+                    }
+                    else if (Name == "DelayBothThre")
+                    {
+                        VmfValuesList[7] = textBox.Text;
+                    }
+                    else if (Name == "AbortMin")
+                    {
+                        VmfValuesList[8] = textBox.Text;
+                    }
+                    else if (Name == "AbortMax")
+                    {
+                        VmfValuesList[9] = textBox.Text;
+                    }
+                    else if (Name == "CansBothThre")
+                    {
+                        VmfValuesList[10] = textBox.Text;
                     }
 
                     break;
                 default:
                     break;
             }
-            if (Name != "TotalWave" || Name != "MSG")
+            if (Name != "MSG")
             {
                 ScavengeDict[Name] = (textBox.Text != string.Empty, textBox.Text);
             }
@@ -260,12 +314,12 @@ namespace The_Director.Windows
                 ScriptWindowText.AppendLine($"Msg(\"{ScavengeDict["MSG"].Item2}\");\n");
             }
 
-            ScriptWindowText.AppendLine("PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{");
+            ScriptWindowText.AppendLine($"PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\nDelayScript <- \"{VmfValuesList[2]}\"\n\nDirectorOptions <-\n{{");
 
             for (int i = 1; i <= 31; i++)
             {
                 ScriptWindowText.AppendLine($"\tA_CustomFinale{i} = SCRIPTED");
-                ScriptWindowText.AppendLine($"\tA_CustomFinaleValue{i} = \"scavenge_delay\"\n");
+                ScriptWindowText.AppendLine($"\tA_CustomFinaleValue{i} = DelayScript\n");
                 if (Globals.TankIndexList.Contains(i+1))
                 {
                     ScriptWindowText.AppendLine($"\tA_CustomFinale{++i} = TANK");
@@ -279,7 +333,7 @@ namespace The_Director.Windows
 
             foreach (var item in ScavengeDict)
             {
-                if (item.Value.Item1 && !Globals.StandardDictBlackList.Contains(item.Key))
+                if (item.Value.Item1 && !Globals.ScavengeDictBlackList.Contains(item.Key))
                 {
                     if (item.Value.Item2 != null)
                     {
@@ -297,9 +351,15 @@ namespace The_Director.Windows
             }
 
             ScriptWindowText.AppendLine("}\n\n//-----------------------------------------------------\n");
-            ScriptWindowText.AppendLine("NumCansNeeded <- 12\n\nif (Director.IsSinglePlayerGame())\n{\n\tNumCansNeeded <- 8\n}\n\nDelayMin <- 10\nDelayMax <- 20\n\nDelayPourThreshold <- 1\nDelayTouchedOrPouredThreshold <- 2\n\nAbortDelayMin <- 1\nAbortDelayMax <- 3\n\nGimmeThreshold <- 4\n");
-            ScriptWindowText.AppendLine("GasCansTouched <- 0\nGasCansPoured <- 0\nDelayTouchedOrPoured <- 0\nDelayPoured <- 0\n\nEntFire(\"gascan_progress\", \"SetTotalItems\", NumCansNeeded);\nEntFire(\"timer_delay_end\", \"LowerRandomBound\", DelayMin);\nEntFire(\"timer_delay_end\", \"UpperRandomBound\", DelayMax);\nEntFire(\"timer_delay_abort\", \"LowerRandomBound\", AbortDelayMin);\nEntFire(\"timer_delay_abort\", \"UpperRandomBound\", AbortDelayMax);\n\nfunction AbortDelay(){}\nfunction EndDelay(){}\n\nNavMesh.UnblockRescueVehicleNav();\n");
-            ScriptWindowText.AppendLine("function GasCanTouched()\n{\n\tGasCansTouched++;\n\tEvalGasCansPouredOrTouched();\n}\n\nfunction GasCanPoured()\n{\n\tGasCansPoured++;\n\tDelayPoured++;\n\tEntFire(\"finale_elevator\", \"SetPosition\", 1.0 *  GasCansPoured / NumCansNeeded);\n\tif (GasCansPoured == NumCansNeeded)\n\t{\n\t\tEntFire(\"finale_elevator\", \"SetSpeed\", 14.4);\n\t\tEntFire(\"relay_rescue_ready\", \"Enable\");\n\t}\n\tEvalGasCansPouredOrTouched();\n}\n\nfunction EvalGasCansPouredOrTouched()\n{\n\tlocal TouchedOrPoured = GasCansPoured + GasCansTouched;\n\tDelayTouchedOrPoured++;\n\tif ((DelayTouchedOrPoured >= DelayTouchedOrPouredThreshold) || (DelayPoured >= DelayPourThreshold))\n\t\tAbortDelay();\n\tif (TouchedOrPoured == GimmeThreshold)\n\t\tEntFire(\"director\", \"EndCustomScriptedStage\");\n}");
+            ScriptWindowText.AppendLine($"CansNeeded <- {VmfValuesList[3]}\nDelayMin <- {VmfValuesList[4]}\nDelayMax <- {VmfValuesList[5]}\nDelayPourThre <- {VmfValuesList[6]}\nDelayBothThre <- {VmfValuesList[7]}\nAbortMin <- {VmfValuesList[8]}\nAbortMax <- {VmfValuesList[9]}\nCansBothThre <- {VmfValuesList[10]}\n");
+            ScriptWindowText.AppendLine("GasCansTouched <- 0\nGasCansPoured <- 0\nDelayTouchedOrPoured <- 0\nDelayPoured <- 0\n\nEntFire(\"gascan_progress\", \"SetTotalItems\", CansNeeded);\nEntFire(\"timer_delay_end\", \"LowerRandomBound\", DelayMin);\nEntFire(\"timer_delay_end\", \"UpperRandomBound\", DelayMax);\nEntFire(\"timer_delay_abort\", \"LowerRandomBound\", AbortMin);\nEntFire(\"timer_delay_abort\", \"UpperRandomBound\", AbortMax);\n\nfunction AbortDelay(){}\nfunction EndDelay(){}\n\nNavMesh.UnblockRescueVehicleNav();\n\nfunction GasCanTouched()\n{\n\tGasCansTouched++;\n\tEvalGasCansPouredOrTouched();\n}\n\nfunction GasCanPoured()\n{\n\tGasCansPoured++;\n\tDelayPoured++;\n\tEntFire(\"finale_elevator\", \"SetPosition\", 1.0 *  GasCansPoured / CansNeeded);\n\tif (GasCansPoured == CansNeeded)\n\t{");
+
+            if (ScavengeDict["ShowProgress"].Item1)
+            {
+                ScriptWindowText.AppendLine("\t\tprintl(\"Gas Cans Needed: \" + GasCansPoured);");
+            }
+
+            ScriptWindowText.AppendLine("\t\tEntFire(\"finale_elevator\", \"SetSpeed\", 14.4);\n\t\tEntFire(\"relay_rescue_ready\", \"Enable\");\n\t}\n\tEvalGasCansPouredOrTouched();\n}\n\nfunction EvalGasCansPouredOrTouched()\n{\n\tlocal TouchedOrPoured = GasCansPoured + GasCansTouched;\n\tDelayTouchedOrPoured++;\n\tif ((DelayTouchedOrPoured >= DelayBothThre) || (DelayPoured >= DelayPourThre))\n\t\tAbortDelay();\n\tif (TouchedOrPoured == CansBothThre)\n\t\tEntFire(\"director\", \"EndCustomScriptedStage\");\n}");
 
             ScriptWindow.Text = ScriptWindowText.ToString();
 
@@ -409,10 +469,12 @@ namespace The_Director.Windows
             }
 
             string fileExtension = VmfValuesList[2].EndsWith(".nut") ? string.Empty : ".nut";
+            string scriptFileName = saveFileDialog.SafeFileName.Replace(".vmf", ".nut");
+
 
             YesOrNoWindow yesOrNoWindow = new()
             {
-                TextBlockString = $"是否一并导出脚本文件至scripts\\vscripts文件夹?\n\n脚本文件名将为\"{VmfValuesList[2]}{fileExtension}\"!",
+                TextBlockString = $"是否一并导出两个脚本文件至scripts\\vscripts文件夹?\n\n脚本文件名将为\"{scriptFileName}\"和\"{VmfValuesList[2]}{fileExtension}\"!",
                 SendMessage = SaveToNutReceived,
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
@@ -421,14 +483,15 @@ namespace The_Director.Windows
 
             if (IsNutConfirmed)
             {
-                Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{VmfValuesList[2]}", ScriptWindow.Text);
+                Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{scriptFileName}", ScriptWindow.Text);
+                Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{VmfValuesList[2]}", ScriptWindowSecond.Text);
             }
 
-            string NavFileName = saveFileDialog.SafeFileName.Replace(".vmf", ".nav");
+            string navFileName = saveFileDialog.SafeFileName.Replace(".vmf", ".nav");
 
             YesOrNoWindow yesOrNoWindow2 = new()
             {
-                TextBlockString = $"是否一并导出Nav文件至vmf所在文件夹?\n\nNav文件名将为\"{NavFileName}\"!",
+                TextBlockString = $"是否一并导出Nav文件至vmf所在文件夹?\n\nNav文件名将为\"{navFileName}\"!",
                 SendMessage = SaveToNavReceived,
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
@@ -444,15 +507,16 @@ namespace The_Director.Windows
         private void CompileVmfClick(object sender, RoutedEventArgs e)
         {
             Functions.SaveVmfToPath($"{Globals.L4D2StandardFinalePath}", VmfValuesList, 1);
-            Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\standard_finale.nut", ScriptWindow.Text);
-            Functions.SaveNavToPath($"{Globals.L4D2MapsPath}\\standard_finale.nav");
+            Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\scavange_finale_finale.nut", ScriptWindow.Text);
+            Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\scavange_delay.nut", ScriptWindowSecond.Text);
+            Functions.SaveNavToPath($"{Globals.L4D2MapsPath}\\scavange_finale.nav");
             if (Functions.GenerateNewProcess(0))
             {
                 if (Functions.GenerateNewProcess(1))
                 {
                     if (Functions.GenerateNewProcess(2))
                     {
-                        File.Copy($"{Globals.L4D2StandardFinalePath}.bsp", $"{Globals.L4D2MapsPath}\\standard_finale.bsp", true);
+                        File.Copy($"{Globals.L4D2StandardFinalePath}.bsp", $"{Globals.L4D2MapsPath}\\scavange_finale.bsp", true);
                         Functions.RunL4D2Game();
                     }
                 }

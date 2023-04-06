@@ -33,76 +33,98 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="32"/>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="32"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="32"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="32"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="2" Grid.Column="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="11*"/>
-                    <ColumnDefinition Width="28*"/>
-                    <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="90"/>
-                </Grid.ColumnDefinitions>
-            </Grid>
-            <DockPanel Grid.Row="2" Grid.Column="0">
-                <Label Margin="1,0,5,0" Content="调试设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
-                <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
-            </DockPanel>
-            <CheckBox Name="MSGCheckBox" Grid.Row="3" Grid.Column="0" Margin="5,5,6,5" Content="控制台显示自定义信息" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
-            <CheckBox Name="ShowStageCheckBox" Grid.Row="4" Grid.Column="0" Margin="5,5,6,5" Content="控制台提示灌油进度" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
-            <DockPanel Grid.Row="5" Grid.Column="0">
-                <Label Margin="1,0,5,0" Content="灌油救援模板导出vmf文件设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
-                <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
-            </DockPanel>
-            <Grid Grid.Row="6" Grid.Column="0" Grid.RowSpan="6">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="125"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="info__director" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
-                <TextBox Name="info_directorTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
-                <Label Grid.Row="1" Grid.Column="0" Margin="0,5,5,5" Content="trigger__finale" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
-                <TextBox Name="trigger_finaleTextBox" Grid.Row="1" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
-                <Label Grid.Row="2" Grid.Column="0" Margin="0,5,5,5" Content="Script File" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
-                <TextBox Name="ScriptFileTextBox" Grid.Row="2" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
-                <Label Grid.Row="3" Grid.Column="0" Margin="0,5,5,5" Content="First Use Delay" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
-                <TextBox Name="FirstUseDelayTextBox" Grid.Row="3" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
-                <Label Grid.Row="4" Grid.Column="0" Margin="0,5,5,5" Content="Use Delay" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
-                <TextBox Name="UseDelayTextBox" Grid.Row="4" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
-                <DockPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
-                    <Button Name="SaveAsVmfButton" Margin="15,5,5,5" Content="导出vmf文件" Width="110" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Left" IsEnabled="False" Click="SaveAsVmfClick"/>
-                    <Button Name="CompileVmfButton" Margin="5,5,15,5" Content="编译并启动游戏" Width="110" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="CompileVmfClick"/>
-                </DockPanel>
-            </Grid>
-            <DockPanel Grid.Row="12" Grid.Column="0">
-                <Label Margin="1,0,5,0" Content="官方地图救援脚本预览" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
-                <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
-            </DockPanel>
-            <Label Grid.Row="13" Grid.Column="0" Margin="0,5,6,5" Content="地图选择" FontSize="18" FontFamily="Bahnschrift"/>
-            <ComboBox Name="MapSelectionComboBox" Grid.Row="13" Margin="112,5,0,5" FontSize="15" FontFamily="Bahnschrift" Width="150" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
-            <DockPanel Grid.Row="14" Grid.Column="0">
-                <Button Name="PreviewOffcialScriptButton" Margin="20,5,5,5" Content="预览脚本文件" Width="120" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Center" Click="PreviewOfficalScriptClick"/>
-            </DockPanel>
+            <ScrollViewer Grid.Row="2" Grid.Column="0" Grid.RowSpan="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0" Grid.Column="0">
+                        <Label Margin="1,0,5,0" Content="调试设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                        <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
+                    </DockPanel>
+                    <CheckBox Name="MSGCheckBox" Grid.Row="1" Grid.Column="0" Margin="5,5,6,5" Content="控制台显示自定义信息" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
+                    <CheckBox Name="ShowProgressCheckBox" Grid.Row="2" Grid.Column="0" Margin="5,5,6,5" Content="控制台提示灌油进度" FontSize="20" FontFamily="Dengxian" Click="CheckBoxClick"/>
+                    <DockPanel Grid.Row="3" Grid.Column="0">
+                        <Label Margin="1,0,5,0" Content="灌油救援模板导出vmf文件设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                        <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
+                    </DockPanel>
+                    <Grid Grid.Row="4" Grid.Column="0" Grid.RowSpan="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="115"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="info__director" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
+                        <TextBox Name="info_directorTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
+                        <Label Grid.Row="1" Grid.Column="0" Margin="0,5,5,5" Content="trigger__finale" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
+                        <TextBox Name="trigger_finaleTextBox" Grid.Row="1" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
+                        <Label Grid.Row="2" Grid.Column="0" Margin="0,5,5,5" Content="DelayScript" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
+                        <TextBox Name="DelayScriptTextBox" Grid.Row="2" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
+                        <Label Grid.Row="3" Grid.Column="0" Margin="0,5,5,5" Content="CansNeeded" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
+                        <TextBox Name="CansNeededTextBox" Grid.Row="3" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
+                        <Label Grid.Row="4" Grid.Column="0" Margin="0,5,5,5" Content="DelayMin" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
+                        <TextBox Name="DelayMinTextBox" Grid.Row="4" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
+                        <Label Grid.Row="5" Grid.Column="0" Margin="0,5,5,5" Content="DelayMax" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
+                        <TextBox Name="DelayMaxTextBox" Grid.Row="5" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
+                        <Label Grid.Row="6" Grid.Column="0" Margin="0,5,5,5" Content="DelayPourThre" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
+                        <TextBox Name="DelayPourThreTextBox" Grid.Row="6" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
+                        <Label Grid.Row="7" Grid.Column="0" Margin="0,5,5,5" Content="DelayBothThre" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
+                        <TextBox Name="DelayBothThreTextBox" Grid.Row="7" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
+                        <Label Grid.Row="8" Grid.Column="0" Margin="0,5,5,5" Content="AbortMin" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
+                        <TextBox Name="AbortMinTextBox" Grid.Row="8" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
+                        <Label Grid.Row="9" Grid.Column="0" Margin="0,5,5,5" Content="AbortMax" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
+                        <TextBox Name="AbortMaxTextBox" Grid.Row="9" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
+                        <Label Grid.Row="10" Grid.Column="0" Margin="0,5,5,5" Content="CansBothThre" FontSize="18" FontFamily="Bahnschrift" MouseDown="MouseClick"/>
+                        <TextBox Name="CansBothThreTextBox" Grid.Row="10" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" TextChanged="TextBoxTextChanged"/>
+                        <DockPanel Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2">
+                            <Button Name="SaveAsVmfButton" Margin="15,5,5,5" Content="导出vmf文件" Width="105" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Left" IsEnabled="False" Click="SaveAsVmfClick"/>
+                            <Button Name="CompileVmfButton" Margin="5,5,15,5" Content="编译并启动游戏" Width="105" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="CompileVmfClick"/>
+                        </DockPanel>
+                    </Grid>
+                    <DockPanel Grid.Row="16" Grid.Column="0">
+                        <Label Margin="1,0,5,0" Content="官方地图救援脚本预览" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                        <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
+                    </DockPanel>
+                    <Label Grid.Row="17" Margin="0,5,6,5" Content="地图选择" FontSize="18" FontFamily="Bahnschrift"/>
+                    <ComboBox Name="MapSelectionComboBox" Grid.Row="17" Margin="100,5,5,5" FontSize="15" FontFamily="Bahnschrift" Width="136" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
+                    <DockPanel Grid.Row="18" Grid.Column="0">
+                        <Button Name="PreviewOffcialScriptButton" Margin="20,5,5,5" Content="预览脚本文件" Width="130" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Center" Click="PreviewOfficalScriptClick"/>
+                    </DockPanel>
+                </Grid>
+            </ScrollViewer>
         </Grid>
         <Border Grid.Row="1" Grid.Column="1" Margin="5" BorderThickness="1" BorderBrush="#7F7F7F">
             <ScrollViewer>
@@ -153,7 +175,7 @@
                         <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
                     <DockPanel Grid.Row="0" Grid.Column="0">
-                        <Label Margin="1,0,5,0" Content="普通感染者属性设置 (单击参数查看详细信息)" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                        <Label Margin="1,0,5,0" Content="普通感染者属性设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
                         <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
                     </DockPanel>
                     <Grid Grid.Row="1" Grid.Column="0">

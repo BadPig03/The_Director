@@ -66732,10 +66732,6 @@ entity
 	"nozzle" "finale_lever"
 	"origin" "6816 5894 77"
 	"spawnflags" "1"
-	connections
-	{
-		"OnUseFinished" "directorRunScriptCodeDirectorScript.MapScript.LocalScript.GasCanPoured()0-1"
-	}
 	editor
 	{
 		"color" "220 30 220"
@@ -111487,6 +111483,7 @@ entity
 	{
 		"OnGameplayStart" "gascansTurnGlowsOff0-1"
 		"OnGameplayStart" "gascan_progressTurnOff0-1"
+		"OnTeamScored" "directorRunScriptCodeDirectorScript.MapScript.LocalScript.GasCanPoured()0-1"
 	}
 	"origin" "8448 6792 200"
 	editor

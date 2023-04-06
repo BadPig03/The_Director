@@ -214,8 +214,8 @@ public static class Functions
             "BuildUpMinInterval" or "MobRechargeRate" or "MobSpawnMaxTime" or "MobSpawnMinTime" or "RelaxMaxFlowTravel" or "RelaxMaxInterval" or "RelaxMinInterval" or "SpecialRespawnInterval" or "SustainPeakMaxTime" or "SustainPeakMinTime" or "MinimumStageTime" => 2,
             "MusicDynamicMobScanStopSize" or "MusicDynamicMobSpawnSize" or "MusicDynamicMobStopSize" or "BileMobSize" or "MegaMobSize" or "MobMaxSize" or "MobMinSize" or "MobSpawnSize" or "BoomerLimit" or "ChargerLimit" or "CommonLimit" or "DominatorLimit" or "HunterLimit" or "JockeyLimit" or "MaxSpecials" or "SmokerLimit" or "SpitterLimit" => 3,
             "MobMaxPending" or "TankLimit" or "WitchLimit" or "HordeEscapeCommonLimit" => 4,
-            "info_director" or "trigger_finale" or "ScriptFile" => 5,
-            "FirstUseDelay" or "UseDelay" => 6,
+            "info_director" or "trigger_finale" or "ScriptFile" or "DelayScript" => 5,
+            "FirstUseDelay" or "UseDelay" or "CansNeeded" or "DelayMin" or "DelayMax" or "DelayPourThre" or "DelayBothThre" or "AbortMin" or "AbortMax" or "CansBothThre" => 6,
             _ => -1,
         };
     }
@@ -269,6 +269,15 @@ public static class Functions
             "Script File" => "ScriptFile是trigger_finale的一个键值。\n\n这个文本框的值会决定如果trigger_finale使用Custom救援类型后将会使用的救援脚本名字(带后缀名.nut)。",
             "First Use Delay" => "First Use Delay是trigger_finale的一个键值。\n\n这个文本框的值会决定第一次触发trigger_finale后需要经过多少秒后才能再次触发。",
             "Use Delay" => "Use Delay是trigger_finale的一个键值。\n\n若First Use Delay的值为0，则这个文本框的值会决定触发trigger_finale后需要经过多少秒后才开始救援。\n\n若First Use Delay的值不为0，则这个文本框的值会决定第二次触发trigger_finale后需要经过多少秒后才开始救援。",
+            "DelayScript" => "DelayScript是灌油救援中的延迟部分脚本的名字。\n\n这个文本框的值会决定写在救援阶段中SCRIPTED阶段的脚本名字。\n\n此脚本可通过按下\"切换至副脚本\"按钮切换查看。",
+            "CansNeeded" => "CansNeeded是灌油救援需要的总油桶数量。\n\n这个文本框的值会决定救援载具会在生还者灌了多少桶油后才准备完毕。",
+            "DelayMin" => "DelayMin是救援阶段中SCRIPTED阶段自动结束前最少得经过的秒数。\n\nDelayMin和DelayMax两个文本框的值会决定PANIC阶段的间隙时长。",
+            "DelayMax" => "DelayMax是救援阶段中SCRIPTED阶段自动结束前最多经过的秒数。\n\nDelayMin和DelayMax两个文本框的值会决定PANIC阶段的间隙时长。",
+            "DelayPourThre" => "DelayPourThre是救援阶段的SCRIPTED阶段被强制中断前生还者最多能灌入发动机的油桶数量。\n\n这个文本框的值会决定强行进入PANIC阶段所需要生还者灌入的油桶数量。",
+            "DelayBothThre" => "DelayBothThre是救援阶段的SCRIPTED阶段被强制中断前生还者最多能灌入发动机的油桶数量和捡起来过的油桶数量之和。\n\n这个文本框的值会决定强行进入PANIC阶段所需要生还者灌入的油桶数量与捡起来过油桶的数量之和。",
+            "AbortMin" => "AbortMin是强制中断救援阶段的SCRIPTED阶段后，在进入下一个阶段前最少得经过的秒数。\n\n这个文本框的值会决定强行进入PANIC阶段之前的最短时间。",
+            "AbortMax" => "AbortMax是强制中断救援阶段的SCRIPTED阶段后，在进入下一个阶段前最多经过的秒数。\n\n这个文本框的值会决定强行进入PANIC阶段之前的最长时间。",
+            "CansBothThre" => "当生还者灌入发动机的油桶数量和捡起来过的油桶数量之和等于CansBothThre的值且若救援阶段正处于SCRIPTED阶段，则立即跳过该阶段，进入下一阶段。",
             _ => "",
         };
     }
@@ -280,6 +289,9 @@ public static class Functions
             "info__director" => "https://developer.valvesoftware.com/wiki/Info_director",
             "trigger__finale" => "https://developer.valvesoftware.com/wiki/Trigger_finale",
             "ScriptFile" => "https://developer.valvesoftware.com/wiki/Trigger_finale#Keyvalues",
+            "DelayScript" => "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts",
+            "CansNeeded" or "DelayPourThre" or "DelayBothThre" or "CansBothThre" => "https://developer.valvesoftware.com/wiki/Weapon_scavenge_item_spawn",
+            "DelayMin" or "DelayMax" or "AbortMin" or "AbortMax" => "https://developer.valvesoftware.com/wiki/Logic_timer",
             _ => "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions",
         };
     }
@@ -381,19 +393,29 @@ public static class Functions
             _ => string.Empty
         };
 
-        string replacedFile = type switch
-        {
-            0 => "standard_finale",
-            1 => "scavenge_finale",
-            _ => string.Empty
-        };
-
         file = file.Replace("\"targetname\" \"director\"", $"\"targetname\" \"{VmfValuesList[0]}\"");
-        file = file.Replace("\"targetname\" \"finale_radio\"", $"\"targetname\" \"{VmfValuesList[1]}\"");
-        file = file.Replace("\"finale_radio\x1b", $"\"{VmfValuesList[1]}\x1b");
-        file = file.Replace($"\"ScriptFile\" \"{replacedFile}.nut\"", $"\"ScriptFile\" \"{VmfValuesList[2]}\"");
-        file = file.Replace("\"FirstUseDelay\" \"2\"", $"\"FirstUseDelay\" \"{VmfValuesList[3]}\"");
-        file = file.Replace("\"UseDelay\" \"1\"", $"\"UseDelay\" \"{VmfValuesList[4]}\"");
+        file = file.Replace("\"director\x1b", $"\"{VmfValuesList[0]}\x1b");
+
+        if (type == 0)
+        {
+            string replacedFile = type switch
+            {
+                0 => "standard_finale",
+                1 => "scavenge_finale",
+                _ => string.Empty
+            };
+
+            file = file.Replace("\"targetname\" \"finale_radio\"", $"\"targetname\" \"{VmfValuesList[1]}\"");
+            file = file.Replace("\"finale_radio\x1b", $"\"{VmfValuesList[1]}\x1b");
+            file = file.Replace($"\"ScriptFile\" \"{replacedFile}.nut\"", $"\"ScriptFile\" \"{VmfValuesList[2]}\"");
+            file = file.Replace("\"FirstUseDelay\" \"2\"", $"\"FirstUseDelay\" \"{VmfValuesList[3]}\"");
+            file = file.Replace("\"UseDelay\" \"1\"", $"\"UseDelay\" \"{VmfValuesList[4]}\"");
+        }
+        else if (type == 1)
+        {
+            file = file.Replace("\"targetname\" \"finale_lever\"", $"\"targetname\" \"{VmfValuesList[1]}\"");
+            file = file.Replace("\"finale_lever\x1b", $"\"{VmfValuesList[1]}\x1b");
+        }
 
         string filePath = saveFilePath + (saveFilePath.EndsWith(".vmf") ? string.Empty : ".vmf");
 

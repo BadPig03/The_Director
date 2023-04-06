@@ -566,11 +566,11 @@ namespace The_Director.Windows
                 Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{VmfValuesList[2]}", ScriptWindow.Text);
             }
 
-            string NavFileName = saveFileDialog.SafeFileName.Replace(".vmf", ".nav");
+            string navFileName = saveFileDialog.SafeFileName.Replace(".vmf", ".nav");
 
             YesOrNoWindow yesOrNoWindow2 = new()
             {
-                TextBlockString = $"是否一并导出Nav文件至vmf所在文件夹?\n\nNav文件名将为\"{NavFileName}\"!",
+                TextBlockString = $"是否一并导出Nav文件至vmf所在文件夹?\n\nNav文件名将为\"{navFileName}\"!",
                 SendMessage = SaveToNavReceived,
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
