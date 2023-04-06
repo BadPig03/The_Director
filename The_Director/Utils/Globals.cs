@@ -21,6 +21,8 @@ public static class Globals
     public static List<string> OffcialMapScavengeRescueList = new() { "c1m4_atrium_finale.nut", "c1m4_delay.nut", "c6m3_port_finale.nut", "c14m2_lighthouse_finale.nut" };
     public static List<string> OffcialMapGauntletRescueList = new() { "director_gauntlet.nut" };
     public static List<string> OffcialMapSacrificeRescueList = new() { "c7m3_port_finale.nut" };
+    public static List<int> TankIndexList = new() { 6, 14, 22, 32 };
+
 
     public static string L4D2RootPath = SteamApps.AppInstallDir(L4D2AppID);
     public static string L4D2TempPath = Path.GetTempPath();

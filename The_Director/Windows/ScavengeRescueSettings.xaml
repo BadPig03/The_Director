@@ -15,12 +15,18 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Grid.Column="2">
-            <Button Name="SaveAsNutButton" Margin="5,5,5,0" Content="导出脚本文件" Width="100" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="SaveAsNutClick"/>
-            <Button Name="PasteToClipboardButton" Margin="5,5,5,0" Content="复制到粘贴板" Width="100" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="PasteToClipboardClick"/>
+            <Button Name="SaveAsNutButton" Margin="5,5,5,0" Content="导出脚本文件" Width="90" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="SaveAsNutClick"/>
+            <Button Name="PasteToClipboardButton" Margin="5,5,5,0" Content="复制到粘贴板" Width="90" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="PasteToClipboardClick"/>
+            <Button Name="ChangeButton" Margin="5,5,5,0" Content="切换至副脚本" Width="90" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Right" Click="ChangeButtonClick"/>
         </DockPanel>
-        <Border Margin="5" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" BorderThickness="1" BorderBrush="#7F7F7F">
+        <Border Name="BorderMain" Margin="5" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" BorderThickness="1" BorderBrush="#7F7F7F">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <TextBox Name="ScriptWindow" FontSize="15" FontFamily="JetBrains Mono" IsReadOnly="True" BorderThickness="0"/>
+            </ScrollViewer>
+        </Border>
+        <Border Name="BorderSecond" Margin="5" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" BorderThickness="1" BorderBrush="#7F7F7F" Visibility="Hidden">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <TextBox Name="ScriptWindowSecond" FontSize="15" FontFamily="JetBrains Mono" IsReadOnly="True" BorderThickness="0"/>
             </ScrollViewer>
         </Border>
         <Grid Grid.Row="1" Grid.Column="0" Margin="5">

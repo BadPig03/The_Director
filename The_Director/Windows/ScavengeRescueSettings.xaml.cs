@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -12,6 +13,7 @@ namespace The_Director.Windows
     {
         public bool IsNutConfirmed = new();
         public bool IsNavConfirmed = new();
+        public bool IsMainScriptWindowActive = true;
 
         public Dictionary<int, string> TextBoxDicts = new();
         public Dictionary<int, int> ComboBoxDicts = new();
@@ -251,6 +253,7 @@ namespace The_Director.Windows
         private void UpdateScriptWindow()
         {
             StringBuilder ScriptWindowText = new();
+            StringBuilder ScriptWindowSecondText = new();
 
             if ((bool)MSGCheckBox.IsChecked)
             {
@@ -259,7 +262,20 @@ namespace The_Director.Windows
 
             ScriptWindowText.AppendLine("PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\n\nDirectorOptions <-\n{");
 
-            ScriptWindowText.AppendLine("\tA_CustomFinale_StageCount = 31\n");
+            for (int i = 1; i <= 31; i++)
+            {
+                ScriptWindowText.AppendLine($"\tA_CustomFinale{i} = SCRIPTED");
+                ScriptWindowText.AppendLine($"\tA_CustomFinaleValue{i} = \"scavenge_delay\"\n");
+                if (Globals.TankIndexList.Contains(i+1))
+                {
+                    ScriptWindowText.AppendLine($"\tA_CustomFinale{++i} = TANK");
+                }
+                else
+                {
+                    ScriptWindowText.AppendLine($"\tA_CustomFinale{++i} = PANIC");   
+                }
+                ScriptWindowText.AppendLine($"\tA_CustomFinaleValue{i} = 1\n");
+            }
 
             foreach (var item in ScavengeDict)
             {
@@ -280,12 +296,10 @@ namespace The_Director.Windows
                 }
             }
 
-            ScriptWindowText.AppendLine("}");
-
-            if (ScavengeDict["ShowStage"].Item1)
-            {
-                ScriptWindowText.AppendLine("\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}");
-            }
+            ScriptWindowText.AppendLine("}\n\n//-----------------------------------------------------\n");
+            ScriptWindowText.AppendLine("NumCansNeeded <- 12\n\nif (Director.IsSinglePlayerGame())\n{\n\tNumCansNeeded <- 8\n}\n\nDelayMin <- 10\nDelayMax <- 20\n\nDelayPourThreshold <- 1\nDelayTouchedOrPouredThreshold <- 2\n\nAbortDelayMin <- 1\nAbortDelayMax <- 3\n\nGimmeThreshold <- 4\n");
+            ScriptWindowText.AppendLine("GasCansTouched <- 0\nGasCansPoured <- 0\nDelayTouchedOrPoured <- 0\nDelayPoured <- 0\n\nEntFire(\"gascan_progress\", \"SetTotalItems\", NumCansNeeded);\nEntFire(\"timer_delay_end\", \"LowerRandomBound\", DelayMin);\nEntFire(\"timer_delay_end\", \"UpperRandomBound\", DelayMax);\nEntFire(\"timer_delay_abort\", \"LowerRandomBound\", AbortDelayMin);\nEntFire(\"timer_delay_abort\", \"UpperRandomBound\", AbortDelayMax);\n\nfunction AbortDelay(){}\nfunction EndDelay(){}\n\nNavMesh.UnblockRescueVehicleNav();\n");
+            ScriptWindowText.AppendLine("function GasCanTouched()\n{\n\tGasCansTouched++;\n\tEvalGasCansPouredOrTouched();\n}\n\nfunction GasCanPoured()\n{\n\tGasCansPoured++;\n\tDelayPoured++;\n\tEntFire(\"finale_elevator\", \"SetPosition\", 1.0 *  GasCansPoured / NumCansNeeded);\n\tif (GasCansPoured == NumCansNeeded)\n\t{\n\t\tEntFire(\"finale_elevator\", \"SetSpeed\", 14.4);\n\t\tEntFire(\"relay_rescue_ready\", \"Enable\");\n\t}\n\tEvalGasCansPouredOrTouched();\n}\n\nfunction EvalGasCansPouredOrTouched()\n{\n\tlocal TouchedOrPoured = GasCansPoured + GasCansTouched;\n\tDelayTouchedOrPoured++;\n\tif ((DelayTouchedOrPoured >= DelayTouchedOrPouredThreshold) || (DelayPoured >= DelayPourThreshold))\n\t\tAbortDelay();\n\tif (TouchedOrPoured == GimmeThreshold)\n\t\tEntFire(\"director\", \"EndCustomScriptedStage\");\n}");
 
             ScriptWindow.Text = ScriptWindowText.ToString();
 
@@ -303,6 +317,11 @@ namespace The_Director.Windows
                 SaveAsVmfButton.IsEnabled = false;
                 CompileVmfButton.IsEnabled = false;
             }
+
+            ScriptWindowSecondText.AppendLine("Msg(\"**Delay Started**\\n\");\n\nDirectorOptions <-\n{\n\tMobMinSize = 2\n\tMobMaxSize = 3\n\n\tBoomerLimit = 0\n\tSmokerLimit = 0\n\tHunterLimit = 0\n\tSpitterLimit = 0\n\tJockeyLimit = 0\n\tChargerLimit = 0\n\n\tMinimumStageTime = 15\n\n\tCommonLimit = 5\n}\n\nDirector.ResetMobTimer();\n\nEntFire(\"timer_delay_end\", \"Enable\");\n\nDelayTouchedOrPoured <- 0\nDelayPoured <- 0\n\nfunction AbortDelay()\n{\n\tEntFire(\"timer_delay_abort\", \"Enable\");\n}\n\nfunction EndDelay()\n{\n\tEntFire(\"timer_delay_end\", \"Disable\");\n\tEntFire(\"timer_delay_end\", \"ResetTimer\");\n\tEntFire(\"timer_delay_abort\", \"Disable\");\n\tEntFire(\"timer_delay_abort\", \"ResetTimer\");\n\tEntFire(\"director\", \"EndCustomScriptedStage\");\n}");
+
+            ScriptWindowSecond.Text = ScriptWindowSecondText.ToString();
+
         }
 
         private void MouseClick(object sender, RoutedEventArgs e)
@@ -320,8 +339,32 @@ namespace The_Director.Windows
 
         private void PasteToClipboardClick(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(ScriptWindow.Text);
+            if(IsMainScriptWindowActive) 
+            {
+                Clipboard.SetText(ScriptWindow.Text);
+            }
+            else
+            {
+                Clipboard.SetText(ScriptWindowSecond.Text);
+            }
             Functions.TryOpenMessageWindow(7);
+        }
+
+        private void ChangeButtonClick(object sender, RoutedEventArgs e)
+        {
+            if(IsMainScriptWindowActive)
+            {
+                ChangeButton.Content = "切换至主脚本";
+                BorderMain.Visibility = Visibility.Hidden;
+                BorderSecond.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ChangeButton.Content = "切换至副脚本";
+                BorderMain.Visibility = Visibility.Visible;
+                BorderSecond.Visibility = Visibility.Hidden;
+            }
+            IsMainScriptWindowActive = !IsMainScriptWindowActive;
         }
 
         private void SaveAsNutClick(object sender, RoutedEventArgs e)
@@ -335,7 +378,14 @@ namespace The_Director.Windows
             saveFileDialog.ShowDialog();
             if (saveFileDialog.FileName != string.Empty)
             {
-                Functions.SaveNutToPath(saveFileDialog.FileName, ScriptWindow.Text);
+                if(IsMainScriptWindowActive)
+                {
+                    Functions.SaveNutToPath(saveFileDialog.FileName, ScriptWindow.Text);
+                }
+                else
+                {
+                    Functions.SaveNutToPath(saveFileDialog.FileName, ScriptWindowSecond.Text);
+                }
             }
         }
 

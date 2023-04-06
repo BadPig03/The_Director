@@ -491,6 +491,44 @@ namespace The_Director.Properties {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        internal static string FinaleScavengeScriptNav {
+            get {
+                return ResourceManager.GetString("FinaleScavengeScriptNav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 versioninfo
+        ///{
+        ///	&quot;editorversion&quot; &quot;400&quot;
+        ///	&quot;editorbuild&quot; &quot;8864&quot;
+        ///	&quot;mapversion&quot; &quot;421&quot;
+        ///	&quot;formatversion&quot; &quot;100&quot;
+        ///	&quot;prefab&quot; &quot;0&quot;
+        ///}
+        ///visgroups
+        ///{
+        ///}
+        ///viewsettings
+        ///{
+        ///	&quot;bSnapToGrid&quot; &quot;1&quot;
+        ///	&quot;bShowGrid&quot; &quot;1&quot;
+        ///	&quot;bShowLogicalGrid&quot; &quot;0&quot;
+        ///	&quot;nGridSpacing&quot; &quot;1&quot;
+        ///}
+        ///palette_plus
+        ///{
+        ///	&quot;color0&quot; &quot;255 255 255&quot;
+        ///	&quot;color1&quot; &quot;255 255 255&quot;
+        ///	&quot;color2&quot; &quot;255 255 255&quot;
+        ///	&quot;color3&quot; &quot;255 255 255&quot;
+        ///	&quot;color4&quot; &quot;255 255 255&quot;
+        ///	&quot;color5&quot; &quot;255 255 255&quot;
+        ///	&quot;color6&quot; &quot;255 255 255&quot;
+        ///	&quot;color7&quot; &quot;255 255 255&quot;
+        ///	&quot;color8&quot; &quot;255 255 255&quot;
+        ///	&quot;color9&quot; &quot;255 255 255&quot; [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
         internal static string FinaleScavengeScriptVmf {
             get {
                 return ResourceManager.GetString("FinaleScavengeScriptVmf", resourceCulture);
