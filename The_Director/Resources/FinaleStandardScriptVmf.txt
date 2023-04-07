@@ -34,7 +34,6 @@ world
 	"id" "1"
 	"mapversion" "586"
 	"classname" "worldspawn"
-	"comment" "Decompiled by BSPSource v1.4.0 from c1m3_mall"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
 	"maxpropscreenwidth" "-1"

@@ -277,7 +277,7 @@ public static class Functions
             "DelayBothThre" => "DelayBothThre是救援阶段的SCRIPTED阶段被强制中断前生还者最多能灌入发动机的油桶数量和捡起来过的油桶数量之和。\n\n这个文本框的值会决定强行进入PANIC阶段所需要生还者灌入的油桶数量与捡起来过油桶的数量之和。",
             "AbortMin" => "AbortMin是强制中断救援阶段的SCRIPTED阶段后，在进入下一个阶段前最少得经过的秒数。\n\n这个文本框的值会决定强行进入PANIC阶段之前的最短时间。",
             "AbortMax" => "AbortMax是强制中断救援阶段的SCRIPTED阶段后，在进入下一个阶段前最多经过的秒数。\n\n这个文本框的值会决定强行进入PANIC阶段之前的最长时间。",
-            "CansBothThre" => "当生还者灌入发动机的油桶数量和捡起来过的油桶数量之和等于CansBothThre的值且若救援阶段正处于SCRIPTED阶段，则立即跳过该阶段，进入下一阶段。",
+            "CansBothThre" => "当生还者灌入发动机的油桶数量和捡起来过的油桶数量之和可以被CansBothThre的值整除且若救援阶段正处于SCRIPTED阶段，则立即跳过该阶段，进入下一阶段。",
             _ => "",
         };
     }
@@ -296,18 +296,25 @@ public static class Functions
         };
     }
 
-    public static string GetProcessInput(int type)
+    public static string GetProcessInput(int type, int num)
     {
+        string path = num switch
+        {
+            0 => Globals.L4D2StandardFinalePath,
+            1 => Globals.L4D2ScavengeFinalePath,
+            _ => string.Empty
+        };
+
         return type switch
         {
-            0 => $"\"{Globals.L4D2VBSPPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{Globals.L4D2StandardFinalePath}.vmf\"&exit",
-            1 => $"\"{Globals.L4D2VVISPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{Globals.L4D2StandardFinalePath}.bsp\"&exit",
-            2 => $"\"{Globals.L4D2VRADPath}\" -game \"{Globals.L4D2GameInfoPath}\" -hdr -StaticPropLighting -StaticPropPolys \"{Globals.L4D2StandardFinalePath}.bsp\"&exit",
+            0 => $"\"{Globals.L4D2VBSPPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{path}.vmf\"&exit",
+            1 => $"\"{Globals.L4D2VVISPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{path}.bsp\"&exit",
+            2 => $"\"{Globals.L4D2VRADPath}\" -game \"{Globals.L4D2GameInfoPath}\" -both -StaticPropLighting -StaticPropPolys \"{path}.bsp\"&exit",
             _ => "&exit",
         };
     }
 
-    public static bool GenerateNewProcess(int type)
+    public static bool GenerateNewProcess(int type, int num)
     {
         Process process = new();
         process.StartInfo.FileName = "cmd.exe";
@@ -315,19 +322,25 @@ public static class Functions
         process.StartInfo.CreateNoWindow = true;
         process.StartInfo.RedirectStandardInput = true;
         process.Start();
-        process.StandardInput.WriteLine(GetProcessInput(type));
+        process.StandardInput.WriteLine(GetProcessInput(type, num));
         process.StandardInput.AutoFlush = true;
         process.WaitForExit();
         process.Close();
         return true;
     }
 
-    public static void RunL4D2Game()
+    public static void RunL4D2Game(int type)
     {
+        string command = type switch
+        { 
+            0 => "-steam -novid +sv_cheats 1 +director_debug 1 +map standard_finale",
+            1 => "-steam -novid +sv_cheats 1 +director_debug 1 +map scavenge_finale",
+            _ => string.Empty
+        };
         Process process = new();
         process.StartInfo.FileName = $"{Globals.L4D2RootPath}\\left4dead2.exe";
         process.StartInfo.UseShellExecute = false;
-        process.StartInfo.Arguments = "-steam -novid +sv_cheats 1 +director_debug 1 +map standard_finale";
+        process.StartInfo.Arguments = command;
         process.Start();
         process.WaitForExit();
         process.Close();
@@ -361,12 +374,19 @@ public static class Functions
         };
     }
 
-    public static void SaveNavToPath(string saveFilePath)
+    public static void SaveNavToPath(string saveFilePath, int type)
     {
+        string navFile = type switch
+        {
+            0 => Properties.Resources.FinaleStandardScriptNav,
+            1 => Properties.Resources.FinaleScavengeScriptNav,
+            _ => string.Empty
+        };
+
         string filePath = saveFilePath + (saveFilePath.EndsWith(".nav") ? string.Empty : ".nav");
         try
         {
-            using MemoryStream memoryStream = new(Convert.FromBase64String(Properties.Resources.FinaleStandardScriptNav));
+            using MemoryStream memoryStream = new(Convert.FromBase64String(navFile));
             using FileStream fileStream = new(filePath, FileMode.OpenOrCreate, FileAccess.Write);
             byte[] bytes = memoryStream.ToArray();
             fileStream.Write(bytes, 0, bytes.Length);

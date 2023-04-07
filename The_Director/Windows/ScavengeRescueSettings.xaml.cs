@@ -359,7 +359,7 @@ namespace The_Director.Windows
                 ScriptWindowText.AppendLine("\t\tprintl(\"Gas Cans Needed: \" + GasCansPoured);");
             }
 
-            ScriptWindowText.AppendLine("\t\tEntFire(\"finale_elevator\", \"SetSpeed\", 14.4);\n\t\tEntFire(\"relay_rescue_ready\", \"Enable\");\n\t}\n\tEvalGasCansPouredOrTouched();\n}\n\nfunction EvalGasCansPouredOrTouched()\n{\n\tlocal TouchedOrPoured = GasCansPoured + GasCansTouched;\n\tDelayTouchedOrPoured++;\n\tif ((DelayTouchedOrPoured >= DelayBothThre) || (DelayPoured >= DelayPourThre))\n\t\tAbortDelay();\n\tif (TouchedOrPoured == CansBothThre)\n\t\tEntFire(\"director\", \"EndCustomScriptedStage\");\n}");
+            ScriptWindowText.AppendLine("\t\tEntFire(\"finale_elevator\", \"SetSpeed\", 14.4);\n\t\tEntFire(\"relay_rescue_ready\", \"Enable\");\n\t\tEntFire(\"gascan_progress\", \"TurnOff\", 1);\n\t}\n\tEvalGasCansPouredOrTouched();\n}\n\nfunction EvalGasCansPouredOrTouched()\n{\n\tlocal TouchedOrPoured = GasCansPoured + GasCansTouched;\n\tDelayTouchedOrPoured++;\n\tif ((DelayTouchedOrPoured >= DelayBothThre) || (DelayPoured >= DelayPourThre))\n\t\tAbortDelay();\n\tif (TouchedOrPoured % CansBothThre == 0)\n\t\tEntFire(\"director\", \"EndCustomScriptedStage\");\n}");
 
             ScriptWindow.Text = ScriptWindowText.ToString();
 
@@ -500,24 +500,24 @@ namespace The_Director.Windows
 
             if (IsNavConfirmed)
             {
-                Functions.SaveNavToPath(saveFileDialog.FileName.Replace(".vmf", ".nav"));
+                Functions.SaveNavToPath(saveFileDialog.FileName.Replace(".vmf", ".nav"), 1);
             }
         }
 
         private void CompileVmfClick(object sender, RoutedEventArgs e)
         {
-            Functions.SaveVmfToPath($"{Globals.L4D2StandardFinalePath}", VmfValuesList, 1);
-            Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\scavange_finale_finale.nut", ScriptWindow.Text);
-            Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\scavange_delay.nut", ScriptWindowSecond.Text);
-            Functions.SaveNavToPath($"{Globals.L4D2MapsPath}\\scavange_finale.nav");
-            if (Functions.GenerateNewProcess(0))
+            Functions.SaveVmfToPath($"{Globals.L4D2ScavengeFinalePath}", VmfValuesList, 1);
+            Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\scavenge_finale_finale.nut", ScriptWindow.Text);
+            Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{VmfValuesList[2]}.nut", ScriptWindowSecond.Text);
+            Functions.SaveNavToPath($"{Globals.L4D2MapsPath}\\scavenge_finale.nav", 1);
+            if (Functions.GenerateNewProcess(0, 1))
             {
-                if (Functions.GenerateNewProcess(1))
+                if (Functions.GenerateNewProcess(1, 1))
                 {
-                    if (Functions.GenerateNewProcess(2))
+                    if (Functions.GenerateNewProcess(2, 1))
                     {
-                        File.Copy($"{Globals.L4D2StandardFinalePath}.bsp", $"{Globals.L4D2MapsPath}\\scavange_finale.bsp", true);
-                        Functions.RunL4D2Game();
+                        File.Copy($"{Globals.L4D2ScavengeFinalePath}.bsp", $"{Globals.L4D2MapsPath}\\scavenge_finale.bsp", true);
+                        Functions.RunL4D2Game(1);
                     }
                 }
             }
