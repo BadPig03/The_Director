@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -205,6 +206,17 @@ public static class Functions
         messageWindow.ShowDialog();
     }
 
+    public static void TryOpenCompileWindow(int num)
+    {
+        CompileWindow compileWindow = new ()
+        {
+            Num = num,
+            Owner = Application.Current.MainWindow,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner
+        };
+        compileWindow.ShowDialog();
+    }
+
     public static int TextBoxIndex(string name)
     {
         return name switch
@@ -296,7 +308,7 @@ public static class Functions
         };
     }
 
-    public static string GetProcessInput(int type, int num)
+    public static string GetProcessInput(int num)
     {
         string path = num switch
         {
@@ -305,27 +317,12 @@ public static class Functions
             _ => string.Empty
         };
 
-        return type switch
-        {
-            0 => $"\"{Globals.L4D2VBSPPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{path}.vmf\"&exit",
-            1 => $"\"{Globals.L4D2VVISPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{path}.bsp\"&exit",
-            2 => $"\"{Globals.L4D2VRADPath}\" -game \"{Globals.L4D2GameInfoPath}\" -both -StaticPropLighting -StaticPropPolys \"{path}.bsp\"&exit",
-            _ => "&exit",
-        };
+        return $"\"{Globals.L4D2VBSPPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{path}.vmf\"" + $"&\"{Globals.L4D2VVISPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{path}.bsp\"" + $"&\"{Globals.L4D2VRADPath}\" -game \"{Globals.L4D2GameInfoPath}\" -both -StaticPropLighting -StaticPropPolys \"{path}.bsp\"&exit";
     }
 
-    public static bool GenerateNewProcess(int type, int num)
+    public static bool GenerateNewProcess(int num)
     {
-        Process process = new();
-        process.StartInfo.FileName = "cmd.exe";
-        process.StartInfo.UseShellExecute = false;
-        process.StartInfo.CreateNoWindow = true;
-        process.StartInfo.RedirectStandardInput = true;
-        process.Start();
-        process.StandardInput.WriteLine(GetProcessInput(type, num));
-        process.StandardInput.AutoFlush = true;
-        process.WaitForExit();
-        process.Close();
+        TryOpenCompileWindow(num);
         return true;
     }
 
@@ -337,6 +334,7 @@ public static class Functions
             1 => "-steam -novid +sv_cheats 1 +director_debug 1 +map scavenge_finale",
             _ => string.Empty
         };
+
         Process process = new();
         process.StartInfo.FileName = $"{Globals.L4D2RootPath}\\left4dead2.exe";
         process.StartInfo.UseShellExecute = false;

@@ -168,6 +168,9 @@
     <Compile Include="Windows\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\CompileWindow.xaml.cs">
+      <DependentUpon>CompileWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\GauntletRescueSettings.xaml.cs">
       <DependentUpon>GauntletRescueSettings.xaml</DependentUpon>
     </Compile>
@@ -177,8 +180,8 @@
     <Compile Include="Windows\MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\PriviewScriptWindow.xaml.cs">
-      <DependentUpon>PriviewScriptWindow.xaml</DependentUpon>
+    <Compile Include="Windows\PreviewScriptWindow.xaml.cs">
+      <DependentUpon>PreviewScriptWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ScavengeRescueSettings.xaml.cs">
       <DependentUpon>ScavengeRescueSettings.xaml</DependentUpon>
@@ -192,6 +195,10 @@
     <Compile Include="Windows\YesOrNoWindow.xaml.cs">
       <DependentUpon>YesOrNoWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Windows\CompileWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\GauntletRescueSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -208,9 +215,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\PriviewScriptWindow.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Windows\PreviewScriptWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\RescueScriptPage.xaml">
       <SubType>Designer</SubType>
