@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Win32;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using The_Director.Utils;
@@ -7,44 +11,20 @@ namespace The_Director.Windows
 {
     public partial class GauntletRescueSettings : UserControl
     {
-        public Dictionary<string, BooleanString> RescueCheckButtons = new();
+        public bool IsNutConfirmed = new();
+        public bool IsNavConfirmed = new();
 
+        public Dictionary<int, string> TextBoxDicts = new();
+        public Dictionary<int, int> ComboBoxDicts = new();
+        public Dictionary<string, BooleanString> GauntletDict = new();
 
-        public GauntletRescueSettings()
-        {
-            InitializeComponent();
-
-            RescueCheckButtons.Add("msg", new BooleanString(false, ""));
-            RescueCheckButtons.Add("prohibitboss", new BooleanString(false, null));
-            RescueCheckButtons.Add("showstage", new BooleanString(false, null));
-            RescueCheckButtons.Add("locktempo", new BooleanString(false, null));
-            RescueCheckButtons.Add("nomobspawns", new BooleanString(false, null));
-            RescueCheckButtons.Add("shouldallowmobswithtank", new BooleanString(false, null));
-        }
-
-        private void CheckBoxClick(object sender, RoutedEventArgs e)
-        {
-            if (!RescueCheckButtons["msg"].Item1 && (bool)MSGCheckBox.IsChecked)
-            {
-                TryOpenMSGWindow();
-            }
-
-            RescueCheckButtons["msg"] = ((bool)MSGCheckBox.IsChecked, RescueCheckButtons["msg"].Item2);
-            RescueCheckButtons["prohibitboss"] = ((bool)ProhibitBossCheckBox.IsChecked, null);
-            RescueCheckButtons["showstage"] = ((bool)ShowStageCheckBox.IsChecked, null);
-            RescueCheckButtons["locktempo"] = ((bool)LockTempoCheckBox.IsChecked, null);
-            RescueCheckButtons["nomobspawns"] = ((bool)NoMobSpawnsCheckBox.IsChecked, null);
-            RescueCheckButtons["shouldallowmobswithtank"] = ((bool)ShouldAllowMobsWithTankCheckBox.IsChecked, null);
-
-
-            UpdateScriptWindow();
-        }
+        public List<string> VmfValuesList = new() { "director", "finale_lever", "", "12", "10", "20", "1", "2", "1", "3", "4" };
 
         public void MSGReceived(string value)
         {
             if (value != null)
             {
-                RescueCheckButtons["msg"] = (true, value);
+                GauntletDict["MSG"] = (true, value);
             }
             else
             {
@@ -52,90 +32,361 @@ namespace The_Director.Windows
             }
         }
 
+        public void SaveToNutReceived(string value)
+        {
+            IsNutConfirmed = value != null;
+        }
+
+        public void SaveToNavReceived(string value)
+        {
+            IsNavConfirmed = value != null;
+        }
+
+        public GauntletRescueSettings()
+        {
+            InitializeComponent();
+            PreferredMobDirectionComboBox.ItemsSource = Globals.PreferredMobDirectionList;
+            PreferredSpecialDirectionComboBox.ItemsSource = Globals.PreferredSpecialDirectionList;
+            MapSelectionComboBox.ItemsSource = Globals.OffcialMapGauntletRescueList;
+            MapSelectionComboBox.SelectedIndex = 0;
+            GauntletDict.Add("MSG", new BooleanString(false, string.Empty));
+            GauntletDict.Add("ShowProgress", new BooleanString(false, null));
+            GauntletDict.Add("LockTempo", new BooleanString(false, null));
+            GauntletDict.Add("IntensityRelaxThreshold", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MobRechargeRate", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MobSpawnMaxTime", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MobSpawnMinTime", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MusicDynamicMobScanStopSize", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MusicDynamicMobSpawnSize", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MusicDynamicMobStopSize", new BooleanString(false, string.Empty));
+            GauntletDict.Add("PreferredMobDirection", new BooleanString(false, string.Empty));
+            GauntletDict.Add("RelaxMaxFlowTravel", new BooleanString(false, string.Empty));
+            GauntletDict.Add("RelaxMaxInterval", new BooleanString(false, string.Empty));
+            GauntletDict.Add("RelaxMinInterval", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MinimumStageTime", new BooleanString(false, string.Empty));
+            GauntletDict.Add("PreferredSpecialDirection", new BooleanString(false, string.Empty));
+            GauntletDict.Add("ProhibitBosses", new BooleanString(false, null));
+            GauntletDict.Add("ShouldAllowMobsWithTank", new BooleanString(false, null));
+            GauntletDict.Add("ShouldAllowSpecialsWithTank", new BooleanString(false, null));
+            GauntletDict.Add("EscapeSpawnTanks", new BooleanString(true, null));
+            GauntletDict.Add("SpecialRespawnInterval", new BooleanString(false, string.Empty));
+            GauntletDict.Add("SustainPeakMaxTime", new BooleanString(false, string.Empty));
+            GauntletDict.Add("SustainPeakMinTime", new BooleanString(false, string.Empty));
+            GauntletDict.Add("BileMobSize", new BooleanString(false, string.Empty));
+            GauntletDict.Add("BoomerLimit", new BooleanString(false, string.Empty));
+            GauntletDict.Add("ChargerLimit", new BooleanString(false, string.Empty));
+            GauntletDict.Add("CommonLimit", new BooleanString(false, string.Empty));
+            GauntletDict.Add("DominatorLimit", new BooleanString(false, string.Empty));
+            GauntletDict.Add("HunterLimit", new BooleanString(false, string.Empty));
+            GauntletDict.Add("JockeyLimit", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MaxSpecials", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MegaMobSize", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MobMaxPending", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MobMaxSize", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MobMinSize", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MobSpawnSize", new BooleanString(false, string.Empty));
+            GauntletDict.Add("SmokerLimit", new BooleanString(false, string.Empty));
+            GauntletDict.Add("SpitterLimit", new BooleanString(false, string.Empty));
+            GauntletDict.Add("TankLimit", new BooleanString(false, string.Empty));
+            GauntletDict.Add("WitchLimit", new BooleanString(false, string.Empty));
+            GauntletDict.Add("HordeEscapeCommonLimit", new BooleanString(false, string.Empty));
+
+            info_directorTextBox.Text = VmfValuesList[0];
+            trigger_finaleTextBox.Text = VmfValuesList[1];
+            DelayScriptTextBox.Text = VmfValuesList[2];
+            CansNeededTextBox.Text = VmfValuesList[3];
+            DelayMinTextBox.Text = VmfValuesList[4];
+            DelayMaxTextBox.Text = VmfValuesList[5];
+            DelayPourThreTextBox.Text = VmfValuesList[6];
+            DelayBothThreTextBox.Text = VmfValuesList[7];
+            AbortMinTextBox.Text = VmfValuesList[8];
+            AbortMaxTextBox.Text = VmfValuesList[9];
+            CansBothThreTextBox.Text = VmfValuesList[10];
+        }
+
         private void TryOpenMSGWindow()
         {
-            InputNewText InputWindow = new()
+            InputNewText inputNewText = new()
             {
-                TextBoxText = RescueCheckButtons["msg"].Item2,
-                SendMessage = MSGReceived
+                TextBoxText = GauntletDict["MSG"].Item2,
+                SendMessage = MSGReceived,
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
-            InputWindow.ShowDialog();
+            inputNewText.ShowDialog();
             UpdateScriptWindow();
         }
-        private void LockTempoButtonClick(object sender, RoutedEventArgs e)
+
+        private void CheckBoxClick(object sender, RoutedEventArgs e)
         {
-            HintWindow metroWindow = new()
+            CheckBox checkBox = (CheckBox)sender;
+            var Name = checkBox.Name.Remove(checkBox.Name.Length - 8, 8);
+            var IsChecked = (bool)checkBox.IsChecked;
+
+            if (Name != "MSG")
             {
-                Width = 480,
-                Height = 320,
-                TextBoxString = "设置LockTempo = true会无延迟地生成尸潮。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
+                GauntletDict[Name] = (IsChecked, null);
+            }
+            else
+            {
+                if (!GauntletDict[Name].Item1 && IsChecked)
+                {
+                    TryOpenMSGWindow();
+                }
+
+                GauntletDict[Name] = (IsChecked, GauntletDict[Name].Item2);
+            }
+            UpdateScriptWindow();
         }
 
-        private void NoMobSpawnsButtonClick(object sender, RoutedEventArgs e)
+        private void TextBoxTextChanged(object sender, TextChangedEventArgs e)
         {
-            HintWindow metroWindow = new()
+            TextBox textBox = (TextBox)sender;
+            var Name = textBox.Name.Remove(textBox.Name.Length - 7, 7);
+            switch (Functions.TextBoxIndex(Name))
             {
-                Width = 480,
-                Height = 320,
-                TextBoxString = "设置NoMobSpawns = true会停止新的僵尸生成。\n\n原有暂时等待生成的僵尸仍会继续生成。\n\n不会重置生成计时器。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
+                case 1:
+                    if (textBox.Text != string.Empty && !Functions.IsProperFloat(textBox.Text, 0, 1))
+                    {
+                        Functions.TryOpenMessageWindow(2);
+                        textBox.Text = string.Empty;
+                    }
+                    break;
+                case 2:
+                    if (textBox.Text != string.Empty && !Functions.IsProperFloat(textBox.Text, 0, float.MaxValue))
+                    {
+                        Functions.TryOpenMessageWindow(3);
+                        textBox.Text = string.Empty;
+                    }
+                    break;
+                case 3:
+                    if (textBox.Text != string.Empty && !Name.Contains(" "))
+                    {
+                        Functions.TryOpenMessageWindow(0);
+                        textBox.Text = string.Empty;
+                        return;
+                    }
+                    if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
+                    {
+                        Functions.TryOpenMessageWindow(4);
+                        textBox.Text = string.Empty;
+                    }
+                    break;
+                case 4:
+                    if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, -1, int.MaxValue))
+                    {
+                        Functions.TryOpenMessageWindow(5);
+                        textBox.Text = string.Empty;
+                    }
+                    break;
+                case 5:
+                    if (textBox.Text == string.Empty || !Functions.IsProperString(textBox.Text))
+                    {
+                        Functions.TryOpenMessageWindow(6);
+                        if (Name == "info_director")
+                        {
+                            textBox.Text = "director";
+                        }
+
+                        return;
+                    }
+                    if (Name == "info_director")
+                    {
+                        VmfValuesList[0] = textBox.Text;
+                    }
+
+                    break;
+                case 6:
+                    if (textBox.Text == string.Empty || !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
+                    {
+                        Functions.TryOpenMessageWindow(4);
+                        if (Name == "CansNeeded")
+                        {
+                            textBox.Text = "12";
+                        }
+
+                        return;
+                    }
+                    if (Name == "CansNeeded")
+                    {
+                        VmfValuesList[3] = textBox.Text;
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+            if (Name != "MSG")
+            {
+                GauntletDict[Name] = (textBox.Text != string.Empty, textBox.Text);
+            }
+
+            UpdateScriptWindow();
         }
 
-        private void ShouldAllowMobsWithTankButtonClick(object sender, RoutedEventArgs e)
+        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            HintWindow metroWindow = new()
-            {
-                Width = 480,
-                Height = 320,
-                TextBoxString = "设置ShouldAllowMobsWithTank = true会允许在Tank在场时自然生成小僵尸。\n\nBoomer和胆汁炸弹引起的尸潮不受影响。\n\n仅适用于战役模式。",
-                HyperlinkUri = "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions"
-            };
-            metroWindow.ShowDialog();
+            ComboBox comboBox = (ComboBox)sender;
+            GauntletDict[comboBox.Name.Remove(comboBox.Name.Length - 8, 8)] = (comboBox.SelectedItem.ToString() != string.Empty, comboBox.SelectedItem.ToString());
+            UpdateScriptWindow();
         }
 
         private void UpdateScriptWindow()
         {
-            var ScriptWindowText = "";
-            if (RescueCheckButtons["msg"].Item1)
+            StringBuilder ScriptWindowText = new();
+
+            if ((bool)MSGCheckBox.IsChecked)
             {
-                ScriptWindowText += $"Msg(\"{RescueCheckButtons["msg"].Item2}\");\n\n";
+                ScriptWindowText.AppendLine($"Msg(\"{GauntletDict["MSG"].Item2}\");\n");
             }
 
-            ScriptWindowText += "DirectorOptions <-\n{\n";
-
-            if (RescueCheckButtons["prohibitboss"].Item1)
+            foreach (var item in GauntletDict)
             {
-                ScriptWindowText += "\tProhibitBosses = true\n\n";
+                if (item.Value.Item1 && !Globals.GauntletDictBlackList.Contains(item.Key))
+                {
+                    if (item.Value.Item2 != null)
+                    {
+                        ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item2}");
+                    }
+                    else
+                    {
+                        ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}");
+                    }
+                }
+                else if (!item.Value.Item1 && item.Key == "EscapeSpawnTanks")
+                {
+                    ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}");
+                }
             }
 
-            if (RescueCheckButtons["locktempo"].Item1)
+            ScriptWindow.Text = ScriptWindowText.ToString();
+
+            if (ScriptWindow.Text != string.Empty)
             {
-                ScriptWindowText += "\tLockTempo = true\n";
+                PasteToClipboardButton.IsEnabled = true;
+                SaveAsNutButton.IsEnabled = true;
+                SaveAsVmfButton.IsEnabled = true;
+                CompileVmfButton.IsEnabled = true;
+            }
+            else
+            {
+                PasteToClipboardButton.IsEnabled = false;
+                SaveAsNutButton.IsEnabled = false;
+                SaveAsVmfButton.IsEnabled = false;
+                CompileVmfButton.IsEnabled = false;
+            }
+        }
+
+        private void MouseClick(object sender, RoutedEventArgs e)
+        {
+            Label label = (Label)sender;
+            HintWindow hintWindow = new()
+            {
+                TextBoxString = Functions.GetButtonString(label.Content.ToString()),
+                HyperlinkUri = Functions.GetButtonHyperlinkUri(label.Content.ToString()),
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            hintWindow.ShowDialog();
+        }
+
+        private void PasteToClipboardClick(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(ScriptWindow.Text);
+            Functions.TryOpenMessageWindow(7);
+        }
+    
+
+        private void SaveAsNutClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new()
+            {
+                Title = "导出脚本文件",
+                Filter = "nut文件 (*.nut)|*.nut",
+                InitialDirectory = Globals.L4D2ScriptsPath
+            };
+            saveFileDialog.ShowDialog();
+            if (saveFileDialog.FileName != string.Empty)
+            {
+                Functions.SaveNutToPath(saveFileDialog.FileName, ScriptWindow.Text);
+            }
+        }
+
+        private void SaveAsVmfClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new()
+            {
+                Title = "导出vmf文件",
+                Filter = "vmf文件 (*.vmf)|*.vmf",
+                InitialDirectory = Globals.L4D2RootPath
+            };
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog.FileName == string.Empty)
+            {
+                return;
+            }
+            else
+            {
+                Functions.SaveVmfToPath(saveFileDialog.FileName, VmfValuesList, 2);
             }
 
-            if (RescueCheckButtons["nomobspawns"].Item1)
+            string fileExtension = VmfValuesList[2].EndsWith(".nut") ? string.Empty : ".nut";
+
+
+            YesOrNoWindow yesOrNoWindow = new()
             {
-                ScriptWindowText += "\tNoMobSpawns = true\n";
+                TextBlockString = $"是否一并导出脚本文件至scripts\\vscripts文件夹?\n\n脚本文件名将为\"{VmfValuesList[2]}{fileExtension}\"!",
+                SendMessage = SaveToNutReceived,
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            yesOrNoWindow.ShowDialog();
+
+            if (IsNutConfirmed)
+            {
+                Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{VmfValuesList[2]}", ScriptWindow.Text);
             }
 
-            if (RescueCheckButtons["shouldallowmobswithtank"].Item1)
+            string navFileName = saveFileDialog.SafeFileName.Replace(".vmf", ".nav");
+
+            YesOrNoWindow yesOrNoWindow2 = new()
             {
-                ScriptWindowText += "\tShouldAllowMobsWithTank = true\n";
-            }
+                TextBlockString = $"是否一并导出Nav文件至vmf所在文件夹?\n\nNav文件名将为\"{navFileName}\"!",
+                SendMessage = SaveToNavReceived,
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            yesOrNoWindow2.ShowDialog();
 
-            ScriptWindowText += "}\n";
-
-            if (RescueCheckButtons["showstage"].Item1)
+            if (IsNavConfirmed)
             {
-                ScriptWindowText += "\nfunction OnBeginCustomFinaleStage(num, type)\n{\n\tprintl(\"Beginning custom finale stage \" + num + \" of type \"+ type);\n}\n";
+                Functions.SaveNavToPath(saveFileDialog.FileName.Replace(".vmf", ".nav"), 2);
             }
+        }
 
-            ScriptWindow.Text = ScriptWindowText;
+        private void CompileVmfClick(object sender, RoutedEventArgs e)
+        {
+            Functions.SaveVmfToPath($"{Globals.L4D2GauntletFinalePath}", VmfValuesList, 2);
+            Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\gauntlet_finale.nut", ScriptWindow.Text);
+            Functions.SaveNavToPath($"{Globals.L4D2MapsPath}\\gauntlet_finale.nav", 2);
+            if (Functions.TryOpenCompileWindow(2))
+            {
+                File.Copy($"{Globals.L4D2GauntletFinalePath}.bsp", $"{Globals.L4D2MapsPath}\\gauntlet_finale.bsp", true);
+                Functions.RunL4D2Game(2);
+            }
+        }
+
+        private void PreviewOfficalScriptClick(object sender, RoutedEventArgs e)
+        {
+            PreviewScriptWindow previewScriptWindow = new()
+            {
+                Title = $"正在预览{MapSelectionComboBox.SelectedItem}的救援脚本",
+                TextBoxString = Functions.GetOffcialGauntletScriptFile(),
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            previewScriptWindow.ShowDialog();
         }
     }
 }

@@ -491,6 +491,24 @@ namespace The_Director.Properties {
         /// <summary>
         ///   查找类似  的本地化字符串。
         /// </summary>
+        internal static string FinaleGauntletScriptNav {
+            get {
+                return ResourceManager.GetString("FinaleGauntletScriptNav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string FinaleGauntletScriptVmf {
+            get {
+                return ResourceManager.GetString("FinaleGauntletScriptVmf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 zvrt/hAAAAAOAAAAiEr0AAEAAAFkZWZhdWx0AAAAVAQAAAEAAAAAAAAgALi6RQBYmEUAIEBCAFjKRQD4p0UAIEBCAiBAQgAgQEIAAAAAAgAAAAgAAAA9BQAAAAAAAAMAAACnBQAAHQAAACkAAAABAAAAAAD0yUUAvJhFAiBAQgEAAAAAAAAAAAAAAAAAAAAA8EIAAPBCBuUbPpqZmT2amZk9mpmZPUAAAAAAALQAAAAAAAAAAgQAAAABBQAAAAIHAAAAAgoAAAABDwAAAAETAAAAARQAAAABGwAAAAIcAAAAAh0AAAACJQAAAAEmAAAAASgAAAACLQAAAAMuAAAAAi8AAAABMAAAAAEzAAAAATQAAAABPwAAAANDAAAAAUYAAAABRwAAAAFMAAAAAU8AAAACUQAAAAFUAAAAAV8AAAADYAAAAAFiAAAAAmUAAAADZwAAAAFsAAAAAXMAAAACdAAAAAKIAAAAAooAAAABjgAAAAKUAAAAA54AAAABnwAA [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
         internal static string FinaleScavengeScriptNav {
             get {
                 return ResourceManager.GetString("FinaleScavengeScriptNav", resourceCulture);
@@ -502,7 +520,7 @@ namespace The_Director.Properties {
         ///{
         ///	&quot;editorversion&quot; &quot;400&quot;
         ///	&quot;editorbuild&quot; &quot;8864&quot;
-        ///	&quot;mapversion&quot; &quot;421&quot;
+        ///	&quot;mapversion&quot; &quot;447&quot;
         ///	&quot;formatversion&quot; &quot;100&quot;
         ///	&quot;prefab&quot; &quot;0&quot;
         ///}

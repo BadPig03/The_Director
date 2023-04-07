@@ -510,7 +510,7 @@ namespace The_Director.Windows
             Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\scavenge_finale_finale.nut", ScriptWindow.Text);
             Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{VmfValuesList[2]}.nut", ScriptWindowSecond.Text);
             Functions.SaveNavToPath($"{Globals.L4D2MapsPath}\\scavenge_finale.nav", 1);
-            if (Functions.GenerateNewProcess(1))
+            if (Functions.TryOpenCompileWindow(1))
             {
                 File.Copy($"{Globals.L4D2ScavengeFinalePath}.bsp", $"{Globals.L4D2MapsPath}\\scavenge_finale.bsp", true);
                 Functions.RunL4D2Game(1);

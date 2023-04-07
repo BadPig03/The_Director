@@ -588,7 +588,7 @@ namespace The_Director.Windows
             Functions.SaveVmfToPath($"{Globals.L4D2StandardFinalePath}", VmfValuesList, 0);
             Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\standard_finale.nut", ScriptWindow.Text);
             Functions.SaveNavToPath($"{Globals.L4D2MapsPath}\\standard_finale.nav", 0);
-            if (Functions.GenerateNewProcess(0))
+            if (Functions.TryOpenCompileWindow(0))
             {
                 File.Copy($"{Globals.L4D2StandardFinalePath}.bsp", $"{Globals.L4D2MapsPath}\\standard_finale.bsp", true);
                 Functions.RunL4D2Game(0);

@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
 using The_Director.Windows;
 
 namespace The_Director.Utils;
@@ -206,7 +204,7 @@ public static class Functions
         messageWindow.ShowDialog();
     }
 
-    public static void TryOpenCompileWindow(int num)
+    public static bool TryOpenCompileWindow(int num)
     {
         CompileWindow compileWindow = new ()
         {
@@ -215,6 +213,7 @@ public static class Functions
             WindowStartupLocation = WindowStartupLocation.CenterOwner
         };
         compileWindow.ShowDialog();
+        return true;
     }
 
     public static int TextBoxIndex(string name)
@@ -320,12 +319,6 @@ public static class Functions
         return $"\"{Globals.L4D2VBSPPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{path}.vmf\"" + $"&\"{Globals.L4D2VVISPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{path}.bsp\"" + $"&\"{Globals.L4D2VRADPath}\" -game \"{Globals.L4D2GameInfoPath}\" -both -StaticPropLighting -StaticPropPolys \"{path}.bsp\"&exit";
     }
 
-    public static bool GenerateNewProcess(int num)
-    {
-        TryOpenCompileWindow(num);
-        return true;
-    }
-
     public static void RunL4D2Game(int type)
     {
         string command = type switch
@@ -372,12 +365,18 @@ public static class Functions
         };
     }
 
+    public static string GetOffcialGauntletScriptFile()
+    {
+        return Properties.Resources.director_gauntlet;
+    }
+
     public static void SaveNavToPath(string saveFilePath, int type)
     {
         string navFile = type switch
         {
             0 => Properties.Resources.FinaleStandardScriptNav,
             1 => Properties.Resources.FinaleScavengeScriptNav,
+            2 => Properties.Resources.FinaleGauntletScriptNav,
             _ => string.Empty
         };
 
@@ -408,6 +407,7 @@ public static class Functions
         {
             0 => Properties.Resources.FinaleStandardScriptVmf,
             1 => Properties.Resources.FinaleScavengeScriptVmf,
+            2 => Properties.Resources.FinaleGauntletScriptVmf,
             _ => string.Empty
         };
 

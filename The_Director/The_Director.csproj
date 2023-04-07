@@ -301,6 +301,8 @@
     <None Include="Resources\director_gauntlet.txt" />
     <None Include="Resources\FinaleScavengeScriptVmf.txt" />
     <None Include="Resources\FinaleScavengeScriptNav.txt" />
+    <None Include="Resources\FinaleGauntletScriptNav.txt" />
+    <None Include="Resources\FinaleGauntletScriptVmf.txt" />
     <Content Include="steam_api64.dll" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
