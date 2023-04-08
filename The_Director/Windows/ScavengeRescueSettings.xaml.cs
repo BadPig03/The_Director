@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -18,8 +17,6 @@ namespace The_Director.Windows
         public Dictionary<int, string> TextBoxDicts = new();
         public Dictionary<int, int> ComboBoxDicts = new();
         public Dictionary<string, BooleanString> ScavengeDict = new();
-
-        public List<string> VmfValuesList = new() { "director", "finale_lever", "scavenge_delay", "12", "10", "20", "1", "2", "1", "3", "4" };
 
         public void MSGReceived(string value)
         {
@@ -52,6 +49,17 @@ namespace The_Director.Windows
             MapSelectionComboBox.SelectedIndex = 0;
             ScavengeDict.Add("MSG", new BooleanString(false, string.Empty));
             ScavengeDict.Add("ShowProgress", new BooleanString(false, null));
+            ScavengeDict.Add("info_director", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("trigger_finale", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("DelayScript", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("CansNeeded", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("DelayMin", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("DelayMax", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("DelayPourThre", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("DelayBothThre", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("AbortMin", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("AbortMax", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("CansBothThre", new BooleanString(false, string.Empty));
             ScavengeDict.Add("LockTempo", new BooleanString(false, null));
             ScavengeDict.Add("IntensityRelaxThreshold", new BooleanString(false, string.Empty));
             ScavengeDict.Add("MobRechargeRate", new BooleanString(false, string.Empty));
@@ -91,18 +99,6 @@ namespace The_Director.Windows
             ScavengeDict.Add("TankLimit", new BooleanString(false, string.Empty));
             ScavengeDict.Add("WitchLimit", new BooleanString(false, string.Empty));
             ScavengeDict.Add("HordeEscapeCommonLimit", new BooleanString(false, string.Empty));
-
-            info_directorTextBox.Text = VmfValuesList[0];
-            trigger_finaleTextBox.Text = VmfValuesList[1];
-            DelayScriptTextBox.Text = VmfValuesList[2];
-            CansNeededTextBox.Text = VmfValuesList[3];
-            DelayMinTextBox.Text = VmfValuesList[4];
-            DelayMaxTextBox.Text = VmfValuesList[5];
-            DelayPourThreTextBox.Text = VmfValuesList[6];
-            DelayBothThreTextBox.Text = VmfValuesList[7];
-            AbortMinTextBox.Text = VmfValuesList[8];
-            AbortMaxTextBox.Text = VmfValuesList[9];
-            CansBothThreTextBox.Text = VmfValuesList[10];
         }
 
         private void TryOpenMSGWindow()
@@ -161,12 +157,6 @@ namespace The_Director.Windows
                     }
                     break;
                 case 3:
-                    if (textBox.Text != string.Empty && !Name.Contains(" "))
-                    {
-                        Functions.TryOpenMessageWindow(0);
-                        textBox.Text = string.Empty;
-                        return;
-                    }
                     if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
                     {
                         Functions.TryOpenMessageWindow(4);
@@ -196,20 +186,7 @@ namespace The_Director.Windows
                         {
                             textBox.Text = "scavenge_delay";
                         }
-
                         return;
-                    }
-                    if (Name == "info_director")
-                    {
-                        VmfValuesList[0] = textBox.Text;
-                    }
-                    else if (Name == "trigger_finale")
-                    {
-                        VmfValuesList[1] = textBox.Text;
-                    }
-                    else if (Name == "DelayScript")
-                    {
-                        VmfValuesList[2] = textBox.Text;
                     }
 
                     break;
@@ -252,39 +229,6 @@ namespace The_Director.Windows
 
                         return;
                     }
-                    if (Name == "CansNeeded")
-                    {
-                        VmfValuesList[3] = textBox.Text;
-                    }
-                    else if (Name == "DelayMin")
-                    {
-                        VmfValuesList[4] = textBox.Text;
-                    }
-                    else if (Name == "DelayMax")
-                    {
-                        VmfValuesList[5] = textBox.Text;
-                    }
-                    else if (Name == "DelayPourThre")
-                    {
-                        VmfValuesList[6] = textBox.Text;
-                    }
-                    else if (Name == "DelayBothThre")
-                    {
-                        VmfValuesList[7] = textBox.Text;
-                    }
-                    else if (Name == "AbortMin")
-                    {
-                        VmfValuesList[8] = textBox.Text;
-                    }
-                    else if (Name == "AbortMax")
-                    {
-                        VmfValuesList[9] = textBox.Text;
-                    }
-                    else if (Name == "CansBothThre")
-                    {
-                        VmfValuesList[10] = textBox.Text;
-                    }
-
                     break;
                 default:
                     break;
@@ -314,7 +258,7 @@ namespace The_Director.Windows
                 ScriptWindowText.AppendLine($"Msg(\"{ScavengeDict["MSG"].Item2}\");\n");
             }
 
-            ScriptWindowText.AppendLine($"PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\nDelayScript <- \"{VmfValuesList[2]}\"\n\nDirectorOptions <-\n{{");
+            ScriptWindowText.AppendLine($"PANIC <- 0\nTANK <- 1\nDELAY <- 2\nSCRIPTED <- 3\nDelayScript <- \"{ScavengeDict["DelayScript"].Item2}\"\n\nDirectorOptions <-\n{{");
 
             for (int i = 1; i <= 31; i++)
             {
@@ -351,7 +295,7 @@ namespace The_Director.Windows
             }
 
             ScriptWindowText.AppendLine("}\n\n//-----------------------------------------------------\n");
-            ScriptWindowText.AppendLine($"CansNeeded <- {VmfValuesList[3]}\nDelayMin <- {VmfValuesList[4]}\nDelayMax <- {VmfValuesList[5]}\nDelayPourThre <- {VmfValuesList[6]}\nDelayBothThre <- {VmfValuesList[7]}\nAbortMin <- {VmfValuesList[8]}\nAbortMax <- {VmfValuesList[9]}\nCansBothThre <- {VmfValuesList[10]}\n");
+            ScriptWindowText.AppendLine($"CansNeeded <- {ScavengeDict["CansNeeded"].Item2}\nDelayMin <- {ScavengeDict["DelayMin"].Item2}\nDelayMax <- {ScavengeDict["DelayMax"].Item2}\nDelayPourThre <- {ScavengeDict["DelayPourThre"].Item2}\nDelayBothThre <- {ScavengeDict["DelayBothThre"].Item2}\nAbortMin <- {ScavengeDict["AbortMin"].Item2}\nAbortMax <- {ScavengeDict["AbortMax"].Item2}\nCansBothThre <- {ScavengeDict["CansBothThre"].Item2}\n");
             ScriptWindowText.AppendLine("GasCansTouched <- 0\nGasCansPoured <- 0\nDelayTouchedOrPoured <- 0\nDelayPoured <- 0\n\nEntFire(\"gascan_progress\", \"SetTotalItems\", CansNeeded);\nEntFire(\"timer_delay_end\", \"LowerRandomBound\", DelayMin);\nEntFire(\"timer_delay_end\", \"UpperRandomBound\", DelayMax);\nEntFire(\"timer_delay_abort\", \"LowerRandomBound\", AbortMin);\nEntFire(\"timer_delay_abort\", \"UpperRandomBound\", AbortMax);\n\nfunction AbortDelay(){}\nfunction EndDelay(){}\n\nNavMesh.UnblockRescueVehicleNav();\n\nfunction GasCanTouched()\n{\n\tGasCansTouched++;\n\tEvalGasCansPouredOrTouched();\n}\n\nfunction GasCanPoured()\n{\n\tGasCansPoured++;\n\tDelayPoured++;\n\tEntFire(\"finale_elevator\", \"SetPosition\", 1.0 *  GasCansPoured / CansNeeded);\n\tif (GasCansPoured == CansNeeded)\n\t{");
 
             if (ScavengeDict["ShowProgress"].Item1)
@@ -465,16 +409,16 @@ namespace The_Director.Windows
             }
             else
             {
-                Functions.SaveVmfToPath(saveFileDialog.FileName, VmfValuesList, 1);
+                Functions.SaveVmfToPath(saveFileDialog.FileName, new List<string> { ScavengeDict["info_director"].Item2, ScavengeDict["trigger_finale"].Item2 }, 1);
             }
 
-            string fileExtension = VmfValuesList[2].EndsWith(".nut") ? string.Empty : ".nut";
+            string fileExtension = ScavengeDict["DelayScript"].Item2.EndsWith(".nut") ? string.Empty : ".nut";
             string scriptFileName = saveFileDialog.SafeFileName.Replace(".vmf", ".nut");
 
 
             YesOrNoWindow yesOrNoWindow = new()
             {
-                TextBlockString = $"是否一并导出两个脚本文件至scripts\\vscripts文件夹?\n\n脚本文件名将为\"{scriptFileName}\"和\"{VmfValuesList[2]}{fileExtension}\"!",
+                TextBlockString = $"是否一并导出两个脚本文件至scripts\\vscripts文件夹?\n\n脚本文件名将为\"{scriptFileName}\"和\"{ScavengeDict["DelayScript"].Item2}{fileExtension}\"!",
                 SendMessage = SaveToNutReceived,
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
@@ -484,7 +428,7 @@ namespace The_Director.Windows
             if (IsNutConfirmed)
             {
                 Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{scriptFileName}", ScriptWindow.Text);
-                Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{VmfValuesList[2]}", ScriptWindowSecond.Text);
+                Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{ScavengeDict["DelayScript"].Item2}", ScriptWindowSecond.Text);
             }
 
             string navFileName = saveFileDialog.SafeFileName.Replace(".vmf", ".nav");
@@ -506,9 +450,9 @@ namespace The_Director.Windows
 
         private void CompileVmfClick(object sender, RoutedEventArgs e)
         {
-            Functions.SaveVmfToPath($"{Globals.L4D2ScavengeFinalePath}", VmfValuesList, 1);
+            Functions.SaveVmfToPath($"{Globals.L4D2ScavengeFinalePath}", new List<string> { ScavengeDict["info_director"].Item2, ScavengeDict["trigger_finale"].Item2 }, 1);
             Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\scavenge_finale_finale.nut", ScriptWindow.Text);
-            Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{VmfValuesList[2]}.nut", ScriptWindowSecond.Text);
+            Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{ScavengeDict["DelayScript"].Item2}.nut", ScriptWindowSecond.Text);
             Functions.SaveNavToPath($"{Globals.L4D2MapsPath}\\scavenge_finale.nav", 1);
             if (Functions.TryOpenCompileWindow(1))
             {

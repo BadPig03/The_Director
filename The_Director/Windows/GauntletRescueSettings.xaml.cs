@@ -18,7 +18,7 @@ namespace The_Director.Windows
         public Dictionary<int, int> ComboBoxDicts = new();
         public Dictionary<string, BooleanString> GauntletDict = new();
 
-        public List<string> VmfValuesList = new() { "director", "finale_lever", "", "12", "10", "20", "1", "2", "1", "3", "4" };
+        public List<string> VmfValuesList = new() { "director", "finale_radio"};
 
         public void MSGReceived(string value)
         {
@@ -50,7 +50,18 @@ namespace The_Director.Windows
             MapSelectionComboBox.ItemsSource = Globals.OffcialMapGauntletRescueList;
             MapSelectionComboBox.SelectedIndex = 0;
             GauntletDict.Add("MSG", new BooleanString(false, string.Empty));
-            GauntletDict.Add("ShowProgress", new BooleanString(false, null));
+            GauntletDict.Add("PanicForever", new BooleanString(false, null));
+            GauntletDict.Add("PausePanicWhenRelaxing", new BooleanString(false, null));
+            GauntletDict.Add("GauntletMovementThreshold", new BooleanString(false, string.Empty));
+            GauntletDict.Add("GauntletMovementTimerLength", new BooleanString(false, string.Empty));
+            GauntletDict.Add("GauntletMovementBonus", new BooleanString(false, string.Empty));
+            GauntletDict.Add("GauntletMovementBonusMax", new BooleanString(false, string.Empty));
+            GauntletDict.Add("CustomTankKiteDistance", new BooleanString(false, string.Empty));
+            GauntletDict.Add("BridgeSpan", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MinSpeed", new BooleanString(false, string.Empty));
+            GauntletDict.Add("MaxSpeed", new BooleanString(false, string.Empty));
+            GauntletDict.Add("SpeedPenaltyZAdds", new BooleanString(false, string.Empty));
+            GauntletDict.Add("CommonLimitMax", new BooleanString(false, string.Empty));
             GauntletDict.Add("LockTempo", new BooleanString(false, null));
             GauntletDict.Add("IntensityRelaxThreshold", new BooleanString(false, string.Empty));
             GauntletDict.Add("MobRechargeRate", new BooleanString(false, string.Empty));
@@ -63,7 +74,6 @@ namespace The_Director.Windows
             GauntletDict.Add("RelaxMaxFlowTravel", new BooleanString(false, string.Empty));
             GauntletDict.Add("RelaxMaxInterval", new BooleanString(false, string.Empty));
             GauntletDict.Add("RelaxMinInterval", new BooleanString(false, string.Empty));
-            GauntletDict.Add("MinimumStageTime", new BooleanString(false, string.Empty));
             GauntletDict.Add("PreferredSpecialDirection", new BooleanString(false, string.Empty));
             GauntletDict.Add("ProhibitBosses", new BooleanString(false, null));
             GauntletDict.Add("ShouldAllowMobsWithTank", new BooleanString(false, null));
@@ -89,19 +99,7 @@ namespace The_Director.Windows
             GauntletDict.Add("SpitterLimit", new BooleanString(false, string.Empty));
             GauntletDict.Add("TankLimit", new BooleanString(false, string.Empty));
             GauntletDict.Add("WitchLimit", new BooleanString(false, string.Empty));
-            GauntletDict.Add("HordeEscapeCommonLimit", new BooleanString(false, string.Empty));
-
-            info_directorTextBox.Text = VmfValuesList[0];
-            trigger_finaleTextBox.Text = VmfValuesList[1];
-            DelayScriptTextBox.Text = VmfValuesList[2];
-            CansNeededTextBox.Text = VmfValuesList[3];
-            DelayMinTextBox.Text = VmfValuesList[4];
-            DelayMaxTextBox.Text = VmfValuesList[5];
-            DelayPourThreTextBox.Text = VmfValuesList[6];
-            DelayBothThreTextBox.Text = VmfValuesList[7];
-            AbortMinTextBox.Text = VmfValuesList[8];
-            AbortMaxTextBox.Text = VmfValuesList[9];
-            CansBothThreTextBox.Text = VmfValuesList[10];
+            GauntletDict.Add("PreTankMobMax", new BooleanString(false, string.Empty));
         }
 
         private void TryOpenMSGWindow()
@@ -160,12 +158,6 @@ namespace The_Director.Windows
                     }
                     break;
                 case 3:
-                    if (textBox.Text != string.Empty && !Name.Contains(" "))
-                    {
-                        Functions.TryOpenMessageWindow(0);
-                        textBox.Text = string.Empty;
-                        return;
-                    }
                     if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
                     {
                         Functions.TryOpenMessageWindow(4);
