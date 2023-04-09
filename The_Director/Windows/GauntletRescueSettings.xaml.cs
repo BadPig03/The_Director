@@ -1,7 +1,9 @@
-﻿using Microsoft.Win32;
+﻿using MahApps.Metro.Controls;
+using Microsoft.Win32;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Security.Policy;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,8 +19,6 @@ namespace The_Director.Windows
         public Dictionary<int, string> TextBoxDicts = new();
         public Dictionary<int, int> ComboBoxDicts = new();
         public Dictionary<string, BooleanString> GauntletDict = new();
-
-        public List<string> VmfValuesList = new() { "director", "finale_radio"};
 
         public void MSGReceived(string value)
         {
@@ -50,8 +50,8 @@ namespace The_Director.Windows
             MapSelectionComboBox.ItemsSource = Globals.OffcialMapGauntletRescueList;
             MapSelectionComboBox.SelectedIndex = 0;
             GauntletDict.Add("MSG", new BooleanString(false, string.Empty));
-            GauntletDict.Add("PanicForever", new BooleanString(false, null));
-            GauntletDict.Add("PausePanicWhenRelaxing", new BooleanString(false, null));
+            GauntletDict.Add("PanicForever", new BooleanString(true, null));
+            GauntletDict.Add("PausePanicWhenRelaxing", new BooleanString(true, null));
             GauntletDict.Add("GauntletMovementThreshold", new BooleanString(false, string.Empty));
             GauntletDict.Add("GauntletMovementTimerLength", new BooleanString(false, string.Empty));
             GauntletDict.Add("GauntletMovementBonus", new BooleanString(false, string.Empty));
@@ -100,6 +100,16 @@ namespace The_Director.Windows
             GauntletDict.Add("TankLimit", new BooleanString(false, string.Empty));
             GauntletDict.Add("WitchLimit", new BooleanString(false, string.Empty));
             GauntletDict.Add("PreTankMobMax", new BooleanString(false, string.Empty));
+            info_directorTextBox.Text = "director";
+            trigger_finaleTextBox.Text = "finale_radio";
+            BridgeSpanTextBox.Text = "20000";
+            MinSpeedTextBox.Text = "50";
+            MaxSpeedTextBox.Text = "200";
+            SpeedPenaltyZAddsTextBox.Text = "15";
+            CommonLimitMaxTextBox.Text = "30";
+            PanicForeverCheckBox.IsChecked = true;
+            PausePanicWhenRelaxingCheckBox.IsChecked = true;
+            EscapeSpawnTanksCheckBox.IsChecked = true;
         }
 
         private void TryOpenMSGWindow()
@@ -141,7 +151,7 @@ namespace The_Director.Windows
         {
             TextBox textBox = (TextBox)sender;
             var Name = textBox.Name.Remove(textBox.Name.Length - 7, 7);
-            switch (Functions.TextBoxIndex(Name))
+            switch (Globals.TextBoxIndex(Name))
             {
                 case 1:
                     if (textBox.Text != string.Empty && !Functions.IsProperFloat(textBox.Text, 0, 1))
@@ -179,31 +189,47 @@ namespace The_Director.Windows
                         {
                             textBox.Text = "director";
                         }
-
+                        else if (Name == "trigger_finale")
+                        {
+                            textBox.Text = "finale_radio";
+                        }
                         return;
                     }
-                    if (Name == "info_director")
-                    {
-                        VmfValuesList[0] = textBox.Text;
-                    }
-
                     break;
                 case 6:
-                    if (textBox.Text == string.Empty || !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
+                    if (textBox.Text == string.Empty || !Functions.IsProperString(textBox.Text))
+                    {
+                        Functions.TryOpenMessageWindow(6);
+                        
+                    }
+                    else if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
                     {
                         Functions.TryOpenMessageWindow(4);
-                        if (Name == "CansNeeded")
-                        {
-                            textBox.Text = "12";
-                        }
-
-                        return;
                     }
-                    if (Name == "CansNeeded")
+                    else
                     {
-                        VmfValuesList[3] = textBox.Text;
+                        break;
                     }
-
+                    if (Name == "BridgeSpan")
+                    {
+                        textBox.Text = "20000";
+                    }
+                    else if (Name == "MinSpeed")
+                    {
+                        textBox.Text = "50";
+                    }
+                    else if (Name == "MaxSpeed")
+                    {
+                        textBox.Text = "200";
+                    }
+                    else if (Name == "SpeedPenaltyZAdds")
+                    {
+                        textBox.Text = "15";
+                    }
+                    else if (Name == "CommonLimitMax")
+                    {
+                        textBox.Text = "30";
+                    }
                     break;
                 default:
                     break;
@@ -232,6 +258,8 @@ namespace The_Director.Windows
                 ScriptWindowText.AppendLine($"Msg(\"{GauntletDict["MSG"].Item2}\");\n");
             }
 
+            ScriptWindowText.AppendLine("DirectorOptions <-\n{");
+
             foreach (var item in GauntletDict)
             {
                 if (item.Value.Item1 && !Globals.GauntletDictBlackList.Contains(item.Key))
@@ -250,6 +278,8 @@ namespace The_Director.Windows
                     ScriptWindowText.AppendLine($"\t{item.Key} = {item.Value.Item1.ToString().ToLower()}");
                 }
             }
+
+            ScriptWindowText.AppendLine("\n\tfunction RecalculateLimits()\n\t{\n\t\tlocal progressPct = Director.GetFurthestSurvivorFlow() / BridgeSpan;\n\t\tlocal speedPct = (Director.GetAveragedSurvivorSpeed() - MinSpeed) / (MaxSpeed - MinSpeed);\n\t\tif (progressPct < 0.0)\n\t\t\tprogressPct = 0.0;\n\t\tif (progressPct > 1.0)\n\t\t\tprogressPct = 1.0;\n\t\tMobSpawnSize = MobSpawnSizeMin + progressPct * (MobSpawnSizeMax - MobSpawnSizeMin);\n\t\tif (speedPct < 0.0)\n\t\t\tspeedPct = 0.0;\n\t\tif (speedPct > 1.0)\n\t\t\tspeedPct = 1.0;\n\t\tMobSpawnSize = MobSpawnSize + speedPct * SpeedPenaltyZAdds;\n\t\tCommonLimit = MobSpawnSize * 1.5;\n\t\tif (CommonLimit > CommonLimitMax)\n\t\t\tCommonLimit = CommonLimitMax;\n\t}\n}\nfunction Update()\n{\n\tDirectorOptions.RecalculateLimits();\n}");
 
             ScriptWindow.Text = ScriptWindowText.ToString();
 
@@ -274,8 +304,8 @@ namespace The_Director.Windows
             Label label = (Label)sender;
             HintWindow hintWindow = new()
             {
-                TextBoxString = Functions.GetButtonString(label.Content.ToString()),
-                HyperlinkUri = Functions.GetButtonHyperlinkUri(label.Content.ToString()),
+                TextBoxString = Globals.GetButtonString(label.Content.ToString()),
+                HyperlinkUri = Globals.GetButtonHyperlinkUri(label.Content.ToString()),
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
@@ -320,15 +350,12 @@ namespace The_Director.Windows
             }
             else
             {
-                Functions.SaveVmfToPath(saveFileDialog.FileName, VmfValuesList, 2);
+                Functions.SaveVmfToPath(saveFileDialog.FileName, new List<string> { GauntletDict["info_director"].Item2, GauntletDict["trigger_finale"].Item2 }, 2);
             }
-
-            string fileExtension = VmfValuesList[2].EndsWith(".nut") ? string.Empty : ".nut";
-
 
             YesOrNoWindow yesOrNoWindow = new()
             {
-                TextBlockString = $"是否一并导出脚本文件至scripts\\vscripts文件夹?\n\n脚本文件名将为\"{VmfValuesList[2]}{fileExtension}\"!",
+                TextBlockString = $"是否一并导出脚本文件至scripts\\vscripts文件夹?\n\n脚本文件名将为\"director_gauntlet.nut\"!",
                 SendMessage = SaveToNutReceived,
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
@@ -337,7 +364,7 @@ namespace The_Director.Windows
 
             if (IsNutConfirmed)
             {
-                Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{VmfValuesList[2]}", ScriptWindow.Text);
+                Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\director_gauntlet.nut", ScriptWindow.Text);
             }
 
             string navFileName = saveFileDialog.SafeFileName.Replace(".vmf", ".nav");
@@ -359,7 +386,7 @@ namespace The_Director.Windows
 
         private void CompileVmfClick(object sender, RoutedEventArgs e)
         {
-            Functions.SaveVmfToPath($"{Globals.L4D2GauntletFinalePath}", VmfValuesList, 2);
+            Functions.SaveVmfToPath($"{Globals.L4D2GauntletFinalePath}", new List<string> { GauntletDict["info_director"].Item2, GauntletDict["trigger_finale"].Item2 }, 2);
             Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\gauntlet_finale.nut", ScriptWindow.Text);
             Functions.SaveNavToPath($"{Globals.L4D2MapsPath}\\gauntlet_finale.nav", 2);
             if (Functions.TryOpenCompileWindow(2))

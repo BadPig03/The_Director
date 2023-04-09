@@ -23,8 +23,6 @@ namespace The_Director.Windows
         public Dictionary<int, int> ComboBoxDicts = new();
         public Dictionary<string, BooleanString> StandardDict = new();
 
-        public List<string> VmfValuesList = new() { "director", "finale_radio", "standard_finale.nut", "2", "1" };
-
         public void MSGReceived(string value)
         {
             if (value != null)
@@ -68,6 +66,9 @@ namespace The_Director.Windows
             MapSelectionComboBox.SelectedIndex = 0;
             StandardDict.Add("MSG", new BooleanString(false, string.Empty));
             StandardDict.Add("ShowStage", new BooleanString(false, null));
+            StandardDict.Add("info_director", new BooleanString(false, string.Empty));
+            StandardDict.Add("trigger_finale", new BooleanString(false, string.Empty));
+            StandardDict.Add("ScriptFile", new BooleanString(false, string.Empty));
             StandardDict.Add("LockTempo", new BooleanString(false, null));
             StandardDict.Add("IntensityRelaxThreshold", new BooleanString(false, string.Empty));
             StandardDict.Add("MobRechargeRate", new BooleanString(false, string.Empty));
@@ -107,12 +108,10 @@ namespace The_Director.Windows
             StandardDict.Add("TankLimit", new BooleanString(false, string.Empty));
             StandardDict.Add("WitchLimit", new BooleanString(false, string.Empty));
             StandardDict.Add("HordeEscapeCommonLimit", new BooleanString(false, string.Empty));
-            
-            info_directorTextBox.Text = VmfValuesList[0];
-            trigger_finaleTextBox.Text = VmfValuesList[1];
-            ScriptFileTextBox.Text = VmfValuesList[2];
-            FirstUseDelayTextBox.Text = VmfValuesList[3];
-            UseDelayTextBox.Text = VmfValuesList[4];
+            info_directorTextBox.Text = "director";
+            trigger_finaleTextBox.Text = "finale_radio";
+            ScriptFileTextBox.Text = "standard_finale.nut";
+            EscapeSpawnTanksCheckBox.IsChecked = true;
         }
 
         private void TryOpenMSGWindow()
@@ -240,7 +239,7 @@ namespace The_Director.Windows
         {
             TextBox textBox = (TextBox)sender;
             var Name = textBox.Name.Remove(textBox.Name.Length - 7, 7);
-            switch (Functions.TextBoxIndex(Name))
+            switch (Globals.TextBoxIndex(Name))
             {
                 case 0:
                     if (textBox.Text != string.Empty && Functions.IsProperInt(textBox.Text, 1, 99))
@@ -335,47 +334,8 @@ namespace The_Director.Windows
                         {
                             textBox.Text = "standard_finale.nut";
                         }
-
                         return;
                     }
-                    if (Name == "info_director")
-                    {
-                        VmfValuesList[0] = textBox.Text;
-                    }
-                    else if (Name == "trigger_finale")
-                    {
-                        VmfValuesList[1] = textBox.Text;
-                    }
-                    else if (Name == "ScriptFile")
-                    {
-                        VmfValuesList[2] = textBox.Text;
-                    }
-
-                    break;
-                case 6:
-                    if (textBox.Text == string.Empty || !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
-                    {
-                        Functions.TryOpenMessageWindow(4);
-                        if (Name == "FirstUseDelay")
-                        {
-                            textBox.Text = "2";
-                        }
-                        else if (Name == "UseDelay")
-                        {
-                            textBox.Text = "1";
-                        }
-
-                        return;
-                    }
-                    if (Name == "FirstUseDelay")
-                    {
-                        VmfValuesList[3] = textBox.Text;
-                    }
-                    else if (Name == "UseDelay")
-                    {
-                        VmfValuesList[4] = textBox.Text;
-                    }
-
                     break;
                 default:
                     break;
@@ -502,8 +462,8 @@ namespace The_Director.Windows
             Label label = (Label)sender;
             HintWindow hintWindow = new()
             {
-                TextBoxString = Functions.GetButtonString(label.Content.ToString()),
-                HyperlinkUri = Functions.GetButtonHyperlinkUri(label.Content.ToString()),
+                TextBoxString = Globals.GetButtonString(label.Content.ToString()),
+                HyperlinkUri = Globals.GetButtonHyperlinkUri(label.Content.ToString()),
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
@@ -547,14 +507,14 @@ namespace The_Director.Windows
             }
             else
             {
-                Functions.SaveVmfToPath(saveFileDialog.FileName, VmfValuesList, 0);
+                Functions.SaveVmfToPath(saveFileDialog.FileName, new List<string> { StandardDict["info_director"].Item2, StandardDict["trigger_finale"].Item2 , StandardDict["ScriptFile"].Item2 }, 0);
             }
 
-            string fileExtension = VmfValuesList[2].EndsWith(".nut") ? string.Empty : ".nut";
+            string fileExtension = StandardDict["ScriptFile"].Item2.EndsWith(".nut") ? string.Empty : ".nut";
 
             YesOrNoWindow yesOrNoWindow = new()
             {
-                TextBlockString = $"是否一并导出脚本文件至scripts\\vscripts文件夹?\n\n脚本文件名将为\"{VmfValuesList[2]}{fileExtension}\"!",
+                TextBlockString = $"是否一并导出脚本文件至scripts\\vscripts文件夹?\n\n脚本文件名将为\"{StandardDict["ScriptFile"].Item2}{fileExtension}\"!",
                 SendMessage = SaveToNutReceived,
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
@@ -563,7 +523,7 @@ namespace The_Director.Windows
 
             if (IsNutConfirmed)
             {
-                Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{VmfValuesList[2]}", ScriptWindow.Text);
+                Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{StandardDict["ScriptFile"].Item2}", ScriptWindow.Text);
             }
 
             string navFileName = saveFileDialog.SafeFileName.Replace(".vmf", ".nav");
@@ -585,7 +545,7 @@ namespace The_Director.Windows
 
         private void CompileVmfClick(object sender, RoutedEventArgs e)
         {
-            Functions.SaveVmfToPath($"{Globals.L4D2StandardFinalePath}", VmfValuesList, 0);
+            Functions.SaveVmfToPath($"{Globals.L4D2StandardFinalePath}", new List<string> { StandardDict["info_director"].Item2, StandardDict["trigger_finale"].Item2, StandardDict["ScriptFile"].Item2 }, 0);
             Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\standard_finale.nut", ScriptWindow.Text);
             Functions.SaveNavToPath($"{Globals.L4D2MapsPath}\\standard_finale.nav", 0);
             if (Functions.TryOpenCompileWindow(0))

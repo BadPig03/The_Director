@@ -52,14 +52,14 @@ namespace The_Director.Windows
             ScavengeDict.Add("info_director", new BooleanString(false, string.Empty));
             ScavengeDict.Add("trigger_finale", new BooleanString(false, string.Empty));
             ScavengeDict.Add("DelayScript", new BooleanString(false, string.Empty));
-            ScavengeDict.Add("CansNeeded", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("GasCansNeeded", new BooleanString(false, string.Empty));
             ScavengeDict.Add("DelayMin", new BooleanString(false, string.Empty));
             ScavengeDict.Add("DelayMax", new BooleanString(false, string.Empty));
-            ScavengeDict.Add("DelayPourThre", new BooleanString(false, string.Empty));
-            ScavengeDict.Add("DelayBothThre", new BooleanString(false, string.Empty));
-            ScavengeDict.Add("AbortMin", new BooleanString(false, string.Empty));
-            ScavengeDict.Add("AbortMax", new BooleanString(false, string.Empty));
-            ScavengeDict.Add("CansBothThre", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("DelayPouredThreshold", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("DelayPouredOrTouchedThreshold", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("AbortDelayMin", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("AbortDelayMax", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("GasCansDividend", new BooleanString(false, string.Empty));
             ScavengeDict.Add("LockTempo", new BooleanString(false, null));
             ScavengeDict.Add("IntensityRelaxThreshold", new BooleanString(false, string.Empty));
             ScavengeDict.Add("MobRechargeRate", new BooleanString(false, string.Empty));
@@ -99,6 +99,18 @@ namespace The_Director.Windows
             ScavengeDict.Add("TankLimit", new BooleanString(false, string.Empty));
             ScavengeDict.Add("WitchLimit", new BooleanString(false, string.Empty));
             ScavengeDict.Add("HordeEscapeCommonLimit", new BooleanString(false, string.Empty));
+            info_directorTextBox.Text = "director";
+            trigger_finaleTextBox.Text = "finale_lever";
+            DelayScriptTextBox.Text = "scavenge_delay";
+            GasCansNeededTextBox.Text = "12";
+            DelayMinTextBox.Text = "10";
+            DelayMaxTextBox.Text = "20";
+            DelayPouredThresholdTextBox.Text = "1";
+            DelayPouredOrTouchedThresholdTextBox.Text = "2";
+            AbortDelayMinTextBox.Text = "1";
+            AbortDelayMaxTextBox.Text = "3";
+            GasCansDividendTextBox.Text = "4";
+            EscapeSpawnTanksCheckBox.IsChecked = true;
         }
 
         private void TryOpenMSGWindow()
@@ -140,7 +152,7 @@ namespace The_Director.Windows
         {
             TextBox textBox = (TextBox)sender;
             var Name = textBox.Name.Remove(textBox.Name.Length - 7, 7);
-            switch (Functions.TextBoxIndex(Name))
+            switch (Globals.TextBoxIndex(Name))
             {
                 case 1:
                     if (textBox.Text != string.Empty && !Functions.IsProperFloat(textBox.Text, 0, 1))
@@ -188,46 +200,52 @@ namespace The_Director.Windows
                         }
                         return;
                     }
-
                     break;
                 case 6:
-                    if (textBox.Text == string.Empty || !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
+                    if (textBox.Text == string.Empty || !Functions.IsProperString(textBox.Text))
+                    {
+                        Functions.TryOpenMessageWindow(6);
+
+                    }
+                    else if (textBox.Text != string.Empty && !Functions.IsProperInt(textBox.Text, 0, int.MaxValue))
                     {
                         Functions.TryOpenMessageWindow(4);
-                        if (Name == "CansNeeded")
-                        {
-                            textBox.Text = "12";
-                        }
-                        else if (Name == "DelayMin")
-                        {   
-                            textBox.Text = "10";
-                        }
-                        else if (Name == "DelayMax")
-                        {
-                            textBox.Text = "20";
-                        }
-                        else if (Name == "DelayPourThre")
-                        {
-                            textBox.Text = "1";
-                        }
-                        else if (Name == "DelayBothThre")
-                        {
-                            textBox.Text = "2";
-                        }
-                        else if (Name == "AbortMin")
-                        {
-                            textBox.Text = "1";
-                        }
-                        else if (Name == "AbortMax")
-                        {
-                            textBox.Text = "3";
-                        }
-                        else if (Name == "CansBothThre")
-                        {
-                            textBox.Text = "4";
-                        }
-
-                        return;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    if (Name == "GasCansNeeded")
+                    {
+                        textBox.Text = "12";
+                    }
+                    else if (Name == "DelayMin")
+                    {
+                        textBox.Text = "10";
+                    }
+                    else if (Name == "DelayMax")
+                    {
+                        textBox.Text = "20";
+                    }
+                    else if (Name == "DelayPouredThreshold")
+                    {
+                        textBox.Text = "1";
+                    }
+                    else if (Name == "DelayPouredOrTouchedThreshold")
+                    {
+                        textBox.Text = "2";
+                    }
+                    else if (Name == "AbortDelayMin")
+                    {
+                        textBox.Text = "1";
+                    }
+                    else if (Name == "AbortDelayMax")
+                    {
+                        textBox.Text = "3";
+                    }
+                    else if (Name == "GasCansDividend")
+                    {
+                        textBox.Text = "4";
                     }
                     break;
                 default:
@@ -295,15 +313,15 @@ namespace The_Director.Windows
             }
 
             ScriptWindowText.AppendLine("}\n\n//-----------------------------------------------------\n");
-            ScriptWindowText.AppendLine($"CansNeeded <- {ScavengeDict["CansNeeded"].Item2}\nDelayMin <- {ScavengeDict["DelayMin"].Item2}\nDelayMax <- {ScavengeDict["DelayMax"].Item2}\nDelayPourThre <- {ScavengeDict["DelayPourThre"].Item2}\nDelayBothThre <- {ScavengeDict["DelayBothThre"].Item2}\nAbortMin <- {ScavengeDict["AbortMin"].Item2}\nAbortMax <- {ScavengeDict["AbortMax"].Item2}\nCansBothThre <- {ScavengeDict["CansBothThre"].Item2}\n");
-            ScriptWindowText.AppendLine("GasCansTouched <- 0\nGasCansPoured <- 0\nDelayTouchedOrPoured <- 0\nDelayPoured <- 0\n\nEntFire(\"gascan_progress\", \"SetTotalItems\", CansNeeded);\nEntFire(\"timer_delay_end\", \"LowerRandomBound\", DelayMin);\nEntFire(\"timer_delay_end\", \"UpperRandomBound\", DelayMax);\nEntFire(\"timer_delay_abort\", \"LowerRandomBound\", AbortMin);\nEntFire(\"timer_delay_abort\", \"UpperRandomBound\", AbortMax);\n\nfunction AbortDelay(){}\nfunction EndDelay(){}\n\nNavMesh.UnblockRescueVehicleNav();\n\nfunction GasCanTouched()\n{\n\tGasCansTouched++;\n\tEvalGasCansPouredOrTouched();\n}\n\nfunction GasCanPoured()\n{\n\tGasCansPoured++;\n\tDelayPoured++;\n\tEntFire(\"finale_elevator\", \"SetPosition\", 1.0 *  GasCansPoured / CansNeeded);\n\tif (GasCansPoured == CansNeeded)\n\t{");
+            ScriptWindowText.AppendLine($"GasCansNeeded <- {ScavengeDict["GasCansNeeded"].Item2}\nDelayMin <- {ScavengeDict["DelayMin"].Item2}\nDelayMax <- {ScavengeDict["DelayMax"].Item2}\nDelayPouredThreshold <- {ScavengeDict["DelayPouredThreshold"].Item2}\nDelayPouredOrTouchedThreshold <- {ScavengeDict["DelayPouredOrTouchedThreshold"].Item2}\nAbortDelayMin <- {ScavengeDict["AbortDelayMin"].Item2}\nAbortDelayMax <- {ScavengeDict["AbortDelayMax"].Item2}\nGasCansDividend <- {ScavengeDict["GasCansDividend"].Item2}\n");
+            ScriptWindowText.AppendLine("GasCansTouched <- 0\nGasCansPoured <- 0\nDelayTouchedOrPoured <- 0\nDelayPoured <- 0\n\nEntFire(\"gascan_progress\", \"SetTotalItems\", GasCansNeeded);\nEntFire(\"timer_delay_end\", \"LowerRandomBound\", DelayMin);\nEntFire(\"timer_delay_end\", \"UpperRandomBound\", DelayMax);\nEntFire(\"timer_delay_abort\", \"LowerRandomBound\", AbortDelayMin);\nEntFire(\"timer_delay_abort\", \"UpperRandomBound\", AbortDelayMax);\n\nfunction AbortDelay(){}\nfunction EndDelay(){}\n\nNavMesh.UnblockRescueVehicleNav();\n\nfunction GasCanTouched()\n{\n\tGasCansTouched++;\n\tEvalGasCansPouredOrTouched();\n}\n\nfunction GasCanPoured()\n{\n\tGasCansPoured++;\n\tDelayPoured++;\n\tEntFire(\"finale_elevator\", \"SetPosition\", 1.0 *  GasCansPoured / GasCansNeeded);\n\tif (GasCansPoured == GasCansNeeded)\n\t{");
 
             if (ScavengeDict["ShowProgress"].Item1)
             {
                 ScriptWindowText.AppendLine("\t\tprintl(\"Gas Cans Needed: \" + GasCansPoured);");
             }
 
-            ScriptWindowText.AppendLine("\t\tEntFire(\"finale_elevator\", \"SetSpeed\", 14.4);\n\t\tEntFire(\"relay_rescue_ready\", \"Enable\");\n\t\tEntFire(\"gascan_progress\", \"TurnOff\", 1);\n\t}\n\tEvalGasCansPouredOrTouched();\n}\n\nfunction EvalGasCansPouredOrTouched()\n{\n\tlocal TouchedOrPoured = GasCansPoured + GasCansTouched;\n\tDelayTouchedOrPoured++;\n\tif ((DelayTouchedOrPoured >= DelayBothThre) || (DelayPoured >= DelayPourThre))\n\t\tAbortDelay();\n\tif (TouchedOrPoured % CansBothThre == 0)\n\t\tEntFire(\"director\", \"EndCustomScriptedStage\");\n}");
+            ScriptWindowText.AppendLine("\t\tEntFire(\"finale_elevator\", \"SetSpeed\", 14.4);\n\t\tEntFire(\"relay_rescue_ready\", \"Enable\");\n\t\tEntFire(\"gascan_progress\", \"TurnOff\", 1);\n\t}\n\tEvalGasCansPouredOrTouched();\n}\n\nfunction EvalGasCansPouredOrTouched()\n{\n\tlocal TouchedOrPoured = GasCansPoured + GasCansTouched;\n\tDelayTouchedOrPoured++;\n\tif ((DelayTouchedOrPoured >= DelayPouredOrTouchedThreshold) || (DelayPoured >= DelayPouredThreshold))\n\t\tAbortDelay();\n\tif (TouchedOrPoured % GasCansDividend == 0)\n\t\tEntFire(\"director\", \"EndCustomScriptedStage\");\n}");
 
             ScriptWindow.Text = ScriptWindowText.ToString();
 
@@ -333,8 +351,8 @@ namespace The_Director.Windows
             Label label = (Label)sender;
             HintWindow hintWindow = new()
             {
-                TextBoxString = Functions.GetButtonString(label.Content.ToString()),
-                HyperlinkUri = Functions.GetButtonHyperlinkUri(label.Content.ToString()),
+                TextBoxString = Globals.GetButtonString(label.Content.ToString()),
+                HyperlinkUri = Globals.GetButtonHyperlinkUri(label.Content.ToString()),
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
