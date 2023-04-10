@@ -118,17 +118,65 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="c10m1_no_bosses" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c10m1_no_bosses.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c10m4_onslaught" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c10m4_onslaught.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
   <data name="c10m5_houseboat_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c10m5_houseboat_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c11m1_no_bosses" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c11m1_no_bosses.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c11m4_minifinale" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c11m4_minifinale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c11m4_minifinale_pt2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c11m4_minifinale_pt2.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c11m4_onslaught" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c11m4_onslaught.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c11m4_reserved_wanderers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c11m4_reserved_wanderers.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
   <data name="c11m5_runway_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c11m5_runway_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
+  <data name="c12m1_no_bosses" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c12m1_no_bosses.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c12m3_onslaught" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c12m3_onslaught.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c12m4_onslaught" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c12m4_onslaught.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c12m4_reserved_wanderers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c12m4_reserved_wanderers.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
   <data name="c12m5_cornfield_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c12m5_cornfield_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
+  <data name="c12m5_panic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c12m5_panic.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c13m4_tankdistance" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c13m4_tankdistance.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
   <data name="c14m2_lighthouse_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c14m2_lighthouse_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c14_junkyard_cooldown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c14_junkyard_cooldown.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c14_junkyard_crane" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c14_junkyard_crane.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c1m1_reserved_wanderers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c1m1_reserved_wanderers.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
   <data name="c1m4_atrium_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c1m4_atrium_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
@@ -136,29 +184,140 @@
   <data name="c1m4_delay" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c1m4_delay.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
+  <data name="c1_gunshop_onslaught" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c1_gunshop_onslaught.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c1_gunshop_quiet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c1_gunshop_quiet.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c1_mall_ambient" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c1_mall_ambient.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c1_mall_crescendo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c1_mall_crescendo.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c1_mall_crescendo_cooldown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c1_mall_crescendo_cooldown.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c1_mall_crescendo_wave" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c1_mall_crescendo_wave.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c1_mall_onslaught" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c1_mall_onslaught.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c1_streets_ambush" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c1_streets_ambush.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c2m1_no_bosses" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c2m1_no_bosses.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c2m1_reserved_wanderers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c2m1_reserved_wanderers.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c2m4_barns_onslaught" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c2m4_barns_onslaught.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c2m4_barns_onslaught2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c2m4_barns_onslaught2.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c2m4_finale_onslaught" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c2m4_finale_onslaught.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c2m4_finale_quiet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c2m4_finale_quiet.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
   <data name="c2m5_concert_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c2m5_concert_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c2_coaster_onslaught" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c2_coaster_onslaught.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c2_fairgrounds_onslaught" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c2_fairgrounds_onslaught.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c2_highway_ambush" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c2_highway_ambush.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c3m1_barge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c3m1_barge.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c3m1_fog_spawn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c3m1_fog_spawn.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c3m1_nothreat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c3m1_nothreat.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c3m1_swamp_fog_spawn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c3m1_swamp_fog_spawn.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c3m2_fog_spawn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c3m2_fog_spawn.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c3m2_mob_from_front" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c3m2_mob_from_front.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c3m4_nothreat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c3m4_nothreat.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
   <data name="c3m4_plantation_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c3m4_plantation_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
+  <data name="c4m4_fog_spawn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c4m4_fog_spawn.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
   <data name="c4m5_milltown_escape_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c4m5_milltown_escape_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c5m1_nothreat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c5m1_nothreat.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c5m2_mob_from_front" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c5m2_mob_from_front.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c6m1_riverbank" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c6m1_riverbank.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c6m2_minifinale" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c6m2_minifinale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
   <data name="c6m3_port_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c6m3_port_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
+  <data name="c7m2_barge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c7m2_barge.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
   <data name="c7m3_port_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c7m3_port_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c8m1_apartment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c8m1_apartment.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c8m3_sewers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c8m3_sewers.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="c8m5_rooftop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c8m5_rooftop.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
   <data name="c8m5_rooftop_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c8m5_rooftop_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
+  <data name="c9m1_nobosses" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c9m1_nobosses.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
   <data name="c9m2_lots_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c9m2_lots_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
+  <data name="director_c4_storm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\director_c4_storm.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
   <data name="director_gauntlet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\director_gauntlet.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="director_onslaught" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\director_onslaught.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="director_quiet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\director_quiet.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
   <data name="FinaleGauntletScriptNav" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FinaleGauntletScriptNav.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>

@@ -61,6 +61,286 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Onslaught\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///	PreferredMobDirection = SPAWN_BEHIND_SURVIVORS
+        ///	MobSpawnMinTime = 1
+        ///	MobSpawnMaxTime = 2
+        ///	MobMaxPending = 10
+        ///	MobMinSize = 10
+        ///	MobMaxSize = 20
+        ///	SustainPeakMinTime = 1
+        ///	SustainPeakMaxTime = 3
+        ///	IntensityRelaxThreshold = 0.90
+        ///	RelaxMinInterval = 5
+        ///	RelaxMaxInterval = 10
+        ///	RelaxMaxFlowTravel = 200
+        ///
+        ///}
+        ///
+        ///Director.ResetMobTimer()
+        ///Director.PlayMegaMobWarningSounds() 的本地化字符串。
+        /// </summary>
+        internal static string c1_gunshop_onslaught {
+            get {
+                return ResourceManager.GetString("c1_gunshop_onslaught", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Quieting director\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	ProhibitBosses = true
+        ///	SpecialRespawnInterval = 999999
+        ///	CommonLimit = 0
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c1_gunshop_quiet {
+            get {
+                return ResourceManager.GetString("c1_gunshop_quiet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Updated Ambient Mall\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	AlwaysAllowWanderers = true
+        ///	MobSpawnMinTime = 60
+        ///	MobSpawnMaxTime = 90
+        ///	MobMinSize = 10
+        ///	MobMaxSize = 20
+        ///	MobMaxPending = 20
+        ///	SustainPeakMinTime = 5
+        ///	SustainPeakMaxTime = 8
+        ///	IntensityRelaxThreshold = 0.95
+        ///	RelaxMinInterval = 15
+        ///	RelaxMaxInterval = 30
+        ///	RelaxMaxFlowTravel = 2000
+        ///	SmokerLimit = 1
+        ///	HunterLimit = 1
+        ///	ChargerLimit = 1
+        ///	SpecialRespawnInterval = 45.0
+        ///	ZombieSpawnRange = 2000
+        ///	NumReservedWanderers = 10
+        ///}
+        ///
+        ///Direct [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c1_mall_ambient {
+            get {
+                return ResourceManager.GetString("c1_mall_ambient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating crescendo\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///	MobSpawnMinTime = 1
+        ///	MobSpawnMaxTime = 1
+        ///	MobMinSize = 120
+        ///	MobMaxSize = 120
+        ///	MobMaxPending = 90
+        ///	SustainPeakMinTime = 15
+        ///	SustainPeakMaxTime = 18
+        ///	IntensityRelaxThreshold = 0.95
+        ///	RelaxMinInterval = 5
+        ///	RelaxMaxInterval = 5
+        ///	RelaxMaxFlowTravel = 1000
+        ///	SmokerLimit = 2
+        ///	ChargerLimit = 3
+        ///	SpecialRespawnInterval = 3.0
+        ///	PreferredMobDirection = SPAWN_ABOVE_SURVIVORS
+        ///}
+        ///
+        ///
+        ///Direc [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c1_mall_crescendo {
+            get {
+                return ResourceManager.GetString("c1_mall_crescendo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Crescendo Cooldown\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	AlwaysAllowWanderers = true
+        ///	MobSpawnMinTime = 25
+        ///	MobSpawnMaxTime = 60
+        ///	MobMinSize = 10
+        ///	MobMaxSize = 25
+        ///	MobMaxPending = 5
+        ///	SustainPeakMinTime = 5
+        ///	SustainPeakMaxTime = 8
+        ///	IntensityRelaxThreshold = 0.9
+        ///	RelaxMinInterval = 20
+        ///	RelaxMaxInterval = 35
+        ///	RelaxMaxFlowTravel = 2000
+        ///	SmokerLimit = 2
+        ///	HunterLimit = 2
+        ///	ChargerLimit = 3
+        ///	SpecialRespawnInterval = 20.0
+        ///	ZombieSpawnRange = 2000
+        ///	NumReservedWanderers = 15
+        ///}
+        ///
+        ///Director.R [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c1_mall_crescendo_cooldown {
+            get {
+                return ResourceManager.GetString("c1_mall_crescendo_cooldown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating crescendo\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///	MobSpawnMinTime = 20
+        ///	MobSpawnMaxTime = 20
+        ///	MobMinSize = 10
+        ///	MobMaxSize = 30
+        ///	MobMaxPending = 90
+        ///	SustainPeakMinTime = 5
+        ///	SustainPeakMaxTime = 8
+        ///	IntensityRelaxThreshold = 0.95
+        ///	RelaxMinInterval = 10
+        ///	RelaxMaxInterval = 15
+        ///	RelaxMaxFlowTravel = 600
+        ///	BoomerLimit = 0
+        ///	SmokerLimit = 2
+        ///	ChargerLimit = 3
+        ///	SpecialRespawnInterval = 10.0
+        ///	PreferredMobDirection = SPAWN_IN_FRONT_OF [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c1_mall_crescendo_wave {
+            get {
+                return ResourceManager.GetString("c1_mall_crescendo_wave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Onslaught\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///	MobSpawnMinTime = 1
+        ///	MobSpawnMaxTime = 4
+        ///	MobMinSize = 15
+        ///	MobMaxSize = 20
+        ///	MobMaxPending = 30
+        ///	SustainPeakMinTime = 10
+        ///	SustainPeakMaxTime = 15
+        ///	IntensityRelaxThreshold = 0.99
+        ///	RelaxMinInterval = 3
+        ///	RelaxMaxInterval = 5
+        ///	RelaxMaxFlowTravel = 200
+        ///	BoomerLimit = 0
+        ///	SmokerLimit = 3
+        ///	HunterLimit = 1
+        ///	ChargerLimit = 2
+        ///	SpecialRespawnInterval = 5.0
+        ///	PreferredMobDirection = SP [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c1_mall_onslaught {
+            get {
+                return ResourceManager.GetString("c1_mall_onslaught", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Ambush\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = false
+        ///
+        ///	BoomerLimit = 0
+        ///	SmokerLimit = 0
+        ///	HunterLimit = 0
+        ///	ChargerLimit = 1
+        ///	SpitterLimit = 0
+        ///	JockeyLimit = 0
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c1_streets_ambush {
+            get {
+                return ResourceManager.GetString("c1_streets_ambush", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Nobosses Script\n&quot;);
+        /// 
+        ///DirectorOptions &lt;-
+        ///{
+        ///                // This turns off tanks and witches.
+        ///                ProhibitBosses = true
+        ///
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c10m1_no_bosses {
+            get {
+                return ResourceManager.GetString("c10m1_no_bosses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Onslaught\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///	PreferredMobDirection = SPAWN_IN_FRONT_OF_SURVIVORS
+        ///	MobSpawnMinTime = 1
+        ///	MobSpawnMaxTime = 2
+        ///	MobMaxPending = 30
+        ///	MobMinSize = 17
+        ///	MobMaxSize = 25
+        ///	SustainPeakMinTime = 1
+        ///	SustainPeakMaxTime = 3
+        ///	IntensityRelaxThreshold = 0.90
+        ///	RelaxMinInterval = 1
+        ///	RelaxMaxInterval = 5
+        ///	RelaxMaxFlowTravel = 200
+        ///}
+        ///
+        ///Director.ResetMobTimer()
+        ///Director.PlayMegaMobWarningSounds() 的本地化字符串。
+        /// </summary>
+        internal static string c10m4_onslaught {
+            get {
+                return ResourceManager.GetString("c10m4_onslaught", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 //-----------------------------------------------------
         /////
         /////
@@ -85,6 +365,136 @@ namespace The_Director.Properties {
         internal static string c10m5_houseboat_finale {
             get {
                 return ResourceManager.GetString("c10m5_houseboat_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Nobosses Script\n&quot;);
+        /// 
+        ///DirectorOptions &lt;-
+        ///{
+        ///                // This turns off tanks and witches.
+        ///                ProhibitBosses = true
+        ///
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c11m1_no_bosses {
+            get {
+                return ResourceManager.GetString("c11m1_no_bosses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Van Minifinale\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///	
+        ///	//LockTempo = true
+        ///	MobSpawnMinTime = 1
+        ///	MobSpawnMaxTime = 1
+        ///	MobMinSize = 30
+        ///	MobMaxSize = 30
+        ///	MobMaxPending = 30
+        ///	SustainPeakMinTime = 5
+        ///	SustainPeakMaxTime = 10
+        ///	IntensityRelaxThreshold = 0.99
+        ///	RelaxMinInterval = 1
+        ///	RelaxMaxInterval = 5
+        ///	RelaxMaxFlowTravel = 50
+        ///	SpecialRespawnInterval = 1.0
+        ///	PreferredMobDirection = SPAWN_NO_PREFERENCE
+        ///	ZombieSpawnRange = 1000
+        ///}
+        /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c11m4_minifinale {
+            get {
+                return ResourceManager.GetString("c11m4_minifinale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Follow Van\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///	
+        ///	//LockTempo = true
+        ///	MobSpawnMinTime = 1
+        ///	MobSpawnMaxTime = 1
+        ///	MobMinSize = 10
+        ///	MobMaxSize = 10
+        ///	MobMaxPending = 10
+        ///	SustainPeakMinTime = 5
+        ///	SustainPeakMaxTime = 10
+        ///	IntensityRelaxThreshold = 0.99
+        ///	RelaxMinInterval = 5
+        ///	RelaxMaxInterval = 15
+        ///	RelaxMaxFlowTravel = 0
+        ///	SpecialRespawnInterval = 5.0
+        ///	PreferredMobDirection = SPAWN_ANYWHERE
+        ///	ZombieSpawnRange = 1000
+        ///}
+        ///
+        ///Directo [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c11m4_minifinale_pt2 {
+            get {
+                return ResourceManager.GetString("c11m4_minifinale_pt2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Onslaught\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///	PreferredMobDirection = SPAWN_IN_FRONT_OF_SURVIVORS
+        ///	MobSpawnMinTime = 1
+        ///	MobSpawnMaxTime = 2
+        ///	MobMaxPending = 30
+        ///	MobMinSize = 17
+        ///	MobMaxSize = 25
+        ///	SustainPeakMinTime = 1
+        ///	SustainPeakMaxTime = 3
+        ///	IntensityRelaxThreshold = 0.90
+        ///	RelaxMinInterval = 1
+        ///	RelaxMaxInterval = 5
+        ///	RelaxMaxFlowTravel = 200
+        ///}
+        ///
+        ///Director.ResetMobTimer()
+        ///Director.PlayMegaMobWarningSounds() 的本地化字符串。
+        /// </summary>
+        internal static string c11m4_onslaught {
+            get {
+                return ResourceManager.GetString("c11m4_onslaught", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Reserved Wanderers\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// Turn always wanderer on
+        ///	AlwaysAllowWanderers = 1
+        ///
+        ///	// Set the number of infected that cannot be absorbed
+        ///	NumReservedWanderers = 15
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c11m4_reserved_wanderers {
+            get {
+                return ResourceManager.GetString("c11m4_reserved_wanderers", resourceCulture);
             }
         }
         
@@ -117,6 +527,101 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Nobosses Script\n&quot;);
+        /// 
+        ///DirectorOptions &lt;-
+        ///{
+        ///                // This turns off tanks and witches.
+        ///                ProhibitBosses = true
+        ///
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c12m1_no_bosses {
+            get {
+                return ResourceManager.GetString("c12m1_no_bosses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Onslaught\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///	PreferredMobDirection = SPAWN_IN_FRONT_OF_SURVIVORS
+        ///	MobSpawnMinTime = 1
+        ///	MobSpawnMaxTime = 2
+        ///	MobMaxPending = 0
+        ///	MobMinSize = 18
+        ///	MobMaxSize = 27
+        ///	SustainPeakMinTime = 1
+        ///	SustainPeakMaxTime = 3
+        ///	IntensityRelaxThreshold = 0.90
+        ///	RelaxMinInterval = 1
+        ///	RelaxMaxInterval = 5
+        ///	RelaxMaxFlowTravel = 200
+        ///}
+        ///
+        ///Director.ResetMobTimer()
+        ///Director.PlayMegaMobWarningSounds() 的本地化字符串。
+        /// </summary>
+        internal static string c12m3_onslaught {
+            get {
+                return ResourceManager.GetString("c12m3_onslaught", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Onslaught\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///	PreferredMobDirection = SPAWN_IN_FRONT_OF_SURVIVORS
+        ///	MobSpawnMinTime = 1
+        ///	MobSpawnMaxTime = 2
+        ///	MobMaxPending = 30
+        ///	MobMinSize = 20
+        ///	MobMaxSize = 28
+        ///	SustainPeakMinTime = 1
+        ///	SustainPeakMaxTime = 3
+        ///	IntensityRelaxThreshold = 0.90
+        ///	RelaxMinInterval = 1
+        ///	RelaxMaxInterval = 5
+        ///	RelaxMaxFlowTravel = 200
+        ///}
+        ///
+        ///Director.ResetMobTimer() 的本地化字符串。
+        /// </summary>
+        internal static string c12m4_onslaught {
+            get {
+                return ResourceManager.GetString("c12m4_onslaught", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Reserved Wanderers\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// Turn always wanderer on
+        ///	AlwaysAllowWanderers = 1
+        ///
+        ///	// Set the number of infected that cannot be absorbed
+        ///	NumReservedWanderers = 10
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c12m4_reserved_wanderers {
+            get {
+                return ResourceManager.GetString("c12m4_reserved_wanderers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 //-----------------------------------------------------
         /////
         /////
@@ -141,6 +646,116 @@ namespace The_Director.Properties {
         internal static string c12m5_cornfield_finale {
             get {
                 return ResourceManager.GetString("c12m5_cornfield_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Crows Script\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///MobSpawnMinTime = 3
+        ///MobSpawnMaxTime = 7
+        ///MobMinSize = 15
+        ///MobMaxSize = 15
+        ///MobMaxPending = 30
+        ///SustainPeakMinTime = 5
+        ///SustainPeakMaxTime = 10
+        ///IntensityRelaxThreshold = 0.99
+        ///RelaxMinInterval = 1
+        ///RelaxMaxInterval = 5
+        ///RelaxMaxFlowTravel = 50
+        ///SpecialRespawnInterval = 1.0
+        ///PreferredMobDirection = SPAWN_ANYWHERE
+        ///ZombieSpawnRange = 2000
+        ///}
+        ///
+        ///Director.ResetMobTimer()
+        ///Director.PlayMegaMobWarningSounds() 的本地化字符串。
+        /// </summary>
+        internal static string c12m5_panic {
+            get {
+                return ResourceManager.GetString("c12m5_panic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Changing Tank Kite Distance\n&quot;);
+        /// 
+        ///DirectorOptions &lt;-
+        ///{
+        ///                // This changes the default tank distance from 3000.
+        ///                CustomTankKiteDistance = 2100
+        ///
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c13m4_tankdistance {
+            get {
+                return ResourceManager.GetString("c13m4_tankdistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Crescendo Cooldown\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	ProhibitBosses = true
+        ///	AlwaysAllowWanderers = true
+        ///	MobSpawnMinTime = 60
+        ///	MobSpawnMaxTime = 90
+        ///	MobMinSize = 10
+        ///	MobMaxSize = 15
+        ///	MobMaxPending = 10
+        ///	SustainPeakMinTime = 10
+        ///	SustainPeakMaxTime = 15
+        ///	IntensityRelaxThreshold = 0.9
+        ///	RelaxMinInterval = 20
+        ///	RelaxMaxInterval = 35
+        ///	RelaxMaxFlowTravel = 500	
+        ///	BoomerLimit = 1
+        ///	SpitterLimit = 1
+        ///	SmokerLimit = 2
+        ///	HunterLimit = 2
+        ///	ChargerLimit = 1
+        ///	SpecialRespawnInterval = 20.0
+        ///	Zomb [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c14_junkyard_cooldown {
+            get {
+                return ResourceManager.GetString("c14_junkyard_cooldown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Beginning crane panic event.\n&quot;)
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	ProhibitBosses = true
+        ///	CommonLimit = 16
+        ///
+        ///	MobSpawnMinTime = 3
+        ///	MobSpawnMaxTime = 3
+        ///	MobMinSize = 15
+        ///	MobMaxSize = 20
+        ///	MobMaxPending = 25
+        ///	SustainPeakMinTime = 10
+        ///	SustainPeakMaxTime = 15
+        ///	IntensityRelaxThreshold = 0.99
+        ///	RelaxMinInterval = 3
+        ///	RelaxMaxInterval = 5
+        ///	RelaxMaxFlowTravel = 200
+        ///	BoomerLimit = 0
+        ///	SmokerLimit = 1
+        ///	HunterLimit = 1
+        ///	ChargerLimit = 1
+        ///	SpecialRespawnInterval = 5.0
+        ///	PreferredMobDirection = SPAWN_IN_FRONT_ [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c14_junkyard_crane {
+            get {
+                return ResourceManager.GetString("c14_junkyard_crane", resourceCulture);
             }
         }
         
@@ -172,6 +787,28 @@ namespace The_Director.Properties {
         internal static string c14m2_lighthouse_finale {
             get {
                 return ResourceManager.GetString("c14m2_lighthouse_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Reserved Wanderers\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// Turn always wanderer on
+        ///	AlwaysAllowWanderers = 1
+        ///
+        ///	// Set the number of infected that cannot be absorbed
+        ///	NumReservedWanderers = 5
+        ///
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c1m1_reserved_wanderers {
+            get {
+                return ResourceManager.GetString("c1m1_reserved_wanderers", resourceCulture);
             }
         }
         
@@ -247,6 +884,239 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Onslaught\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///	
+        ///	//LockTempo = true
+        ///	MobSpawnMinTime = 1
+        ///	MobSpawnMaxTime = 1
+        ///	MobMinSize = 5
+        ///	MobMaxSize = 8
+        ///	MobMaxPending = 30
+        ///	SustainPeakMinTime = 5
+        ///	SustainPeakMaxTime = 10
+        ///	IntensityRelaxThreshold = 0.99
+        ///	RelaxMinInterval = 5
+        ///	RelaxMaxInterval = 15
+        ///	RelaxMaxFlowTravel = 200
+        ///	BoomerLimit = 0
+        ///	SmokerLimit = 3
+        ///	HunterLimit = 2
+        ///	SpecialRespawnInterval = 5.0
+        ///	PreferredMobDirection = S [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c2_coaster_onslaught {
+            get {
+                return ResourceManager.GetString("c2_coaster_onslaught", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Onslaught\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///	// PreferredMobDirection = SPAWN_ANYWHERE
+        ///	MobSpawnMinTime = 1
+        ///	MobSpawnMaxTime = 2
+        ///	MobMaxPending = 30
+        ///	MobMinSize = 20
+        ///	MobMaxSize = 30
+        ///	SustainPeakMinTime = 1
+        ///	SustainPeakMaxTime = 3
+        ///	IntensityRelaxThreshold = 0.90
+        ///	RelaxMinInterval = 1
+        ///	RelaxMaxInterval = 5
+        ///	RelaxMaxFlowTravel = 200
+        ///}
+        ///
+        ///Director.ResetMobTimer()
+        ///Director.PlayMegaMobWarningSounds() 的本地化字符串。
+        /// </summary>
+        internal static string c2_fairgrounds_onslaught {
+            get {
+                return ResourceManager.GetString("c2_fairgrounds_onslaught", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Ambush\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = false
+        ///
+        ///	BoomerLimit = 0
+        ///	SmokerLimit = 3
+        ///	HunterLimit = 1
+        ///	ChargerLimit = 1
+        ///	SpitterLimit = 0
+        ///	JockeyLimit = 1
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c2_highway_ambush {
+            get {
+                return ResourceManager.GetString("c2_highway_ambush", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Reserved Wanderers\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c2m1_no_bosses {
+            get {
+                return ResourceManager.GetString("c2m1_no_bosses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Reserved Wanderers\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// Turn always wanderer on
+        ///	AlwaysAllowWanderers = 1
+        ///
+        ///	// Set the number of infected that cannot be absorbed
+        ///	NumReservedWanderers = 15
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c2m1_reserved_wanderers {
+            get {
+                return ResourceManager.GetString("c2m1_reserved_wanderers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Onslaught\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = false
+        ///	
+        ///	//LockTempo = true
+        ///	MobSpawnMinTime = 1
+        ///	MobSpawnMaxTime = 1
+        ///	MobMinSize = 30
+        ///	MobMaxSize = 30
+        ///	MobMaxPending = 30
+        ///	SustainPeakMinTime = 5
+        ///	SustainPeakMaxTime = 10
+        ///	IntensityRelaxThreshold = 0.99
+        ///	RelaxMinInterval = 1
+        ///	RelaxMaxInterval = 5
+        ///	RelaxMaxFlowTravel = 50
+        ///	SpecialRespawnInterval = 1.0
+        ///        SmokerLimit = 2
+        ///        JockeyLimit = 0
+        ///        BoomerLimit = 0
+        ///     [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c2m4_barns_onslaught {
+            get {
+                return ResourceManager.GetString("c2m4_barns_onslaught", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Onslaught\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = false
+        ///	
+        ///	//LockTempo = true
+        ///	MobSpawnMinTime = 3
+        ///	MobSpawnMaxTime = 7
+        ///	MobMinSize = 30
+        ///	MobMaxSize = 30
+        ///	MobMaxPending = 30
+        ///	SustainPeakMinTime = 5
+        ///	SustainPeakMaxTime = 10
+        ///	IntensityRelaxThreshold = 0.99
+        ///	RelaxMinInterval = 1
+        ///	RelaxMaxInterval = 5
+        ///	RelaxMaxFlowTravel = 50
+        ///	SpecialRespawnInterval = 1.0
+        ///        SmokerLimit = 2
+        ///        JockeyLimit = 0
+        ///        BoomerLimit = 0
+        ///     [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c2m4_barns_onslaught2 {
+            get {
+                return ResourceManager.GetString("c2m4_barns_onslaught2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Onslaught\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///        LockTempo = 0
+        ///	MobSpawnMinTime = 3
+        ///	MobSpawnMaxTime = 3
+        ///	MobMinSize = 15
+        ///	MobMaxSize = 30
+        ///	MobRechargeRate  = 3
+        ///	SustainPeakMinTime = 10
+        ///	SustainPeakMaxTime = 30
+        ///	IntensityRelaxThreshold = 0.90
+        ///	RelaxMinInterval = 1
+        ///	RelaxMaxInterval = 1
+        ///	RelaxMaxFlowTravel = -1000
+        ///	MobMaxPending = 10
+        ///	SpecialRespawnInterval = 40.0
+        ///	ZombieSpawnRange = 3000
+        ///
+        ///}
+        ///
+        ///Director.ResetMobT [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c2m4_finale_onslaught {
+            get {
+                return ResourceManager.GetString("c2m4_finale_onslaught", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Quieting director\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	ProhibitBosses = true
+        ///	SpecialRespawnInterval = 17.0
+        ///	CommonLimit = 0
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c2m4_finale_quiet {
+            get {
+                return ResourceManager.GetString("c2m4_finale_quiet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 //-----------------------------------------------------------------------------
         ///
         ///PANIC &lt;- 0
@@ -280,6 +1150,134 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Barge Script\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	ProhibitBosses = true
+        ///	SpecialRespawnInterval = 999999
+        ///	MobMaxPending = 0
+        ///	CommonLimit = 30
+        ///	SpitterLimit = 0
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c3m1_barge {
+            get {
+                return ResourceManager.GetString("c3m1_barge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;Initiating Fog Spawn\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	ZombieSpawnRange = 3200
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c3m1_fog_spawn {
+            get {
+                return ResourceManager.GetString("c3m1_fog_spawn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating NoThreat Script\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c3m1_nothreat {
+            get {
+                return ResourceManager.GetString("c3m1_nothreat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;Initiating Fog Spawn\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	ZombieSpawnInFog = true
+        ///	ZombieSpawnRange = 2200
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c3m1_swamp_fog_spawn {
+            get {
+                return ResourceManager.GetString("c3m1_swamp_fog_spawn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;Initiating Fog Spawn\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	ZombieSpawnInFog = true
+        ///	ZombieSpawnRange = 2700
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c3m2_fog_spawn {
+            get {
+                return ResourceManager.GetString("c3m2_fog_spawn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        ///// This script encourages the director to generate the
+        ///// mega-mobs from positions in front of the survivors.
+        /////
+        /////-----------------------------------------------------
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	//-----------------------------------------------------
+        ///	// This is the variable that you have to set in order
+        ///	// to influence the direction of mob spawns.
+        ///	//-----------------------------------------------------
+        ///	PreferredMobDirection = SPAWN_IN_ [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c3m2_mob_from_front {
+            get {
+                return ResourceManager.GetString("c3m2_mob_from_front", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating NoThreat Script\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c3m4_nothreat {
+            get {
+                return ResourceManager.GetString("c3m4_nothreat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 //-----------------------------------------------------
         ///local PANIC = 0
         ///local TANK = 1
@@ -307,6 +1305,25 @@ namespace The_Director.Properties {
         internal static string c3m4_plantation_finale {
             get {
                 return ResourceManager.GetString("c3m4_plantation_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;Initiating Fog Spawn\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	ZombieSpawnInFog = true
+        ///	ZombieSpawnRange = 3000
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c4m4_fog_spawn {
+            get {
+                return ResourceManager.GetString("c4m4_fog_spawn", resourceCulture);
             }
         }
         
@@ -345,6 +1362,97 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Msg(&quot;Initiating NoThreat Script\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c5m1_nothreat {
+            get {
+                return ResourceManager.GetString("c5m1_nothreat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        ///// This script encourages the director to generate the
+        ///// mega-mobs from positions in front of the survivors.
+        /////
+        /////-----------------------------------------------------
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	//-----------------------------------------------------
+        ///	// This is the variable that you have to set in order
+        ///	// to influence the direction of mob spawns.
+        ///	//-----------------------------------------------------
+        ///	PreferredMobDirection = SPAWN_IN_ [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c5m2_mob_from_front {
+            get {
+                return ResourceManager.GetString("c5m2_mob_from_front", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;Initiating Script\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	ZombieSpawnInFog = true
+        ///	ZombieSpawnRange = 3000
+        ///	DisallowThreatType = ZOMBIE_WITCH
+        ///	MaxSpecials = 2
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c6m1_riverbank {
+            get {
+                return ResourceManager.GetString("c6m1_riverbank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Onslaught\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///	MobSpawnMinTime = 2
+        ///	MobSpawnMaxTime = 4
+        ///	MobMinSize = 25
+        ///	MobMaxSize = 25
+        ///	SustainPeakMinTime = 1
+        ///	SustainPeakMaxTime = 3
+        ///	IntensityRelaxThreshold = 1.0
+        ///	RelaxMinInterval = 5
+        ///	RelaxMaxInterval = 5
+        ///	RelaxMaxFlowTravel = 600
+        ///
+        ///	MobMaxPending = 15
+        ///
+        ///
+        ///	//-----------------------------------------------------
+        ///	// This is the variable that you have to set in order
+        ///	// to influen [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string c6m2_minifinale {
+            get {
+                return ResourceManager.GetString("c6m2_minifinale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Msg(&quot;----------------------FINALE SCRIPT------------------\n&quot;)
         /////-----------------------------------------------------
         ///PANIC &lt;- 0
@@ -377,8 +1485,34 @@ namespace The_Director.Properties {
         
         /// <summary>
         ///   查找类似 //-----------------------------------------------------
+        /////
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;SQUIRREL c7m2_barge script\n&quot;);
+        ///
+        ///BargeCommonLimit &lt;- 25	// use a lower common limit to combat infected related perf issues
+        ///
+        ///if ( Director.IsPlayingOnConsole() )
+        ///{
+        ///	BargeCommonLimit &lt;- 20
+        ///}
+        ///
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	CommonLimit = BargeCommonLimit	
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c7m2_barge {
+            get {
+                return ResourceManager.GetString("c7m2_barge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
         ///// This script handles the logic for the Port / Bridge
-        ///// finale in the River Campaign. 
+        ///// finale in the River Campaign.
         /////
         /////-----------------------------------------------------
         ///Msg(&quot;Initiating c7m3_port_finale script\n&quot;);
@@ -391,11 +1525,66 @@ namespace The_Director.Properties {
         ///
         /////-----------------------------------------------------
         ///
-        ///// This keeps track of the number of times the generator button has been pressed.  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///// This keeps track of the number of times the generator button has been pressed.
+        /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string c7m3_port_finale {
             get {
                 return ResourceManager.GetString("c7m3_port_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;Beginning c8m1_apartment  script\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	DisallowThreatType = ZOMBIE_TANK
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c8m1_apartment {
+            get {
+                return ResourceManager.GetString("c8m1_apartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;Beginning c8m3_sewers script\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	ZombieSpawnRange = 3000
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c8m3_sewers {
+            get {
+                return ResourceManager.GetString("c8m3_sewers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 //-----------------------------------------------------
+        /////
+        /////
+        /////-----------------------------------------------------
+        ///Msg(&quot;Initiating c8m5_rooftop script\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	ProhibitBosses = true
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c8m5_rooftop {
+            get {
+                return ResourceManager.GetString("c8m5_rooftop", resourceCulture);
             }
         }
         
@@ -428,6 +1617,18 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
+        ///   查找类似 DirectorOptions &lt;-
+        ///{
+        ///   ProhibitBosses = true
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string c9m1_nobosses {
+            get {
+                return ResourceManager.GetString("c9m1_nobosses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 //-----------------------------------------------------
         /////
         /////
@@ -452,6 +1653,36 @@ namespace The_Director.Properties {
         internal static string c9m2_lots_finale {
             get {
                 return ResourceManager.GetString("c9m2_lots_finale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating C4 Director Storm settings\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	//ProhibitBosses = true
+        ///
+        ///	ZombieSpawnInFog = 1
+        ///	ZombieSpawnRange = 3000
+        ///	MobRechargeRate = 0.001
+        ///	
+        ///	FallenSurvivorPotentialQuantity = 6
+        ///	FallenSurvivorSpawnChance       = 0.75
+        ///	
+        ///	GasCansOnBacks = true
+        ///}
+        ///
+        ///
+        ///if ( Director.GetGameModeBase() == &quot;versus&quot; )
+        ///{
+        ///    DirectorOptions.ProhibitBosses &lt;- true;
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string director_c4_storm {
+            get {
+                return ResourceManager.GetString("director_c4_storm", resourceCulture);
             }
         }
         
@@ -485,6 +1716,50 @@ namespace The_Director.Properties {
         internal static string director_gauntlet {
             get {
                 return ResourceManager.GetString("director_gauntlet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Initiating Onslaught\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	// This turns off tanks and witches.
+        ///	ProhibitBosses = true
+        ///
+        ///	MobSpawnMinTime = 8
+        ///	MobSpawnMaxTime = 8
+        ///	MobMinSize = 20
+        ///	MobMaxSize = 30
+        ///	SustainPeakMinTime = 1
+        ///	SustainPeakMaxTime = 3
+        ///	IntensityRelaxThreshold = 0.90
+        ///	RelaxMinInterval = 5
+        ///	RelaxMaxInterval = 5
+        ///	RelaxMaxFlowTravel = 600
+        ///}
+        ///
+        ///Director.ResetMobTimer() 的本地化字符串。
+        /// </summary>
+        internal static string director_onslaught {
+            get {
+                return ResourceManager.GetString("director_onslaught", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Msg(&quot;Quieting director\n&quot;);
+        ///
+        ///DirectorOptions &lt;-
+        ///{
+        ///	ProhibitBosses = true
+        ///	SpecialRespawnInterval = 999999
+        ///	CommonLimit = 0
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string director_quiet {
+            get {
+                return ResourceManager.GetString("director_quiet", resourceCulture);
             }
         }
         
@@ -536,7 +1811,7 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 zvrt/hAAAAAOAAAA3EMfAQEAAAFkZWZhdWx0AAAABgoAAAEAAAAAAAAAABgrRgCYHsZlCqbCAJAwRgAgGcYexpbC1dumwv1ljcIEAAAADgYAAIYBAACdCQAAngkAAAMAAABPBgAAMgAAAAYJAAADAAAACgMAANsIAADcCAAABAAAAOkFAABZAAAAAQkAAAIJAAAAAAAAAAAAAAAAAAAAAAAAAPBCAADwQhoNCz8fUO497DyePh9Q7j1AIAgAAABOAQAAEwAAAAIXAAAAARkAAAADGgAAAAEhAAAAASIAAAACIwAAAAMlAAAAASYAAAADJwAAAAEwAAAAATEAAAACOAAAAAE5AAAAAz8AAAABQAAAAANHAAAAAUgAAAACVgAAAAFXAAAAAVgAAAACWQAAAAFaAAAAA1sAAAACXAAAAAJhAAAAAWQAAAABZgAAAANoAAAAAWoAAAACawAAAAFsAAAAA24AAAABcAAAAAFxAAAAAXIAAAADcwAAAAF1AAAA [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string FinaleSacrificeScriptNav {
             get {
@@ -545,7 +1820,36 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 versioninfo
+        ///{
+        ///	&quot;editorversion&quot; &quot;400&quot;
+        ///	&quot;editorbuild&quot; &quot;8864&quot;
+        ///	&quot;mapversion&quot; &quot;402&quot;
+        ///	&quot;formatversion&quot; &quot;100&quot;
+        ///	&quot;prefab&quot; &quot;0&quot;
+        ///}
+        ///visgroups
+        ///{
+        ///}
+        ///viewsettings
+        ///{
+        ///	&quot;bSnapToGrid&quot; &quot;1&quot;
+        ///	&quot;bShowGrid&quot; &quot;1&quot;
+        ///	&quot;bShowLogicalGrid&quot; &quot;0&quot;
+        ///	&quot;nGridSpacing&quot; &quot;1&quot;
+        ///}
+        ///palette_plus
+        ///{
+        ///	&quot;color0&quot; &quot;255 255 255&quot;
+        ///	&quot;color1&quot; &quot;255 255 255&quot;
+        ///	&quot;color2&quot; &quot;255 255 255&quot;
+        ///	&quot;color3&quot; &quot;255 255 255&quot;
+        ///	&quot;color4&quot; &quot;255 255 255&quot;
+        ///	&quot;color5&quot; &quot;255 255 255&quot;
+        ///	&quot;color6&quot; &quot;255 255 255&quot;
+        ///	&quot;color7&quot; &quot;255 255 255&quot;
+        ///	&quot;color8&quot; &quot;255 255 255&quot;
+        ///	&quot;color9&quot; &quot;255 255 255&quot; [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string FinaleSacrificeScriptVmf {
             get {

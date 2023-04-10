@@ -6,11 +6,11 @@ namespace The_Director.Windows
 {
     public partial class RescueScriptPage : UserControl
     {
-
         private readonly UserControl StandardRescue = Activator.CreateInstance(Type.GetType($"The_Director.Windows.StandardRescueSettings")) as UserControl;
         private readonly UserControl ScavengeRescue = Activator.CreateInstance(Type.GetType($"The_Director.Windows.ScavengeRescueSettings")) as UserControl;
         private readonly UserControl GauntletRescue = Activator.CreateInstance(Type.GetType($"The_Director.Windows.GauntletRescueSettings")) as UserControl;
         private readonly UserControl SacrificeRescue = Activator.CreateInstance(Type.GetType($"The_Director.Windows.SacrificeRescueSettings")) as UserControl;
+        private readonly UserControl Onslaught = Activator.CreateInstance(Type.GetType($"The_Director.Windows.OnslaughtSettings")) as UserControl;
 
         public RescueScriptPage()
         {
@@ -36,6 +36,10 @@ namespace The_Director.Windows
             else if (RescueTypeComboBox.SelectedIndex == 3)
             {
                 RescueTypeControl.Content = SacrificeRescue;
+            }
+            else if (RescueTypeComboBox.SelectedIndex == 4)
+            {
+                RescueTypeControl.Content = Onslaught;
             }
         }
     }

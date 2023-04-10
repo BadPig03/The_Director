@@ -262,7 +262,7 @@ public static class Functions
             5 => Properties.Resources.c10m5_houseboat_finale,
             6 => Properties.Resources.c11m5_runway_finale,
             7 => Properties.Resources.c12m5_cornfield_finale,
-            _ => string.Empty,
+            _ => string.Empty
         };
     }
 
@@ -274,7 +274,7 @@ public static class Functions
             1 => Properties.Resources.c1m4_delay,
             2 => Properties.Resources.c7m3_port_finale,
             3 => Properties.Resources.c14m2_lighthouse_finale,
-            _ => string.Empty,
+            _ => string.Empty
         };
     }
 
@@ -286,6 +286,67 @@ public static class Functions
     public static string GetOffcialSacrificeScriptFile()
     {
         return Properties.Resources.c7m3_port_finale;
+    }
+
+    public static string GetOffcialOnslaughtScriptFile(int index)
+    {
+        return index switch
+        {
+            0 => Properties.Resources.c1m1_reserved_wanderers,
+            1 => Properties.Resources.c1_gunshop_onslaught,
+            2 => Properties.Resources.c1_gunshop_quiet,
+            3 => Properties.Resources.c1_mall_ambient,
+            4 => Properties.Resources.c1_mall_crescendo,
+            5 => Properties.Resources.c1_mall_crescendo_cooldown,
+            6 => Properties.Resources.c1_mall_crescendo_wave,
+            7 => Properties.Resources.c1_mall_onslaught,
+            8 => Properties.Resources.c1_streets_ambush,
+            9 => Properties.Resources.c2m1_no_bosses,
+            10 => Properties.Resources.c2m1_reserved_wanderers,
+            11 => Properties.Resources.c2m4_barns_onslaught,
+            12 => Properties.Resources.c2m4_barns_onslaught2,
+            13 => Properties.Resources.c2m4_finale_onslaught,
+            14 => Properties.Resources.c2m4_finale_quiet,
+            15 => Properties.Resources.c2_coaster_onslaught,
+            16 => Properties.Resources.c2_fairgrounds_onslaught,
+            17 => Properties.Resources.c2_highway_ambush,
+            18 => Properties.Resources.c3m1_barge,
+            19 => Properties.Resources.c3m1_fog_spawn,
+            20 => Properties.Resources.c3m1_nothreat,
+            21 => Properties.Resources.c3m1_swamp_fog_spawn,
+            22 => Properties.Resources.c3m2_fog_spawn,
+            23 => Properties.Resources.c3m2_mob_from_front,
+            24 => Properties.Resources.c3m4_nothreat,
+            25 => Properties.Resources.c4m4_fog_spawn,
+            26 => Properties.Resources.c5m1_nothreat,
+            27 => Properties.Resources.c5m2_mob_from_front,
+            28 => Properties.Resources.c6m1_riverbank,
+            29 => Properties.Resources.c6m2_minifinale,
+            30 => Properties.Resources.c7m2_barge,
+            31 => Properties.Resources.c8m1_apartment,
+            32 => Properties.Resources.c8m3_sewers,
+            33 => Properties.Resources.c8m5_rooftop,
+            34 => Properties.Resources.c9m1_nobosses,
+            35 => Properties.Resources.c10m1_no_bosses,
+            36 => Properties.Resources.c10m4_onslaught,
+            37 => Properties.Resources.c11m1_no_bosses,
+            38 => Properties.Resources.c11m4_minifinale,
+            39 => Properties.Resources.c11m4_minifinale_pt2,
+            40 => Properties.Resources.c11m4_onslaught,
+            41 => Properties.Resources.c11m4_reserved_wanderers,
+            42 => Properties.Resources.c12m1_no_bosses,
+            43 => Properties.Resources.c12m3_onslaught,
+            44 => Properties.Resources.c12m4_onslaught,
+            45 => Properties.Resources.c12m4_reserved_wanderers,
+            46 => Properties.Resources.c12m5_panic,
+            47 => Properties.Resources.c13m4_tankdistance,
+            48 => Properties.Resources.c14_junkyard_cooldown,
+            49 => Properties.Resources.c14_junkyard_crane,
+            50 => Properties.Resources.director_c4_storm,
+            51 => Properties.Resources.director_onslaught,
+            52 => Properties.Resources.director_quiet,
+            _ => string.Empty
+        };
     }
 
     public static void SaveNavToPath(string saveFilePath, int type)

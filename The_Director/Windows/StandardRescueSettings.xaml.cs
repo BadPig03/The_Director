@@ -45,6 +45,7 @@ namespace The_Director.Windows
                 IsTotalWaveConfirmed = true;
             }
         }
+
         public void SaveToNutReceived(string value)
         {
             IsNutConfirmed = value != null;

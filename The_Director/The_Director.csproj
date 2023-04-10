@@ -180,6 +180,9 @@
     <Compile Include="Windows\MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\OnslaughtSettings.xaml.cs">
+      <DependentUpon>OnslaughtSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\PreviewScriptWindow.xaml.cs">
       <DependentUpon>PreviewScriptWindow.xaml</DependentUpon>
     </Compile>
@@ -215,6 +218,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\MessageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\OnslaughtSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -312,6 +319,59 @@
     <None Include="Resources\FinaleGauntletScriptVmf.txt" />
     <None Include="Resources\FinaleSacrificeScriptVmf.txt" />
     <None Include="Resources\FinaleSacrificeScriptNav.txt" />
+    <None Include="Resources\c1_gunshop_onslaught.txt" />
+    <None Include="Resources\c1_gunshop_quiet.txt" />
+    <None Include="Resources\c1_mall_ambient.txt" />
+    <None Include="Resources\c1_mall_crescendo.txt" />
+    <None Include="Resources\c1_mall_crescendo_cooldown.txt" />
+    <None Include="Resources\c1_mall_crescendo_wave.txt" />
+    <None Include="Resources\c1_mall_onslaught.txt" />
+    <None Include="Resources\c1_streets_ambush.txt" />
+    <None Include="Resources\c1m1_reserved_wanderers.txt" />
+    <None Include="Resources\c2_coaster_onslaught.txt" />
+    <None Include="Resources\c2_fairgrounds_onslaught.txt" />
+    <None Include="Resources\c2_highway_ambush.txt" />
+    <None Include="Resources\c2m1_no_bosses.txt" />
+    <None Include="Resources\c2m1_reserved_wanderers.txt" />
+    <None Include="Resources\c2m4_barns_onslaught.txt" />
+    <None Include="Resources\c2m4_barns_onslaught2.txt" />
+    <None Include="Resources\c2m4_finale_onslaught.txt" />
+    <None Include="Resources\c2m4_finale_quiet.txt" />
+    <None Include="Resources\c3m1_barge.txt" />
+    <None Include="Resources\c3m1_fog_spawn.txt" />
+    <None Include="Resources\c3m1_nothreat.txt" />
+    <None Include="Resources\c3m1_swamp_fog_spawn.txt" />
+    <None Include="Resources\c3m2_fog_spawn.txt" />
+    <None Include="Resources\c3m2_mob_from_front.txt" />
+    <None Include="Resources\c3m4_nothreat.txt" />
+    <None Include="Resources\c4m4_fog_spawn.txt" />
+    <None Include="Resources\c5m1_nothreat.txt" />
+    <None Include="Resources\c5m2_mob_from_front.txt" />
+    <None Include="Resources\c6m1_riverbank.txt" />
+    <None Include="Resources\c6m2_minifinale.txt" />
+    <None Include="Resources\c7m2_barge.txt" />
+    <None Include="Resources\c8m1_apartment.txt" />
+    <None Include="Resources\c8m3_sewers.txt" />
+    <None Include="Resources\c8m5_rooftop.txt" />
+    <None Include="Resources\c9m1_nobosses.txt" />
+    <None Include="Resources\c10m1_no_bosses.txt" />
+    <None Include="Resources\c10m4_onslaught.txt" />
+    <None Include="Resources\c11m1_no_bosses.txt" />
+    <None Include="Resources\c11m4_minifinale.txt" />
+    <None Include="Resources\c11m4_minifinale_pt2.txt" />
+    <None Include="Resources\c11m4_onslaught.txt" />
+    <None Include="Resources\c11m4_reserved_wanderers.txt" />
+    <None Include="Resources\c12m1_no_bosses.txt" />
+    <None Include="Resources\c12m3_onslaught.txt" />
+    <None Include="Resources\c12m4_onslaught.txt" />
+    <None Include="Resources\c12m4_reserved_wanderers.txt" />
+    <None Include="Resources\c12m5_panic.txt" />
+    <None Include="Resources\c13m4_tankdistance.txt" />
+    <None Include="Resources\c14_junkyard_cooldown.txt" />
+    <None Include="Resources\c14_junkyard_crane.txt" />
+    <None Include="Resources\director_c4_storm.txt" />
+    <None Include="Resources\director_onslaught.txt" />
+    <None Include="Resources\director_quiet.txt" />
     <Content Include="steam_api64.dll" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
