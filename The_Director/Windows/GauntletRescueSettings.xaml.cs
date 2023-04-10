@@ -1,9 +1,6 @@
-﻿using MahApps.Metro.Controls;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Security.Policy;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -279,7 +276,7 @@ namespace The_Director.Windows
                 }
             }
 
-            ScriptWindowText.AppendLine("\n\tfunction RecalculateLimits()\n\t{\n\t\tlocal progressPct = Director.GetFurthestSurvivorFlow() / BridgeSpan;\n\t\tlocal speedPct = (Director.GetAveragedSurvivorSpeed() - MinSpeed) / (MaxSpeed - MinSpeed);\n\t\tif (progressPct < 0.0)\n\t\t\tprogressPct = 0.0;\n\t\tif (progressPct > 1.0)\n\t\t\tprogressPct = 1.0;\n\t\tMobSpawnSize = MobSpawnSizeMin + progressPct * (MobSpawnSizeMax - MobSpawnSizeMin);\n\t\tif (speedPct < 0.0)\n\t\t\tspeedPct = 0.0;\n\t\tif (speedPct > 1.0)\n\t\t\tspeedPct = 1.0;\n\t\tMobSpawnSize = MobSpawnSize + speedPct * SpeedPenaltyZAdds;\n\t\tCommonLimit = MobSpawnSize * 1.5;\n\t\tif (CommonLimit > CommonLimitMax)\n\t\t\tCommonLimit = CommonLimitMax;\n\t}\n}\nfunction Update()\n{\n\tDirectorOptions.RecalculateLimits();\n}");
+            ScriptWindowText.AppendLine("\n\tfunction RecalculateLimits()\n\t{\n\t\tlocal progressPct = Director.GetFurthestSurvivorFlow() / BridgeSpan;\n\t\tlocal speedPct = (Director.GetAveragedSurvivorSpeed() - MinSpeed) / (MaxSpeed - MinSpeed);\n\t\tif (progressPct < 0.0)\n\t\t\tprogressPct = 0.0;\n\t\tif (progressPct > 1.0)\n\t\t\tprogressPct = 1.0;\n\t\tMobSpawnSize = MobSpawnSizeMin + progressPct * (MobSpawnSizeMax - MobSpawnSizeMin);\n\t\tif (speedPct < 0.0)\n\t\t\tspeedPct = 0.0;\n\t\tif (speedPct > 1.0)\n\t\t\tspeedPct = 1.0;\n\t\tMobSpawnSize = MobSpawnSize + speedPct * SpeedPenaltyZAdds;\n\t\tCommonLimit = MobSpawnSize * 1.5;\n\t\tif (CommonLimit > CommonLimitMax)\n\t\t\tCommonLimit = CommonLimitMax;\n\t}\n}\n\nfunction Update()\n{\n\tDirectorOptions.RecalculateLimits();\n}");
 
             ScriptWindow.Text = ScriptWindowText.ToString();
 

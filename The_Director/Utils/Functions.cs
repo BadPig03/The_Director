@@ -223,6 +223,7 @@ public static class Functions
             0 => Globals.L4D2StandardFinalePath,
             1 => Globals.L4D2ScavengeFinalePath,
             2 => Globals.L4D2GauntletFinalePath,
+            3 => Globals.L4D2SacrificeFinalePath,
             _ => string.Empty
         };
 
@@ -236,6 +237,7 @@ public static class Functions
             0 => "-steam -novid +sv_cheats 1 +director_debug 1 +map standard_finale",
             1 => "-steam -novid +sv_cheats 1 +director_debug 1 +map scavenge_finale",
             2 => "-steam -novid +sv_cheats 1 +director_debug 1 +map gauntlet_finale",
+            3 => "-steam -novid +sv_cheats 1 +director_debug 1 +map sacrifice_finale",
             _ => string.Empty
         };
 
@@ -281,6 +283,11 @@ public static class Functions
         return Properties.Resources.director_gauntlet;
     }
 
+    public static string GetOffcialSacrificeScriptFile()
+    {
+        return Properties.Resources.c7m3_port_finale;
+    }
+
     public static void SaveNavToPath(string saveFilePath, int type)
     {
         string navFile = type switch
@@ -288,6 +295,7 @@ public static class Functions
             0 => Properties.Resources.FinaleStandardScriptNav,
             1 => Properties.Resources.FinaleScavengeScriptNav,
             2 => Properties.Resources.FinaleGauntletScriptNav,
+            3 => Properties.Resources.FinaleSacrificeScriptNav,
             _ => string.Empty
         };
 
@@ -319,6 +327,7 @@ public static class Functions
             0 => Properties.Resources.FinaleStandardScriptVmf,
             1 => Properties.Resources.FinaleScavengeScriptVmf,
             2 => Properties.Resources.FinaleGauntletScriptVmf,
+            3 => Properties.Resources.FinaleSacrificeScriptVmf,
             _ => string.Empty
         };
 
@@ -332,6 +341,7 @@ public static class Functions
                 0 => "standard_finale",
                 1 => "scavenge_finale",
                 2 => "gauntlet_finale",
+                3 => "sacrifice_finale",
                 _ => string.Empty
             };
 
@@ -339,7 +349,7 @@ public static class Functions
             file = file.Replace("\"finale_radio\x1b", $"\"{VmfValuesList[1]}\x1b");
             file = file.Replace($"\"ScriptFile\" \"{replacedFile}.nut\"", $"\"ScriptFile\" \"{VmfValuesList[2]}\"");
         }
-        else if (type == 1)
+        else if (type == 1 || type == 3)
         {
             file = file.Replace("\"targetname\" \"finale_lever\"", $"\"targetname\" \"{VmfValuesList[1]}\"");
             file = file.Replace("\"finale_lever\x1b", $"\"{VmfValuesList[1]}\x1b");

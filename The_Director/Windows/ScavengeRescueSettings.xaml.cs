@@ -433,7 +433,6 @@ namespace The_Director.Windows
             string fileExtension = ScavengeDict["DelayScript"].Item2.EndsWith(".nut") ? string.Empty : ".nut";
             string scriptFileName = saveFileDialog.SafeFileName.Replace(".vmf", ".nut");
 
-
             YesOrNoWindow yesOrNoWindow = new()
             {
                 TextBlockString = $"是否一并导出两个脚本文件至scripts\\vscripts文件夹?\n\n脚本文件名将为\"{scriptFileName}\"和\"{ScavengeDict["DelayScript"].Item2}{fileExtension}\"!",

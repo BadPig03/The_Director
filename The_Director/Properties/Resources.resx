@@ -166,6 +166,12 @@
   <data name="FinaleGauntletScriptVmf" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FinaleGauntletScriptVmf.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
+  <data name="FinaleSacrificeScriptNav" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FinaleSacrificeScriptNav.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="FinaleSacrificeScriptVmf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FinaleSacrificeScriptVmf.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
   <data name="FinaleScavengeScriptNav" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FinaleScavengeScriptNav.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>

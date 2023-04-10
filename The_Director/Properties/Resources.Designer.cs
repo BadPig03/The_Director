@@ -489,7 +489,7 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 zvrt/hAAAAAOAAAA/NXSAgAAAAFjMXN0cmVldHMAAACQFgAAOoIBAAAAACAAUCrFAACWROQxBEMAwCjFAECcROUxBEPlMQRD6zEEQwEAAAAikgEAAgAAAGR+AQChhgEAAAAAAAIAAAAOkgEAH38BAAAAAAAAAAAAAAAAAAAAAAAA8EIAAPBC6hYlP+oWJT9K8uc+SvLnPkIAAAAAAAAAAAAikgEA95ABAAEAAAAA4F3FAACvRMNzO0MAUFzFACCyRMUTMkPFEzJDw3M7QwAAAAABAAAAAJEBAAEAAAALfwEAAAAAAAEAAAAAABhdxQCQsETDcztDCAAAAAAAAAAAAAAAAAAAAADwQgAA8EJscPI9bHDyPWxw8j1scPI9QAAAAAAAAAAAAACRAQA2wQMAAAAAAAAQi8UAIMtEhCnGQgBIisUAQM5ENNK4QjbIwkKA+7xCAQAAADTBAwABAAAANcEDAAAAAAAAAAAAAQEAAAAArIrFALDMRID7vEIIAAAA [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string FinaleGauntletScriptNav {
             get {
@@ -498,11 +498,58 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 versioninfo
+        ///{
+        ///	&quot;editorversion&quot; &quot;400&quot;
+        ///	&quot;editorbuild&quot; &quot;8864&quot;
+        ///	&quot;mapversion&quot; &quot;276&quot;
+        ///	&quot;formatversion&quot; &quot;100&quot;
+        ///	&quot;prefab&quot; &quot;0&quot;
+        ///}
+        ///visgroups
+        ///{
+        ///}
+        ///viewsettings
+        ///{
+        ///	&quot;bSnapToGrid&quot; &quot;1&quot;
+        ///	&quot;bShowGrid&quot; &quot;1&quot;
+        ///	&quot;bShowLogicalGrid&quot; &quot;0&quot;
+        ///	&quot;nGridSpacing&quot; &quot;1&quot;
+        ///}
+        ///palette_plus
+        ///{
+        ///	&quot;color0&quot; &quot;255 255 255&quot;
+        ///	&quot;color1&quot; &quot;255 255 255&quot;
+        ///	&quot;color2&quot; &quot;255 255 255&quot;
+        ///	&quot;color3&quot; &quot;255 255 255&quot;
+        ///	&quot;color4&quot; &quot;255 255 255&quot;
+        ///	&quot;color5&quot; &quot;255 255 255&quot;
+        ///	&quot;color6&quot; &quot;255 255 255&quot;
+        ///	&quot;color7&quot; &quot;255 255 255&quot;
+        ///	&quot;color8&quot; &quot;255 255 255&quot;
+        ///	&quot;color9&quot; &quot;255 255 255&quot; [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string FinaleGauntletScriptVmf {
             get {
                 return ResourceManager.GetString("FinaleGauntletScriptVmf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string FinaleSacrificeScriptNav {
+            get {
+                return ResourceManager.GetString("FinaleSacrificeScriptNav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string FinaleSacrificeScriptVmf {
+            get {
+                return ResourceManager.GetString("FinaleSacrificeScriptVmf", resourceCulture);
             }
         }
         
