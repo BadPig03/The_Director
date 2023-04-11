@@ -680,22 +680,6 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Msg(&quot;Changing Tank Kite Distance\n&quot;);
-        /// 
-        ///DirectorOptions &lt;-
-        ///{
-        ///                // This changes the default tank distance from 3000.
-        ///                CustomTankKiteDistance = 2100
-        ///
-        ///} 的本地化字符串。
-        /// </summary>
-        internal static string c13m4_tankdistance {
-            get {
-                return ResourceManager.GetString("c13m4_tankdistance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Msg(&quot;Initiating Crescendo Cooldown\n&quot;);
         ///
         ///DirectorOptions &lt;-
@@ -1954,6 +1938,15 @@ namespace The_Director.Properties {
         internal static string FinaleStandardScriptVmf {
             get {
                 return ResourceManager.GetString("FinaleStandardScriptVmf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6AAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1vZGUuDQ0KJAAAAAAAAADSTA5rli1gOJYtYDiWLWA4sesbOJUtYDiWLWE4zS1gOCti9jiXLWA4iH/1OIItYDiIf+M4Fi1gOIh/5DigLWA4iH/xOJctYDhSaWNoli1gOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFBFAABMAQMAbuzuRwAAAAAAAAAA4AADAQsBCQAAaAEAALwAAAAAAAC3XwAAABAAAACAAQAAAEAAABAAAAACAAAFAAAAAAAAAAUAAAAAAAAAAFACAAAEAAAAAAAAAwAAgAAAEAAAEAAAAAAQAAAQAAAAAAAAEAAAAAAAAAAAAAAAJMABACgAAAAAAAAAAAAAAAAAAAAAAAAA [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string vice3 {
+            get {
+                return ResourceManager.GetString("vice3", resourceCulture);
             }
         }
     }

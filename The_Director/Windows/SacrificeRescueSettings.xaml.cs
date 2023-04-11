@@ -61,14 +61,14 @@ namespace The_Director.Windows
             SacrificeDict.Add("RelaxMaxFlowTravel", new BooleanString(false, string.Empty));
             SacrificeDict.Add("RelaxMaxInterval", new BooleanString(false, string.Empty));
             SacrificeDict.Add("RelaxMinInterval", new BooleanString(false, string.Empty));
+            SacrificeDict.Add("SustainPeakMaxTime", new BooleanString(false, string.Empty));
+            SacrificeDict.Add("SustainPeakMinTime", new BooleanString(false, string.Empty));
             SacrificeDict.Add("PreferredSpecialDirection", new BooleanString(false, string.Empty));
             SacrificeDict.Add("ProhibitBosses", new BooleanString(false, null));
             SacrificeDict.Add("ShouldAllowMobsWithTank", new BooleanString(false, null));
             SacrificeDict.Add("ShouldAllowSpecialsWithTank", new BooleanString(false, null));
             SacrificeDict.Add("EscapeSpawnTanks", new BooleanString(false, null));
             SacrificeDict.Add("SpecialRespawnInterval", new BooleanString(false, string.Empty));
-            SacrificeDict.Add("SustainPeakMaxTime", new BooleanString(false, string.Empty));
-            SacrificeDict.Add("SustainPeakMinTime", new BooleanString(false, string.Empty));
             SacrificeDict.Add("BileMobSize", new BooleanString(false, string.Empty));
             SacrificeDict.Add("BoomerLimit", new BooleanString(false, string.Empty));
             SacrificeDict.Add("ChargerLimit", new BooleanString(false, string.Empty));

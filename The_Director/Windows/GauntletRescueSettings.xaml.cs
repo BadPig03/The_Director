@@ -72,14 +72,14 @@ namespace The_Director.Windows
             GauntletDict.Add("RelaxMaxFlowTravel", new BooleanString(false, string.Empty));
             GauntletDict.Add("RelaxMaxInterval", new BooleanString(false, string.Empty));
             GauntletDict.Add("RelaxMinInterval", new BooleanString(false, string.Empty));
+            GauntletDict.Add("SustainPeakMaxTime", new BooleanString(false, string.Empty));
+            GauntletDict.Add("SustainPeakMinTime", new BooleanString(false, string.Empty));
             GauntletDict.Add("PreferredSpecialDirection", new BooleanString(false, string.Empty));
             GauntletDict.Add("ProhibitBosses", new BooleanString(false, null));
             GauntletDict.Add("ShouldAllowMobsWithTank", new BooleanString(false, null));
             GauntletDict.Add("ShouldAllowSpecialsWithTank", new BooleanString(false, null));
             GauntletDict.Add("EscapeSpawnTanks", new BooleanString(true, null));
             GauntletDict.Add("SpecialRespawnInterval", new BooleanString(false, string.Empty));
-            GauntletDict.Add("SustainPeakMaxTime", new BooleanString(false, string.Empty));
-            GauntletDict.Add("SustainPeakMinTime", new BooleanString(false, string.Empty));
             GauntletDict.Add("BileMobSize", new BooleanString(false, string.Empty));
             GauntletDict.Add("BoomerLimit", new BooleanString(false, string.Empty));
             GauntletDict.Add("ChargerLimit", new BooleanString(false, string.Empty));

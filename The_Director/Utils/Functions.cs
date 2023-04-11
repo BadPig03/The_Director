@@ -250,6 +250,20 @@ public static class Functions
         process.Close();
     }
 
+    public static void RunVice3(string file, bool encrypt = true)
+    {
+        Process process = new();
+        process.StartInfo.FileName = "cmd.exe";
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.CreateNoWindow = true;
+        process.StartInfo.RedirectStandardInput = true;
+        process.Start();
+        process.StandardInput.WriteLine($"\"{Globals.L4D2Vice3Path}\"" + (encrypt ? " -x .nuc" : " -d -x .nut") + $" -k SDhfi878 \"{file}\"&exit");
+        process.StandardInput.AutoFlush = true;
+        process.WaitForExit();
+        process.Close();
+    }
+
     public static string GetOffcialStandardScriptFile(int index)
     {
         return index switch
@@ -339,14 +353,29 @@ public static class Functions
             44 => Properties.Resources.c12m4_onslaught,
             45 => Properties.Resources.c12m4_reserved_wanderers,
             46 => Properties.Resources.c12m5_panic,
-            47 => Properties.Resources.c13m4_tankdistance,
-            48 => Properties.Resources.c14_junkyard_cooldown,
-            49 => Properties.Resources.c14_junkyard_crane,
-            50 => Properties.Resources.director_c4_storm,
-            51 => Properties.Resources.director_onslaught,
-            52 => Properties.Resources.director_quiet,
+            47 => Properties.Resources.c14_junkyard_cooldown,
+            48 => Properties.Resources.c14_junkyard_crane,
+            49 => Properties.Resources.director_c4_storm,
+            50 => Properties.Resources.director_onslaught,
+            51 => Properties.Resources.director_quiet,
             _ => string.Empty
         };
+    }
+
+    public static void SaveVice3ToPath()
+    {
+        try
+        {
+            using MemoryStream memoryStream = new(Convert.FromBase64String(Properties.Resources.vice3));
+            using FileStream fileStream = new(Globals.L4D2Vice3Path, FileMode.OpenOrCreate, FileAccess.Write);
+            byte[] bytes = memoryStream.ToArray();
+            fileStream.Write(bytes, 0, bytes.Length);
+        }
+        catch
+        {
+            TryOpenMessageWindow(8);
+            return;
+        }
     }
 
     public static void SaveNavToPath(string saveFilePath, int type)

@@ -163,9 +163,6 @@
   <data name="c12m5_panic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c12m5_panic.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
-  <data name="c13m4_tankdistance" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\c13m4_tankdistance.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
-  </data>
   <data name="c14m2_lighthouse_finale" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c14m2_lighthouse_finale.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
@@ -342,5 +339,8 @@
   </data>
   <data name="FinaleStandardScriptVmf" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FinaleStandardScriptVmf.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="vice3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vice3.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
 </root>

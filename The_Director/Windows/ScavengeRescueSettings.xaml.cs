@@ -73,6 +73,8 @@ namespace The_Director.Windows
             ScavengeDict.Add("RelaxMaxFlowTravel", new BooleanString(false, string.Empty));
             ScavengeDict.Add("RelaxMaxInterval", new BooleanString(false, string.Empty));
             ScavengeDict.Add("RelaxMinInterval", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("SustainPeakMaxTime", new BooleanString(false, string.Empty));
+            ScavengeDict.Add("SustainPeakMinTime", new BooleanString(false, string.Empty));
             ScavengeDict.Add("MinimumStageTime", new BooleanString(false, string.Empty));
             ScavengeDict.Add("PreferredSpecialDirection", new BooleanString(false, string.Empty));
             ScavengeDict.Add("ProhibitBosses", new BooleanString(false, null));
@@ -80,8 +82,6 @@ namespace The_Director.Windows
             ScavengeDict.Add("ShouldAllowSpecialsWithTank", new BooleanString(false, null));
             ScavengeDict.Add("EscapeSpawnTanks", new BooleanString(true, null));
             ScavengeDict.Add("SpecialRespawnInterval", new BooleanString(false, string.Empty));
-            ScavengeDict.Add("SustainPeakMaxTime", new BooleanString(false, string.Empty));
-            ScavengeDict.Add("SustainPeakMinTime", new BooleanString(false, string.Empty));
             ScavengeDict.Add("BileMobSize", new BooleanString(false, string.Empty));
             ScavengeDict.Add("BoomerLimit", new BooleanString(false, string.Empty));
             ScavengeDict.Add("ChargerLimit", new BooleanString(false, string.Empty));

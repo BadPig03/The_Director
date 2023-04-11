@@ -1,0 +1,50 @@
+﻿<UserControl
+    x:Class="The_Director.Windows.ScriptProcessPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" d:DesignHeight="704.04" d:DesignWidth="1110">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="#7F7F7F" Margin="5" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0" Grid.Column="0">
+                        <Label Margin="1,0,5,0" Content="基础操作" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                        <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="1" Grid.Column="0">
+                        <Label Margin="0,5,5,5" Content="加密nut文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button Name="EncryptButton" Margin="5,5,5,5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="EncryptClick"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="2" Grid.Column="0">
+                        <Label Margin="0,5,5,5" Content="解密nuc文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button Name="DecryptButton" Margin="5,5,5,5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="DecryptClick"/>
+                    </DockPanel>
+                </Grid>
+            </Border>
+        </Grid>
+        <Label Grid.Row="0" Grid.Column="0" Margin="1,5,5,0" Content="通用设置" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
+        <Label Grid.Row="0" Grid.Column="1" Margin="1,5,5,0" Content="脚本窗口" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
+        <Border Margin="5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="#7F7F7F">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <TextBox Name="ScriptWindow" FontSize="15" FontFamily="JetBrains Mono" IsReadOnly="True" BorderThickness="0"/>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

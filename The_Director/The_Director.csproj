@@ -192,6 +192,9 @@
     <Compile Include="Windows\ScavengeRescueSettings.xaml.cs">
       <DependentUpon>ScavengeRescueSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ScriptProcessPage.xaml.cs">
+      <DependentUpon>ScriptProcessPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\StandardRescueSettings.xaml.cs">
       <DependentUpon>StandardRescueSettings.xaml</DependentUpon>
     </Compile>
@@ -263,6 +266,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\ScavengeRescueSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ScriptProcessPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -366,16 +373,17 @@
     <None Include="Resources\c12m4_onslaught.txt" />
     <None Include="Resources\c12m4_reserved_wanderers.txt" />
     <None Include="Resources\c12m5_panic.txt" />
-    <None Include="Resources\c13m4_tankdistance.txt" />
     <None Include="Resources\c14_junkyard_cooldown.txt" />
     <None Include="Resources\c14_junkyard_crane.txt" />
     <None Include="Resources\director_c4_storm.txt" />
     <None Include="Resources\director_onslaught.txt" />
     <None Include="Resources\director_quiet.txt" />
+    <None Include="Resources\vice3.txt" />
     <Content Include="steam_api64.dll" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Assets\logic_script.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
