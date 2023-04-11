@@ -61,6 +61,7 @@ namespace The_Director.Windows
             ScavengeDict.Add("AbortDelayMax", new BooleanString(false, string.Empty));
             ScavengeDict.Add("GasCansDividend", new BooleanString(false, string.Empty));
             ScavengeDict.Add("LockTempo", new BooleanString(false, null));
+            ScavengeDict.Add("BuildUpMinInterval", new BooleanString(false, string.Empty));
             ScavengeDict.Add("IntensityRelaxThreshold", new BooleanString(false, string.Empty));
             ScavengeDict.Add("MobRechargeRate", new BooleanString(false, string.Empty));
             ScavengeDict.Add("MobSpawnMaxTime", new BooleanString(false, string.Empty));

@@ -49,6 +49,7 @@ namespace The_Director.Windows
             MapSelectionComboBox.SelectedIndex = 0;
             SacrificeDict.Add("MSG", new BooleanString(false, string.Empty));
             SacrificeDict.Add("LockTempo", new BooleanString(false, null));
+            SacrificeDict.Add("BuildUpMinInterval", new BooleanString(true, string.Empty));
             SacrificeDict.Add("IntensityRelaxThreshold", new BooleanString(false, string.Empty));
             SacrificeDict.Add("MobRechargeRate", new BooleanString(false, string.Empty));
             SacrificeDict.Add("MobSpawnMaxTime", new BooleanString(false, string.Empty));

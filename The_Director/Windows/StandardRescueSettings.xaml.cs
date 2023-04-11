@@ -69,6 +69,7 @@ namespace The_Director.Windows
             StandardDict.Add("trigger_finale", new BooleanString(false, string.Empty));
             StandardDict.Add("ScriptFile", new BooleanString(false, string.Empty));
             StandardDict.Add("LockTempo", new BooleanString(false, null));
+            StandardDict.Add("BuildUpMinInterval", new BooleanString(true, string.Empty));
             StandardDict.Add("IntensityRelaxThreshold", new BooleanString(false, string.Empty));
             StandardDict.Add("MobRechargeRate", new BooleanString(false, string.Empty));
             StandardDict.Add("MobSpawnMaxTime", new BooleanString(false, string.Empty));

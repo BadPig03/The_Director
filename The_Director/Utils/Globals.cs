@@ -11,34 +11,36 @@ public static class Globals
     public const int L4D2AppID = 550;
     public const int L4D2ATAppID = 563;
 
-    public static List<string> StageTypeList = new() { "尸潮/波", "Tank/个", "延迟/秒", "脚本" };
-    public static List<string> RescueTypeList = new() { "防守救援", "灌油救援", "跑图救援", "牺牲救援", "尸潮脚本" };
-    public static List<string> PreferredMobDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
-    public static List<string> PreferredSpecialDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_SPECIALS_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_SPECIALS_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
-    public static List<string> StandardDictBlackList = new() { "TotalWave", "MSG", "ShowStage", "TriggerEscapeStage", "info_director", "trigger_finale", "ScriptFile"};
-    public static List<string> ScavengeDictBlackList = new() { "MSG", "ShowProgress", "info_director", "trigger_finale", "DelayScript", "GasCansNeeded", "DelayMin", "DelayMax", "DelayPouredThreshold", "DelayPouredOrTouchedThreshold", "AbortDelayMin", "AbortDelayMax", "GasCansDividend" };
-    public static List<string> GauntletDictBlackList = new() { "MSG", "info_director", "trigger_finale" };
-    public static List<string> SacrificeDictBlackList = new() { "MSG", "info_director", "trigger_finale" };
-    public static List<string> StandardObjectList = new() { "SaveAsNutButton", "PasteToClipboardButton", "MSGCheckBox", "TotalWaveLabel", "TotalWaveButton", "TotalWaveTextBox", "ShowStageCheckBox", "SaveAsVmfButton", "CompileVmfButton", "LockTempoCheckBox", "BuildUpMinIntervalTextBox", "IntensityRelaxThresholdTextBox", "MobRechargeRateTextBox", "MobSpawnMaxTimeTextBox", "MobSpawnMinTimeTextBox", "MusicDynamicMobScanStopSizeTextBox", "MusicDynamicMobSpawnSizeTextBox", "MusicDynamicMobStopSizeTextBox", "PreferredMobDirectionComboBox", "RelaxMaxFlowTravelTextBox", "RelaxMaxIntervalTextBox", "RelaxMinIntervalTextBox", "MinimumStageTimeTextBox", "PreferredSpecialDirectionComboBox", "ProhibitBossesCheckBox", "ShouldAllowMobsWithTankCheckBox", "ShouldAllowSpecialsWithTankCheckBox", "EscapeSpawnTanksCheckBox", "SpecialRespawnIntervalTextBox", "SustainPeakMaxTimeTextBox", "SustainPeakMinTimeTextBox", "BileMobSizeTextBox", "BoomerLimitTextBox", "ChargerLimitTextBox", "CommonLimitTextBox", "DominatorLimitTextBox", "HunterLimitTextBox", "JockeyLimitTextBox", "MaxSpecialsTextBox", "MegaMobSizeTextBox", "MobMaxPendingTextBox", "MobMaxSizeTextBox", "MobMinSizeTextBox", "MobSpawnSizeTextBox", "SmokerLimitTextBox", "SpitterLimitTextBox", "TankLimitTextBox", "WitchLimitTextBox", "HordeEscapeCommonLimitTextBox", "LockTempoLabel", "BuildUpMinIntervalLabel", "IntensityRelaxThresholdLabel", "MobRechargeRateLabel", "MobSpawnMaxTimeLabel", "MobSpawnMinTimeLabel", "MusicDynamicMobScanStopSizeLabel", "MusicDynamicMobSpawnSizeLabel", "MusicDynamicMobStopSizeLabel", "PreferredMobDirectionLabel", "RelaxMaxFlowTravelLabel", "RelaxMaxIntervalLabel", "RelaxMinIntervalLabel", "MinimumStageTimeLabel", "PreferredSpecialDirectionLabel", "ProhibitBossesLabel", "ShouldAllowMobsWithTankLabel", "ShouldAllowSpecialsWithTankLabel", "EscapeSpawnTanksLabel", "SpecialRespawnIntervalLabel", "SustainPeakMaxTimeLabel", "SustainPeakMinTimeLabel", "BileMobSizeLabel", "BoomerLimitLabel", "ChargerLimitLabel", "CommonLimitLabel", "DominatorLimitLabel", "HunterLimitLabel", "JockeyLimitLabel", "MaxSpecialsLabel", "MegaMobSizeLabel", "MobMaxPendingLabel", "MobMaxSizeLabel", "MobMinSizeLabel", "MobSpawnSizeLabel", "SmokerLimitLabel", "SpitterLimitLabel", "TankLimitLabel", "WitchLimitLabel", "HordeEscapeCommonLimitLabel" };
-    public static List<string> OffcialMapStandardRescueList = new() { "c2m5_concert_finale.nut", "c3m4_plantation_finale.nut", "c4m5_milltown_escape_finale.nut", "c8m5_rooftop_finale.nut", "c9m2_lots_finale.nut", "c10m5_houseboat_finale.nut", "c11m5_runway_finale.nut", "c12m5_cornfield_finale.nut" };
-    public static List<string> OffcialMapScavengeRescueList = new() { "c1m4_atrium_finale.nut", "c1m4_delay.nut", "c6m3_port_finale.nut", "c14m2_lighthouse_finale.nut" };
-    public static List<string> OffcialMapGauntletRescueList = new() { "director_gauntlet.nut" };
-    public static List<string> OffcialMapSacrificeRescueList = new() { "c7m3_port_finale.nut" };
-    public static List<string> OffcialMapOnslaughtList = new() { "c1m1_reserved_wanderers.nut", "c1_gunshop_onslaught.nut", "c1_gunshop_quiet.nut", "c1_mall_ambient.nut", "c1_mall_crescendo.nut", "c1_mall_crescendo_cooldown.nut", "c1_mall_crescendo_wave.nut", "c1_mall_onslaught.nut", "c1_streets_ambush.nut", "c2m1_no_bosses.nut", "c2m1_reserved_wanderers.nut", "c2m4_barns_onslaught.nut", "c2m4_barns_onslaught2.nut", "c2m4_finale_onslaught.nut", "c2m4_finale_quiet.nut", "c2_coaster_onslaught.nut", "c2_fairgrounds_onslaught.nut", "c2_highway_ambush.nut", "c3m1_barge.nut", "c3m1_fog_spawn.nut", "c3m1_nothreat.nut", "c3m1_swamp_fog_spawn.nut", "c3m2_fog_spawn.nut", "c3m2_mob_from_front.nut", "c3m4_nothreat.nut", "c4m4_fog_spawn.nut", "c5m1_nothreat.nut", "c5m2_mob_from_front.nut", "c6m1_riverbank.nut", "c6m2_minifinale.nut", "c7m2_barge.nut", "c8m1_apartment.nut", "c8m3_sewers.nut", "c8m5_rooftop.nut", "c9m1_nobosses.nut", "c10m1_no_bosses.nut", "c10m4_onslaught.nut", "c11m1_no_bosses.nut", "c11m4_minifinale.nut", "c11m4_minifinale_pt2.nut", "c11m4_onslaught.nut", "c11m4_reserved_wanderers.nut", "c12m1_no_bosses.nut", "c12m3_onslaught.nut", "c12m4_onslaught.nut", "c12m4_reserved_wanderers.nut", "c12m5_panic.nut", "c13m4_tankdistance.nut", "c14_junkyard_cooldown.nut", "c14_junkyard_crane.nut", "director_c4_storm.nut", "director_onslaught.nut", "director_quiet.nut" };
-    public static List<int> TankIndexList = new() { 6, 14, 22, 32 };
+    public static readonly List<string> StageTypeList = new() { "尸潮/波", "Tank/个", "延迟/秒", "脚本" };
+    public static readonly List<string> RescueTypeList = new() { "防守救援", "灌油救援", "跑图救援", "牺牲救援", "尸潮脚本" };
+    public static readonly List<string> PreferredMobDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
+    public static readonly List<string> PreferredSpecialDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_SPECIALS_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_SPECIALS_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
+    public static readonly List<string> DisallowThreatTypeList = new() { string.Empty, "ZOMBIE_TANK", "ZOMBIE_WITCH" };
+    public static readonly List<string> StandardDictBlackList = new() { "TotalWave", "MSG", "ShowStage", "TriggerEscapeStage", "info_director", "trigger_finale", "ScriptFile"};
+    public static readonly List<string> ScavengeDictBlackList = new() { "MSG", "ShowProgress", "info_director", "trigger_finale", "DelayScript", "GasCansNeeded", "DelayMin", "DelayMax", "DelayPouredThreshold", "DelayPouredOrTouchedThreshold", "AbortDelayMin", "AbortDelayMax", "GasCansDividend" };
+    public static readonly List<string> GauntletDictBlackList = new() { "MSG", "info_director", "trigger_finale" };
+    public static readonly List<string> SacrificeDictBlackList = new() { "MSG", "info_director", "trigger_finale" };
+    public static readonly List<string> OnslaughtBlackList = new() { "MSG", "PlayMegaMobWarningSounds", "ResetMobTimer", "ResetSpecialTimers" };
+    public static readonly List<string> StandardObjectList = new() { "SaveAsNutButton", "PasteToClipboardButton", "MSGCheckBox", "TotalWaveLabel", "TotalWaveButton", "TotalWaveTextBox", "ShowStageCheckBox", "SaveAsVmfButton", "CompileVmfButton", "LockTempoCheckBox", "BuildUpMinIntervalTextBox", "IntensityRelaxThresholdTextBox", "MobRechargeRateTextBox", "MobSpawnMaxTimeTextBox", "MobSpawnMinTimeTextBox", "MusicDynamicMobScanStopSizeTextBox", "MusicDynamicMobSpawnSizeTextBox", "MusicDynamicMobStopSizeTextBox", "PreferredMobDirectionComboBox", "RelaxMaxFlowTravelTextBox", "RelaxMaxIntervalTextBox", "RelaxMinIntervalTextBox", "MinimumStageTimeTextBox", "PreferredSpecialDirectionComboBox", "ProhibitBossesCheckBox", "ShouldAllowMobsWithTankCheckBox", "ShouldAllowSpecialsWithTankCheckBox", "EscapeSpawnTanksCheckBox", "SpecialRespawnIntervalTextBox", "SustainPeakMaxTimeTextBox", "SustainPeakMinTimeTextBox", "BileMobSizeTextBox", "BoomerLimitTextBox", "ChargerLimitTextBox", "CommonLimitTextBox", "DominatorLimitTextBox", "HunterLimitTextBox", "JockeyLimitTextBox", "MaxSpecialsTextBox", "MegaMobSizeTextBox", "MobMaxPendingTextBox", "MobMaxSizeTextBox", "MobMinSizeTextBox", "MobSpawnSizeTextBox", "SmokerLimitTextBox", "SpitterLimitTextBox", "TankLimitTextBox", "WitchLimitTextBox", "HordeEscapeCommonLimitTextBox", "LockTempoLabel", "BuildUpMinIntervalLabel", "IntensityRelaxThresholdLabel", "MobRechargeRateLabel", "MobSpawnMaxTimeLabel", "MobSpawnMinTimeLabel", "MusicDynamicMobScanStopSizeLabel", "MusicDynamicMobSpawnSizeLabel", "MusicDynamicMobStopSizeLabel", "PreferredMobDirectionLabel", "RelaxMaxFlowTravelLabel", "RelaxMaxIntervalLabel", "RelaxMinIntervalLabel", "MinimumStageTimeLabel", "PreferredSpecialDirectionLabel", "ProhibitBossesLabel", "ShouldAllowMobsWithTankLabel", "ShouldAllowSpecialsWithTankLabel", "EscapeSpawnTanksLabel", "SpecialRespawnIntervalLabel", "SustainPeakMaxTimeLabel", "SustainPeakMinTimeLabel", "BileMobSizeLabel", "BoomerLimitLabel", "ChargerLimitLabel", "CommonLimitLabel", "DominatorLimitLabel", "HunterLimitLabel", "JockeyLimitLabel", "MaxSpecialsLabel", "MegaMobSizeLabel", "MobMaxPendingLabel", "MobMaxSizeLabel", "MobMinSizeLabel", "MobSpawnSizeLabel", "SmokerLimitLabel", "SpitterLimitLabel", "TankLimitLabel", "WitchLimitLabel", "HordeEscapeCommonLimitLabel" };
+    public static readonly List<string> OffcialMapStandardRescueList = new() { "c2m5_concert_finale.nut", "c3m4_plantation_finale.nut", "c4m5_milltown_escape_finale.nut", "c8m5_rooftop_finale.nut", "c9m2_lots_finale.nut", "c10m5_houseboat_finale.nut", "c11m5_runway_finale.nut", "c12m5_cornfield_finale.nut" };
+    public static readonly List<string> OffcialMapScavengeRescueList = new() { "c1m4_atrium_finale.nut", "c1m4_delay.nut", "c6m3_port_finale.nut", "c14m2_lighthouse_finale.nut" };
+    public static readonly List<string> OffcialMapGauntletRescueList = new() { "director_gauntlet.nut" };
+    public static readonly List<string> OffcialMapSacrificeRescueList = new() { "c7m3_port_finale.nut" };
+    public static readonly List<string> OffcialMapOnslaughtList = new() { "c1m1_reserved_wanderers.nut", "c1_gunshop_onslaught.nut", "c1_gunshop_quiet.nut", "c1_mall_ambient.nut", "c1_mall_crescendo.nut", "c1_mall_crescendo_cooldown.nut", "c1_mall_crescendo_wave.nut", "c1_mall_onslaught.nut", "c1_streets_ambush.nut", "c2m1_no_bosses.nut", "c2m1_reserved_wanderers.nut", "c2m4_barns_onslaught.nut", "c2m4_barns_onslaught2.nut", "c2m4_finale_onslaught.nut", "c2m4_finale_quiet.nut", "c2_coaster_onslaught.nut", "c2_fairgrounds_onslaught.nut", "c2_highway_ambush.nut", "c3m1_barge.nut", "c3m1_fog_spawn.nut", "c3m1_nothreat.nut", "c3m1_swamp_fog_spawn.nut", "c3m2_fog_spawn.nut", "c3m2_mob_from_front.nut", "c3m4_nothreat.nut", "c4m4_fog_spawn.nut", "c5m1_nothreat.nut", "c5m2_mob_from_front.nut", "c6m1_riverbank.nut", "c6m2_minifinale.nut", "c7m2_barge.nut", "c8m1_apartment.nut", "c8m3_sewers.nut", "c8m5_rooftop.nut", "c9m1_nobosses.nut", "c10m1_no_bosses.nut", "c10m4_onslaught.nut", "c11m1_no_bosses.nut", "c11m4_minifinale.nut", "c11m4_minifinale_pt2.nut", "c11m4_onslaught.nut", "c11m4_reserved_wanderers.nut", "c12m1_no_bosses.nut", "c12m3_onslaught.nut", "c12m4_onslaught.nut", "c12m4_reserved_wanderers.nut", "c12m5_panic.nut", "c13m4_tankdistance.nut", "c14_junkyard_cooldown.nut", "c14_junkyard_crane.nut", "director_c4_storm.nut", "director_onslaught.nut", "director_quiet.nut" };
+    public static readonly List<int> TankIndexList = new() { 6, 14, 22, 32 };
 
-    public static string L4D2RootPath = SteamApps.AppInstallDir(L4D2AppID);
-    public static string L4D2TempPath = Path.GetTempPath();
-    public static string L4D2GameInfoPath = L4D2RootPath + "\\left4dead2";
-    public static string L4D2StandardFinalePath = Path.GetTempPath() + "standard_finale";
-    public static string L4D2ScavengeFinalePath = Path.GetTempPath() + "scavenge_finale";
-    public static string L4D2GauntletFinalePath = Path.GetTempPath() + "gauntlet_finale";
-    public static string L4D2SacrificeFinalePath = Path.GetTempPath() + "sacrifice_finale";
-    public static string L4D2VVISPath = L4D2RootPath + "\\bin\\vvis.exe";
-    public static string L4D2VBSPPath = L4D2RootPath + "\\bin\\vbsp.exe";
-    public static string L4D2VRADPath = L4D2RootPath + "\\bin\\vrad.exe";
-    public static string L4D2MapsPath = L4D2RootPath + "\\left4dead2\\maps";
-    public static string L4D2ScriptsPath = L4D2RootPath + "\\left4dead2\\scripts\\vscripts";
+    public static readonly string L4D2RootPath = SteamApps.AppInstallDir(L4D2AppID);
+    public static readonly string L4D2TempPath = Path.GetTempPath();
+    public static readonly string L4D2GameInfoPath = L4D2RootPath + "\\left4dead2";
+    public static readonly string L4D2StandardFinalePath = Path.GetTempPath() + "standard_finale";
+    public static readonly string L4D2ScavengeFinalePath = Path.GetTempPath() + "scavenge_finale";
+    public static readonly string L4D2GauntletFinalePath = Path.GetTempPath() + "gauntlet_finale";
+    public static readonly string L4D2SacrificeFinalePath = Path.GetTempPath() + "sacrifice_finale";
+    public static readonly string L4D2VVISPath = L4D2RootPath + "\\bin\\vvis.exe";
+    public static readonly string L4D2VBSPPath = L4D2RootPath + "\\bin\\vbsp.exe";
+    public static readonly string L4D2VRADPath = L4D2RootPath + "\\bin\\vrad.exe";
+    public static readonly string L4D2MapsPath = L4D2RootPath + "\\left4dead2\\maps";
+    public static readonly string L4D2ScriptsPath = L4D2RootPath + "\\left4dead2\\scripts\\vscripts";
 
     public static int TextBoxIndex(string name)
     {
@@ -46,8 +48,8 @@ public static class Globals
         {
             "TotalWave" => 0,
             "IntensityRelaxThreshold" => 1,
-            "BuildUpMinInterval" or "MobRechargeRate" or "MobSpawnMaxTime" or "MobSpawnMinTime" or "RelaxMaxFlowTravel" or "RelaxMaxInterval" or "RelaxMinInterval" or "SpecialRespawnInterval" or "SustainPeakMaxTime" or "SustainPeakMinTime" or "MinimumStageTime" or "CustomTankKiteDistance" or "GauntletMovementThreshold" or "GauntletMovementTimerLength" or "GauntletMovementBonus" or "GauntletMovementBonusMax" => 2,
-            "MusicDynamicMobScanStopSize" or "MusicDynamicMobSpawnSize" or "MusicDynamicMobStopSize" or "BileMobSize" or "MegaMobSize" or "MobMaxSize" or "MobMinSize" or "MobSpawnSize" or "BoomerLimit" or "ChargerLimit" or "CommonLimit" or "DominatorLimit" or "HunterLimit" or "JockeyLimit" or "MaxSpecials" or "SmokerLimit" or "SpitterLimit" or "PreTankMobMax" => 3,
+            "BuildUpMinInterval" or "MobRechargeRate" or "MobSpawnMaxTime" or "MobSpawnMinTime" or "RelaxMaxFlowTravel" or "RelaxMaxInterval" or "RelaxMinInterval" or "SpecialRespawnInterval" or "SustainPeakMaxTime" or "SustainPeakMinTime" or "MinimumStageTime" or "ZombieSpawnRange" or "CustomTankKiteDistance" or "GauntletMovementThreshold" or "GauntletMovementTimerLength" or "GauntletMovementBonus" or "GauntletMovementBonusMax" => 2,
+            "MusicDynamicMobScanStopSize" or "MusicDynamicMobSpawnSize" or "MusicDynamicMobStopSize" or "NumReservedWanderers" or "BileMobSize" or "MegaMobSize" or "MobMaxSize" or "MobMinSize" or "MobSpawnSize" or "BoomerLimit" or "ChargerLimit" or "CommonLimit" or "DominatorLimit" or "HunterLimit" or "JockeyLimit" or "MaxSpecials" or "SmokerLimit" or "SpitterLimit" or "PreTankMobMax" => 3,
             "MobMaxPending" or "TankLimit" or "WitchLimit" or "HordeEscapeCommonLimit" => 4,
             "info_director" or "trigger_finale" or "ScriptFile" or "DelayScript" => 5,
             "GasCansNeeded" or "DelayMin" or "DelayMax" or "DelayPouredThreshold" or "DelayPouredOrTouchedThreshold" or "AbortDelayMin" or "AbortDelayMax" or "GasCansDividend" or "BridgeSpan" or "MinSpeed" or "MaxSpeed" or "SpeedPenaltyZAdds" or "CommonLimitMax" => 6,
@@ -59,28 +61,33 @@ public static class Globals
     {
         return name switch
         {
-            "BuildUpMinInterval" => "BuildUpMinInterval的值代表节奏中BUILD_UP最短持续秒数。\n\n有效范围为非负整数。\n\n默认值为15。",
-            "IntensityRelaxThreshold" => "IntensityRelaxThreshold的值代表所有生还者的紧张度都必须小于多少才能让节奏从SUSTAIN_PEAK切换为RELAX。\n\n有效范围为0-1的浮点数。\n\n默认值为0.9。",
+            "AlwaysAllowWanderers" => "设置AlwaysAllowWanderers为true会始终允许游荡的普通感染者生成。\n\n默认值为false。",
             "LockTempo" => "设置LockTempo为true会使得导演无延迟地生成尸潮。\n\n默认值为false。",
+            "BuildUpMinInterval" => "BuildUpMinInterval的值代表节奏BUILD_UP中最短持续秒数。\n\n有效范围为非负整数。\n\n默认值为15。",
+            "IntensityRelaxThreshold" => "IntensityRelaxThreshold的值代表所有生还者的紧张度都必须小于多少才能让节奏从SUSTAIN_PEAK切换为RELAX。\n\n有效范围为0-1的浮点数。\n\n默认值为0.9。",
             "MobRechargeRate" => "MobRechargeRate的值代表一次尸潮内生成下一个普通感染者的速度。\n\n有效范围为非负浮点数。\n\n默认值为0.0025。",
             "MobSpawnMaxTime" => "MobSpawnMaxTime的值代表两波尸潮生成的最大时间隔秒数。\n\n有效范围为非负浮点数。\n\n默认值根据难度变化，为180.0-240.0。",
             "MobSpawnMinTime" => "MobSpawnMinTime的值代表两波尸潮生成的最小时间隔秒数。\n\n有效范围为非负浮点数。\n\n默认值根据难度变化，为90.0-120.0。",
             "MusicDynamicMobScanStopSize" => "MusicDynamicMobScanStopSize的值代表尸潮的大小不足此数时会停止背景音乐。\n\n有效范围为非负整数。\n\n默认值为3。",
             "MusicDynamicMobSpawnSize" => "MusicDynamicMobSpawnSize的值代表尸潮的大小达到此数时会开始播放背景音乐。\n\n有效范围为非负整数。\n\n默认值为25。",
             "MusicDynamicMobStopSize" => "MusicDynamicMobStopSize的值代表尸潮的大小达到此数时会停止背景音乐。\n\n有效范围为非负整数。\n\n默认值为8。",
+            "NumReservedWanderers" => "NumReservedWanderers的值代表游荡的普通感染者在尸潮生成时仍然保留的数量。\n\n有效范围为非负整数。\n\n默认值为0。",
             "PreferredMobDirection" => "PreferredMobDirection的值代表尸潮生成的方位。\n\n有效范围为-1到10的整数。\n\n默认值为SPAWN_NO_PREFERENCE。",
             "PreferredSpecialDirection" => "PreferredSpecialDirection的值代表特感生成的方位。\n\n有效范围为-1到10的整数。\n\n默认值为SPAWN_NO_PREFERENCE。",
             "RelaxMaxFlowTravel" => "RelaxMaxFlowTravel的值代表生还者最远能前进多少距离就会让节奏从RELAX切换到BUILD_UP。\n\n有效范围为非负浮点数。\n\n默认值为3000。",
-            "RelaxMaxInterval" => "RelaxMaxInterval的值代表节奏中RELAX最长持续秒数。\n\n有效范围为非负浮点数。\n\n默认值为45。",
-            "RelaxMinInterval" => "RelaxMinInterval的值代表节奏中RELAX最短持续秒数。\n\n有效范围为非负浮点数。\n\n默认值为30。",
+            "RelaxMaxInterval" => "RelaxMaxInterval的值代表节奏RELAX中最长持续秒数。\n\n有效范围为非负浮点数。\n\n默认值为45。",
+            "RelaxMinInterval" => "RelaxMinInterval的值代表节奏RELAX中最短持续秒数。\n\n有效范围为非负浮点数。\n\n默认值为30。",
+            "SustainPeakMaxTime" => "SustainPeakMaxTime的值代表节奏SUSTAIN_PEAK中的最长持续分钟数。\n\n有效范围为非负浮点数。\n\n默认值为5。",
+            "SustainPeakMinTime" => "SustainPeakMinTime的值代表节奏SUSTAIN_PEAK中的最短持续分钟数。\n\n有效范围为非负浮点数。\n\n默认值为3。",
+            "ZombieSpawnInFog" => "设置ZombieSpawnInFog为true会允许感染者从生还者视线下的雾中生成。\n\n默认值为false。",
+            "ZombieSpawnRange" => "ZombieSpawnRange的值代表感染者距离生还者生成的最远距离。\n\n有效范围为非负浮点数。\n\n默认值为1500.0。",
             "MinimumStageTime" => "MinimumStageTime的值代表救援的脚本阶段在结束前最少可持续运行秒数。\n\n对脚本尸潮无效。\n\n有效范围为非负浮点数。\n\n默认值为1.0。",
+            "DisallowThreatType" => "DisallowThreatType的值代表禁止在标记有THREAT的Nav区块上生成的特殊感染者种类。\n\n有效范围为7或8。\n\n无默认值。",
             "ProhibitBosses" => "设置ProhibitBosses为true会防止Tank和Witch生成。\n\n默认值为false。",
             "ShouldAllowMobsWithTank" => "设置ShouldAllowMobsWithTank为true会允许在Tank在场时生成小僵尸。\n\nBoomer和胆汁炸弹引起的尸潮不受影响。\n\n仅适用于战役模式。\n\n默认值为false。",
             "ShouldAllowSpecialsWithTank" => "设置ShouldAllowSpecialsWithTank为true会允许在Tank在场时生成特殊感染者。\n\n仅适用于战役模式。\n\n默认值为false。",
             "EscapeSpawnTanks" => "设置EscapeSpawnTanks为true会允许Tank在救援的逃离阶段无限生成。\n\n默认值为true。",
             "SpecialRespawnInterval" => "SpecialRespawnInterval的值代表特殊感染者重生所需要的秒数。\n\n有效范围为非负浮点数。\n\n默认值为：战役模式为45，对抗模式为20。",
-            "SustainPeakMaxTime" => "SustainPeakMaxTime的值代表节奏中SUSTAIN_PEAK的最长持续分钟数。\n\n有效范围为非负浮点数。\n\n默认值为5。",
-            "SustainPeakMinTime" => "SustainPeakMinTime的值代表节奏中SUSTAIN_PEAK的最短持续分钟数。\n\n有效范围为非负浮点数。\n\n默认值为3。",
             "BileMobSize" => "BileMobSize的值代表Boomer和胆汁炸弹引起的普通感染者数量最大值。\n\n有效范围为非负整数。\n\n无默认值。",
             "BoomerLimit" => "BoomerLimit的值代表在场的Boomer最大数量。\n\n有效范围为非负整数。\n\n默认值为1。",
             "ChargerLimit" => "ChargerLimit的值代表在场的Charger最大数量。\n\n有效范围为非负整数。\n\n默认值为1。",
@@ -115,6 +122,9 @@ public static class Globals
             "GauntletMovementBonusMax" => "GauntletMovementBonusMax的值代表前进奖励能达到的最大值。\n\n有效范围为非负浮点数。\n\n默认值为30.0。",
             "CustomTankKiteDistance" => "CustomTankKiteDistance的值代表跑图救援中进入GAUNTLET_BOSS_INCOMING阶段强制生成Tank前生还者最远能前进的Nav流距离。\n\n有效范围为非负浮点数。\n\n默认值为3000.0。",
             "PreTankMobMax" => "PreTankMobMax的值代表跑图救援中进入GAUNTLET_BOSS_INCOMING阶段时普通感染者的数量上限。\n\n有效范围为非负整数。\n\n默认值为50。",
+            "PlayMegaMobWarningSounds" => "设置PlayMegaMobWarningSounds为true会使得导演播放尸潮来临的音效并且使生还者说出尸潮来临的台词。",
+            "ResetMobTimer" => "设置ResetMobTimer为true会使得导演在节奏BUILD_UP中尽快生成一波尸潮。",
+            "ResetSpecialTimers" => "设置ResetSpecialTimers为true会使得导演重置特殊感染者的生成计时器(包括种类和栏位)以便于特殊感染者尽快生成。",
             "BridgeSpan" => "BridgeSpan是个自定义变量。在动态更新普通感染者数量上限时用来计算生还者前进的总距离百分比。\n\n有效范围为非负整数。\n\n默认值为20000。",
             "MinSpeed" => "MinSpeed是个自定义变量。在动态更新普通感染者数量上限时用来计算生还者前进的速度百分比。\n\n有效范围为非负整数。\n\n默认值为50。",
             "MaxSpeed" => "MaxSpeed是个自定义变量。在动态更新普通感染者数量上限时用来计算生还者前进的速度百分比。\n\n有效范围为非负整数。\n\n默认值为200。",
@@ -139,6 +149,7 @@ public static class Globals
             "GasCansNeeded" or "DelayPouredThreshold" or "DelayPouredOrTouchedThreshold" or "GasCansDividend" => "https://developer.valvesoftware.com/wiki/Weapon_scavenge_item_spawn",
             "DelayMin" or "DelayMax" or "AbortDelayMin" or "AbortDelayMax" => "https://developer.valvesoftware.com/wiki/Logic_timer",
             "CustomTankKiteDistance" or "GauntletMovementThreshold" or "GauntletMovementTimerLength" or "GauntletMovementBonus" or "GauntletMovementBonusMax" => "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#Gauntlet_Specific/Related",
+            "PlayMegaMobWarningSounds" or "ResetMobTimer" or "ResetSpecialTimers" => "https://developer.valvesoftware.com/wiki/Left_4_Dead_2/Script_Functions#CDirector",
             _ => "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions",
         };
     }

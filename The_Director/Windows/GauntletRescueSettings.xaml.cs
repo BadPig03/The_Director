@@ -60,6 +60,7 @@ namespace The_Director.Windows
             GauntletDict.Add("SpeedPenaltyZAdds", new BooleanString(false, string.Empty));
             GauntletDict.Add("CommonLimitMax", new BooleanString(false, string.Empty));
             GauntletDict.Add("LockTempo", new BooleanString(false, null));
+            GauntletDict.Add("BuildUpMinInterval", new BooleanString(true, string.Empty));
             GauntletDict.Add("IntensityRelaxThreshold", new BooleanString(false, string.Empty));
             GauntletDict.Add("MobRechargeRate", new BooleanString(false, string.Empty));
             GauntletDict.Add("MobSpawnMaxTime", new BooleanString(false, string.Empty));
