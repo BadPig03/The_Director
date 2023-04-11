@@ -22,7 +22,7 @@ public static class Functions
         }
 
         return result;
-    } 
+    }
 
     public static bool IsProperInt(string value, int min, int max)
     {
@@ -140,10 +140,10 @@ public static class Functions
         var Title = string.Empty;
         var TextBoxString = string.Empty;
 
-        if(!flag)
+        if (!flag)
         {
             switch (type)
-            { 
+            {
                 case -1:
                     Title = "错误";
                     TextBoxString = "未运行Steam!\n请运行Steam后启动本软件!";
@@ -184,6 +184,10 @@ public static class Functions
                     Title = "错误";
                     TextBoxString = "导出时出错!";
                     break;
+                case 9:
+                    Title = "提示";
+                    TextBoxString = "脚本文件处理完成!";
+                    break;
                 default:
                     break;
             }
@@ -206,7 +210,7 @@ public static class Functions
 
     public static bool TryOpenCompileWindow(int num)
     {
-        CompileWindow compileWindow = new ()
+        CompileWindow compileWindow = new()
         {
             Num = num,
             Owner = Application.Current.MainWindow,
@@ -233,7 +237,7 @@ public static class Functions
     public static void RunL4D2Game(int type)
     {
         string command = type switch
-        { 
+        {
             0 => "-steam -novid +sv_cheats 1 +director_debug 1 +map standard_finale",
             1 => "-steam -novid +sv_cheats 1 +director_debug 1 +map scavenge_finale",
             2 => "-steam -novid +sv_cheats 1 +director_debug 1 +map gauntlet_finale",
@@ -250,7 +254,7 @@ public static class Functions
         process.Close();
     }
 
-    public static void RunVice3(string file, bool encrypt = true)
+    public static bool RunVice3(string file, bool encrypt = true, string dir = "")
     {
         Process process = new();
         process.StartInfo.FileName = "cmd.exe";
@@ -262,6 +266,14 @@ public static class Functions
         process.StandardInput.AutoFlush = true;
         process.WaitForExit();
         process.Close();
+
+        if (dir != "")
+        {
+            File.Delete(dir);
+            File.Move(file.Replace(".nut", ".nuc"), dir);
+        }
+
+        return true;
     }
 
     public static string GetOffcialStandardScriptFile(int index)
@@ -462,5 +474,58 @@ public static class Functions
             TryOpenMessageWindow(8);
             return;
         }
+    }
+
+    public static void SaveTextToPath(string dir, string text)
+    {
+        try
+        {
+            using StreamWriter streamWriter = File.CreateText(dir);
+            if (dir == "")
+            {
+                return;
+            }
+            streamWriter.Write(text);
+        }
+        catch
+        {
+            TryOpenMessageWindow(8);
+            return;
+        }
+    }
+
+    public static List<FileInfo> GetAllFileInfo(DirectoryInfo dir)
+    {
+        FileInfo[] allFile = dir.GetFiles();
+        List<FileInfo> FileList = new();
+        foreach (FileInfo file in allFile)
+        {
+            FileList.Add(file);
+        }
+        DirectoryInfo[] allDir = dir.GetDirectories();
+        foreach (DirectoryInfo d in allDir)
+        {
+            GetAllFileInfo(d);
+        }
+        return FileList;
+    }
+
+    public static string FileToBase64String(string dir)
+    {
+        string data = "";
+        using (MemoryStream msReader = new())
+        {
+            using (FileStream fs = new(dir, FileMode.Open))
+            {
+                byte[] buffer = new byte[1024];
+                int readLen = 0;
+                while ((readLen = fs.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    msReader.Write(buffer, 0, readLen);
+                }
+            }
+            data = Convert.ToBase64String(msReader.ToArray());
+        }
+        return data;
     }
 }

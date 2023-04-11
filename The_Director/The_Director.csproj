@@ -160,6 +160,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\FolderPicker.cs" />
     <Compile Include="Data\NavMenu.cs" />
     <Compile Include="Utils\Functions.cs" />
     <Compile Include="Utils\Globals.cs" />

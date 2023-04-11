@@ -21,20 +21,59 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="32"/>
                         <RowDefinition Height="40"/>
+                        <RowDefinition Height="32"/>
                         <RowDefinition Height="40"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
                     <DockPanel Grid.Row="0" Grid.Column="0">
-                        <Label Margin="1,0,5,0" Content="基础操作" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                        <Label Margin="1,0,5,0" Content="基础设定" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
                         <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
                     </DockPanel>
-                    <DockPanel Grid.Row="1" Grid.Column="0">
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="90"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Name="EncryptionKeyLabel" Grid.Row="0" Grid.Column="0" Margin="0,5,5,5" Content="脚本密钥" FontSize="20" FontFamily="Dengxian"/>
+                        <TextBox Name="EncryptionKeyTextBox" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalAlignment="Stretch" FontSize="15" FontFamily="Bahnschrift" VerticalContentAlignment="Center" Text="SDhfi878" IsEnabled="False"/>
+                    </Grid>
+                    <DockPanel Grid.Row="2" Grid.Column="0">
+                        <Label Margin="1,0,5,0" Content="数个文件操作" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                        <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="3" Grid.Column="0">
                         <Label Margin="0,5,5,5" Content="加密nut文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <Button Name="EncryptButton" Margin="5,5,5,5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="EncryptClick"/>
                     </DockPanel>
-                    <DockPanel Grid.Row="2" Grid.Column="0">
+                    <DockPanel Grid.Row="4" Grid.Column="0">
                         <Label Margin="0,5,5,5" Content="解密nuc文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <Button Name="DecryptButton" Margin="5,5,5,5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="DecryptClick"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="5" Grid.Column="0">
+                        <Label Margin="1,0,5,0" Content="文件夹操作 (不含子文件夹)" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                        <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="6" Grid.Column="0">
+                        <Label Margin="0,5,5,5" Content="加密文件夹内nut" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button Name="EncryptFolderButton" Margin="5,5,5,5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="EncryptFolderClick"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="7" Grid.Column="0">
+                        <Label Margin="0,5,5,5" Content="解密文件夹内nuc" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button Name="DecryptFolderButton" Margin="5,5,5,5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="DecryptFolderClick"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="8" Grid.Column="0">
+                        <Label Margin="1,0,5,0" Content="文本框操作" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                        <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="9" Grid.Column="0">
+                        <Button Name="SaveAsNutButton" Margin="15,5,5,5" Content="保存为nut" Width="110" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="SaveAsNutClick" IsEnabled="True"/>
+                        <Button Name="SaveAsNucButton" Margin="5,5,15,5" Content="保存为nuc" Width="110" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="SaveAsNucClick" IsEnabled="True"/>
                     </DockPanel>
                 </Grid>
             </Border>
@@ -43,7 +82,7 @@
         <Label Grid.Row="0" Grid.Column="1" Margin="1,5,5,0" Content="脚本窗口" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
         <Border Margin="5" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="#7F7F7F">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <TextBox Name="ScriptWindow" FontSize="15" FontFamily="JetBrains Mono" IsReadOnly="True" BorderThickness="0"/>
+                <TextBox Name="ScriptWindow" FontSize="15" FontFamily="JetBrains Mono" BorderThickness="0"/>
             </ScrollViewer>
         </Border>
     </Grid>

@@ -154,23 +154,4 @@ public static class Globals
             _ => "https://developer.valvesoftware.com/wiki/L4D2_Director_Scripts#DirectorOptions",
         };
     }
-
-    public static void FileToBase64String()
-    {
-        string data = "";
-        using (MemoryStream msReader = new())
-        {
-            using (FileStream fs = new("", FileMode.Open))
-            {
-                byte[] buffer = new byte[1024];
-                int readLen = 0;
-                while ((readLen = fs.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    msReader.Write(buffer, 0, readLen);
-                }
-            }
-            data = Convert.ToBase64String(msReader.ToArray());
-        }
-        Debug.WriteLine(data);
-    }
 }
