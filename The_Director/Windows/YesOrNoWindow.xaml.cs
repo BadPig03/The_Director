@@ -11,6 +11,8 @@ namespace The_Director.Windows
         public delegate void _SendMessage(string value);
         public _SendMessage SendMessage;
 
+        private bool cancelClosing = true;
+
         public YesOrNoWindow()
         {
             InitializeComponent();
@@ -19,6 +21,7 @@ namespace The_Director.Windows
         private void YesButtonClick(object sender, RoutedEventArgs e)
         {
             SendMessage("Confirmed");
+            cancelClosing = false;
             DialogResult = true;
             Close();
         }
@@ -26,6 +29,7 @@ namespace The_Director.Windows
         private void NoButtonClick(object sender, RoutedEventArgs e)
         {
             SendMessage(null);
+            cancelClosing = false;
             DialogResult = true;
             Close();
         }
@@ -46,6 +50,11 @@ namespace The_Director.Windows
             {
                 NoButtonClick(null, null);
             }
+        }
+
+        private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = cancelClosing;
         }
     }
 }

@@ -13,9 +13,9 @@ namespace The_Director
     public partial class MainWindow : MetroWindow
     {
         public List<NavMenu> NavMenus { get; set; } = new();
+        public static Window MainWindowInstance { get; private set; }
 
         private readonly Dictionary<string, UserControl> NavDictionarys = new();
-        public static Window MainWindowInstance { get; private set; }
 
         public MainWindow()
         {
@@ -39,8 +39,9 @@ namespace The_Director
             DataContext = this;
             NavMenus.Add(new() { Title = "导演脚本", ViewName = "RescueScriptPage" , Index = 0 });
             NavMenus.Add(new() { Title = "脚本处理", ViewName = "ScriptProcessPage", Index = 1 });
-            NavMenus.Add(new() { Title = "软件设置", ViewName = "SettingsPage", Index = 2 });
-            NavMenus.Add(new() { Title = "关于作者", ViewName = "AboutPage", Index = 3 });
+            NavMenus.Add(new() { Title = "其他处理", ViewName = "OtherProcessPage", Index = 2 });
+            NavMenus.Add(new() { Title = "软件设置", ViewName = "SettingsPage", Index = 3 });
+            NavMenus.Add(new() { Title = "关于作者", ViewName = "AboutPage", Index = 4 });
             NavMenus.ForEach(menu =>
             {
                 var type = Type.GetType($"The_Director.Windows.{menu.ViewName}");
@@ -55,7 +56,7 @@ namespace The_Director
 
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            e.Cancel = !Globals.CanShutdown;
         }
 
         private void WindowClosed(object sender, EventArgs e)

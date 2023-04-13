@@ -25,7 +25,10 @@ namespace The_Director.Windows
                 CheckFileExists = true,
                 CheckPathExists = true
             };
-            openFileDialog.ShowDialog();
+            if (!(bool)openFileDialog.ShowDialog())
+            {
+                return;
+            }
 
             foreach (string file in openFileDialog.FileNames)
             {
@@ -43,7 +46,10 @@ namespace The_Director.Windows
                 Multiselect = true,
                 InputPath = Globals.L4D2ScriptsPath,
             };
-            folderPicker.ShowDialog();
+            if (folderPicker.ShowDialog().ToString() == string.Empty)
+            {
+                return;
+            }
 
             foreach (string path in folderPicker.ResultPaths)
             {
@@ -64,7 +70,10 @@ namespace The_Director.Windows
                 Title = "保存文件",
                 Filter = "nuc文件 (*.nuc)|*.nuc"
             };
-            saveFileDialog.ShowDialog();
+            if (!(bool)saveFileDialog.ShowDialog())
+            {
+                return;
+            }
 
             string fileDir = Globals.L4D2TempPath + saveFileDialog.ToString().Substring(saveFileDialog.ToString().LastIndexOf("\\") + 1).Replace(".nuc", ".nut");
             Functions.SaveTextToPath(fileDir, ScriptWindow.Text);
@@ -81,7 +90,10 @@ namespace The_Director.Windows
                 CheckFileExists = true,
                 CheckPathExists = true
             };
-            openFileDialog.ShowDialog();
+            if (!(bool)openFileDialog.ShowDialog())
+            {
+                return;
+            }
 
             foreach (string file in openFileDialog.FileNames)
             {
@@ -99,11 +111,14 @@ namespace The_Director.Windows
                 Multiselect = true,
                 InputPath = Globals.L4D2ScriptsPath,
             };
-            folderPicker.ShowDialog();
+            if (folderPicker.ShowDialog().ToString() == string.Empty)
+            {
+                return;
+            }
 
             foreach (string path in folderPicker.ResultPaths)
             {
-                foreach (var file in Functions.GetAllFileInfo(new System.IO.DirectoryInfo(path)))
+                foreach (var file in Functions.GetAllFileInfo(new DirectoryInfo(path)))
                 {
                     if (file.Extension == ".nuc")
                         Functions.RunVice3(file.FullName, false);
@@ -120,7 +135,10 @@ namespace The_Director.Windows
                 Title = "保存文件",
                 Filter = "nut文件 (*.nut)|*.nut"
             };
-            saveFileDialog.ShowDialog();
+            if (!(bool)saveFileDialog.ShowDialog())
+            {
+                return;
+            }
             Functions.SaveTextToPath(saveFileDialog.FileName, ScriptWindow.Text);
         }
     }

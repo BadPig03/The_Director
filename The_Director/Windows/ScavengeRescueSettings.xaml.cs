@@ -1,7 +1,11 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using The_Director.Utils;
@@ -17,6 +21,11 @@ namespace The_Director.Windows
         public Dictionary<int, string> TextBoxDicts = new();
         public Dictionary<int, int> ComboBoxDicts = new();
         public Dictionary<string, BooleanString> ScavengeDict = new();
+
+        private delegate void DelegateReadStandardOutput(string result);
+        private event DelegateReadStandardOutput ReadStandardOutput;
+        private Process process = new();
+        private CancellationTokenSource cts = new();
 
         public void MSGReceived(string value)
         {
@@ -43,6 +52,7 @@ namespace The_Director.Windows
         public ScavengeRescueSettings()
         {
             InitializeComponent();
+            ReadStandardOutput += new DelegateReadStandardOutput(ReadStandardOutputAction);
             PreferredMobDirectionComboBox.ItemsSource = Globals.PreferredMobDirectionList;
             PreferredSpecialDirectionComboBox.ItemsSource = Globals.PreferredSpecialDirectionList;
             MapSelectionComboBox.ItemsSource = Globals.OffcialMapScavengeRescueList;
@@ -468,15 +478,13 @@ namespace The_Director.Windows
 
         private void CompileVmfClick(object sender, RoutedEventArgs e)
         {
+            CompileBlocker.Visibility = Visibility.Visible;
+            CompileViewer.Visibility = Visibility.Visible;
             Functions.SaveVmfToPath($"{Globals.L4D2ScavengeFinalePath}", new List<string> { ScavengeDict["info_director"].Item2, ScavengeDict["trigger_finale"].Item2 }, 1);
             Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\scavenge_finale_finale.nut", ScriptWindow.Text);
             Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\{ScavengeDict["DelayScript"].Item2}.nut", ScriptWindowSecond.Text);
             Functions.SaveNavToPath($"{Globals.L4D2MapsPath}\\scavenge_finale.nav", 1);
-            if (Functions.TryOpenCompileWindow(1))
-            {
-                File.Copy($"{Globals.L4D2ScavengeFinalePath}.bsp", $"{Globals.L4D2MapsPath}\\scavenge_finale.bsp", true);
-                Functions.RunL4D2Game(1);
-            }
+            StartNewProcess();
         }
 
         private void PreviewOfficalScriptClick(object sender, RoutedEventArgs e)
@@ -489,6 +497,58 @@ namespace The_Director.Windows
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
             previewScriptWindow.ShowDialog();
+        }
+
+        private void ReadStandardOutputAction(string result)
+        {
+            CompileTextBox.AppendText($"{result}\r\n");
+            CompileViewer.ScrollToEnd();
+        }
+
+        private void ProcessOutputHandler(object sender, DataReceivedEventArgs e)
+        {
+            if (e.Data != null)
+            {
+                Dispatcher.Invoke(ReadStandardOutput, new object[] { e.Data });
+            }
+        }
+
+        private void ProcessExited(object sender, EventArgs e)
+        {
+            cts.Cancel();
+        }
+
+        private async void StartNewProcess()
+        {
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            process.OutputDataReceived += new DataReceivedEventHandler(ProcessOutputHandler);
+            process.EnableRaisingEvents = true;
+            process.Exited += new EventHandler(ProcessExited);
+            process.Start();
+            process.BeginOutputReadLine();
+            process.StandardInput.WriteLine(Functions.GetProcessInput(1));
+            process.StandardInput.AutoFlush = true;
+            try
+            {
+                await Task.Delay(new TimeSpan(24, 0, 0), cts.Token);
+            }
+            catch (TaskCanceledException)
+            {
+                cts.Dispose();
+                cts = new CancellationTokenSource();
+                process.Dispose();
+                process = new Process();
+            }
+            CompileTextBox.Text = string.Empty;
+            CompileBlocker.Visibility = Visibility.Hidden;
+            CompileViewer.Visibility = Visibility.Hidden;
+            File.Copy($"{Globals.L4D2ScavengeFinalePath}.bsp", $"{Globals.L4D2MapsPath}\\scavenge_finale.bsp", true);
+            Functions.RunL4D2Game(1);
         }
     }
 }

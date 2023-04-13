@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using The_Director.Windows;
@@ -10,6 +11,38 @@ namespace The_Director.Utils;
 
 public static class Functions
 {
+    public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+    {
+        DirectoryInfo dir = new(sourceDirName);
+
+        if (!dir.Exists)
+        {
+            throw new DirectoryNotFoundException("Source directory does not exist or could not be found:"+ sourceDirName);
+        }
+
+        DirectoryInfo[] dirs = dir.GetDirectories();
+        if (!Directory.Exists(destDirName))
+        {
+            Directory.CreateDirectory(destDirName);
+        }
+
+        FileInfo[] files = dir.GetFiles();
+        foreach (FileInfo file in files)
+        {
+            string temppath = Path.Combine(destDirName, file.Name);
+            file.CopyTo(temppath, false);
+        }
+
+        if (copySubDirs)
+        {
+            foreach (DirectoryInfo subdir in dirs)
+            {
+                string temppath = Path.Combine(destDirName, subdir.Name);
+                DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+            }
+        }
+    }
+
     public static string GetRandomString()
     {
         byte[] b = new byte[4];
@@ -208,20 +241,10 @@ public static class Functions
         messageWindow.ShowDialog();
     }
 
-    public static bool TryOpenCompileWindow(int num)
-    {
-        CompileWindow compileWindow = new()
-        {
-            Num = num,
-            Owner = Application.Current.MainWindow,
-            WindowStartupLocation = WindowStartupLocation.CenterOwner
-        };
-        compileWindow.ShowDialog();
-        return true;
-    }
-
     public static string GetProcessInput(int num)
     {
+        Globals.CanShutdown = false;
+
         string path = num switch
         {
             0 => Globals.L4D2StandardFinalePath,
@@ -236,12 +259,15 @@ public static class Functions
 
     public static void RunL4D2Game(int type)
     {
+        Globals.CanShutdown = true;
+
         string command = type switch
         {
             0 => "-steam -novid +sv_cheats 1 +director_debug 1 +map standard_finale",
             1 => "-steam -novid +sv_cheats 1 +director_debug 1 +map scavenge_finale",
             2 => "-steam -novid +sv_cheats 1 +director_debug 1 +map gauntlet_finale",
             3 => "-steam -novid +sv_cheats 1 +director_debug 1 +map sacrifice_finale",
+            4 => $"-steam -novid +snd_buildsoundcachefordirectory {Globals.L4D2CustomAudioPath}",
             _ => string.Empty
         };
 

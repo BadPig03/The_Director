@@ -169,9 +169,6 @@
     <Compile Include="Windows\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\CompileWindow.xaml.cs">
-      <DependentUpon>CompileWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\GauntletRescueSettings.xaml.cs">
       <DependentUpon>GauntletRescueSettings.xaml</DependentUpon>
     </Compile>
@@ -183,6 +180,9 @@
     </Compile>
     <Compile Include="Windows\OnslaughtSettings.xaml.cs">
       <DependentUpon>OnslaughtSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\OtherProcessPage.xaml.cs">
+      <DependentUpon>OtherProcessPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\PreviewScriptWindow.xaml.cs">
       <DependentUpon>PreviewScriptWindow.xaml</DependentUpon>
@@ -205,10 +205,6 @@
     <Compile Include="Windows\YesOrNoWindow.xaml.cs">
       <DependentUpon>YesOrNoWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Windows\CompileWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\GauntletRescueSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -226,6 +222,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\OnslaughtSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\OtherProcessPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,6 +14,10 @@
             <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Rectangle Name="CompileBlocker" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Fill="White" Panel.ZIndex="1" Visibility="Hidden"/>
+        <ScrollViewer Name="CompileViewer" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Panel.ZIndex="2" Visibility="Hidden">
+            <TextBox Name="CompileTextBox" FontSize="15" FontFamily="JetBrains Mono" IsReadOnly="True" BorderThickness="0"/>
+        </ScrollViewer>
         <DockPanel Grid.Row="0" Grid.Column="2">
             <Button Name="SaveAsNutButton" Margin="5,5,5,0" Content="导出脚本文件" Width="90" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="SaveAsNutClick"/>
             <Button Name="PasteToClipboardButton" Margin="5,5,5,0" Content="复制到粘贴板" Width="90" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="PasteToClipboardClick"/>

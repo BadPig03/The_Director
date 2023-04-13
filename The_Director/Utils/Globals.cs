@@ -32,6 +32,7 @@ public static class Globals
     public static readonly string L4D2RootPath = SteamApps.AppInstallDir(L4D2AppID);
     public static readonly string L4D2TempPath = Path.GetTempPath();
     public static readonly string L4D2GameInfoPath = L4D2RootPath + "\\left4dead2";
+    public static readonly string L4D2CustomAudioPath = L4D2TempPath + "sound";
     public static readonly string L4D2StandardFinalePath = L4D2TempPath + "standard_finale";
     public static readonly string L4D2ScavengeFinalePath = L4D2TempPath + "scavenge_finale";
     public static readonly string L4D2GauntletFinalePath = L4D2TempPath + "gauntlet_finale";
@@ -42,6 +43,8 @@ public static class Globals
     public static readonly string L4D2VRADPath = L4D2RootPath + "\\bin\\vrad.exe";
     public static readonly string L4D2MapsPath = L4D2RootPath + "\\left4dead2\\maps";
     public static readonly string L4D2ScriptsPath = L4D2RootPath + "\\left4dead2\\scripts\\vscripts";
+
+    public static bool CanShutdown = true;
 
     public static int TextBoxIndex(string name)
     {

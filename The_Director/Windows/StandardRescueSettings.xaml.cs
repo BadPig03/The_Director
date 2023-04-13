@@ -1,7 +1,11 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using The_Director.Utils;
@@ -10,16 +14,21 @@ namespace The_Director.Windows
 {
     public partial class StandardRescueSettings : UserControl
     {
-        public int? TotalWaveCount = null;
-        public bool IsTotalWaveConfirmed = new();
-        public bool IsNutConfirmed = new();
-        public bool IsNavConfirmed = new();
-        public bool? IsScriptWindowEnabled = new();
+        private int? TotalWaveCount = null;
+        private bool IsTotalWaveConfirmed = new();
+        private bool IsNutConfirmed = new();
+        private bool IsNavConfirmed = new();
+        private bool? IsScriptWindowEnabled = new();
 
-        public Dictionary<string, string> TotalWaveDicts = new();
-        public Dictionary<int, string> TextBoxDicts = new();
-        public Dictionary<int, int> ComboBoxDicts = new();
-        public Dictionary<string, BooleanString> StandardDict = new();
+        private Dictionary<string, string> TotalWaveDicts = new();
+        private Dictionary<int, string> TextBoxDicts = new();
+        private Dictionary<int, int> ComboBoxDicts = new();
+        private Dictionary<string, BooleanString> StandardDict = new();
+
+        private delegate void DelegateReadStandardOutput(string result);
+        private event DelegateReadStandardOutput ReadStandardOutput;
+        private Process process = new();
+        private CancellationTokenSource cts = new();
 
         public void MSGReceived(string value)
         {
@@ -59,6 +68,7 @@ namespace The_Director.Windows
         public StandardRescueSettings()
         {
             InitializeComponent();
+            ReadStandardOutput += new DelegateReadStandardOutput(ReadStandardOutputAction);
             PreferredMobDirectionComboBox.ItemsSource = Globals.PreferredMobDirectionList;
             PreferredSpecialDirectionComboBox.ItemsSource = Globals.PreferredSpecialDirectionList;
             MapSelectionComboBox.ItemsSource = Globals.OffcialMapStandardRescueList;
@@ -69,7 +79,7 @@ namespace The_Director.Windows
             StandardDict.Add("trigger_finale", new BooleanString(false, string.Empty));
             StandardDict.Add("ScriptFile", new BooleanString(false, string.Empty));
             StandardDict.Add("LockTempo", new BooleanString(false, null));
-            StandardDict.Add("BuildUpMinInterval", new BooleanString(true, string.Empty));
+            StandardDict.Add("BuildUpMinInterval", new BooleanString(false, string.Empty));
             StandardDict.Add("IntensityRelaxThreshold", new BooleanString(false, string.Empty));
             StandardDict.Add("MobRechargeRate", new BooleanString(false, string.Empty));
             StandardDict.Add("MobSpawnMaxTime", new BooleanString(false, string.Empty));
@@ -545,14 +555,12 @@ namespace The_Director.Windows
 
         private void CompileVmfClick(object sender, RoutedEventArgs e)
         {
+            CompileBlocker.Visibility = Visibility.Visible;
+            CompileViewer.Visibility = Visibility.Visible;
             Functions.SaveVmfToPath($"{Globals.L4D2StandardFinalePath}", new List<string> { StandardDict["info_director"].Item2, StandardDict["trigger_finale"].Item2, StandardDict["ScriptFile"].Item2 }, 0);
             Functions.SaveNutToPath($"{Globals.L4D2ScriptsPath}\\standard_finale.nut", ScriptWindow.Text);
             Functions.SaveNavToPath($"{Globals.L4D2MapsPath}\\standard_finale.nav", 0);
-            if (Functions.TryOpenCompileWindow(0))
-            {
-                File.Copy($"{Globals.L4D2StandardFinalePath}.bsp", $"{Globals.L4D2MapsPath}\\standard_finale.bsp", true);
-                Functions.RunL4D2Game(0);
-            }
+            StartNewProcess();
         }
 
         private void PreviewOfficalScriptClick(object sender, RoutedEventArgs e)
@@ -595,7 +603,7 @@ namespace The_Director.Windows
                 }
                 else if (itemName.EndsWith("ComboBox"))
                 {
-                    ComboBox comboBox= (ComboBox)FindName(itemName);
+                    ComboBox comboBox = (ComboBox)FindName(itemName);
                     comboBox.IsEnabled = status;
                 }
                 else if (itemName.EndsWith("Label"))
@@ -606,6 +614,58 @@ namespace The_Director.Windows
             }
             IsScriptWindowEnabled = status ? (TotalWaveCount > 0 && TotalWaveCount != null) : null;
             UpdateScriptWindow();
+        }
+
+        private void ReadStandardOutputAction(string result)
+        {
+            CompileTextBox.AppendText($"{result}\r\n");
+            CompileViewer.ScrollToEnd();
+        }
+
+        private void ProcessOutputHandler(object sender, DataReceivedEventArgs e)
+        {
+            if (e.Data != null)
+            {
+                Dispatcher.Invoke(ReadStandardOutput, new object[] { e.Data });
+            }
+        }
+
+        private void ProcessExited(object sender, EventArgs e)
+        {
+            cts.Cancel();
+        }
+
+        private async void StartNewProcess()
+        {
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            process.OutputDataReceived += new DataReceivedEventHandler(ProcessOutputHandler);
+            process.EnableRaisingEvents = true;
+            process.Exited += new EventHandler(ProcessExited);
+            process.Start();
+            process.BeginOutputReadLine();
+            process.StandardInput.WriteLine(Functions.GetProcessInput(0));
+            process.StandardInput.AutoFlush = true;
+            try
+            {
+                await Task.Delay(new TimeSpan(24, 0, 0), cts.Token);
+            }
+            catch (TaskCanceledException)
+            {
+                cts.Dispose();
+                cts = new CancellationTokenSource();
+                process.Dispose();
+                process = new Process();
+            }
+            CompileTextBox.Text = string.Empty;
+            CompileBlocker.Visibility = Visibility.Hidden;
+            CompileViewer.Visibility = Visibility.Hidden;
+            File.Copy($"{Globals.L4D2StandardFinalePath}.bsp", $"{Globals.L4D2MapsPath}\\standard_finale.bsp", true);
+            Functions.RunL4D2Game(0);
         }
     }
 }
