@@ -8,8 +8,8 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -60,11 +60,11 @@
                         <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
                     </DockPanel>
                     <DockPanel Grid.Row="6" Grid.Column="0">
-                        <Label Margin="0,5,5,5" Content="加密文件夹内nut" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Label Margin="0,5,5,5" Content="加密文件夹内nut文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <Button Name="EncryptFolderButton" Margin="5,5,5,5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="EncryptFolderClick"/>
                     </DockPanel>
                     <DockPanel Grid.Row="7" Grid.Column="0">
-                        <Label Margin="0,5,5,5" Content="解密文件夹内nuc" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Label Margin="0,5,5,5" Content="解密文件夹内nuc文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <Button Name="DecryptFolderButton" Margin="5,5,5,5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="DecryptFolderClick"/>
                     </DockPanel>
                     <DockPanel Grid.Row="8" Grid.Column="0">
@@ -72,8 +72,8 @@
                         <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
                     </DockPanel>
                     <DockPanel Grid.Row="9" Grid.Column="0">
-                        <Button Name="SaveAsNutButton" Margin="15,5,5,5" Content="保存为nut" Width="110" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="SaveAsNutClick" IsEnabled="True"/>
-                        <Button Name="SaveAsNucButton" Margin="5,5,15,5" Content="保存为nuc" Width="110" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="SaveAsNucClick" IsEnabled="True"/>
+                        <Button Name="SaveAsNutButton" Margin="35,5,5,5" Content="保存为nut" Width="120" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="SaveAsNutClick" IsEnabled="True"/>
+                        <Button Name="SaveAsNucButton" Margin="5,5,35,5" Content="保存为nuc" Width="120" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="SaveAsNucClick" IsEnabled="True"/>
                     </DockPanel>
                 </Grid>
             </Border>

@@ -267,7 +267,6 @@ public static class Functions
             1 => "-steam -novid +sv_cheats 1 +director_debug 1 +map scavenge_finale",
             2 => "-steam -novid +sv_cheats 1 +director_debug 1 +map gauntlet_finale",
             3 => "-steam -novid +sv_cheats 1 +director_debug 1 +map sacrifice_finale",
-            4 => $"-steam -novid +snd_buildsoundcachefordirectory {Globals.L4D2CustomAudioPath}",
             _ => string.Empty
         };
 
@@ -276,6 +275,20 @@ public static class Functions
         process.StartInfo.UseShellExecute = false;
         process.StartInfo.Arguments = command;
         process.Start();
+        process.WaitForExit();
+        process.Close();
+    }
+
+    public static void RunVPK(string dir)
+    {
+        Process process = new();
+        process.StartInfo.FileName = "cmd.exe";
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.CreateNoWindow = true;
+        process.StartInfo.RedirectStandardInput = true;
+        process.Start();
+        process.StandardInput.WriteLine($"\"{Globals.L4D2VPKPath}\" \"{dir}\"&exit");
+        process.StandardInput.AutoFlush = true;
         process.WaitForExit();
         process.Close();
     }

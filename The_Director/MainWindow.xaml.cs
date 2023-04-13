@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using MahApps.Metro.Controls;
-using The_Director.Data;
 using System.Linq;
 using Steamworks;
 using The_Director.Utils;

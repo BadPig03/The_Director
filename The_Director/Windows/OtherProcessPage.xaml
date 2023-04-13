@@ -8,8 +8,8 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -19,11 +19,6 @@
             <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="#7F7F7F" Margin="5" >
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="32"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="32"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="40"/>
                         <RowDefinition Height="32"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
@@ -39,9 +34,44 @@
                         <Label Margin="0,5,5,5" Content="选择文件夹" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <Button Name="BuildSoundcacheButton" Margin="5,5,5,5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="SoundcacheClick"/>
                     </DockPanel>
+                    <DockPanel Grid.Row="2" Grid.Column="0">
+                        <Label Margin="0,5,5,5" Content="打包音频缓存为vpk文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button Name="PackSoundcacheButton" Margin="5,5,5,5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="PackSoundcacheClick"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="3" Grid.Column="0">
+                        <Label Margin="1,0,5,0" Content="建立反射贴图" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                        <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="4" Grid.Column="0">
+                        <Label Margin="0,5,5,5" Content="选择地图bsp文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button Name="BuildCubemapsButton" Margin="5,5,5,5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="BuildCubemapsClick"/>
+                    </DockPanel>
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="#7F7F7F" Margin="5" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0" Grid.Column="0">
+                        <Label Margin="1,0,5,0" Content="提取vmf内资源" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                        <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="1" Grid.Column="0">
+                        <Label Margin="0,5,5,5" Content="选择vmf文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button Name="ExtractVmfResourcesButton" Margin="5,5,5,5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="ExtractVmfResourcesClick"/>
+                    </DockPanel>
                 </Grid>
             </Border>
         </Grid>
         <Label Grid.Row="0" Grid.Column="0" Margin="1,5,5,0" Content="常用处理" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
+        <Label Grid.Row="0" Grid.Column="1" Margin="1,5,5,0" Content="资源处理" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>

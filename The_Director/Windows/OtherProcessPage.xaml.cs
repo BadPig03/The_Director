@@ -14,7 +14,7 @@ using The_Director.Utils;
 namespace The_Director.Windows
 {
     public partial class OtherProcessPage : UserControl
-    { 
+    {
         public OtherProcessPage()
         {
             InitializeComponent();
@@ -48,11 +48,6 @@ namespace The_Director.Windows
                 fileInfo.Delete();
             }
 
-            StartNewProcess();
-        }
-
-        private void StartNewProcess()
-        {
             Process process = new();
             process.StartInfo.FileName = $"{Globals.L4D2RootPath}\\left4dead2.exe";
             process.StartInfo.UseShellExecute = false;
@@ -77,10 +72,115 @@ namespace The_Director.Windows
 
             if (saveFileDialog.FileName != string.Empty)
             {
-                File.Copy(Globals.L4D2CustomAudioPath + "\\sound.cache", Path.GetDirectoryName(saveFileDialog.FileName) + "\\sound.cache", true);
+                File.Move(Globals.L4D2CustomAudioPath + "\\sound.cache", Path.GetDirectoryName(saveFileDialog.FileName) + "\\sound.cache");
             }
 
             Directory.Delete(Globals.L4D2CustomAudioPath, true);
+        }
+
+        private void PackSoundcacheClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new()
+            {
+                Title = "请选择音频缓存文件",
+                Filter = "sound.cache(sound.cache)|sound.cache",
+                CheckFileExists = true,
+                CheckPathExists = true,
+                InitialDirectory = Globals.L4D2RootPath
+            };
+
+            openFileDialog.ShowDialog();
+
+            if (openFileDialog.FileName == string.Empty)
+            {
+                return;
+            }
+
+            if (Directory.Exists(Globals.L4D2CustomPackPath))
+            {
+                Directory.Delete(Globals.L4D2CustomPackPath, true);
+            }
+
+            Directory.CreateDirectory(Globals.L4D2CustomPackPath + "\\sound");
+
+            File.Copy(openFileDialog.FileName, Globals.L4D2CustomPackPath + "\\sound\\sound.cache", true);
+
+            Functions.RunVPK(Globals.L4D2CustomPackPath);
+
+            SaveFileDialog saveFileDialog = new()
+            {
+                Title = "请选择保存位置",
+                Filter = "vpk文件(*.vpk)|*.vpk",
+                InitialDirectory = Globals.L4D2AddonPath
+            };
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog.FileName != string.Empty)
+            {
+                File.Move(Globals.L4D2TempPath + "pack.vpk", saveFileDialog.FileName);
+            }
+
+            Directory.Delete(Globals.L4D2CustomPackPath, true);
+        }
+
+        private void BuildCubemapsClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new()
+            {
+                Title = "请选择地图bsp文件",
+                Filter = "bsp文件(*.bsp)|*.bsp",
+                CheckFileExists = true,
+                CheckPathExists = true,
+                InitialDirectory = Globals.L4D2MapsPath
+            };
+
+            openFileDialog.ShowDialog();
+
+            if (openFileDialog.FileName == string.Empty)
+            {
+                return;
+            }
+
+            File.Copy(openFileDialog.FileName, $"{Globals.L4D2MapsPath}\\{openFileDialog.SafeFileName}", true);
+
+            string mapName = openFileDialog.SafeFileName.Replace(".bsp", "");
+
+            Process process = new();
+            process.StartInfo.FileName = $"{Globals.L4D2RootPath}\\left4dead2.exe";
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.Arguments = $"-steam -insecure -novid -hidden -nosound -noborder -x 4096 -y 2160 +map {mapName} -buildcubemaps";
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            process.Start();
+            process.WaitForExit();
+            process.Close();
+        }
+
+        private void ExtractVmfResourcesClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new()
+            {
+                Title = "请选择vmf文件",
+                Filter = "vmf文件(*.vmf)|*.vmf",
+                CheckFileExists = true,
+                CheckPathExists = true,
+                InitialDirectory = Globals.L4D2MapsPath
+            };
+
+            openFileDialog.ShowDialog();
+
+            if (openFileDialog.FileName == string.Empty)
+            {
+                return;
+            }
+
+            ProgressWindow progressWindow = new()
+            {
+                FilePath = openFileDialog.FileName,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
+
+            progressWindow.ShowDialog();
         }
     }
 }
