@@ -37,10 +37,9 @@ namespace The_Director
 
             DataContext = this;
             NavMenus.Add(new() { Title = "导演脚本", ViewName = "RescueScriptPage" , Index = 0 });
-            NavMenus.Add(new() { Title = "脚本处理", ViewName = "ScriptProcessPage", Index = 1 });
-            NavMenus.Add(new() { Title = "其他处理", ViewName = "OtherProcessPage", Index = 2 });
-            NavMenus.Add(new() { Title = "软件设置", ViewName = "SettingsPage", Index = 3 });
-            NavMenus.Add(new() { Title = "关于作者", ViewName = "AboutPage", Index = 4 });
+            NavMenus.Add(new() { Title = "其他处理", ViewName = "OtherProcessPage", Index =1 });
+            NavMenus.Add(new() { Title = "软件设置", ViewName = "SettingsPage", Index = 2 });
+            NavMenus.Add(new() { Title = "关于作者", ViewName = "AboutPage", Index = 3 });
             NavMenus.ForEach(menu =>
             {
                 var type = Type.GetType($"The_Director.Windows.{menu.ViewName}");

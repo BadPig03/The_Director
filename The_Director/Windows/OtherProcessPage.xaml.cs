@@ -1,11 +1,10 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Shell;
 using The_Director.Utils;
 
 namespace The_Director.Windows
@@ -14,14 +13,15 @@ namespace The_Director.Windows
     {
         BackgroundWorker worker = null;
 
-        private List<string> WorkerList = new() { string.Empty, string.Empty, string.Empty, string.Empty, string.Empty };
+        private List<string> WorkerList = new() { string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty };
+        private List<string> WorkerList2 = new();
 
         public OtherProcessPage()
         {
             InitializeComponent();
         }
 
-        private void SoundcacheClick(object sender, RoutedEventArgs e)
+        private void SoundCacheProcessorClick(object sender, RoutedEventArgs e)
         {
             FolderPicker folderPicker = new()
             {
@@ -54,7 +54,7 @@ namespace The_Director.Windows
             WorkerStart("SoundCacheProcessor");
         }
 
-        private void PackSoundcacheClick(object sender, RoutedEventArgs e)
+        private void SoundCachePackerClick(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new()
             {
@@ -92,7 +92,7 @@ namespace The_Director.Windows
             WorkerStart("SoundCachePacker");
         }
 
-        private void BuildCubemapsClick(object sender, RoutedEventArgs e)
+        private void CubemapBuilderClick(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new()
             {
@@ -110,19 +110,50 @@ namespace The_Director.Windows
                 return;
             }
 
-            File.Copy(openFileDialog.FileName, $"{Globals.L4D2MapsPath}\\{openFileDialog.SafeFileName}", true);
+            WorkerList[5] = openFileDialog.FileName;
+            WorkerList[6] = openFileDialog.SafeFileName;
 
-            string mapName = openFileDialog.SafeFileName.Replace(".bsp", "");
+            CancelButton.IsEnabled = false;
+            WorkerStart("CubemapBuilder");
+        }
 
-            Process process = new();
-            process.StartInfo.FileName = $"{Globals.L4D2RootPath}\\left4dead2.exe";
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.Arguments = $"-steam -insecure -novid -hidden -nosound -noborder -x 4096 -y 2160 +map {mapName} -buildcubemaps";
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            process.Start();
-            process.WaitForExit();
-            process.Close();
+        private void ScriptProcessorFilesClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new()
+            {
+                Title = "请选择单个或多个文件",
+                Filter = "nut文件 (*.nut)|*.nut|nuc文件 (*.nuc)|*.nuc",
+                Multiselect = true,
+                CheckFileExists = true,
+                CheckPathExists = true
+            };
+            openFileDialog.ShowDialog();
+
+            if (openFileDialog.FileName == string.Empty)
+            {
+                return;
+            }
+
+            WorkerList2 = openFileDialog.FileNames.ToList();
+            WorkerStart("ScriptProcessorFiles");
+        }
+
+        private void ScriptProcessorFolderClick(object sender, RoutedEventArgs e)
+        {
+            FolderPicker folderPicker = new()
+            {
+                Title = "请选择单个或多个文件夹",
+                Multiselect = true,
+                InputPath = Globals.L4D2ScriptsPath
+            };
+
+            if (folderPicker.ShowDialog().ToString() == string.Empty)
+            {
+                return;
+            }
+
+            WorkerList2 = folderPicker.ResultNames.ToList();
+            WorkerStart("ScriptProcessorFolder");
         }
 
         private void ExtractVmfResourcesClick(object sender, RoutedEventArgs e)
@@ -142,10 +173,8 @@ namespace The_Director.Windows
             {
                 return;
             }
-            else
-            {
-                WorkerList[0] = openFileDialog.FileName;
-            }
+
+            WorkerList[0] = openFileDialog.FileName;
 
             CancelButton.IsEnabled = true;
             WorkerStart("VmfReader");
@@ -166,7 +195,15 @@ namespace The_Director.Windows
 
         private void WorkerProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            ProgressBar.Value = e.ProgressPercentage;
+            if(e.ProgressPercentage >= 0 && e.ProgressPercentage <= 100)
+            {
+                ProgressBar.IsIndeterminate = false;
+                ProgressBar.Value = e.ProgressPercentage;
+            }
+            else
+            {
+                ProgressBar.IsIndeterminate = true;
+            }
         }
 
         private void WorkerDoWork(object sender, DoWorkEventArgs e)
@@ -203,6 +240,31 @@ namespace The_Director.Windows
                         Worker = worker
                     };
                     soundCachePack.StartProcess();
+                    break;
+                case "CubemapBuilder":
+                    CubemapBuilder cubemapBuilder = new()
+                    {
+                        FilePath = WorkerList[5],
+                        FileName = WorkerList[6],
+                        Worker = worker
+                    };
+                    cubemapBuilder.StartProcess();
+                    break;
+                case "ScriptProcessorFiles":
+                    ScriptProcessor scriptProcessor = new()
+                    {
+                        Paths = WorkerList2,
+                        Worker = worker
+                    };
+                    scriptProcessor.StartProcessFiles();
+                    break;
+                case "ScriptProcessorFolder":
+                    ScriptProcessor scriptProcessorFolder = new()
+                    {
+                        Paths = WorkerList2,
+                        Worker = worker
+                    };
+                    scriptProcessorFolder.StartProcessFolder();
                     break;
                 default:
                     break;

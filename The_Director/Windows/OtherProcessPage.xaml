@@ -25,6 +25,8 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="32"/>
                         <RowDefinition Height="40"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
                     <DockPanel Grid.Row="0" Grid.Column="0">
@@ -32,20 +34,32 @@
                         <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
                     </DockPanel>
                     <DockPanel Grid.Row="1" Grid.Column="0">
-                        <Label Margin="0,5,5,5" Content="选择文件夹" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <Button Name="BuildSoundcacheButton" Margin="5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="SoundcacheClick"/>
+                        <Label Margin="0,5,5,5" Content="选择包含音频的文件夹" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button Name="SoundCacheProcessorButton" Margin="5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="SoundCacheProcessorClick"/>
                     </DockPanel>
                     <DockPanel Grid.Row="2" Grid.Column="0">
                         <Label Margin="0,5,5,5" Content="打包音频缓存为vpk文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <Button Name="PackSoundcacheButton" Margin="5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="PackSoundcacheClick"/>
+                        <Button Name="SoundCachePackerButton" Margin="5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="SoundCachePackerClick"/>
                     </DockPanel>
                     <DockPanel Grid.Row="3" Grid.Column="0">
                         <Label Margin="1,0,5,0" Content="建立反射贴图" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
                         <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
                     </DockPanel>
                     <DockPanel Grid.Row="4" Grid.Column="0">
-                        <Label Margin="0,5,5,5" Content="选择地图bsp文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <Button Name="BuildCubemapsButton" Margin="5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="BuildCubemapsClick"/>
+                        <Label Margin="0,5,5,5" Content="选择单个bsp文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button Name="CubemapBuilderButton" Margin="5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="CubemapBuilderClick"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="5" Grid.Column="0">
+                        <Label Margin="1,0,5,0" Content="脚本解密与加密" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                        <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="6" Grid.Column="0">
+                        <Label Margin="0,5,5,5" Content="选择nut或nuc脚本文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button Name="ScriptProcessorFilesButton" Margin="5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="ScriptProcessorFilesClick"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="7" Grid.Column="0">
+                        <Label Margin="0,5,5,5" Content="选择包含脚本的文件夹" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button Name="ScriptProcessorFolderButton" Margin="5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="ScriptProcessorFolderClick"/>
                     </DockPanel>
                 </Grid>
             </Border>

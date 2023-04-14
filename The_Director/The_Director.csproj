@@ -160,8 +160,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\CubemapBuilder.cs" />
     <Compile Include="Data\FolderPicker.cs" />
     <Compile Include="Data\NavMenu.cs" />
+    <Compile Include="Data\ScriptProcessor.cs" />
     <Compile Include="Data\SoundCachePacker.cs" />
     <Compile Include="Data\SoundCacheProcessor.cs" />
     <Compile Include="Data\VmfReader.cs" />
@@ -195,9 +197,6 @@
     </Compile>
     <Compile Include="Windows\ScavengeRescueSettings.xaml.cs">
       <DependentUpon>ScavengeRescueSettings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ScriptProcessPage.xaml.cs">
-      <DependentUpon>ScriptProcessPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\StandardRescueSettings.xaml.cs">
       <DependentUpon>StandardRescueSettings.xaml</DependentUpon>
@@ -270,10 +269,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\ScavengeRescueSettings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ScriptProcessPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

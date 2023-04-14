@@ -279,42 +279,6 @@ public static class Functions
         process.Close();
     }
 
-    public static void RunVPK(string dir)
-    {
-        Process process = new();
-        process.StartInfo.FileName = "cmd.exe";
-        process.StartInfo.UseShellExecute = false;
-        process.StartInfo.CreateNoWindow = true;
-        process.StartInfo.RedirectStandardInput = true;
-        process.Start();
-        process.StandardInput.WriteLine($"\"{Globals.L4D2VPKPath}\" \"{dir}\"&exit");
-        process.StandardInput.AutoFlush = true;
-        process.WaitForExit();
-        process.Close();
-    }
-
-    public static bool RunVice3(string file, bool encrypt = true, string dir = "")
-    {
-        Process process = new();
-        process.StartInfo.FileName = "cmd.exe";
-        process.StartInfo.UseShellExecute = false;
-        process.StartInfo.CreateNoWindow = true;
-        process.StartInfo.RedirectStandardInput = true;
-        process.Start();
-        process.StandardInput.WriteLine($"\"{Globals.L4D2Vice3Path}\"" + (encrypt ? " -x .nuc" : " -d -x .nut") + $" -k SDhfi878 \"{file}\"&exit");
-        process.StandardInput.AutoFlush = true;
-        process.WaitForExit();
-        process.Close();
-
-        if (dir != "")
-        {
-            File.Delete(dir);
-            File.Move(file.Replace(".nut", ".nuc"), dir);
-        }
-
-        return true;
-    }
-
     public static string GetOffcialStandardScriptFile(int index)
     {
         return index switch
@@ -533,20 +497,19 @@ public static class Functions
         }
     }
 
-    public static List<FileInfo> GetAllFileInfo(DirectoryInfo dir)
+    public static List<FileInfo> GetAllFileInfo(DirectoryInfo dir, List<FileInfo> list)
     {
         FileInfo[] allFile = dir.GetFiles();
-        List<FileInfo> FileList = new();
+        DirectoryInfo[] allDir = dir.GetDirectories();
         foreach (FileInfo file in allFile)
         {
-            FileList.Add(file);
+            list.Add(file);
         }
-        DirectoryInfo[] allDir = dir.GetDirectories();
         foreach (DirectoryInfo d in allDir)
         {
-            GetAllFileInfo(d);
+            GetAllFileInfo(d, list);
         }
-        return FileList;
+        return list;
     }
 
     public static string FileToBase64String(string dir)

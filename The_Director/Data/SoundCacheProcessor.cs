@@ -40,14 +40,12 @@ public class SoundCacheProcessor
         process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
         process.Start();
 
-        Worker.ReportProgress(66);
+        Worker.ReportProgress(-1);
 
         while (!new FileInfo(Globals.L4D2CustomAudioPath + "\\sound.cache").Exists)
         {
             Task.Delay(100);
         }
-
-        Worker.ReportProgress(80);
 
         process.Kill();
         process.Close();

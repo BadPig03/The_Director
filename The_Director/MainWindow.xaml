@@ -17,7 +17,7 @@
                     <Image Height="60" Margin="24,0,0,0" Source="Assets/the_director.png" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label FontSize="30" Content="菜单" FontFamily="Dengxian" VerticalContentAlignment="Center"/>
                 </StackPanel>
-                <ListBox Name="Menu" SelectedIndex="4" FontSize="50" ItemsSource="{Binding NavMenus}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="MenuReselected" Margin="5" DockPanel.Dock="Bottom">
+                <ListBox Name="Menu" SelectedIndex="3" FontSize="50" ItemsSource="{Binding NavMenus}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="MenuReselected" Margin="5" DockPanel.Dock="Bottom">
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type ListBoxItem}">
                             <Label FontSize="35" Margin="5,15,5,15" FontFamily="Dengxian" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Title}" />

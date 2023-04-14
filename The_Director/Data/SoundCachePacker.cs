@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using The_Director.Utils;
 
@@ -17,15 +18,22 @@ public class SoundCachePacker
 
         Directory.CreateDirectory(Globals.L4D2CustomPackPath + "\\sound");
 
-        Worker.ReportProgress(25);
+        Worker.ReportProgress(45);
 
         File.Copy(OldFilePath, Globals.L4D2CustomPackPath + "\\sound\\sound.cache", true);
 
-        Worker.ReportProgress(50);
+        Worker.ReportProgress(-1);
 
-        Functions.RunVPK(Globals.L4D2CustomPackPath);
-
-        Worker.ReportProgress(75);
+        Process process = new();
+        process.StartInfo.FileName = "cmd.exe";
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.CreateNoWindow = true;
+        process.StartInfo.RedirectStandardInput = true;
+        process.Start();
+        process.StandardInput.WriteLine($"\"{Globals.L4D2VPKPath}\" \"{Globals.L4D2CustomPackPath}\"&exit");
+        process.StandardInput.AutoFlush = true;
+        process.WaitForExit();
+        process.Close();
 
         File.Copy(Globals.L4D2TempPath + "pack.vpk", FilePath, true);
 
