@@ -1,14 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using The_Director.Utils;
 
 public class VmfReader
 {
     public virtual string VmfPath { get; set; }
+
     public virtual int RowCount { get; set; }
+
+    public virtual BackgroundWorker Worker { get; set; }
 
     protected StreamReader Reader { get; set; }
 
@@ -38,6 +45,12 @@ public class VmfReader
 
         while ((row = Reader.ReadLine()) != null)
         {
+            if (Worker.CancellationPending)
+            {
+                Worker.ReportProgress(0);
+                return null;
+            }
+
             CurrentRowCount++;
             if (readInside)
             {
@@ -63,7 +76,7 @@ public class VmfReader
                     return keyValuePair;
                 }
             }
-            if (ReadHeaders(row))
+            if (!(row.Contains(" ") || row.Contains("\"") || row.Contains("{") || row.Contains("}") || row.Contains("\t")))
             {
                 readInside = true;
                 keyValuePair.Header = row;
@@ -81,26 +94,16 @@ public class VmfReader
         return null;
     }
 
-    protected bool ReadHeaders(string row)
-    {
-        if (row.Contains(" ") || row.Contains("\"") || row.Contains("{") || row.Contains("}") || row.Contains("\t"))
-        {
-            return false;
-        }
-        return true;
-    }
-
-
-    public bool BeginReading()
+    public void BeginReading()
     {
         GetRowCount();
         Reader = new(VmfPath);
-        KeyValuePair? chunk;
-        while ((chunk = ReadAChunk()) != null)
+        //KeyValuePair? chunk;
+        while (ReadAChunk() != null)
         {
-            foreach (var item in chunk.Value.KeyValue)
-                Debug.WriteLine(chunk.Value.Header + ": " + item.Key + " = " + item.Value);
+            Worker.ReportProgress(100 * CurrentRowCount / RowCount);
+            //foreach (var item in chunk.Value.KeyValue)
+                //Debug.WriteLine(chunk.Value.Header + ": " + item.Key + " = " + item.Value);
         }
-        return true;
     }
 } 

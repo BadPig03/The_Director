@@ -1,20 +1,21 @@
 ﻿using Microsoft.Win32;
-using Steamworks.Ugc;
-using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
-using System.Security.AccessControl;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shell;
 using The_Director.Utils;
 
 namespace The_Director.Windows
 {
     public partial class OtherProcessPage : UserControl
     {
+        BackgroundWorker worker = null;
+
+        private List<string> WorkerList = new() { string.Empty, string.Empty, string.Empty, string.Empty, string.Empty };
+
         public OtherProcessPage()
         {
             InitializeComponent();
@@ -25,42 +26,13 @@ namespace The_Director.Windows
             FolderPicker folderPicker = new()
             {
                 Title = "请选择单个文件夹",
-                InputPath = Globals.L4D2GameInfoPath,
+                InputPath = Globals.L4D2GameInfoPath
             };
 
             if (folderPicker.ShowDialog().ToString() == string.Empty)
             {
                 return;
             }
-
-            if (Directory.Exists(Globals.L4D2CustomAudioPath))
-            {
-                Directory.Delete(Globals.L4D2CustomAudioPath, true);
-            }
-
-            Directory.CreateDirectory(Globals.L4D2CustomAudioPath);
-
-            Functions.DirectoryCopy(folderPicker.ResultName, Globals.L4D2CustomAudioPath, true);
-
-            FileInfo fileInfo = new(Globals.L4D2CustomAudioPath + "\\sound.cache");
-            if (fileInfo.Exists)
-            {
-                fileInfo.Delete();
-            }
-
-            Process process = new();
-            process.StartInfo.FileName = $"{Globals.L4D2RootPath}\\left4dead2.exe";
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.Arguments = $"-steam -insecure -novid -hidden -noborder -x 4096 -y 2160 +snd_buildsoundcachefordirectory {Globals.L4D2CustomAudioPath}";
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            process.Start();
-            while (!new FileInfo(Globals.L4D2CustomAudioPath + "\\sound.cache").Exists)
-            {
-                Task.Delay(1000);
-            }
-            process.Kill();
-            process.Dispose();
 
             SaveFileDialog saveFileDialog = new()
             {
@@ -70,12 +42,16 @@ namespace The_Director.Windows
             };
             saveFileDialog.ShowDialog();
 
-            if (saveFileDialog.FileName != string.Empty)
+            if (saveFileDialog.FileName == string.Empty)
             {
-                File.Move(Globals.L4D2CustomAudioPath + "\\sound.cache", Path.GetDirectoryName(saveFileDialog.FileName) + "\\sound.cache");
+                return;
             }
 
-            Directory.Delete(Globals.L4D2CustomAudioPath, true);
+            WorkerList[1] = folderPicker.ResultName;
+            WorkerList[2] = saveFileDialog.FileName;
+
+            CancelButton.IsEnabled = false;
+            WorkerStart("SoundCacheProcessor");
         }
 
         private void PackSoundcacheClick(object sender, RoutedEventArgs e)
@@ -96,17 +72,6 @@ namespace The_Director.Windows
                 return;
             }
 
-            if (Directory.Exists(Globals.L4D2CustomPackPath))
-            {
-                Directory.Delete(Globals.L4D2CustomPackPath, true);
-            }
-
-            Directory.CreateDirectory(Globals.L4D2CustomPackPath + "\\sound");
-
-            File.Copy(openFileDialog.FileName, Globals.L4D2CustomPackPath + "\\sound\\sound.cache", true);
-
-            Functions.RunVPK(Globals.L4D2CustomPackPath);
-
             SaveFileDialog saveFileDialog = new()
             {
                 Title = "请选择保存位置",
@@ -115,12 +80,16 @@ namespace The_Director.Windows
             };
             saveFileDialog.ShowDialog();
 
-            if (saveFileDialog.FileName != string.Empty)
+            if (saveFileDialog.FileName == string.Empty)
             {
-                File.Move(Globals.L4D2TempPath + "pack.vpk", saveFileDialog.FileName);
+                return;
             }
 
-            Directory.Delete(Globals.L4D2CustomPackPath, true);
+            WorkerList[3] = openFileDialog.FileName;
+            WorkerList[4] = saveFileDialog.FileName;
+
+            CancelButton.IsEnabled = false;
+            WorkerStart("SoundCachePacker");
         }
 
         private void BuildCubemapsClick(object sender, RoutedEventArgs e)
@@ -173,14 +142,85 @@ namespace The_Director.Windows
             {
                 return;
             }
-
-            ProgressWindow progressWindow = new()
+            else
             {
-                FilePath = openFileDialog.FileName,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
+                WorkerList[0] = openFileDialog.FileName;
+            }
 
-            progressWindow.ShowDialog();
+            CancelButton.IsEnabled = true;
+            WorkerStart("VmfReader");
+        }
+
+        private void WorkerStart(string name)
+        {
+            worker = new()
+            {
+                WorkerSupportsCancellation = true,
+                WorkerReportsProgress = true
+            };
+            worker.ProgressChanged += WorkerProgressChanged;
+            worker.DoWork += WorkerDoWork;
+            worker.RunWorkerCompleted += WorkerCompleted;
+            worker.RunWorkerAsync(name);
+        }
+
+        private void WorkerProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ProgressBar.Value = e.ProgressPercentage;
+        }
+
+        private void WorkerDoWork(object sender, DoWorkEventArgs e)
+        {
+            if (worker.CancellationPending)
+            {
+                e.Cancel = true;
+            }
+
+            switch((string)e.Argument)
+            {
+                case "VmfReader":
+                    VmfReader vmfReader = new()
+                    {
+                        VmfPath = WorkerList[0],
+                        Worker = worker
+                    };
+                    vmfReader.BeginReading();
+                    break;
+                case "SoundCacheProcessor":
+                    SoundCacheProcessor soundCacheProcessor = new()
+                    {
+                        OldFolderPath = WorkerList[1],
+                        FilePath = WorkerList[2],
+                        Worker = worker
+                    };
+                    soundCacheProcessor.StartProcess();
+                    break;
+                case "SoundCachePacker":
+                    SoundCachePacker soundCachePack = new()
+                    {
+                        OldFilePath = WorkerList[3],
+                        FilePath = WorkerList[4],
+                        Worker = worker
+                    };
+                    soundCachePack.StartProcess();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void WorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            BackgroundWorker backgroundWorker = (BackgroundWorker)sender;
+            backgroundWorker.DoWork -= WorkerDoWork;
+            backgroundWorker.RunWorkerCompleted -= WorkerCompleted;
+            backgroundWorker = null;
+            CancelButton.IsEnabled = false;
+        }
+
+        private void CancelButtonClick(object sender, RoutedEventArgs e)
+        {
+            worker.CancelAsync();
         }
     }
 }

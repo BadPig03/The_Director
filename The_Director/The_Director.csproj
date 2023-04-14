@@ -162,6 +162,8 @@
     </ApplicationDefinition>
     <Compile Include="Data\FolderPicker.cs" />
     <Compile Include="Data\NavMenu.cs" />
+    <Compile Include="Data\SoundCachePacker.cs" />
+    <Compile Include="Data\SoundCacheProcessor.cs" />
     <Compile Include="Data\VmfReader.cs" />
     <Compile Include="Utils\Functions.cs" />
     <Compile Include="Utils\Globals.cs" />
@@ -187,9 +189,6 @@
     </Compile>
     <Compile Include="Windows\PreviewScriptWindow.xaml.cs">
       <DependentUpon>PreviewScriptWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ProgressWindow.xaml.cs">
-      <DependentUpon>ProgressWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\SacrificeRescueSettings.xaml.cs">
       <DependentUpon>SacrificeRescueSettings.xaml</DependentUpon>
@@ -236,10 +235,6 @@
     <Page Include="Windows\PreviewScriptWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\ProgressWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\RescueScriptPage.xaml">
       <SubType>Designer</SubType>
