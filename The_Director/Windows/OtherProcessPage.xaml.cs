@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,9 +17,16 @@ namespace The_Director.Windows
         private List<string> WorkerList = new() { string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty };
         private List<string> WorkerList2 = new();
 
+        private List<VmfResourcesContainer> vmfResourcesContainer = new();
+
         public OtherProcessPage()
         {
             InitializeComponent();
+            VmfResourcesGrid.ItemsSource = vmfResourcesContainer;
+#if true
+            MdlExtractor mdlExtractor = new();
+            mdlExtractor.Print();
+#endif
         }
 
         private void SoundCacheProcessorClick(object sender, RoutedEventArgs e)
@@ -221,7 +229,7 @@ namespace The_Director.Windows
                         VmfPath = WorkerList[0],
                         Worker = worker
                     };
-                    vmfReader.BeginReading();
+                    vmfResourcesContainer = vmfReader.BeginReading();
                     break;
                 case "SoundCacheProcessor":
                     SoundCacheProcessor soundCacheProcessor = new()
@@ -278,11 +286,25 @@ namespace The_Director.Windows
             backgroundWorker.RunWorkerCompleted -= WorkerCompleted;
             backgroundWorker = null;
             CancelButton.IsEnabled = false;
+            vmfResourcesContainer.RemoveAt(vmfResourcesContainer.Count - 1);
+            VmfResourcesGrid.ItemsSource = vmfResourcesContainer;
         }
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             worker.CancelAsync();
+        }
+
+        private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (sender == null)
+            {
+                return;
+            }
+
+            int selectedIndex = ((DataGrid)sender).SelectedIndex;
+            VmfResourcesContainer vmfResources = vmfResourcesContainer[selectedIndex];
+            Debug.WriteLine(vmfResources.Id);
         }
     }
 }

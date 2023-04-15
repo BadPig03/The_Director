@@ -28,6 +28,8 @@
                         <RowDefinition Height="32"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
                     <DockPanel Grid.Row="0" Grid.Column="0">
                         <Label Margin="1,0,5,0" Content="建立音频缓存" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
@@ -61,29 +63,27 @@
                         <Label Margin="0,5,5,5" Content="选择包含脚本的文件夹" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <Button Name="ScriptProcessorFolderButton" Margin="5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="ScriptProcessorFolderClick"/>
                     </DockPanel>
-                </Grid>
-            </Border>
-        </Grid>
-        <Grid Grid.Row="1" Grid.Column="1">
-            <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="#7F7F7F" Margin="5" >
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="32"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="32"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="40"/>
-                    </Grid.RowDefinitions>
-                    <DockPanel Grid.Row="0" Grid.Column="0">
+                    <DockPanel Grid.Row="8" Grid.Column="0">
                         <Label Margin="1,0,5,0" Content="提取vmf内资源" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
                         <Image Source="/Assets/blackline.png" DockPanel.Dock="Bottom"/>
                     </DockPanel>
-                    <DockPanel Grid.Row="1" Grid.Column="0">
+                    <DockPanel Grid.Row="9" Grid.Column="0">
                         <Label Margin="0,5,5,5" Content="选择vmf文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <Button Name="ExtractVmfResourcesButton" Margin="5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="ExtractVmfResourcesClick"/>
                     </DockPanel>
                 </Grid>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+            <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="#7F7F7F" Margin="5" >
+                <DataGrid Name="VmfResourcesGrid" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" FontSize="16" IsReadOnly="True" GridLinesVisibility="All" HeadersVisibility="Column" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="MouseDoubleClick">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="id" Width="auto" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="classname" Width="auto" Binding="{Binding Classname}"/>
+                        <DataGridTextColumn Header="targetname" Width="auto" Binding="{Binding Targetname}"/>
+                        <DataGridTextColumn Header="origin" Width="auto" Binding="{Binding Origin}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Border>
         </Grid>
         <Label Grid.Row="0" Grid.Column="0" Margin="1,5,5,0" Content="常用处理" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Bottom"/>

@@ -17,9 +17,8 @@ public class VmfReader
     protected StreamReader Reader { get; set; }
 
     protected int CurrentRowCount = 0;
-
-    protected List<KeyValuePair> informationList = new() { Globals.emptyKeyValuePair };
-    protected List<KeyValuePair> entityList = new() { Globals.emptyKeyValuePair };
+    
+    protected List<Tuple<KeyValuePair, List<InputOutput>, List<string>>> entityTuple = new();
 
     protected void GetRowCount()
     {
@@ -32,155 +31,84 @@ public class VmfReader
     }
 
 #if false
-    protected KeyValuePair? ReadAChunk()
+    protected void ReadEntityTuple()
     {
-        KeyValuePair keyValuePair = new();
-        List<KeyValue> keyValueList = new();
-        string row;
-        bool readInside = false;
-
-        if (Reader.Peek() == -1)
+        foreach (var kvp in entityTuple)
         {
-            return null;
-        }
-
-        while ((row = Reader.ReadLine()) != null)
-        {
-            if (Worker.CancellationPending)
+            foreach (var item in kvp.Item1.KeyValue)
             {
-                Worker.ReportProgress(0);
-                return null;
+                Debug.WriteLine($"{kvp.Item1.Header}: {item.Key} = {item.Value}");
             }
-
-            CurrentRowCount++;
-            if (readInside)
-            {
-                if (Regex.IsMatch(row, "^\t+\".+\" \".+\"$"))
-                {
-                    KeyValue keyValue = new();
-                    foreach(string rowSplit in Regex.Split(row, "\" \""))
-                    {
-                        if (Regex.IsMatch(rowSplit, "^\t+\""))
-                        {
-                            keyValue.Key = Regex.Split(rowSplit, "\"")[1];
-                        }
-                        else
-                        {
-                            keyValue.Value = rowSplit.Replace("\"", "");
-                        }
-                    }
-                    keyValueList.Add(keyValue);
-                }
-                if (row == "}")
-                {
-                    keyValuePair.KeyValue = keyValueList;
-                    return keyValuePair;
-                }
-            }
-            if (!(row.Contains(" ") || row.Contains("\"") || row.Contains("{") || row.Contains("}") || row.Contains("\t")))
-            {
-                readInside = true;
-                keyValuePair.Header = row;
-                if (Reader.ReadLine() == "{")
-                {
-                    CurrentRowCount++;
-                    if (Reader.Peek() == 125)
-                    {
-                        return new KeyValuePair { Header = row, KeyValue = Globals.emptyKeyValueList };
-                    }
-                }
-                
-            }
-        }
-        return null;
-    }
-#endif
-
-    protected void ReadAChunk()
-    {
-        Reader = new(VmfPath);
-        string row;
-        bool bracket = false;
-        while ((row = Reader.ReadLine()) != null )
-        {
-            if (row == "{")
-            {
-                bracket = true;
-                continue;
-            }
-            if (bracket)
-            {
-
-            }
-        }
-    }
-
-    protected void ReadVersionInfo()
-    {
-        StreamReader streamReader = new(VmfPath);
-        List<string> tempList = new();
-        string row;
-        bool flag = false;
-        while ((row = streamReader.ReadLine()) != null)
-        {
-            if (row == "versioninfo")
-            {
-                streamReader.ReadLine();
-                flag = true;
-                continue;
-            }
-            if (flag)
-            {
-                if (row == "}")
-                {
-                    break;
-                }
-                tempList.Add(row);
-            }
-        }
-        informationList[0] = ChunkProcess("versioninfo", tempList);
-    }
-
-    protected void ReadEntities()
-    {
-        Reader = new(VmfPath);
-        while (!Reader.EndOfStream)
-        {
-            Tuple<KeyValuePair, List<InputOutput>, List<string>> tuple = ReadAnEntity();
-            foreach (var item in tuple.Item1.KeyValue)
-            {
-                Debug.WriteLine(tuple.Item1.Header + ": " + item.Key + " = " + item.Value);
-            }
-            foreach (var item in tuple.Item2)
+            foreach (var item in kvp.Item2)
             {
                 Debug.WriteLine($"{item.OutputName}, {item.TargetEntity}, {item.TargetEntity}, {item.Parameters}, {item.TimeDelay}, {item.FireTimes}");
             }
-            foreach (var item in tuple.Item3)
+            foreach (var item in kvp.Item3)
             {
-                Debug.WriteLine(item);
+                Debug.WriteLine($"{kvp.Item1.Header}: {item}");
             }
         }
     }
+#endif
 
-    protected void ReadWorldSpawn()
+    protected void ReadEntities()
     {
-        StreamReader streamReader = new(VmfPath);
+        Tuple<KeyValuePair, List<InputOutput>, List<string>> tuple = ReadWorldSpawn();
+        entityTuple.Add(tuple);
+        while (!Reader.EndOfStream)
+        {
+            Tuple<KeyValuePair, List<InputOutput>, List<string>> tuple2 = ReadAnEntity();
+            entityTuple.Add(tuple2);
+        }
+    }
+
+    protected Tuple<KeyValuePair, List<InputOutput>, List<string>> ReadWorldSpawn()
+    {
+        Reader = new(VmfPath);
+        List<string> tempList = new();
+        List<string> solidList = new();
+        List<bool> flagList = new() { false, false };
         string row;
-        bool flag = false;
         while ((row = Reader.ReadLine()) != null)
         {
             if (row == "world")
             {
                 Reader.ReadLine();
-                flag = true;
+                flagList[0] = true;
                 continue;
             }
 
-            if (flag)
+            if (flagList[0])
             {
+                if (!flagList[1] && row == "\tsolid")
+                {
+                    Reader.ReadLine();
+                    flagList[1] = true;
+                    continue;
+                }
 
+                if (Regex.IsMatch(row, "^\t\".+\" \".+\""))
+                {
+                    tempList.Add(row);
+                    continue;
+                }
+
+                if (flagList[1])
+                {
+                    if (Regex.IsMatch(row, "^\t\t\t\"material\" \".+\""))
+                    {
+                        solidList.Add(row);
+                        continue;
+                    }
+                }
+
+                if (row == "}")
+                {
+                    break;
+                }
             }
         }
+        return new Tuple<KeyValuePair, List<InputOutput>, List<string>>(ChunkProcess("worldspawn", tempList), new List<InputOutput>(), SolidProcess(solidList));
     }
 
     protected Tuple<KeyValuePair, List<InputOutput>, List<string>> ReadAnEntity()
@@ -332,37 +260,56 @@ public class VmfReader
         return materialList;
     }
 
-    protected void PrintAll()
+    protected List<VmfResourcesContainer> ConvertToContainers()
     {
-        foreach (var item in informationList)
+        List<VmfResourcesContainer> containerList = new();
+        foreach (var kvp in entityTuple)
         {
-            foreach (var item2 in item.KeyValue)
+            int id = 0;
+            string classname = string.Empty;
+            string targetname = string.Empty;
+            string origin = string.Empty;
+            bool isPointEntity = true;
+            foreach (var item in kvp.Item1.KeyValue)
             {
-                Console.WriteLine(item.Header + ": " + item2.Key + " = " + item2.Value);
+                switch (item.Key)
+                {
+                    case "id":
+                        id = Functions.ConvertToInt(item.Value);
+                        break;
+                    case "classname":
+                        classname = item.Value;
+                        break;
+                    case "targetname":
+                        targetname = item.Value;
+                        break;
+                    case "origin":
+                        origin = item.Value;
+                        break;
+                    default:
+                        break;
+                }
             }
-        }
-    }
-
 #if false
-    public void BeginReading()
-    {
-        GetRowCount();
-        Reader = new(VmfPath);
-        //KeyValuePair? chunk;
-        while (ReadAChunk() != null)
-        {
-            Worker.ReportProgress(100 * CurrentRowCount / RowCount);
-            //foreach (var item in chunk.Value.KeyValue)
-                //Debug.WriteLine(chunk.Value.Header + ": " + item.Key + " = " + item.Value);
-        }
-    }
+            foreach (var item in kvp.Item2)
+            {
+                Debug.WriteLine($"{item.OutputName}, {item.TargetEntity}, {item.TargetEntity}, {item.Parameters}, {item.TimeDelay}, {item.FireTimes}");
+            }
+            foreach (var item in kvp.Item3)
+            {
+                Debug.WriteLine($"{kvp.Item1.Header}: {item}");
+            }
 #endif
+            containerList.Add(new VmfResourcesContainer(id, classname, targetname, origin, isPointEntity));
+        }
+        return containerList;
+    }
 
-    public void BeginReading()
+    public List<VmfResourcesContainer> BeginReading()
     {
         GetRowCount();
-        ReadVersionInfo();
         ReadEntities();
-        //PrintAll();
+        //ReadEntityTuple();
+        return ConvertToContainers();
     }
 } 

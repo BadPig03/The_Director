@@ -54,3 +54,16 @@ public record struct InputOutput(string OutputName, string TargetEntity, string 
         return new InputOutput(value.Item1, value.Item2, value.Item3, value.Item4, value.Item5, value.Item6);
     }
 }
+
+public record struct Vector3D(double x, double y, double z)
+{
+    public static implicit operator (double, double, double)(Vector3D value)
+    {
+        return (value.x, value.y, value.z);
+    }
+
+    public static implicit operator Vector3D((double, double, double) value)
+    {
+        return new Vector3D(value.Item1, value.Item2, value.Item3);
+    }
+}

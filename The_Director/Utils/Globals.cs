@@ -32,6 +32,7 @@ public static class Globals
 
     public static readonly string L4D2RootPath = SteamApps.AppInstallDir(L4D2AppID);
     public static readonly string L4D2TempPath = Path.GetTempPath();
+    public static readonly string L4D2GameInfoTxtPath = L4D2RootPath + "\\left4dead2\\gameinfo.txt";
     public static readonly string L4D2GameInfoPath = L4D2RootPath + "\\left4dead2";
     public static readonly string L4D2AddonPath = L4D2RootPath + "\\left4dead2\\addons";
     public static readonly string L4D2CustomAudioPath = L4D2TempPath + "sound";
