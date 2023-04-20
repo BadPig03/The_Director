@@ -4,14 +4,14 @@
     public string Classname { get; set; }
     public string Targetname { get; set; }
     public string Origin { get; set; }
-    public bool IsPointEntity { get; set; }
+    public string Model { get; set; }
 
-    public VmfResourcesContainer(int id, string classname, string targetname, string origin, bool isPointEntity)
+    public VmfResourcesContainer(int id, string classname, string targetname, string origin, string model)
     {
         Id = id;
         Classname = classname;
         Targetname = targetname;
         Origin = origin;
-        IsPointEntity = isPointEntity;
+        Model = model;
     }
 }

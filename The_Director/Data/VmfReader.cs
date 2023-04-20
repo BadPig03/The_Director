@@ -251,13 +251,18 @@ public class VmfReader
         List<string> materialList = new();
         foreach (string line in rawList)
         {
-            string material = Regex.Split(line, "\" \"")[1].Replace("\"", "").ToLower();
+            string material = Regex.Split(line, "\" \"")[1].Replace("\"", "").ToLowerInvariant();
             if (!materialList.Contains(material))
             {
                 materialList.Add(material);
             }
         }
         return materialList;
+    }
+
+    protected void MdlProcess(string filePath)
+    {
+
     }
 
     protected List<VmfResourcesContainer> ConvertToContainers()
@@ -269,7 +274,7 @@ public class VmfReader
             string classname = string.Empty;
             string targetname = string.Empty;
             string origin = string.Empty;
-            bool isPointEntity = true;
+            string model = string.Empty;
             foreach (var item in kvp.Item1.KeyValue)
             {
                 switch (item.Key)
@@ -286,6 +291,9 @@ public class VmfReader
                     case "origin":
                         origin = item.Value;
                         break;
+                    case "model":
+                        model = item.Value;
+                        break;
                     default:
                         break;
                 }
@@ -300,7 +308,7 @@ public class VmfReader
                 Debug.WriteLine($"{kvp.Item1.Header}: {item}");
             }
 #endif
-            containerList.Add(new VmfResourcesContainer(id, classname, targetname, origin, isPointEntity));
+            containerList.Add(new VmfResourcesContainer(id, classname, targetname, origin, model));
         }
         return containerList;
     }

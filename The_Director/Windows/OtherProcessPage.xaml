@@ -82,6 +82,7 @@
                         <DataGridTextColumn Header="classname" Width="auto" Binding="{Binding Classname}"/>
                         <DataGridTextColumn Header="targetname" Width="auto" Binding="{Binding Targetname}"/>
                         <DataGridTextColumn Header="origin" Width="auto" Binding="{Binding Origin}"/>
+                        <DataGridTextColumn Header="model" Width="auto" Binding="{Binding Model}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

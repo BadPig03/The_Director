@@ -1,5 +1,4 @@
 ﻿using Steamworks;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -49,7 +48,22 @@ public static class Globals
     public static readonly string L4D2MapsPath = L4D2RootPath + "\\left4dead2\\maps";
     public static readonly string L4D2ScriptsPath = L4D2RootPath + "\\left4dead2\\scripts\\vscripts";
 
+    public static List<string> OfficalMaterialsPaths = new();
+    public static List<string> OfficalModelPaths = new();
+
     public static bool CanShutdown = true;
+
+    public static void SplitStrings()
+    {
+        foreach (string s in Properties.Resources.OfficalMaterialsPaths.Split(','))
+        {
+            OfficalMaterialsPaths.Add($"\"{s}\"");
+        }
+        foreach (string s in Properties.Resources.OfficalModelPaths.Split(','))
+        {
+            OfficalModelPaths.Add($"\"{s}\"");
+        }
+    }
 
     public static int TextBoxIndex(string name)
     {

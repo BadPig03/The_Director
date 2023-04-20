@@ -18,15 +18,14 @@ namespace The_Director.Windows
         private List<string> WorkerList2 = new();
 
         private List<VmfResourcesContainer> vmfResourcesContainer = new();
+        private MdlExtractor mdlExtractor = new();
 
         public OtherProcessPage()
         {
             InitializeComponent();
             VmfResourcesGrid.ItemsSource = vmfResourcesContainer;
-#if true
-            MdlExtractor mdlExtractor = new();
-            mdlExtractor.Print();
-#endif
+            Globals.SplitStrings();
+            mdlExtractor.ReadGameInfo();
         }
 
         private void SoundCacheProcessorClick(object sender, RoutedEventArgs e)
@@ -304,7 +303,10 @@ namespace The_Director.Windows
 
             int selectedIndex = ((DataGrid)sender).SelectedIndex;
             VmfResourcesContainer vmfResources = vmfResourcesContainer[selectedIndex];
-            Debug.WriteLine(vmfResources.Id);
+            if (vmfResources.Model != string.Empty)
+            {
+                mdlExtractor.HandleAMdl(vmfResources.Model);
+            }
         }
     }
 }

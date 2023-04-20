@@ -1942,6 +1942,24 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
+        ///   查找类似 materials\ads\ad01.vmt, materials\ads\ad02_off.vmt, materials\ads\adgroup_01a.vmt, materials\ads\adgroup_01b.vmt, materials\ads\adgroup_02b.vmt, materials\ads\burger_off.vmt, materials\ads\cell_off.vmt, materials\ads\film_off.vmt, materials\ads\savings_off.vmt, materials\ads\storage.vmt, materials\ads\travel_off.vmt, materials\brick\blend_brick_brick01.vmt, materials\brick\blend_brick_brick02.vmt, materials\brick\brickwall019a.vmt, materials\brick\brickwall027a.vmt, materials\brick\brickwall031a.vmt, materi [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string OfficalMaterialsPaths {
+            get {
+                return ResourceManager.GetString("OfficalMaterialsPaths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 models\brokenglass_piece.mdl, models\error.mdl, models\ghostanim.mdl, models\ghostanim_l4d1.mdl, models\bunny\b_ghostanim3.mdl, models\bunny\b_helicopter_rescue.mdl, models\bunny\b_sailboat.mdl, models\bunny\b_signboard01.mdl, models\bunny\b_tree_pine04.mdl, models\bunny\news_helicoptor_hoveranim.mdl, models\c1m1_environment\c1m1_skybox_a_1.mdl, models\c1m1_environment\c1m1_skybox_groundplane.mdl, models\c1m1_environment\rooftop_1.mdl, models\c1m1_environment\rooftop_2.mdl, models\c1m1_environment\rooftop_3 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string OfficalModelPaths {
+            get {
+                return ResourceManager.GetString("OfficalModelPaths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6AAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1vZGUuDQ0KJAAAAAAAAADSTA5rli1gOJYtYDiWLWA4sesbOJUtYDiWLWE4zS1gOCti9jiXLWA4iH/1OIItYDiIf+M4Fi1gOIh/5DigLWA4iH/xOJctYDhSaWNoli1gOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFBFAABMAQMAbuzuRwAAAAAAAAAA4AADAQsBCQAAaAEAALwAAAAAAAC3XwAAABAAAACAAQAAAEAAABAAAAACAAAFAAAAAAAAAAUAAAAAAAAAAFACAAAEAAAAAAAAAwAAgAAAEAAAEAAAAAAQAAAQAAAAAAAAEAAAAAAAAAAAAAAAJMABACgAAAAAAAAAAAAAAAAAAAAAAAAA [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string vice3 {
