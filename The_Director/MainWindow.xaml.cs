@@ -31,7 +31,7 @@ namespace The_Director
             catch (Exception)
             {
                 Functions.TryOpenMessageWindow(-1);
-                Application.Current.Shutdown();
+                Environment.Exit(0);
                 return;
             }
 

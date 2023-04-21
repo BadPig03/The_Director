@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using The_Director.Windows;
@@ -220,6 +219,18 @@ public static class Functions
                 case 9:
                     Title = "提示";
                     TextBoxString = "脚本文件处理完成!";
+                    break;
+                case 10:
+                    Title = "错误";
+                    TextBoxString = "未找到对应的资源文件!";
+                    break;
+                case 11:
+                    Title = "提示";
+                    TextBoxString = "此资源为官方原版资源!";
+                    break;
+                case 12:
+                    Title = "提示";
+                    TextBoxString = "此实体不含有资源文件!";
                     break;
                 default:
                     break;

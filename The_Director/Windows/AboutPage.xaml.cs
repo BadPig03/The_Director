@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using The_Director.Utils;
+﻿using System.Windows.Controls;
 
 namespace The_Director.Windows
 {

@@ -1,6 +1,5 @@
 ﻿using Steamworks;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 namespace The_Director.Utils;
@@ -51,17 +50,19 @@ public static class Globals
     public static List<string> OfficalMaterialsPaths = new();
     public static List<string> OfficalModelPaths = new();
 
+    public static List<string> PossiblePaths = new();
+
     public static bool CanShutdown = true;
 
     public static void SplitStrings()
     {
         foreach (string s in Properties.Resources.OfficalMaterialsPaths.Split(','))
         {
-            OfficalMaterialsPaths.Add($"\"{s}\"");
+            OfficalMaterialsPaths.Add($"{s}");
         }
         foreach (string s in Properties.Resources.OfficalModelPaths.Split(','))
         {
-            OfficalModelPaths.Add($"\"{s}\"");
+            OfficalModelPaths.Add($"{s}");
         }
     }
 

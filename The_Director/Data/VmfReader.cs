@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using The_Director.Utils;
@@ -17,7 +16,6 @@ public class VmfReader
     protected StreamReader Reader { get; set; }
 
     protected int CurrentRowCount = 0;
-    
     protected List<Tuple<KeyValuePair, List<InputOutput>, List<string>>> entityTuple = new();
 
     protected void GetRowCount()
@@ -258,11 +256,6 @@ public class VmfReader
             }
         }
         return materialList;
-    }
-
-    protected void MdlProcess(string filePath)
-    {
-
     }
 
     protected List<VmfResourcesContainer> ConvertToContainers()

@@ -169,12 +169,16 @@
     <Compile Include="Data\SoundCacheProcessor.cs" />
     <Compile Include="Data\VmfReader.cs" />
     <Compile Include="Data\VmfResourcesContainer.cs" />
+    <Compile Include="Data\VmtReader.cs" />
     <Compile Include="Utils\Functions.cs" />
     <Compile Include="Utils\Globals.cs" />
     <Compile Include="Utils\Steam.cs" />
     <Compile Include="Utils\Structs.cs" />
     <Compile Include="Windows\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EntityPreviewWindow.xaml.cs">
+      <DependentUpon>EntityPreviewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\GauntletRescueSettings.xaml.cs">
       <DependentUpon>GauntletRescueSettings.xaml</DependentUpon>
@@ -209,6 +213,10 @@
     <Compile Include="Windows\YesOrNoWindow.xaml.cs">
       <DependentUpon>YesOrNoWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Windows\EntityPreviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\GauntletRescueSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

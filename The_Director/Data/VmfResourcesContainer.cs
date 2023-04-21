@@ -6,7 +6,7 @@
     public string Origin { get; set; }
     public string Model { get; set; }
 
-    public VmfResourcesContainer(int id, string classname, string targetname, string origin, string model)
+    public VmfResourcesContainer(int id, string classname = "", string targetname = "", string origin = "", string model = "")
     {
         Id = id;
         Classname = classname;

@@ -1,0 +1,23 @@
+﻿<Controls:MetroWindow x:Class="The_Director.Windows.EntityPreviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d" Title="" Height="480" Width="720" ResizeMode="NoResize" Loaded="WindowLoaded" KeyDown="KeyPressed">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Grid.Column="0" Margin="5">
+            <DataGrid Grid.Row="0" Grid.Column="0" Name="VmfResourcesGrid" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" FontSize="16" IsReadOnly="True" GridLinesVisibility="All" HeadersVisibility="Column" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="MouseDoubleClick">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Material Name" Width="auto" Binding="{Binding Classname}"/>
+                    <DataGridTextColumn Header="Material Path" Width="auto" Binding="{Binding Targetname}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+        <Button Grid.Row="1" Grid.Column="0" Margin="5" Content="确认" Width="80" FontSize="15" FontFamily="Dengxian Light" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" Click="ConfirmButtonClick"/>
+    </Grid>
+</Controls:MetroWindow>

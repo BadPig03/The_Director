@@ -1,8 +1,6 @@
 ﻿using Microsoft.Win32;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -303,9 +301,41 @@ namespace The_Director.Windows
 
             int selectedIndex = ((DataGrid)sender).SelectedIndex;
             VmfResourcesContainer vmfResources = vmfResourcesContainer[selectedIndex];
+            List<VmfResourcesContainer> vmfResourcesList = new();
+
             if (vmfResources.Model != string.Empty)
             {
-                mdlExtractor.HandleAMdl(vmfResources.Model);
+                if (Globals.OfficalModelPaths.Contains(vmfResources.Model.Replace('/', '\\')))
+                {
+                    Functions.TryOpenMessageWindow(11);
+                    return;
+                }
+
+                List<string> fileList = mdlExtractor.HandleAMdl(vmfResources.Model);
+
+                if (fileList.Count == 0)
+                {
+                    Functions.TryOpenMessageWindow(10);
+                    return;
+                }
+
+                foreach (string material in fileList)
+                {
+                    vmfResourcesList.Add(new VmfResourcesContainer(-1, material.Split('\\').Last().Replace(".vmt", ""), material));
+                }
+
+                EntityPreviewWindow entityPreviewWindow = new()
+                {
+                    Title = $"Entity ID {vmfResources.Id}",
+                    Resource = vmfResourcesList,
+                    Owner = Application.Current.MainWindow,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                };
+                entityPreviewWindow.ShowDialog();
+            }
+            else
+            {
+                Functions.TryOpenMessageWindow(12);
             }
         }
     }

@@ -1942,7 +1942,7 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
-        ///   查找类似 materials\ads\ad01.vmt, materials\ads\ad02_off.vmt, materials\ads\adgroup_01a.vmt, materials\ads\adgroup_01b.vmt, materials\ads\adgroup_02b.vmt, materials\ads\burger_off.vmt, materials\ads\cell_off.vmt, materials\ads\film_off.vmt, materials\ads\savings_off.vmt, materials\ads\storage.vmt, materials\ads\travel_off.vmt, materials\brick\blend_brick_brick01.vmt, materials\brick\blend_brick_brick02.vmt, materials\brick\brickwall019a.vmt, materials\brick\brickwall027a.vmt, materials\brick\brickwall031a.vmt, materi [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 materials\ads\ad01.vmt,materials\ads\ad02_off.vmt,materials\ads\adgroup_01a.vmt,materials\ads\adgroup_01b.vmt,materials\ads\adgroup_02b.vmt,materials\ads\burger_off.vmt,materials\ads\cell_off.vmt,materials\ads\film_off.vmt,materials\ads\savings_off.vmt,materials\ads\storage.vmt,materials\ads\travel_off.vmt,materials\brick\blend_brick_brick01.vmt,materials\brick\blend_brick_brick02.vmt,materials\brick\brickwall019a.vmt,materials\brick\brickwall027a.vmt,materials\brick\brickwall031a.vmt,materials\brick\brickw [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string OfficalMaterialsPaths {
             get {
@@ -1951,7 +1951,7 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
-        ///   查找类似 models\brokenglass_piece.mdl, models\error.mdl, models\ghostanim.mdl, models\ghostanim_l4d1.mdl, models\bunny\b_ghostanim3.mdl, models\bunny\b_helicopter_rescue.mdl, models\bunny\b_sailboat.mdl, models\bunny\b_signboard01.mdl, models\bunny\b_tree_pine04.mdl, models\bunny\news_helicoptor_hoveranim.mdl, models\c1m1_environment\c1m1_skybox_a_1.mdl, models\c1m1_environment\c1m1_skybox_groundplane.mdl, models\c1m1_environment\rooftop_1.mdl, models\c1m1_environment\rooftop_2.mdl, models\c1m1_environment\rooftop_3 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 models\brokenglass_piece.mdl,models\error.mdl,models\ghostanim.mdl,models\ghostanim_l4d1.mdl,models\bunny\b_ghostanim3.mdl,models\bunny\b_helicopter_rescue.mdl,models\bunny\b_sailboat.mdl,models\bunny\b_signboard01.mdl,models\bunny\b_tree_pine04.mdl,models\bunny\news_helicoptor_hoveranim.mdl,models\c1m1_environment\c1m1_skybox_a_1.mdl,models\c1m1_environment\c1m1_skybox_groundplane.mdl,models\c1m1_environment\rooftop_1.mdl,models\c1m1_environment\rooftop_2.mdl,models\c1m1_environment\rooftop_3.mdl,models\c1 [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string OfficalModelPaths {
             get {

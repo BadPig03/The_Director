@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using The_Director.Utils;
 
 public class SoundCacheProcessor

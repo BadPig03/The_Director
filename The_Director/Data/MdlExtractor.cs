@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using The_Director.Utils;
 
 public class MdlExtractor
-{
-    public virtual List<string> PossiblePaths { get; set; }
-    
+{    
     protected List<string> ReadAMdlTexture(string filePath)
     {
         List<string> rawMaterials = new();
@@ -44,7 +41,7 @@ public class MdlExtractor
 
     public void ReadGameInfo()
     {
-        PossiblePaths = new List<string>();
+        Globals.PossiblePaths = new List<string>();
         StreamReader streamReader = new(Globals.L4D2GameInfoTxtPath);
         string row;
         bool flag = false;
@@ -64,17 +61,17 @@ public class MdlExtractor
                     row = row.Replace("\t", "").Replace("Game", "");
                     if (row == "|gameinfo_path|.")
                     {
-                        PossiblePaths.Add(Globals.L4D2GameInfoPath);
+                        Globals.PossiblePaths.Add(Globals.L4D2GameInfoPath);
                         continue;
                     }
                     else if (row.Contains("\"") || row.Contains("\\"))
                     {
-                        PossiblePaths.Add(row.Replace("\"", ""));
+                        Globals.PossiblePaths.Add(row.Replace("\"", ""));
                         continue;
                     }
                     else
                     {
-                        PossiblePaths.Add($"{Globals.L4D2RootPath}\\{row}");
+                        Globals.PossiblePaths.Add($"{Globals.L4D2RootPath}\\{row}");
                         continue;
                     }
                 }
@@ -98,19 +95,21 @@ public class MdlExtractor
         }
     }
 
-    public void HandleAMdl(string filePath)
+    public List<string> HandleAMdl(string filePath)
     {
-        foreach (string path in PossiblePaths)
+        List<string> files = new();
+        foreach (string path in Globals.PossiblePaths)
         {
             string path2 = path + "\\" + filePath.Replace("/", "\\");
             if (File.Exists(path2))
             {
                 foreach (string path3 in ReadAMdlTexture(path2))
                 {
-                    Debug.WriteLine(path3);
+                    files.Add(path3);
                 }
                 break;
             }
         }
+        return files;
     }
 }
