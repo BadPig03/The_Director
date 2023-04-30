@@ -350,14 +350,14 @@ namespace The_Director.Windows
                 InitialDirectory = Globals.L4D2RootPath
             };
 
+            saveFileDialog.ShowDialog();
+
             if (saveFileDialog.FileName == string.Empty)
             {
                 return;
             }
-            else
-            {
-                Functions.SaveVmfToPath(saveFileDialog.FileName, new List<string> { GauntletDict["info_director"].Item2, GauntletDict["trigger_finale"].Item2 }, 2);
-            }
+
+            Functions.SaveVmfToPath(saveFileDialog.FileName, new List<string> { GauntletDict["info_director"].Item2, GauntletDict["trigger_finale"].Item2 }, 2);
 
             YesOrNoWindow yesOrNoWindow = new()
             {

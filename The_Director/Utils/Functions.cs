@@ -508,6 +508,65 @@ public static class Functions
         }
     }
 
+    public static void CopyMdlModelFiles(VmfResourcesContainer vmfResource, string savePath)
+    {
+        string mdlFileName = vmfResource.Model.Replace(".mdl", "");
+
+        foreach (string extension in Globals.MdlExtensionList)
+        {
+            foreach (string path in Globals.PossiblePaths)
+            {
+                string mdlFileName2 = path + "\\" + mdlFileName.Replace("/", "\\");
+                if (File.Exists(mdlFileName2 + extension))
+                {
+                    string mdlFileName3 = savePath + "\\" + mdlFileName.Replace("/", "\\");
+                    string mdlFileName4 = mdlFileName3.Remove(mdlFileName3.LastIndexOf('\\'));
+
+                    if (!Directory.Exists(mdlFileName4))
+                    {
+                        Directory.CreateDirectory(mdlFileName4);
+                    }
+
+                    if (!File.Exists(mdlFileName3 + extension))
+                    {
+                        File.Copy(mdlFileName2 + extension, mdlFileName3 + extension, true);
+                    }
+
+                    break;
+                }
+            }
+        }
+    }
+
+    public static void CopyVtfMaterialFiles(List<string> filePaths, string savePath)
+    {
+        foreach (string filePath in filePaths)
+        {
+            foreach (string path in Globals.PossiblePaths)
+            {
+                string filePath2 = path + "\\" + filePath.Replace("/", "\\");
+                if (File.Exists(filePath2))
+                {
+                    string filePath3 = savePath + "\\" + filePath.Replace("/", "\\");
+                    string filePath4 = filePath3.Remove(filePath3.LastIndexOf('\\'));
+
+                    if (!Directory.Exists(filePath4))
+                    {
+                        Directory.CreateDirectory(filePath4);
+                    }
+
+                    if (!File.Exists(filePath3))
+                    {
+                        File.Copy(filePath2, filePath3, true);
+                    }
+
+                    break;
+                }
+            }
+        }
+    }
+
+
     public static List<FileInfo> GetAllFileInfo(DirectoryInfo dir, List<FileInfo> list)
     {
         FileInfo[] allFile = dir.GetFiles();

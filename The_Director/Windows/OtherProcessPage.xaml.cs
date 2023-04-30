@@ -12,11 +12,13 @@ namespace The_Director.Windows
     {
         BackgroundWorker worker = null;
 
-        private List<string> WorkerList = new() { string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty };
+        private List<string> WorkerList = new() { string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty };
         private List<string> WorkerList2 = new();
 
         private List<VmfResourcesContainer> vmfResourcesContainer = new();
+        private SoundCacheProcessor soundCacheProcessor = new();
         private MdlExtractor mdlExtractor = new();
+        private VmtReader vmtReader = new();
 
         public OtherProcessPage()
         {
@@ -34,7 +36,9 @@ namespace The_Director.Windows
                 InputPath = Globals.L4D2GameInfoPath
             };
 
-            if (folderPicker.ShowDialog().ToString() == string.Empty)
+            folderPicker.ShowDialog();
+
+            if (string.IsNullOrWhiteSpace(folderPicker.ResultName))
             {
                 return;
             }
@@ -54,8 +58,6 @@ namespace The_Director.Windows
 
             WorkerList[1] = folderPicker.ResultName;
             WorkerList[2] = saveFileDialog.FileName;
-
-            CancelButton.IsEnabled = false;
             WorkerStart("SoundCacheProcessor");
         }
 
@@ -92,8 +94,6 @@ namespace The_Director.Windows
 
             WorkerList[3] = openFileDialog.FileName;
             WorkerList[4] = saveFileDialog.FileName;
-
-            CancelButton.IsEnabled = false;
             WorkerStart("SoundCachePacker");
         }
 
@@ -117,8 +117,6 @@ namespace The_Director.Windows
 
             WorkerList[5] = openFileDialog.FileName;
             WorkerList[6] = openFileDialog.SafeFileName;
-
-            CancelButton.IsEnabled = false;
             WorkerStart("CubemapBuilder");
         }
 
@@ -152,7 +150,9 @@ namespace The_Director.Windows
                 InputPath = Globals.L4D2ScriptsPath
             };
 
-            if (folderPicker.ShowDialog().ToString() == string.Empty)
+            folderPicker.ShowDialog();
+
+            if (folderPicker.ResultNames.Count == 0)
             {
                 return;
             }
@@ -180,8 +180,6 @@ namespace The_Director.Windows
             }
 
             WorkerList[0] = openFileDialog.FileName;
-
-            CancelButton.IsEnabled = true;
             WorkerStart("VmfReader");
         }
 
@@ -189,7 +187,6 @@ namespace The_Director.Windows
         {
             worker = new()
             {
-                WorkerSupportsCancellation = true,
                 WorkerReportsProgress = true
             };
             worker.ProgressChanged += WorkerProgressChanged;
@@ -213,11 +210,6 @@ namespace The_Director.Windows
 
         private void WorkerDoWork(object sender, DoWorkEventArgs e)
         {
-            if (worker.CancellationPending)
-            {
-                e.Cancel = true;
-            }
-
             switch((string)e.Argument)
             {
                 case "VmfReader":
@@ -229,7 +221,7 @@ namespace The_Director.Windows
                     vmfResourcesContainer = vmfReader.BeginReading();
                     break;
                 case "SoundCacheProcessor":
-                    SoundCacheProcessor soundCacheProcessor = new()
+                    soundCacheProcessor = new()
                     {
                         OldFolderPath = WorkerList[1],
                         FilePath = WorkerList[2],
@@ -271,6 +263,17 @@ namespace The_Director.Windows
                     };
                     scriptProcessorFolder.StartProcessFolder();
                     break;
+                case "VmfExtractor":
+                    VmfExtractor vmfExtractor = new()
+                    {
+                        VmfResourcesContainer = vmfResourcesContainer,
+                        MdlExtractor = mdlExtractor,
+                        VmtReader = vmtReader,
+                        SavePath = WorkerList[7],
+                        Worker = worker
+                    };
+                    vmfExtractor.StartProcess();
+                    break;
                 default:
                     break;
             }
@@ -282,14 +285,31 @@ namespace The_Director.Windows
             backgroundWorker.DoWork -= WorkerDoWork;
             backgroundWorker.RunWorkerCompleted -= WorkerCompleted;
             backgroundWorker = null;
-            CancelButton.IsEnabled = false;
             vmfResourcesContainer.RemoveAt(vmfResourcesContainer.Count - 1);
             VmfResourcesGrid.ItemsSource = vmfResourcesContainer;
+            ExtractButton.IsEnabled = true;
         }
 
-        private void CancelButtonClick(object sender, RoutedEventArgs e)
+        private void ExtractButtonClick(object sender, RoutedEventArgs e)
         {
-            worker.CancelAsync();
+            FolderPicker folderPicker = new()
+            {
+                Title = "请选择单个文件夹",
+                InputPath = Globals.L4D2AddonPath
+            };
+
+            folderPicker.ShowDialog();
+
+            string savePath = folderPicker.ResultName;
+
+            if (string.IsNullOrWhiteSpace(savePath))
+            {
+                return;
+            }
+
+            WorkerList[7] = savePath;
+
+            WorkerStart("VmfExtractor");
         }
 
         private new void MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

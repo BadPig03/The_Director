@@ -16,7 +16,9 @@ public class ScriptProcessor
     protected void SaveVice3()
     {
         if (!File.Exists(Globals.L4D2Vice3Path))
+        {
             Functions.SaveVice3ToPath();
+        }
     }
 
     protected void ProcessAFile(string filePath)

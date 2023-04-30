@@ -53,7 +53,7 @@ namespace The_Director.Windows
                 if (File.Exists(path2))
                 {
                     flag = false;
-                    Process.Start("notepad.exe", path2);
+                    Process.Start(path2);
                     break;
                 }
             }

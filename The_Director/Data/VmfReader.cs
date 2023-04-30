@@ -28,27 +28,6 @@ public class VmfReader
         }
     }
 
-#if false
-    protected void ReadEntityTuple()
-    {
-        foreach (var kvp in entityTuple)
-        {
-            foreach (var item in kvp.Item1.KeyValue)
-            {
-                Debug.WriteLine($"{kvp.Item1.Header}: {item.Key} = {item.Value}");
-            }
-            foreach (var item in kvp.Item2)
-            {
-                Debug.WriteLine($"{item.OutputName}, {item.TargetEntity}, {item.TargetEntity}, {item.Parameters}, {item.TimeDelay}, {item.FireTimes}");
-            }
-            foreach (var item in kvp.Item3)
-            {
-                Debug.WriteLine($"{kvp.Item1.Header}: {item}");
-            }
-        }
-    }
-#endif
-
     protected void ReadEntities()
     {
         Tuple<KeyValuePair, List<InputOutput>, List<string>> tuple = ReadWorldSpawn();
@@ -67,11 +46,20 @@ public class VmfReader
         List<string> solidList = new();
         List<bool> flagList = new() { false, false };
         string row;
-        while ((row = Reader.ReadLine()) != null)
+        while (true)
         {
+            row = Reader.ReadLine();
+            CurrentRowCount++;
+
+            if (row == null)
+            {
+                break;
+            }
+
             if (row == "world")
             {
                 Reader.ReadLine();
+                CurrentRowCount++;
                 flagList[0] = true;
                 continue;
             }
@@ -81,6 +69,7 @@ public class VmfReader
                 if (!flagList[1] && row == "\tsolid")
                 {
                     Reader.ReadLine();
+                    CurrentRowCount++;
                     flagList[1] = true;
                     continue;
                 }
@@ -106,6 +95,7 @@ public class VmfReader
                 }
             }
         }
+        Worker.ReportProgress(100 * CurrentRowCount / RowCount);
         return new Tuple<KeyValuePair, List<InputOutput>, List<string>>(ChunkProcess("worldspawn", tempList), new List<InputOutput>(), SolidProcess(solidList));
     }
 
@@ -117,11 +107,20 @@ public class VmfReader
         List<bool> flagList = new() { false, false, false };
         string row;
         string classname = "entity";
-        while ((row = Reader.ReadLine()) != null)
+        while (true)
         {
+            row = Reader.ReadLine();
+            CurrentRowCount++;
+
+            if (row == null)
+            {
+                break;
+            }
+
             if (row == "entity")
             {
                 Reader.ReadLine();
+                CurrentRowCount++;
                 flagList[0] = true;
                 continue;
             }
@@ -131,6 +130,7 @@ public class VmfReader
                 if (row == "\tconnections")
                 {
                     Reader.ReadLine();
+                    CurrentRowCount++;
                     flagList[1] = true;
                     continue;
                 }
@@ -138,6 +138,7 @@ public class VmfReader
                 if (row == "\teditor")
                 {
                     Reader.ReadLine();
+                    CurrentRowCount++;
                     flagList[2] = true;
                     continue;
                 }
@@ -169,7 +170,7 @@ public class VmfReader
                     continue;
                 }
 
-                if (flagList[1] && Regex.IsMatch(row, "^\t\t\".+\" \".+\"") && row.Contains("\x1b"))
+                if (false && flagList[1] && Regex.IsMatch(row, "^\t\t\".+\" \".+\"") && row.Contains("\x1b"))
                 {
                     IOList.Add(row);
                     continue;
@@ -187,6 +188,7 @@ public class VmfReader
                 }
             }
         }
+        Worker.ReportProgress(100 * CurrentRowCount / RowCount);
         return new Tuple<KeyValuePair, List<InputOutput>, List<string>> (ChunkProcess(classname, tempList), IOProcess(IOList), SolidProcess(solidList));
     }
 
@@ -218,6 +220,12 @@ public class VmfReader
     protected List<InputOutput> IOProcess(List<string> rawList)
     {
         List<InputOutput> inputOutputList = new();
+
+        if (rawList.Count == 0)
+        {
+            return inputOutputList;
+        }
+
         foreach (string line in rawList)
         {
             if (Regex.IsMatch(line, "^\t\t\".+\" \".+\""))
@@ -291,26 +299,18 @@ public class VmfReader
                         break;
                 }
             }
-#if false
-            foreach (var item in kvp.Item2)
-            {
-                Debug.WriteLine($"{item.OutputName}, {item.TargetEntity}, {item.TargetEntity}, {item.Parameters}, {item.TimeDelay}, {item.FireTimes}");
-            }
-            foreach (var item in kvp.Item3)
-            {
-                Debug.WriteLine($"{kvp.Item1.Header}: {item}");
-            }
-#endif
             containerList.Add(new VmfResourcesContainer(id, classname, targetname, origin, model));
         }
+        Worker.ReportProgress(100);
         return containerList;
     }
 
     public List<VmfResourcesContainer> BeginReading()
     {
+        Worker.ReportProgress(0);
         GetRowCount();
+        Worker.ReportProgress(5);
         ReadEntities();
-        //ReadEntityTuple();
         return ConvertToContainers();
     }
 } 
