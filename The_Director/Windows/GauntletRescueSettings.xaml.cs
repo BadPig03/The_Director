@@ -54,7 +54,7 @@ namespace The_Director.Windows
             ReadStandardOutput += new DelegateReadStandardOutput(ReadStandardOutputAction);
             PreferredMobDirectionComboBox.ItemsSource = Globals.PreferredMobDirectionList;
             PreferredSpecialDirectionComboBox.ItemsSource = Globals.PreferredSpecialDirectionList;
-            MapSelectionComboBox.ItemsSource = Globals.OffcialMapGauntletRescueList;
+            MapSelectionComboBox.ItemsSource = Globals.OfficialMapGauntletRescueList;
             MapSelectionComboBox.SelectedIndex = 0;
             GauntletDict.Add("MSG", new BooleanString(false, string.Empty));
             GauntletDict.Add("PanicForever", new BooleanString(true, null));
@@ -400,12 +400,12 @@ namespace The_Director.Windows
             StartNewProcess();
         }
 
-        private void PreviewOfficalScriptClick(object sender, RoutedEventArgs e)
+        private void PreviewOfficialScriptClick(object sender, RoutedEventArgs e)
         {
             PreviewScriptWindow previewScriptWindow = new()
             {
                 Title = $"正在预览{MapSelectionComboBox.SelectedItem}的救援脚本",
-                TextBoxString = Functions.GetOffcialGauntletScriptFile(),
+                TextBoxString = Functions.GetOfficialGauntletScriptFile(),
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };

@@ -9,6 +9,7 @@ public static class Globals
     public const int L4D2AppID = 550;
     public const int L4D2ATAppID = 563;
 
+    public static readonly List<int> TankIndexList = new() { 6, 14, 22, 32 };
     public static readonly List<string> StageTypeList = new() { "尸潮/波", "Tank/个", "延迟/秒", "脚本" };
     public static readonly List<string> RescueTypeList = new() { "防守救援", "灌油救援", "跑图救援", "牺牲救援", "尸潮脚本" };
     public static readonly List<string> PreferredMobDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
@@ -20,14 +21,15 @@ public static class Globals
     public static readonly List<string> SacrificeDictBlackList = new() { "MSG", "info_director", "trigger_finale" };
     public static readonly List<string> OnslaughtBlackList = new() { "MSG", "PlayMegaMobWarningSounds", "ResetMobTimer", "ResetSpecialTimers" };
     public static readonly List<string> StandardObjectList = new() { "SaveAsNutButton", "PasteToClipboardButton", "MSGCheckBox", "TotalWaveLabel", "TotalWaveButton", "TotalWaveTextBox", "ShowStageCheckBox", "SaveAsVmfButton", "CompileVmfButton", "LockTempoCheckBox", "BuildUpMinIntervalTextBox", "IntensityRelaxThresholdTextBox", "MobRechargeRateTextBox", "MobSpawnMaxTimeTextBox", "MobSpawnMinTimeTextBox", "MusicDynamicMobScanStopSizeTextBox", "MusicDynamicMobSpawnSizeTextBox", "MusicDynamicMobStopSizeTextBox", "PreferredMobDirectionComboBox", "RelaxMaxFlowTravelTextBox", "RelaxMaxIntervalTextBox", "RelaxMinIntervalTextBox", "MinimumStageTimeTextBox", "PreferredSpecialDirectionComboBox", "ProhibitBossesCheckBox", "ShouldAllowMobsWithTankCheckBox", "ShouldAllowSpecialsWithTankCheckBox", "EscapeSpawnTanksCheckBox", "SpecialRespawnIntervalTextBox", "SustainPeakMaxTimeTextBox", "SustainPeakMinTimeTextBox", "BileMobSizeTextBox", "BoomerLimitTextBox", "ChargerLimitTextBox", "CommonLimitTextBox", "DominatorLimitTextBox", "HunterLimitTextBox", "JockeyLimitTextBox", "MaxSpecialsTextBox", "MegaMobSizeTextBox", "MobMaxPendingTextBox", "MobMaxSizeTextBox", "MobMinSizeTextBox", "MobSpawnSizeTextBox", "SmokerLimitTextBox", "SpitterLimitTextBox", "TankLimitTextBox", "WitchLimitTextBox", "HordeEscapeCommonLimitTextBox", "LockTempoLabel", "BuildUpMinIntervalLabel", "IntensityRelaxThresholdLabel", "MobRechargeRateLabel", "MobSpawnMaxTimeLabel", "MobSpawnMinTimeLabel", "MusicDynamicMobScanStopSizeLabel", "MusicDynamicMobSpawnSizeLabel", "MusicDynamicMobStopSizeLabel", "PreferredMobDirectionLabel", "RelaxMaxFlowTravelLabel", "RelaxMaxIntervalLabel", "RelaxMinIntervalLabel", "MinimumStageTimeLabel", "PreferredSpecialDirectionLabel", "ProhibitBossesLabel", "ShouldAllowMobsWithTankLabel", "ShouldAllowSpecialsWithTankLabel", "EscapeSpawnTanksLabel", "SpecialRespawnIntervalLabel", "SustainPeakMaxTimeLabel", "SustainPeakMinTimeLabel", "BileMobSizeLabel", "BoomerLimitLabel", "ChargerLimitLabel", "CommonLimitLabel", "DominatorLimitLabel", "HunterLimitLabel", "JockeyLimitLabel", "MaxSpecialsLabel", "MegaMobSizeLabel", "MobMaxPendingLabel", "MobMaxSizeLabel", "MobMinSizeLabel", "MobSpawnSizeLabel", "SmokerLimitLabel", "SpitterLimitLabel", "TankLimitLabel", "WitchLimitLabel", "HordeEscapeCommonLimitLabel" };
-    public static readonly List<string> OffcialMapStandardRescueList = new() { "c2m5_concert_finale.nut", "c3m4_plantation_finale.nut", "c4m5_milltown_escape_finale.nut", "c8m5_rooftop_finale.nut", "c9m2_lots_finale.nut", "c10m5_houseboat_finale.nut", "c11m5_runway_finale.nut", "c12m5_cornfield_finale.nut" };
-    public static readonly List<string> OffcialMapScavengeRescueList = new() { "c1m4_atrium_finale.nut", "c1m4_delay.nut", "c6m3_port_finale.nut", "c14m2_lighthouse_finale.nut" };
-    public static readonly List<string> OffcialMapGauntletRescueList = new() { "director_gauntlet.nut" };
-    public static readonly List<string> OffcialMapSacrificeRescueList = new() { "c7m3_port_finale.nut" };
-    public static readonly List<string> OffcialMapOnslaughtList = new() { "c1m1_reserved_wanderers.nut", "c1_gunshop_onslaught.nut", "c1_gunshop_quiet.nut", "c1_mall_ambient.nut", "c1_mall_crescendo.nut", "c1_mall_crescendo_cooldown.nut", "c1_mall_crescendo_wave.nut", "c1_mall_onslaught.nut", "c1_streets_ambush.nut", "c2m1_no_bosses.nut", "c2m1_reserved_wanderers.nut", "c2m4_barns_onslaught.nut", "c2m4_barns_onslaught2.nut", "c2m4_finale_onslaught.nut", "c2m4_finale_quiet.nut", "c2_coaster_onslaught.nut", "c2_fairgrounds_onslaught.nut", "c2_highway_ambush.nut", "c3m1_barge.nut", "c3m1_fog_spawn.nut", "c3m1_nothreat.nut", "c3m1_swamp_fog_spawn.nut", "c3m2_fog_spawn.nut", "c3m2_mob_from_front.nut", "c3m4_nothreat.nut", "c4m4_fog_spawn.nut", "c5m1_nothreat.nut", "c5m2_mob_from_front.nut", "c6m1_riverbank.nut", "c6m2_minifinale.nut", "c7m2_barge.nut", "c8m1_apartment.nut", "c8m3_sewers.nut", "c8m5_rooftop.nut", "c9m1_nobosses.nut", "c10m1_no_bosses.nut", "c10m4_onslaught.nut", "c11m1_no_bosses.nut", "c11m4_minifinale.nut", "c11m4_minifinale_pt2.nut", "c11m4_onslaught.nut", "c11m4_reserved_wanderers.nut", "c12m1_no_bosses.nut", "c12m3_onslaught.nut", "c12m4_onslaught.nut", "c12m4_reserved_wanderers.nut", "c12m5_panic.nut", "c14_junkyard_cooldown.nut", "c14_junkyard_crane.nut", "director_c4_storm.nut", "director_onslaught.nut", "director_quiet.nut" };
-    public static readonly List<int> TankIndexList = new() { 6, 14, 22, 32 };
+    public static readonly List<string> OfficialMapStandardRescueList = new() { "c2m5_concert_finale.nut", "c3m4_plantation_finale.nut", "c4m5_milltown_escape_finale.nut", "c8m5_rooftop_finale.nut", "c9m2_lots_finale.nut", "c10m5_houseboat_finale.nut", "c11m5_runway_finale.nut", "c12m5_cornfield_finale.nut" };
+    public static readonly List<string> OfficialMapScavengeRescueList = new() { "c1m4_atrium_finale.nut", "c1m4_delay.nut", "c6m3_port_finale.nut", "c14m2_lighthouse_finale.nut" };
+    public static readonly List<string> OfficialMapGauntletRescueList = new() { "director_gauntlet.nut" };
+    public static readonly List<string> OfficialMapSacrificeRescueList = new() { "c7m3_port_finale.nut" };
+    public static readonly List<string> OfficialMapOnslaughtList = new() { "c1m1_reserved_wanderers.nut", "c1_gunshop_onslaught.nut", "c1_gunshop_quiet.nut", "c1_mall_ambient.nut", "c1_mall_crescendo.nut", "c1_mall_crescendo_cooldown.nut", "c1_mall_crescendo_wave.nut", "c1_mall_onslaught.nut", "c1_streets_ambush.nut", "c2m1_no_bosses.nut", "c2m1_reserved_wanderers.nut", "c2m4_barns_onslaught.nut", "c2m4_barns_onslaught2.nut", "c2m4_finale_onslaught.nut", "c2m4_finale_quiet.nut", "c2_coaster_onslaught.nut", "c2_fairgrounds_onslaught.nut", "c2_highway_ambush.nut", "c3m1_barge.nut", "c3m1_fog_spawn.nut", "c3m1_nothreat.nut", "c3m1_swamp_fog_spawn.nut", "c3m2_fog_spawn.nut", "c3m2_mob_from_front.nut", "c3m4_nothreat.nut", "c4m4_fog_spawn.nut", "c5m1_nothreat.nut", "c5m2_mob_from_front.nut", "c6m1_riverbank.nut", "c6m2_minifinale.nut", "c7m2_barge.nut", "c8m1_apartment.nut", "c8m3_sewers.nut", "c8m5_rooftop.nut", "c9m1_nobosses.nut", "c10m1_no_bosses.nut", "c10m4_onslaught.nut", "c11m1_no_bosses.nut", "c11m4_minifinale.nut", "c11m4_minifinale_pt2.nut", "c11m4_onslaught.nut", "c11m4_reserved_wanderers.nut", "c12m1_no_bosses.nut", "c12m3_onslaught.nut", "c12m4_onslaught.nut", "c12m4_reserved_wanderers.nut", "c12m5_panic.nut", "c14_junkyard_cooldown.nut", "c14_junkyard_crane.nut", "director_c4_storm.nut", "director_onslaught.nut", "director_quiet.nut" };
     public static readonly List<string> MdlExtensionList = new() { ".mdl", ".vvd", ".phy", ".ani", ".dx80.vtx", ".dx90.vtx", ".sw.vtx", ".xbox.vtx" };
-    public static readonly List<string> MaterialParameterList = new() { "basetexture", "detail", "blendmodulatetexture", "envmap", "envmapmask", "bumpmap", "basetexture2", "selfillummask", "normalmap" };
+    public static readonly List<string> MaterialParameterList = new() { "basetexture", "detail", "blendmodulatetexture", "envmap", "envmapmask", "bumpmap", "basetexture2", "selfillummask", "normalmap", "fallbackmaterial", "hdrcompressedtexture" };
+    public static readonly List<string> SkyboxExtensionList = new() { "bk", "dn", "ft", "lf", "rt", "up" };
+    public static readonly List<string> OfficialParticleFileList = new() { "particles\\blood_fx.pcf", "particles\\boomer_fx.pcf", "particles\\burning_fx.pcf", "particles\\charger_fx.pcf", "particles\\coldstream.pcf", "particles\\default.pcf", "particles\\electrical_fx.pcf", "particles\\environment_fx_river.pcf", "particles\\environmental_fx.pcf", "particles\\environmental_fx_river.pcf", "particles\\error.pcf", "particles\\fire_01.pcf", "particles\\fire_01_lighthouse.pcf", "particles\\fire_01_river.pcf", "particles\\fire_01l4d.pcf", "particles\\fire_01l4d_garage.pcf", "particles\\fire_01l4d_river.pcf", "particles\\fire_fx.pcf", "particles\\fire_infected_fx.pcf", "particles\\firework_crate_fx.pcf", "particles\\fireworks_fx.pcf", "particles\\footstep_fx.pcf", "particles\\gen_dest_fx.pcf", "particles\\hunter_fx.pcf", "particles\\impact_fx.pcf", "particles\\infected_fx.pcf", "particles\\insect_fx.pcf", "particles\\item_fx.pcf", "particles\\laststand.pcf", "particles\\locator_fx.pcf", "particles\\military_artillery_impacts.pcf", "particles\\rain_fx.pcf", "particles\\rain_storm_fx.pcf", "particles\\rope_fx.pcf", "particles\\screen_fx.pcf", "particles\\smoker_fx.pcf", "particles\\speechbubbles.pcf", "particles\\spitter_fx.pcf", "particles\\steam_fx.pcf", "particles\\steamworks.pcf", "particles\\survivor_fx.pcf", "particles\\tank_fx.pcf", "particles\\tanker_explosion.pcf", "particles\\test_collision.pcf", "particles\\test_distancealpha.pcf", "particles\\ui_fx.pcf", "particles\\vehicle_fx.pcf", "particles\\water_fx.pcf", "particles\\weapon_fx.pcf", "particles\\weapon_fx_newbrasseject.pcf", "particles\\weapon_fx_river.pcf", "particles\\witch_fx.pcf" };
     public static readonly KeyValuePair emptyKeyValuePair = new() { Header = string.Empty, KeyValue = new List<KeyValue>() };
 
     public static readonly string L4D2RootPath = SteamApps.AppInstallDir(L4D2AppID);
@@ -49,8 +51,8 @@ public static class Globals
     public static readonly string L4D2MapsPath = L4D2RootPath + "\\left4dead2\\maps";
     public static readonly string L4D2ScriptsPath = L4D2RootPath + "\\left4dead2\\scripts\\vscripts";
 
-    public static List<string> OfficalMaterialsPaths = new();
-    public static List<string> OfficalModelPaths = new();
+    public static List<string> OfficialMaterialsPaths = new();
+    public static List<string> OfficialModelPaths = new();
 
     public static List<string> PossiblePaths = new();
 
@@ -58,13 +60,13 @@ public static class Globals
 
     public static void SplitStrings()
     {
-        foreach (string s in Properties.Resources.OfficalMaterialsPaths.Split(','))
+        foreach (string s in Properties.Resources.OfficialMaterialsPaths.Split(','))
         {
-            OfficalMaterialsPaths.Add(s);
+            OfficialMaterialsPaths.Add(s);
         }
-        foreach (string s in Properties.Resources.OfficalModelPaths.Split(','))
+        foreach (string s in Properties.Resources.OfficialModelPaths.Split(','))
         {
-            OfficalModelPaths.Add(s);
+            OfficialModelPaths.Add(s);
         }
     }
 

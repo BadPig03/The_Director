@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,6 +20,7 @@ namespace The_Director.Windows
         private SoundCacheProcessor soundCacheProcessor = new();
         private MdlExtractor mdlExtractor = new();
         private VmtReader vmtReader = new();
+        private PcfReader pcfReader = new();
 
         public OtherProcessPage()
         {
@@ -26,6 +28,7 @@ namespace The_Director.Windows
             VmfResourcesGrid.ItemsSource = vmfResourcesContainer;
             Globals.SplitStrings();
             mdlExtractor.ReadGameInfo();
+            pcfReader.AnalyzePcf("D:\\l4d2maps\\origins\\particles\\coldstream.pcf");
         }
 
         private void SoundCacheProcessorClick(object sender, RoutedEventArgs e)
@@ -180,6 +183,10 @@ namespace The_Director.Windows
             }
 
             WorkerList[0] = openFileDialog.FileName;
+
+            vmfResourcesContainer = new List<VmfResourcesContainer> ();
+            VmfResourcesGrid.ItemsSource = vmfResourcesContainer;
+
             WorkerStart("VmfReader");
         }
 
@@ -325,23 +332,94 @@ namespace The_Director.Windows
 
             if (vmfResources.Model != string.Empty)
             {
-                if (Globals.OfficalModelPaths.Contains(vmfResources.Model.Replace('/', '\\')))
+                if (vmfResources.Model.EndsWith(".mdl"))
                 {
-                    Functions.TryOpenMessageWindow(11);
-                    return;
+                    if (Globals.OfficialModelPaths.Contains(vmfResources.Model.Replace('/', '\\')))
+                    {
+                        Functions.TryOpenMessageWindow(11);
+                        return;
+                    }
+
+                    List<string> fileList = mdlExtractor.HandleAMdl(vmfResources.Model);
+
+                    if (fileList.Count == 0)
+                    {
+                        Functions.TryOpenMessageWindow(10);
+                        return;
+                    }
+
+                    foreach (string material in fileList)
+                    {
+                        vmfResourcesList.Add(new VmfResourcesContainer(-1, material.Split('\\').Last().Replace(".vmt", ""), material));
+                    }
                 }
-
-                List<string> fileList = mdlExtractor.HandleAMdl(vmfResources.Model);
-
-                if (fileList.Count == 0)
+                else if (vmfResources.Model.EndsWith(".vmt"))
                 {
-                    Functions.TryOpenMessageWindow(10);
-                    return;
+                    if (Globals.OfficialMaterialsPaths.Contains("materials\\" + vmfResources.Model.Replace('/', '\\')))
+                    {
+                        Functions.TryOpenMessageWindow(11);
+                        return;
+                    }
+
+                    List<string> fileList = vmtReader.HandleAVmt("materials\\" + vmfResources.Model.Replace('/', '\\'));
+
+                    if (fileList.Count == 0)
+                    {
+                        Functions.TryOpenMessageWindow(10);
+                        return;
+                    }
+
+                    foreach (string material in fileList)
+                    {
+                        vmfResourcesList.Add(new VmfResourcesContainer(-1, material.Split('\\').Last().Replace(".vmt", "").Replace('/', '\\'), material.Replace('/', '\\')));
+                    }
                 }
-
-                foreach (string material in fileList)
+                else if (vmfResources.Classname == "worldspawn")
                 {
-                    vmfResourcesList.Add(new VmfResourcesContainer(-1, material.Split('\\').Last().Replace(".vmt", ""), material));
+                    foreach (string extension in Globals.SkyboxExtensionList)
+                    {
+                        string skyName = "materials\\skybox\\" + vmfResources.Model + extension;
+                        if (Globals.OfficialMaterialsPaths.Contains(skyName + ".vmt"))
+                        {
+                            Functions.TryOpenMessageWindow(11);
+                            return;
+                        }
+
+                        List<string> fileList = vmtReader.HandleAVmt(skyName + ".vmt");
+
+                        if (fileList.Count == 0)
+                        {
+                            Functions.TryOpenMessageWindow(10);
+                            return;
+                        }
+
+                        foreach (string material in fileList)
+                        {
+                            vmfResourcesList.Add(new VmfResourcesContainer(-1, material.Split('\\').Last().Replace(".vmt", "").Replace('/', '\\'), material.Replace('/', '\\')));
+                        }
+                    }
+                }
+                else if (vmfResources.Classname == "info_particle_system")
+                {
+                    string pcfName = "particles\\" + vmfResources.Model + ".pcf";
+                    if (Globals.OfficialParticleFileList.Contains(pcfName))
+                    {
+                        Functions.TryOpenMessageWindow(11);
+                        return;
+                    }
+
+                    List<string> fileList = pcfReader.HandleAPcf(pcfName);
+
+                    if (fileList.Count == 0)
+                    {
+                        Functions.TryOpenMessageWindow(10);
+                        return;
+                    }
+
+                    foreach (string material in fileList)
+                    {
+                        Debug.WriteLine(material);
+                    }
                 }
 
                 EntityPreviewWindow entityPreviewWindow = new()

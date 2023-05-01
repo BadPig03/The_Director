@@ -16,7 +16,7 @@ public class VmtReader
                 {
                     string vtfFileName = Regex.Match(line, $"({paramter})( +)(.+)").Groups[3].ToString().Replace("\r", "");
                     
-                    if (vtfFileName == "env_cubemap" || vtfFileName == string.Empty || Globals.OfficalMaterialsPaths.Contains(("materials\\" + vtfFileName).Replace("/", "\\").ToLowerInvariant()))
+                    if (vtfFileName == "env_cubemap" || vtfFileName == string.Empty || Globals.OfficialMaterialsPaths.Contains(("materials\\" + vtfFileName).Replace("/", "\\").ToLowerInvariant()))
                     {
                         continue;
                     }

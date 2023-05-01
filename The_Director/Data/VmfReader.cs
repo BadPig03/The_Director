@@ -16,7 +16,7 @@ public class VmfReader
     protected StreamReader Reader { get; set; }
 
     protected int CurrentRowCount = 0;
-    protected List<Tuple<KeyValuePair, List<InputOutput>, List<string>>> entityTuple = new();
+    protected List<Tuple<KeyValuePair, string, List<string>>> entityTuple = new();
 
     protected void GetRowCount()
     {
@@ -30,22 +30,23 @@ public class VmfReader
 
     protected void ReadEntities()
     {
-        Tuple<KeyValuePair, List<InputOutput>, List<string>> tuple = ReadWorldSpawn();
+        Tuple<KeyValuePair, string, List<string>> tuple = ReadWorldSpawn();
         entityTuple.Add(tuple);
         while (!Reader.EndOfStream)
         {
-            Tuple<KeyValuePair, List<InputOutput>, List<string>> tuple2 = ReadAnEntity();
+            Tuple<KeyValuePair, string, List<string>> tuple2 = ReadAnEntity();
             entityTuple.Add(tuple2);
         }
     }
 
-    protected Tuple<KeyValuePair, List<InputOutput>, List<string>> ReadWorldSpawn()
+    protected Tuple<KeyValuePair, string, List<string>> ReadWorldSpawn()
     {
         Reader = new(VmfPath);
         List<string> tempList = new();
         List<string> solidList = new();
         List<bool> flagList = new() { false, false };
         string row;
+        string skyName = string.Empty;
         while (true)
         {
             row = Reader.ReadLine();
@@ -77,6 +78,10 @@ public class VmfReader
                 if (Regex.IsMatch(row, "^\t\".+\" \".+\""))
                 {
                     tempList.Add(row);
+                    if (Regex.IsMatch(row, "^\t\"skyname\" \".+\""))
+                    {
+                        skyName = Regex.Split(row, "\" \"")[1].Replace("\"", "");
+                    }
                     continue;
                 }
 
@@ -96,13 +101,12 @@ public class VmfReader
             }
         }
         Worker.ReportProgress(100 * CurrentRowCount / RowCount);
-        return new Tuple<KeyValuePair, List<InputOutput>, List<string>>(ChunkProcess("worldspawn", tempList), new List<InputOutput>(), SolidProcess(solidList));
+        return new Tuple<KeyValuePair, string, List<string>>(ChunkProcess("worldspawn", tempList), skyName, SolidProcess(solidList));
     }
 
-    protected Tuple<KeyValuePair, List<InputOutput>, List<string>> ReadAnEntity()
+    protected Tuple<KeyValuePair, string, List<string>> ReadAnEntity()
     {
         List<string> tempList = new();
-        List<string> IOList = new();
         List<string> solidList = new();
         List<bool> flagList = new() { false, false, false };
         string row;
@@ -170,12 +174,6 @@ public class VmfReader
                     continue;
                 }
 
-                if (false && flagList[1] && Regex.IsMatch(row, "^\t\t\".+\" \".+\"") && row.Contains("\x1b"))
-                {
-                    IOList.Add(row);
-                    continue;
-                }
-
                 if (flagList[2] && Regex.IsMatch(row, "^\t\t\".+\" \".+\""))
                 {
                     continue;
@@ -183,13 +181,16 @@ public class VmfReader
 
                 if (Regex.IsMatch(row, "^\t\t\t\"material\" \".+\""))
                 {
-                    solidList.Add(row);
+                    if (!solidList.Contains(row))
+                    {
+                        solidList.Add(row);
+                    }
                     continue;
                 }
             }
         }
         Worker.ReportProgress(100 * CurrentRowCount / RowCount);
-        return new Tuple<KeyValuePair, List<InputOutput>, List<string>> (ChunkProcess(classname, tempList), IOProcess(IOList), SolidProcess(solidList));
+        return new Tuple<KeyValuePair, string, List<string>> (ChunkProcess(classname, tempList), string.Empty, SolidProcess(solidList));
     }
 
     protected KeyValuePair ChunkProcess(string header, List<string> rawList)
@@ -217,50 +218,15 @@ public class VmfReader
         return new KeyValuePair() { Header = header, KeyValue = keyValueList };
     }
 
-    protected List<InputOutput> IOProcess(List<string> rawList)
-    {
-        List<InputOutput> inputOutputList = new();
-
-        if (rawList.Count == 0)
-        {
-            return inputOutputList;
-        }
-
-        foreach (string line in rawList)
-        {
-            if (Regex.IsMatch(line, "^\t\t\".+\" \".+\""))
-            {
-                InputOutput inputOutput = new();
-                foreach (string line2 in Regex.Split(line, "\" \""))
-                {
-                    if (Regex.IsMatch(line2, "^\t\t\""))
-                    {
-                        inputOutput.OutputName = Regex.Split(line2, "\"")[1];
-                    }
-                    else
-                    {
-                        inputOutput.TargetEntity = line2.Split('\x1b')[0];
-                        inputOutput.InputName = line2.Split('\x1b')[1];
-                        inputOutput.Parameters = line2.Split('\x1b')[2];
-                        inputOutput.TimeDelay = line2.Split('\x1b')[3];
-                        inputOutput.FireTimes = line2.Split('\x1b')[4].Replace("\"", "");
-                    }
-                }
-                inputOutputList.Add(inputOutput);
-            }
-        }
-        return inputOutputList;
-    }
-
     protected List<string> SolidProcess(List<string> rawList)
     {
         List<string> materialList = new();
         foreach (string line in rawList)
         {
             string material = Regex.Split(line, "\" \"")[1].Replace("\"", "").ToLowerInvariant();
-            if (!materialList.Contains(material))
+            if (!materialList.Contains("materials\\" + material + ".vmt"))
             {
-                materialList.Add(material);
+                materialList.Add("materials\\" + material + ".vmt");
             }
         }
         return materialList;
@@ -285,6 +251,10 @@ public class VmfReader
                         break;
                     case "classname":
                         classname = item.Value;
+                        if (item.Value == "worldspawn")
+                        {
+                            model = kvp.Item2;
+                        }
                         break;
                     case "targetname":
                         targetname = item.Value;
@@ -292,14 +262,15 @@ public class VmfReader
                     case "origin":
                         origin = item.Value;
                         break;
+                    case "effect_name":
                     case "model":
-                        model = item.Value;
+                        model = item.Value.Replace(".spr", ".vmt").ToLowerInvariant();
                         break;
                     default:
                         break;
                 }
             }
-            containerList.Add(new VmfResourcesContainer(id, classname, targetname, origin, model));
+            containerList.Add(new VmfResourcesContainer(id, classname, targetname, origin, model, kvp.Item3));
         }
         Worker.ReportProgress(100);
         return containerList;

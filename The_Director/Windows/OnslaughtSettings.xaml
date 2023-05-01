@@ -50,7 +50,7 @@
                 <Label Grid.Row="3" Margin="0,5,6,5" Content="脚本选择" FontSize="18" FontFamily="Bahnschrift"/>
                 <ComboBox Name="MapSelectionComboBox" Grid.Row="3" Margin="100,5,5,5" FontSize="15" FontFamily="Bahnschrift" Width="150" HorizontalAlignment="Right" HorizontalContentAlignment="Right"/>
                 <DockPanel Grid.Row="4" Grid.Column="0">
-                    <Button Name="PreviewOffcialScriptButton" Margin="20,5,5,5" Content="预览脚本文件" Width="120" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Center" Click="PreviewOfficalScriptClick"/>
+                    <Button Name="PreviewOfficialScriptButton" Margin="20,5,5,5" Content="预览脚本文件" Width="120" FontSize="13" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Center" Click="PreviewOfficialScriptClick"/>
                 </DockPanel>
             </Grid>
         </Grid>

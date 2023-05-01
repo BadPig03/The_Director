@@ -55,7 +55,7 @@ namespace The_Director.Windows
             ReadStandardOutput += new DelegateReadStandardOutput(ReadStandardOutputAction);
             PreferredMobDirectionComboBox.ItemsSource = Globals.PreferredMobDirectionList;
             PreferredSpecialDirectionComboBox.ItemsSource = Globals.PreferredSpecialDirectionList;
-            MapSelectionComboBox.ItemsSource = Globals.OffcialMapScavengeRescueList;
+            MapSelectionComboBox.ItemsSource = Globals.OfficialMapScavengeRescueList;
             MapSelectionComboBox.SelectedIndex = 0;
             ScavengeDict.Add("MSG", new BooleanString(false, string.Empty));
             ScavengeDict.Add("ShowProgress", new BooleanString(false, null));
@@ -487,12 +487,12 @@ namespace The_Director.Windows
             StartNewProcess();
         }
 
-        private void PreviewOfficalScriptClick(object sender, RoutedEventArgs e)
+        private void PreviewOfficialScriptClick(object sender, RoutedEventArgs e)
         {
             PreviewScriptWindow previewScriptWindow = new()
             {
                 Title = $"正在预览{MapSelectionComboBox.SelectedItem}的救援脚本",
-                TextBoxString = Functions.GetOffcialScavengeScriptFile(MapSelectionComboBox.SelectedIndex),
+                TextBoxString = Functions.GetOfficialScavengeScriptFile(MapSelectionComboBox.SelectedIndex),
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };

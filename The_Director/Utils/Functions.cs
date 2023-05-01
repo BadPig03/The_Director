@@ -290,7 +290,7 @@ public static class Functions
         process.Close();
     }
 
-    public static string GetOffcialStandardScriptFile(int index)
+    public static string GetOfficialStandardScriptFile(int index)
     {
         return index switch
         {
@@ -306,7 +306,7 @@ public static class Functions
         };
     }
 
-    public static string GetOffcialScavengeScriptFile(int index)
+    public static string GetOfficialScavengeScriptFile(int index)
     {
         return index switch
         {
@@ -318,17 +318,17 @@ public static class Functions
         };
     }
 
-    public static string GetOffcialGauntletScriptFile()
+    public static string GetOfficialGauntletScriptFile()
     {
         return Properties.Resources.director_gauntlet;
     }
 
-    public static string GetOffcialSacrificeScriptFile()
+    public static string GetOfficialSacrificeScriptFile()
     {
         return Properties.Resources.c7m3_port_finale;
     }
 
-    public static string GetOffcialOnslaughtScriptFile(int index)
+    public static string GetOfficialOnslaughtScriptFile(int index)
     {
         return index switch
         {

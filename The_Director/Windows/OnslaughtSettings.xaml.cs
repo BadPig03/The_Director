@@ -38,7 +38,7 @@ namespace The_Director.Windows
             PreferredMobDirectionComboBox.ItemsSource = Globals.PreferredMobDirectionList;
             PreferredSpecialDirectionComboBox.ItemsSource = Globals.PreferredSpecialDirectionList;
             DisallowThreatTypeComboBox.ItemsSource = Globals.DisallowThreatTypeList;
-            MapSelectionComboBox.ItemsSource = Globals.OffcialMapOnslaughtList;
+            MapSelectionComboBox.ItemsSource = Globals.OfficialMapOnslaughtList;
             MapSelectionComboBox.SelectedIndex = 0;
             OnslaughtDict.Add("MSG", new BooleanString(false, string.Empty));
             OnslaughtDict.Add("PlayMegaMobWarningSounds", new BooleanString(false, null));
@@ -264,12 +264,12 @@ namespace The_Director.Windows
             }
         }
 
-        private void PreviewOfficalScriptClick(object sender, RoutedEventArgs e)
+        private void PreviewOfficialScriptClick(object sender, RoutedEventArgs e)
         {
             PreviewScriptWindow previewScriptWindow = new()
             {
                 Title = $"正在预览{MapSelectionComboBox.SelectedItem}的救援脚本",
-                TextBoxString = Functions.GetOffcialOnslaughtScriptFile(MapSelectionComboBox.SelectedIndex),
+                TextBoxString = Functions.GetOfficialOnslaughtScriptFile(MapSelectionComboBox.SelectedIndex),
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };

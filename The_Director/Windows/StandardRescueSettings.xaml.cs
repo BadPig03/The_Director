@@ -71,7 +71,7 @@ namespace The_Director.Windows
             ReadStandardOutput += new DelegateReadStandardOutput(ReadStandardOutputAction);
             PreferredMobDirectionComboBox.ItemsSource = Globals.PreferredMobDirectionList;
             PreferredSpecialDirectionComboBox.ItemsSource = Globals.PreferredSpecialDirectionList;
-            MapSelectionComboBox.ItemsSource = Globals.OffcialMapStandardRescueList;
+            MapSelectionComboBox.ItemsSource = Globals.OfficialMapStandardRescueList;
             MapSelectionComboBox.SelectedIndex = 0;
             StandardDict.Add("MSG", new BooleanString(false, string.Empty));
             StandardDict.Add("ShowStage", new BooleanString(false, null));
@@ -563,12 +563,12 @@ namespace The_Director.Windows
             StartNewProcess();
         }
 
-        private void PreviewOfficalScriptClick(object sender, RoutedEventArgs e)
+        private void PreviewOfficialScriptClick(object sender, RoutedEventArgs e)
         {
             PreviewScriptWindow previewScriptWindow = new()
             {
                 Title = $"正在预览{MapSelectionComboBox.SelectedItem}的救援脚本",
-                TextBoxString = Functions.GetOffcialStandardScriptFile(MapSelectionComboBox.SelectedIndex),
+                TextBoxString = Functions.GetOfficialStandardScriptFile(MapSelectionComboBox.SelectedIndex),
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };

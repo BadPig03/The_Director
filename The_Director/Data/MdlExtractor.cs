@@ -84,7 +84,7 @@ public class MdlExtractor
         }
     }
 
-    protected void GetOffcialFiles()
+    protected void GetOfficialFiles()
     {
         foreach (FileInfo file in Functions.GetAllFileInfo(new DirectoryInfo("D:\\l4d2maps\\origin_sources\\materials"), new List<FileInfo>()))
         {

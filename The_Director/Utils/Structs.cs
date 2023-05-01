@@ -40,16 +40,3 @@ public record struct KeyValuePair(string Header, List<KeyValue> KeyValue)
         return new KeyValuePair(value.Item1, value.Item2);
     }
 }
-
-public record struct InputOutput(string OutputName, string TargetEntity, string InputName, string Parameters, string TimeDelay, string FireTimes)
-{
-    public static implicit operator (string, string, string, string, string, string)(InputOutput value)
-    {
-        return (value.OutputName, value.TargetEntity, value.InputName, value.Parameters, value.TimeDelay, value.FireTimes);
-    }
-
-    public static implicit operator InputOutput((string, string, string, string, string, string) value)
-    {
-        return new InputOutput(value.Item1, value.Item2, value.Item3, value.Item4, value.Item5, value.Item6);
-    }
-}

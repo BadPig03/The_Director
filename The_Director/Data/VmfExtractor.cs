@@ -17,7 +17,17 @@ public class VmfExtractor
 
         foreach (VmfResourcesContainer vmfResource in VmfResourcesContainer)
         {
-            if (vmfResource.Model != string.Empty && !Globals.OfficalModelPaths.Contains(vmfResource.Model.Replace("/", "\\").ToLowerInvariant()))
+            if (vmfResource.Classname == "worldspawn")
+            {
+                foreach (string extension in Globals.SkyboxExtensionList)
+                {
+                    Functions.CopyVtfMaterialFiles(VmtReader.HandleAVmt("materials\\skybox\\" + vmfResource.Model + extension + ".vmt"), SavePath);
+                }
+                Functions.CopyVtfMaterialFiles(vmfResource.Materials, SavePath);
+                continue;
+            }
+
+            if (vmfResource.Model != string.Empty && !Globals.OfficialModelPaths.Contains(vmfResource.Model.Replace("/", "\\").ToLowerInvariant()))
             {
                 foreach (string path in MdlExtractor.HandleAMdl(vmfResource.Model))
                 {
@@ -30,7 +40,18 @@ public class VmfExtractor
                 }
                 else if (vmfResource.Model.EndsWith(".vmt"))
                 {
-                    //Debug.WriteLine(vmfResource.Model);
+                    Functions.CopyVtfMaterialFiles(VmtReader.HandleAVmt("materials\\" + vmfResource.Model), SavePath);
+                }
+            }
+
+            if (vmfResource.Materials.Count > 0)
+            {
+                foreach (string material in vmfResource.Materials)
+                {
+                    if (!Globals.OfficialMaterialsPaths.Contains(material.Replace("/", "\\").ToLowerInvariant()))
+                    {
+                        Functions.CopyVtfMaterialFiles(VmtReader.HandleAVmt(material), SavePath);
+                    }
                 }
             }
             containerCount++;

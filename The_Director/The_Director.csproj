@@ -164,6 +164,7 @@
     <Compile Include="Data\FolderPicker.cs" />
     <Compile Include="Data\MdlExtractor.cs" />
     <Compile Include="Data\NavMenu.cs" />
+    <Compile Include="Data\PcfReader.cs" />
     <Compile Include="Data\ScriptProcessor.cs" />
     <Compile Include="Data\SoundCachePacker.cs" />
     <Compile Include="Data\SoundCacheProcessor.cs" />
