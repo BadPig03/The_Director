@@ -39,6 +39,7 @@ public static class Globals
     public static readonly string L4D2AddonPath = L4D2RootPath + "\\left4dead2\\addons";
     public static readonly string L4D2CustomAudioPath = L4D2TempPath + "sound";
     public static readonly string L4D2CustomPackPath = L4D2TempPath + "pack";
+    public static readonly string L4D2ParticlesPath = L4D2TempPath + "particles";
     public static readonly string L4D2StandardFinalePath = L4D2TempPath + "standard_finale";
     public static readonly string L4D2ScavengeFinalePath = L4D2TempPath + "scavenge_finale";
     public static readonly string L4D2GauntletFinalePath = L4D2TempPath + "gauntlet_finale";

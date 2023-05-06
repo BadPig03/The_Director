@@ -1761,7 +1761,7 @@ namespace The_Director.Properties {
         ///{
         ///	&quot;editorversion&quot; &quot;400&quot;
         ///	&quot;editorbuild&quot; &quot;8864&quot;
-        ///	&quot;mapversion&quot; &quot;276&quot;
+        ///	&quot;mapversion&quot; &quot;277&quot;
         ///	&quot;formatversion&quot; &quot;100&quot;
         ///	&quot;prefab&quot; &quot;0&quot;
         ///}
@@ -1956,6 +1956,15 @@ namespace The_Director.Properties {
         internal static string OfficialModelPaths {
             get {
                 return ResourceManager.GetString("OfficialModelPaths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 blood_fx|PCEtLSBkbXggZW5jb2RpbmcgYmluYXJ5IDQgZm9ybWF0IHBjZiAyIC0tPgoAowEAAERtZUVsZW1lbnQAdW50aXRsZWQAcGFydGljbGVTeXN0ZW1EZWZpbml0aW9ucwBuYW1lAERtZVBhcnRpY2xlU3lzdGVtRGVmaW5pdGlvbgBibG9vZF9pbXBhY3RfcmVkXzAxX2dvb3AAZmFsbGJhY2sgcmVwbGFjZW1lbnQgZGVmaW5pdGlvbgAAY3VsbF9yZXBsYWNlbWVudF9kZWZpbml0aW9uAG1hdGVyaWFsAHBhcnRpY2xlXHNwcmF5MVxzcHJheTEudm10AG1heF9wYXJ0aWNsZXMAcHJldmVudE5hbWVCYXNlZExvb2t1cABjb25zdHJhaW50cwBmb3JjZXMAY2hpbGRyZW4AZW1pdHRlcnMAaW5pdGlhbGl6ZXJzAG9wZXJhdG9ycwByZW5kZXJlcnMARG1lUGFydGljbGVPcGVyYXRvcgB [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string OfficialParticleFiles {
+            get {
+                return ResourceManager.GetString("OfficialParticleFiles", resourceCulture);
             }
         }
         

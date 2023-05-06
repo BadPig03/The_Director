@@ -4,9 +4,42 @@ using System.IO;
 using System.Linq;
 using The_Director.Utils;
 using System.Diagnostics;
+using System.Text;
 
 public class PcfReader
 {
+    public void SaveOfficialPcfFiles()
+    {
+        string file = Functions.GetOfficialParticleFiles();
+        if (!Directory.Exists(Globals.L4D2ParticlesPath))
+        {
+            Directory.CreateDirectory(Globals.L4D2ParticlesPath);
+        }
+        foreach (string file2 in file.Split('?'))
+        {
+            string[] fileArray = file2.Split('|');
+            using MemoryStream memoryStream = new(Convert.FromBase64String(fileArray[1]));
+            using FileStream fileStream = new(Globals.L4D2ParticlesPath + "\\" + fileArray[0] + ".pcf", FileMode.OpenOrCreate, FileAccess.Write);
+            byte[] bytes = memoryStream.ToArray();
+            fileStream.Write(bytes, 0, bytes.Length);
+        }
+    }
+
+    protected string ConvertPcfFiles()
+    {
+        string particleFolderPath = "";
+        StringBuilder stringBuilder = new();
+        foreach(string file in Directory.GetFiles(particleFolderPath))
+        {
+            string fileName = Path.GetFileNameWithoutExtension(file);
+            if (file.EndsWith(".pcf"))
+            {
+                stringBuilder.Append(fileName + "|" + Functions.FileToBase64String(file) + "|?");
+            }
+        }
+        return stringBuilder.ToString();
+    }
+
     protected List<string> ReadAPcf(string file)
     {
         List<string> materials = new();
@@ -29,11 +62,46 @@ public class PcfReader
         return materials;
     }
 
-    public void AnalyzePcf(string file)
+    public string ContainsEffect(string effect)
     {
-        foreach (string material in ReadAPcf(file))
+        if (effect == string.Empty)
         {
-            Debug.WriteLine(material);
+            return null;
+        }
+
+        foreach (string file in Directory.GetFiles(Globals.L4D2ParticlesPath))
+        {
+            byte[] byteArray = File.ReadAllBytes(file);
+            List<string> list = new();
+            List<char> chars = new();
+
+            foreach (byte b in byteArray)
+            {
+                if (b == 0 && chars.Count > 0)
+                {
+                    list.Add(new string(chars.ToArray()).ToLowerInvariant());
+                    chars.Clear();
+                }
+                else if (b > 0)
+                {
+                    chars.Add(Convert.ToChar(b));
+                }
+            }
+
+            if (list.Contains(effect))
+            {
+                return Path.GetFileNameWithoutExtension(file);
+            }
+        }
+
+        return null;
+    }
+
+    public void GetCustomPcf()
+    {
+        foreach (string path in Globals.PossiblePaths)
+        {
+
         }
     }
 

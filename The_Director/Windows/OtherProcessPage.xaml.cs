@@ -28,7 +28,7 @@ namespace The_Director.Windows
             VmfResourcesGrid.ItemsSource = vmfResourcesContainer;
             Globals.SplitStrings();
             mdlExtractor.ReadGameInfo();
-            pcfReader.AnalyzePcf("D:\\l4d2maps\\origins\\particles\\coldstream.pcf");
+            pcfReader.SaveOfficialPcfFiles();
         }
 
         private void SoundCacheProcessorClick(object sender, RoutedEventArgs e)
@@ -401,6 +401,12 @@ namespace The_Director.Windows
                 }
                 else if (vmfResources.Classname == "info_particle_system")
                 {
+                    if (pcfReader.ContainsEffect(vmfResources.Model) != null)
+                    {
+                        Functions.TryOpenMessageWindow(11);
+                        return;
+                    }
+                    /*
                     string pcfName = "particles\\" + vmfResources.Model + ".pcf";
                     if (Globals.OfficialParticleFileList.Contains(pcfName))
                     {
@@ -419,7 +425,7 @@ namespace The_Director.Windows
                     foreach (string material in fileList)
                     {
                         Debug.WriteLine(material);
-                    }
+                    }*/
                 }
 
                 EntityPreviewWindow entityPreviewWindow = new()
@@ -437,4 +443,4 @@ namespace The_Director.Windows
             }
         }
     }
-}
+}  

@@ -390,6 +390,7 @@
     <None Include="Resources\director_onslaught.txt" />
     <None Include="Resources\director_quiet.txt" />
     <None Include="Resources\vice3.txt" />
+    <None Include="Resources\OfficialParticleFiles.txt" />
     <Content Include="steam_api64.dll" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

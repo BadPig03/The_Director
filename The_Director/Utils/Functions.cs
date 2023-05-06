@@ -600,4 +600,9 @@ public static class Functions
         }
         return data;
     }
+
+    public static string GetOfficialParticleFiles()
+    {
+        return Properties.Resources.OfficialParticleFiles;
+    }
 }
