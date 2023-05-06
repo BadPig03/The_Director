@@ -66,7 +66,7 @@ public class PcfReader
     {
         if (effect == string.Empty)
         {
-            return null;
+            return string.Empty;
         }
 
         foreach (string file in Directory.GetFiles(Globals.L4D2ParticlesPath))
@@ -94,14 +94,60 @@ public class PcfReader
             }
         }
 
-        return null;
+        return string.Empty;
     }
 
-    public void GetCustomPcf()
+    public string ContainsEffectInFile(string effect, string file)
     {
+        if (effect == string.Empty)
+        {
+            return string.Empty;
+        }
+
+        byte[] byteArray = File.ReadAllBytes(file);
+        List<string> list = new();
+        List<char> chars = new();
+
+        foreach (byte b in byteArray)
+        {
+            if (b == 0 && chars.Count > 0)
+            {
+                list.Add(new string(chars.ToArray()).ToLowerInvariant());
+                chars.Clear();
+            }
+            else if (b > 0)
+            {
+                chars.Add(Convert.ToChar(b));
+            }
+        }
+
+        if (list.Contains(effect))
+        {
+            return Path.GetFileNameWithoutExtension(file);
+        }
+
+        return string.Empty;
+    }
+
+
+    public void GetCustomPcfPaths()
+    { 
         foreach (string path in Globals.PossiblePaths)
         {
-
+            List<FileInfo> list = new();
+            if (Directory.Exists(path + "\\particles"))
+            {
+                foreach (FileInfo file in Functions.GetAllFileInfo(new DirectoryInfo(path + "\\particles"), list))
+                {
+                    if (file.Extension == ".pcf")
+                    {
+                        if (!Globals.CustomParticlePaths.Contains(file.FullName))
+                        {
+                            Globals.CustomParticlePaths.Add(file.FullName);
+                        }
+                    }
+                }
+            }
         }
     }
 

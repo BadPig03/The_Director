@@ -566,7 +566,6 @@ public static class Functions
         }
     }
 
-
     public static List<FileInfo> GetAllFileInfo(DirectoryInfo dir, List<FileInfo> list)
     {
         FileInfo[] allFile = dir.GetFiles();

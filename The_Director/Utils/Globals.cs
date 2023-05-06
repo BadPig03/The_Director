@@ -54,6 +54,7 @@ public static class Globals
 
     public static List<string> OfficialMaterialsPaths = new();
     public static List<string> OfficialModelPaths = new();
+    public static List<string> CustomParticlePaths = new();
 
     public static List<string> PossiblePaths = new();
 

@@ -29,6 +29,7 @@ namespace The_Director.Windows
             Globals.SplitStrings();
             mdlExtractor.ReadGameInfo();
             pcfReader.SaveOfficialPcfFiles();
+            pcfReader.GetCustomPcfPaths();
         }
 
         private void SoundCacheProcessorClick(object sender, RoutedEventArgs e)
@@ -276,6 +277,7 @@ namespace The_Director.Windows
                         VmfResourcesContainer = vmfResourcesContainer,
                         MdlExtractor = mdlExtractor,
                         VmtReader = vmtReader,
+                        PcfReader = pcfReader,
                         SavePath = WorkerList[7],
                         Worker = worker
                     };
@@ -401,31 +403,42 @@ namespace The_Director.Windows
                 }
                 else if (vmfResources.Classname == "info_particle_system")
                 {
-                    if (pcfReader.ContainsEffect(vmfResources.Model) != null)
-                    {
-                        Functions.TryOpenMessageWindow(11);
-                        return;
-                    }
-                    /*
-                    string pcfName = "particles\\" + vmfResources.Model + ".pcf";
-                    if (Globals.OfficialParticleFileList.Contains(pcfName))
+                    if (pcfReader.ContainsEffect(vmfResources.Model) != string.Empty)
                     {
                         Functions.TryOpenMessageWindow(11);
                         return;
                     }
 
-                    List<string> fileList = pcfReader.HandleAPcf(pcfName);
+                    bool flag = true;
 
-                    if (fileList.Count == 0)
+                    foreach (string file in Globals.CustomParticlePaths)
+                    {
+                        string result = pcfReader.ContainsEffectInFile(vmfResources.Model, file);
+                        if (result != string.Empty)
+                        {
+                            flag = false;
+                            string pcfName = "particles\\" + result + ".pcf";
+                            List<string> fileList = pcfReader.HandleAPcf(pcfName);
+
+                            if (fileList.Count == 0)
+                            {
+                                Functions.TryOpenMessageWindow(10);
+                                return;
+                            }
+
+                            foreach (string material in fileList)
+                            {
+                                vmfResourcesList.Add(new VmfResourcesContainer(-1, material.Split('\\').Last().Replace(".vmt", "").Replace('/', '\\'), material.Replace('/', '\\')));
+                            }
+                            break;
+                        }
+                    }
+
+                    if (flag)
                     {
                         Functions.TryOpenMessageWindow(10);
                         return;
                     }
-
-                    foreach (string material in fileList)
-                    {
-                        Debug.WriteLine(material);
-                    }*/
                 }
 
                 EntityPreviewWindow entityPreviewWindow = new()
