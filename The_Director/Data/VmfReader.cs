@@ -263,6 +263,7 @@ public class VmfReader
                         origin = item.Value;
                         break;
                     case "effect_name":
+                    case "message":
                     case "model":
                         model = item.Value.Replace(".spr", ".vmt").ToLowerInvariant();
                         break;

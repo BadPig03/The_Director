@@ -168,6 +168,7 @@
     <Compile Include="Data\ScriptProcessor.cs" />
     <Compile Include="Data\SoundCachePacker.cs" />
     <Compile Include="Data\SoundCacheProcessor.cs" />
+    <Compile Include="Data\SoundReader.cs" />
     <Compile Include="Data\VmfExtractor.cs" />
     <Compile Include="Data\VmfReader.cs" />
     <Compile Include="Data\VmfResourcesContainer.cs" />

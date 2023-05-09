@@ -604,4 +604,9 @@ public static class Functions
     {
         return Properties.Resources.OfficialParticleFiles;
     }
+
+    public static string GetOfficialSoundFiles()
+    {
+        return Properties.Resources.OfficialSoundFiles;
+    }
 }

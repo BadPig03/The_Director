@@ -38,6 +38,6 @@ public class VmtReader
                 return ReadAVmt(path2, filePath);
             }
         }
-        return new List<string> ();
+        return new List<string>();
     }
 }

@@ -1969,6 +1969,15 @@ namespace The_Director.Properties {
         }
         
         /// <summary>
+        ///   查找类似 sound\ambient\alarms\alarm1.wav|sound\ambient\alarms\klaxon1.wav|sound\ambient\alarms\perimeter_alarm.wav|sound\ambient\alarms\train_crossing_bell_loop1.wav|sound\ambient\ambience\1b_rooftoptrain_st_loop.wav|sound\ambient\ambience\airport_lobby_amb_loop.wav|sound\ambient\ambience\bug_loop.wav|sound\ambient\ambience\cicada_loop.wav|sound\ambient\ambience\courtyard_birds_loop.wav|sound\ambient\ambience\crucial_1a_communications_room_amb.wav|sound\ambient\ambience\crucial_airportambwindoutside.wav|sound\ambien [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string OfficialSoundFiles {
+            get {
+                return ResourceManager.GetString("OfficialSoundFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6AAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1vZGUuDQ0KJAAAAAAAAADSTA5rli1gOJYtYDiWLWA4sesbOJUtYDiWLWE4zS1gOCti9jiXLWA4iH/1OIItYDiIf+M4Fi1gOIh/5DigLWA4iH/xOJctYDhSaWNoli1gOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFBFAABMAQMAbuzuRwAAAAAAAAAA4AADAQsBCQAAaAEAALwAAAAAAAC3XwAAABAAAACAAQAAAEAAABAAAAACAAAFAAAAAAAAAAUAAAAAAAAAAFACAAAEAAAAAAAAAwAAgAAAEAAAEAAAAAAQAAAQAAAAAAAAEAAAAAAAAAAAAAAAJMABACgAAAAAAAAAAAAAAAAAAAAAAAAA [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string vice3 {

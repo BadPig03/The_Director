@@ -84,17 +84,6 @@ public class MdlExtractor
         }
     }
 
-    protected void GetOfficialFiles()
-    {
-        foreach (FileInfo file in Functions.GetAllFileInfo(new DirectoryInfo("D:\\l4d2maps\\origin_sources\\materials"), new List<FileInfo>()))
-        {
-            if (file.Extension == ".vmt")
-            {
-                Debug.Write("" + file.FullName.Replace("D:\\l4d2maps\\origin_sources\\", "") + ", ");
-            }
-        }
-    }
-
     public List<string> HandleAMdl(string filePath)
     {
         List<string> files = new();

@@ -13,8 +13,8 @@
         <Border Grid.Row="0" Grid.Column="0" Margin="5">
             <DataGrid Grid.Row="0" Grid.Column="0" Name="VmfResourcesGrid" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" FontSize="16" IsReadOnly="True" GridLinesVisibility="All" HeadersVisibility="Column" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="MouseDoubleClick">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Material Name" Width="auto" Binding="{Binding Classname}"/>
-                    <DataGridTextColumn Header="Material Path" Width="auto" Binding="{Binding Targetname}"/>
+                    <DataGridTextColumn Header="Asset Name" Width="auto" Binding="{Binding Classname}"/>
+                    <DataGridTextColumn Header="Asset Path" Width="auto" Binding="{Binding Targetname}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

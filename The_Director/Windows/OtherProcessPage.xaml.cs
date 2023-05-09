@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Media3D;
 using The_Director.Utils;
 
 namespace The_Director.Windows
@@ -21,6 +22,7 @@ namespace The_Director.Windows
         private MdlExtractor mdlExtractor = new();
         private VmtReader vmtReader = new();
         private PcfReader pcfReader = new();
+        private SoundReader soundReader = new();
 
         public OtherProcessPage()
         {
@@ -30,6 +32,7 @@ namespace The_Director.Windows
             mdlExtractor.ReadGameInfo();
             pcfReader.SaveOfficialPcfFiles();
             pcfReader.GetCustomPcfPaths();
+            soundReader.GetOfficialFiles();
         }
 
         private void SoundCacheProcessorClick(object sender, RoutedEventArgs e)
@@ -350,9 +353,22 @@ namespace The_Director.Windows
                         return;
                     }
 
+                    List<List<string>> materialList = new();
+
                     foreach (string material in fileList)
                     {
-                        vmfResourcesList.Add(new VmfResourcesContainer(-1, material.Split('\\').Last().Replace(".vmt", ""), material));
+                        List<string> vtfList = vmtReader.HandleAVmt(material);
+                        materialList.Add(vtfList);
+                        foreach (string vtf in vtfList)
+                        {
+                            vmfResourcesList.Add(new VmfResourcesContainer(-1, vtf.Replace('/', '\\').Split('\\').Last(), vtf.Replace('/', '\\')));
+                        }
+                    }
+
+                    if (materialList.TrueForAll(x => x.Count == 0))
+                    {
+                        Functions.TryOpenMessageWindow(10);
+                        return;
                     }
                 }
                 else if (vmfResources.Model.EndsWith(".vmt"))
@@ -440,6 +456,28 @@ namespace The_Director.Windows
                         return;
                     }
                 }
+                else if (vmfResources.Classname == "ambient_generic")
+                {
+                    if (Globals.OfficialSoundPaths.Contains("sound\\" + vmfResources.Model.Replace("/", "\\")))
+                    {
+                        Functions.TryOpenMessageWindow(11);
+                        return;
+                    }
+
+                    string soundFile = soundReader.HandleASoundFile("sound\\" + vmfResources.Model.Replace("/", "\\"));
+
+                    if (soundFile != string.Empty)
+                    {
+                        vmfResourcesList.Add(new VmfResourcesContainer(-1, soundFile.Split('\\').Last().Replace('/', '\\'), soundFile.Replace('/', '\\')));
+                    }
+                    else
+                    {
+                        Functions.TryOpenMessageWindow(10);
+                        return;
+                    }
+                }
+
+                vmfResourcesList = vmfResourcesList.GroupBy(x => new { x.Id, x.Classname, x.Targetname, x.Model }).Select(x => x.FirstOrDefault()).ToList();
 
                 EntityPreviewWindow entityPreviewWindow = new()
                 {
