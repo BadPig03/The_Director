@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -59,7 +58,11 @@ public class MdlExtractor
                 if (Regex.IsMatch(row, "Game.+"))
                 {
                     row = row.Replace("\t", "").Replace("Game", "");
-                    if (row == "|gameinfo_path|.")
+                    if (row.Contains("//"))
+                    {
+                        continue;
+                    }
+                    else if (row == "|gameinfo_path|.")
                     {
                         Globals.PossiblePaths.Add(Globals.L4D2GameInfoPath);
                         continue;

@@ -52,8 +52,41 @@ public static class Functions
         {
             result += temp.Substring(random.Next(0, temp.Length - 1), 1);
         }
-
         return result;
+    }
+
+    public static List<FileInfo> GetAllFileInfo(DirectoryInfo dir, List<FileInfo> list)
+    {
+        FileInfo[] allFile = dir.GetFiles();
+        DirectoryInfo[] allDir = dir.GetDirectories();
+        foreach (FileInfo file in allFile)
+        {
+            list.Add(file);
+        }
+        foreach (DirectoryInfo d in allDir)
+        {
+            GetAllFileInfo(d, list);
+        }
+        return list;
+    }
+
+    public static string FileToBase64String(string dir)
+    {
+        string data = "";
+        using (MemoryStream msReader = new())
+        {
+            using (FileStream fs = new(dir, FileMode.Open))
+            {
+                byte[] buffer = new byte[1024];
+                int readLen = 0;
+                while ((readLen = fs.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    msReader.Write(buffer, 0, readLen);
+                }
+            }
+            data = Convert.ToBase64String(msReader.ToArray());
+        }
+        return data;
     }
 
     public static bool IsProperInt(string value, int min, int max)
@@ -265,7 +298,7 @@ public static class Functions
             _ => string.Empty
         };
 
-        return $"\"{Globals.L4D2VBSPPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{path}.vmf\"" + $"&\"{Globals.L4D2VVISPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{path}.bsp\"" + $"&\"{Globals.L4D2VRADPath}\" -game \"{Globals.L4D2GameInfoPath}\" -both -StaticPropLighting -StaticPropPolys \"{path}.bsp\"&exit";
+        return $"\"{Globals.L4D2VBSPPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{path}.vmf\"" + $"&\"{Globals.L4D2VVISPath}\" -game \"{Globals.L4D2GameInfoPath}\" \"{path}.bsp\"" + $"&\"{Globals.L4D2VRADPath}\" -game \"{Globals.L4D2GameInfoPath}\" -StaticPropLighting -StaticPropPolys -both \"{path}.bsp\"&exit";
     }
 
     public static void RunL4D2Game(int type)
@@ -564,40 +597,6 @@ public static class Functions
                 }
             }
         }
-    }
-
-    public static List<FileInfo> GetAllFileInfo(DirectoryInfo dir, List<FileInfo> list)
-    {
-        FileInfo[] allFile = dir.GetFiles();
-        DirectoryInfo[] allDir = dir.GetDirectories();
-        foreach (FileInfo file in allFile)
-        {
-            list.Add(file);
-        }
-        foreach (DirectoryInfo d in allDir)
-        {
-            GetAllFileInfo(d, list);
-        }
-        return list;
-    }
-
-    public static string FileToBase64String(string dir)
-    {
-        string data = "";
-        using (MemoryStream msReader = new())
-        {
-            using (FileStream fs = new(dir, FileMode.Open))
-            {
-                byte[] buffer = new byte[1024];
-                int readLen = 0;
-                while ((readLen = fs.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    msReader.Write(buffer, 0, readLen);
-                }
-            }
-            data = Convert.ToBase64String(msReader.ToArray());
-        }
-        return data;
     }
 
     public static string GetOfficialParticleFiles()

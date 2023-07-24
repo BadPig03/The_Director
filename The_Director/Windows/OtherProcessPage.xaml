@@ -30,6 +30,11 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="32"/>
                         <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
                     <DockPanel Grid.Row="0" Grid.Column="0">
                         <Label Margin="1,0,5,0" Content="建立音频缓存" FontSize="15" FontFamily="Dengxian" FontWeight="Bold" VerticalAlignment="Top" DockPanel.Dock="Top"/>
@@ -71,6 +76,11 @@
                         <Label Margin="0,5,5,5" Content="选择vmf文件" FontSize="20" FontFamily="Dengxian" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <Button Name="ExtractVmfResourcesButton" Margin="5" Content="选择" Width="80" FontSize="18" FontFamily="Dengxian Light" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" HorizontalAlignment="Right" Click="ExtractVmfResourcesClick"/>
                     </DockPanel>
+                    <Label Grid.Row="10" Grid.Column="0" Margin="0,5,5,5" Content="目前仅支持以下内容的提取：" FontSize="20" FontFamily="Dengxian Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label Grid.Row="11" Grid.Column="0" Margin="0,5,5,5" Content="固体与模型的材质、模型本体、Sprite" FontSize="20" FontFamily="Dengxian Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label Grid.Row="12" Grid.Column="0" Margin="0,5,5,5" Content="材质、粒子材质与本体和纯路径的音频" FontSize="20" FontFamily="Dengxian Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label Grid.Row="13" Grid.Column="0" Margin="0,5,5,5" Content="注意：官方资源将不会被提取出来，只" FontSize="20" FontFamily="Dengxian Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label Grid.Row="14" Grid.Column="0" Margin="0,5,5,5" Content="提取文件存在的资源" FontSize="20" FontFamily="Dengxian Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Grid>
             </Border>
         </Grid>

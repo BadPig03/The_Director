@@ -8,8 +8,13 @@ namespace The_Director.Windows
         public SettingsPage()
         {
             InitializeComponent();
-            GamePathTextBox.Text = Clients.GetSteamPath();
-            //Globals.FileToBase64String();
+            LanguageComboBox.ItemsSource = Globals.LanguageList;
+            LanguageComboBox.SelectedIndex = 0;
+        }
+
+        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

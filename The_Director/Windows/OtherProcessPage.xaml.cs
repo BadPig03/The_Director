@@ -1,11 +1,9 @@
 ﻿using Microsoft.Win32;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Media3D;
 using The_Director.Utils;
 
 namespace The_Director.Windows

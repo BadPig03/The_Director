@@ -10,6 +10,7 @@ public static class Globals
     public const int L4D2ATAppID = 563;
 
     public static readonly List<int> TankIndexList = new() { 6, 14, 22, 32 };
+    public static readonly List<string> LanguageList = new() { "简体中文", "繁體中文", "English" };
     public static readonly List<string> StageTypeList = new() { "尸潮/波", "Tank/个", "延迟/秒", "脚本" };
     public static readonly List<string> RescueTypeList = new() { "防守救援", "灌油救援", "跑图救援", "牺牲救援", "尸潮脚本" };
     public static readonly List<string> PreferredMobDirectionList = new() { string.Empty, "SPAWN_ABOVE_SURVIVORS", "SPAWN_ANYWHERE", "SPAWN_BEHIND_SURVIVORS", "SPAWN_FAR_AWAY_FROM_SURVIVORS", "SPAWN_IN_FRONT_OF_SURVIVORS", "SPAWN_LARGE_VOLUME", "SPAWN_NEAR_IT_VICTIM", "SPAWN_NO_PREFERENCE" };
@@ -60,6 +61,8 @@ public static class Globals
     public static List<string> PossiblePaths = new();
 
     public static bool CanShutdown = true;
+
+    public static readonly KeyValue AdminLogin = new() { Key = "admin", Value = "admin" };
 
     public static void SplitStrings()
     {

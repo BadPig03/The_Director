@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using ControlzEx.Standard;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
+using System.IO;
 using The_Director.Utils;
 
 public class VmfExtractor
@@ -32,13 +32,12 @@ public class VmfExtractor
 
             if (vmfResource.Classname != "info_particle_system" && vmfResource.Model != string.Empty && !Globals.OfficialModelPaths.Contains(vmfResource.Model.Replace("/", "\\").ToLowerInvariant()))
             {
-                foreach (string path in MdlExtractor.HandleAMdl(vmfResource.Model))
-                {
-                    Functions.CopyVtfMaterialFiles(VmtReader.HandleAVmt(path), SavePath);
-                }
-
                 if (vmfResource.Model.EndsWith(".mdl"))
                 {
+                    foreach (string path in MdlExtractor.HandleAMdl(vmfResource.Model))
+                    {
+                        Functions.CopyVtfMaterialFiles(VmtReader.HandleAVmt(path), SavePath);
+                    }
                     Functions.CopyMdlModelFiles(vmfResource, SavePath);
                 }
                 else if (vmfResource.Model.EndsWith(".vmt"))
@@ -58,6 +57,15 @@ public class VmfExtractor
                         foreach (string path in PcfReader.HandleAPcf(pcfName))
                         {
                             Functions.CopyVtfMaterialFiles(VmtReader.HandleAVmt("materials\\" + path), SavePath);
+                        }
+                        foreach (string path in Globals.PossiblePaths)
+                        {
+                            string filePath = path + "\\" + pcfName;
+                            if (File.Exists(filePath))
+                            {
+                                File.Copy(filePath, SavePath, true);
+                                break;
+                            }
                         }
                         break;
                     }
