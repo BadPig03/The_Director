@@ -268,7 +268,7 @@ namespace The_Director.Windows
         {
             PreviewScriptWindow previewScriptWindow = new()
             {
-                Title = $"正在预览{MapSelectionComboBox.SelectedItem}的救援脚本",
+                Title = $"正在预览{MapSelectionComboBox.SelectedItem}的脚本",
                 TextBoxString = Functions.GetOfficialOnslaughtScriptFile(MapSelectionComboBox.SelectedIndex),
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner

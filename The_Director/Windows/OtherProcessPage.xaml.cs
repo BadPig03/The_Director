@@ -295,9 +295,12 @@ namespace The_Director.Windows
             backgroundWorker.DoWork -= WorkerDoWork;
             backgroundWorker.RunWorkerCompleted -= WorkerCompleted;
             backgroundWorker = null;
-            vmfResourcesContainer.RemoveAt(vmfResourcesContainer.Count - 1);
-            VmfResourcesGrid.ItemsSource = vmfResourcesContainer;
-            ExtractButton.IsEnabled = true;
+            if (vmfResourcesContainer.Count != 0)
+            {
+                vmfResourcesContainer.RemoveAt(vmfResourcesContainer.Count - 1);
+                VmfResourcesGrid.ItemsSource = vmfResourcesContainer;
+                ExtractButton.IsEnabled = true;
+            }
         }
 
         private void ExtractButtonClick(object sender, RoutedEventArgs e)
